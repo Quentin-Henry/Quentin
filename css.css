@@ -1,0 +1,158 @@
+body {
+  font-family: "Nanum Myeongjo", serif;
+  font-weight: 400;
+  font-style: normal;
+
+  overflow: hidden;
+  font-size: 1.5vw;
+}
+a {
+  text-decoration: none;
+  color: black;
+}
+
+.con {
+  display: none;
+}
+
+.active {
+  display: block;
+}
+.content {
+  position: relative;
+  top: 20vh;
+  width: 90vw;
+  padding-left: 5vw;
+}
+img {
+  width: 100%;
+}
+
+.page2 {
+  display: flex;
+
+  padding: 5vw;
+  position: relative;
+  top: 7em;
+
+  background-color: white;
+  z-index: 10;
+  transform: rotate(-3deg);
+  height: 100vh;
+  gap: 10%;
+}
+.menuCont {
+  display: flex;
+  flex-direction: column;
+}
+#contentBoxC {
+  top: 15vh;
+  left: 37vw;
+
+  width: 55vw;
+  overflow-y: scroll;
+}
+
+#contentBoxG {
+  top: 15vh;
+  left: 37vw;
+
+  width: 55vw;
+  overflow-y: scroll;
+}
+
+#contentBox {
+  top: 15vh;
+  left: 37vw;
+
+  width: 55vw;
+  overflow-y: scroll;
+}
+
+#contentBoxC::-webkit-scrollbar {
+  display: none;
+}
+
+#contentBox::-webkit-scrollbar {
+  display: none;
+}
+.menu {
+  color: rgb(0, 0, 0);
+}
+.menu:hover {
+  color: rgba(0, 0, 0, 0.55);
+}
+
+#menuSelected {
+  color: rgba(0, 0, 0, 0.55);
+}
+
+#resume {
+  font-size: 0.8em;
+  transform: rotate(1.2deg);
+}
+
+pre {
+  font-family: "Nanum Myeongjo", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+@media (max-width: 600px) {
+  #parent {
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    font-size: 2em;
+    font-weight: 100;
+    width: 90vw;
+    transform: rotate(-4deg);
+    padding-left: 5%;
+    padding-top: 3%;
+  }
+  .header {
+    font-weight: 100;
+    position: fixed;
+
+    display: flex;
+    gap: 5em;
+    background-color: white;
+    left: 2%;
+    top: -2%;
+    z-index: 10;
+  }
+
+  #text {
+    font-weight: 100;
+
+    margin-top: 35vh;
+
+    text-indent: 50px;
+  }
+}
+
+@media (min-width: 600px) {
+  #parent {
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    font-size: 1em;
+    font-weight: 100;
+    width: 90vw;
+    transform: rotate(-4deg);
+    padding-left: 15%;
+    padding-top: 3%;
+  }
+  .header {
+    display: flex;
+    gap: 5em;
+    background-color: white;
+  }
+
+  #text {
+    padding-left: 5%;
+    padding-top: 3%;
+    text-indent: 50px;
+    width: 60%;
+  }
+}
