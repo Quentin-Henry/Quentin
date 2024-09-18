@@ -22,3 +22,31 @@ items.forEach((item) => {
     });
   });
 });
+
+function moveSlide(direction, carouselId) {
+  const carousel = document.getElementById(carouselId);
+  const images = carousel.querySelectorAll(".carousel-image");
+  const totalImages = images.length;
+
+  let currentIndex = Array.from(images).findIndex(
+    (image) => image.style.display !== "none"
+  );
+
+  if (currentIndex === -1) {
+    currentIndex = 0; // Start at the first image if none are displayed
+  }
+
+  images[currentIndex].style.display = "none";
+
+  currentIndex = (currentIndex + direction + totalImages) % totalImages;
+
+  images[currentIndex].style.display = "block";
+}
+
+// Initialize the carousels by showing the first image
+document.querySelectorAll(".carousel-images").forEach((images) => {
+  const imagesArray = images.querySelectorAll(".carousel-image");
+  imagesArray.forEach((image, index) => {
+    if (index !== 0) image.style.display = "none";
+  });
+});
