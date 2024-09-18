@@ -4,7 +4,7 @@ import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 
 const renderer = new THREE.WebGLRenderer({ antialias: true });
 renderer.outputColorSpace = THREE.SRGBColorSpace;
-let divWindow = document.getElementById("contentBoxC");
+let divWindow = document.getElementById("model");
 renderer.setSize(300, 300);
 renderer.setClearColor(0xffffff);
 renderer.setPixelRatio(window.devicePixelRatio);
@@ -32,11 +32,11 @@ controls.autoRotate = false;
 controls.target = new THREE.Vector3(0, 1, 0);
 controls.update();
 
-const light = new THREE.AmbientLight(0xffffff);
+var light = new THREE.AmbientLight(0x222222);
 scene.add(light);
 
 const loader = new GLTFLoader().setPath("model/");
-loader.load("CalatravaPen3.gltf", (gltf) => {
+loader.load("WebTest2.gltf", (gltf) => {
   const mesh = gltf.scene;
   mesh.position.set(0, 0, 0);
   scene.add(mesh);

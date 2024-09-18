@@ -3,7 +3,6 @@ body {
   font-weight: 400;
   font-style: normal;
 
-  overflow: hidden;
   font-size: 1.5vw;
 }
 a {
@@ -18,64 +17,22 @@ a {
 .active {
   display: block;
 }
-.content {
-  position: relative;
-  top: 20vh;
-  width: 90vw;
-  padding-left: 5vw;
-}
+
 img {
   width: 100%;
-}
-
-.page2 {
-  display: flex;
-
-  padding: 5vw;
-  position: relative;
-  top: 7em;
-
-  background-color: white;
-  z-index: 10;
-  transform: rotate(-3deg);
-  height: 100vh;
-  gap: 10%;
-}
-.menuCont {
-  display: flex;
-  flex-direction: column;
-}
-#contentBoxC {
-  top: 15vh;
-  left: 37vw;
-
-  width: 55vw;
-  overflow-y: scroll;
-}
-
-#contentBoxG {
-  top: 15vh;
-  left: 37vw;
-
-  width: 55vw;
-  overflow-y: scroll;
-}
-
-#contentBox {
-  top: 15vh;
-  left: 37vw;
-
-  width: 55vw;
-  overflow-y: scroll;
-}
-
-#contentBoxC::-webkit-scrollbar {
-  display: none;
 }
 
 #contentBox::-webkit-scrollbar {
   display: none;
 }
+
+.menuParent {
+  display: flex;
+  flex-direction: row;
+  width: 90vw;
+  gap: 5%;
+}
+
 .menu {
   color: rgb(0, 0, 0);
 }
@@ -83,13 +40,9 @@ img {
   color: rgba(0, 0, 0, 0.55);
 }
 
-#menuSelected {
-  color: rgba(0, 0, 0, 0.55);
-}
-
 #resume {
-  font-size: 0.8em;
   transform: rotate(1.2deg);
+  pointer-events: none;
 }
 
 pre {
@@ -103,31 +56,40 @@ pre {
     position: fixed;
     display: flex;
     flex-direction: column;
-    font-size: 2em;
-    font-weight: 100;
-    width: 90vw;
-    transform: rotate(-4deg);
-    padding-left: 5%;
-    padding-top: 3%;
+    font-size: 1.5em;
+
+    width: 80vw;
+    transform: rotate(-2.5deg);
+    padding-left: 10%;
+    padding-top: 5%;
   }
   .header {
-    font-weight: 100;
-    position: fixed;
-
+    padding-top: 10%;
     display: flex;
     gap: 5em;
     background-color: white;
-    left: 2%;
+    left: 10%;
     top: -2%;
     z-index: 10;
   }
 
   #text {
-    font-weight: 100;
-
     margin-top: 35vh;
-
+    padding-top: 35%;
     text-indent: 50px;
+  }
+
+  #contentBox {
+    height: 100vh;
+    overflow-y: scroll;
+  }
+
+  #resume {
+    font-size: 1.5em;
+  }
+
+  video {
+    width: 100%;
   }
 }
 
@@ -139,20 +101,41 @@ pre {
     font-size: 1em;
     font-weight: 100;
     width: 90vw;
-    transform: rotate(-4deg);
+    transform: rotate(-3deg);
     padding-left: 15%;
-    padding-top: 3%;
+    font-size: 0.8vw;
+    width: 70vw;
   }
   .header {
     display: flex;
     gap: 5em;
     background-color: white;
+    z-index: 10;
   }
 
   #text {
-    padding-left: 5%;
-    padding-top: 3%;
+    padding-left: 0%;
+    padding-top: 41%;
     text-indent: 50px;
-    width: 60%;
+    width: 50%;
+  }
+
+  #contentBox {
+    width: 55vw;
+    height: 95vh;
+    overflow-y: scroll;
+  }
+
+  #resume {
+    font-size: 0.8em;
+  }
+
+  p {
+    text-indent: 20px;
+    width: 55%;
+  }
+
+  video {
+    width: 100%;
   }
 }
