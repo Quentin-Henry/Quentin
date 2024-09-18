@@ -90,6 +90,7 @@ pre {
 
   video {
     width: 100%;
+    pointer-events: none;
   }
 }
 
@@ -137,5 +138,6 @@ pre {
 
   video {
     width: 100%;
+    pointer-events: none;
   }
 }
