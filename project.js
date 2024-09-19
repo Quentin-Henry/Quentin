@@ -33,7 +33,7 @@ function moveSlide(direction, carouselId) {
   );
 
   if (currentIndex === -1) {
-    currentIndex = 0; // Start at the first image if none are displayed
+    currentIndex = 0;
   }
 
   images[currentIndex].style.display = "none";
@@ -43,38 +43,97 @@ function moveSlide(direction, carouselId) {
   images[currentIndex].style.display = "block";
 }
 
-// Initialize the carousels by showing the first image
-document.querySelectorAll(".carousel-images").forEach((images) => {
-  const imagesArray = images.querySelectorAll(".carousel-image");
-  imagesArray.forEach((image, index) => {
-    if (index !== 0) image.style.display = "none";
-  });
-});
+document.addEventListener("DOMContentLoaded", () => {
+  const questionDiv = document.querySelector(".question");
+  let responseSelected = false; // Track if a response has been selected
 
-function playPauseVideo() {
-  let videos = document.querySelectorAll("video");
-  videos.forEach((video) => {
-    video.muted = true;
+  // Check localStorage for previous selection and reload count
+  const previousResponse = localStorage.getItem("previousResponse");
+  let reloadCount = parseInt(localStorage.getItem("reloadCount")) || 0;
 
-    let playPromise = video.play();
-    if (playPromise !== undefined) {
-      playPromise.then((_) => {
-        let observer = new IntersectionObserver(
-          (entries) => {
-            entries.forEach((entry) => {
-              if (entry.intersectionRatio !== 1 && !video.paused) {
-                video.pause();
-              } else if (video.paused) {
-                video.play();
-              }
-            });
-          },
-          { threshold: 0.2 }
-        );
-        observer.observe(video);
-      });
+  // Increment reload count and store it
+  reloadCount++;
+  localStorage.setItem("reloadCount", reloadCount);
+
+  // If there was a previous response, mark the response as selected
+  if (previousResponse) {
+    responseSelected = true; // Mark as response selected
+  }
+
+  // If the page has been reloaded four times, reset the reload count
+  // and allow spans to be added back
+  if (reloadCount >= 4) {
+    localStorage.removeItem("previousResponse"); // Clear previous response
+    reloadCount = 0; // Reset reload count
+    localStorage.setItem("reloadCount", reloadCount); // Store new count
+    responseSelected = false; // Allow spans to be added again
+  }
+
+  questionDiv.addEventListener("mouseenter", () => {
+    // Check if spans already exist
+    if (
+      !responseSelected &&
+      questionDiv.querySelectorAll(".response").length === 0
+    ) {
+      // Create "yes" span
+      const yesSpan = document.createElement("span");
+      yesSpan.textContent = "Yes";
+      yesSpan.classList.add("response", "Q");
+
+      // Create "no" span
+      const noSpan = document.createElement("span");
+      noSpan.textContent = "No";
+      noSpan.classList.add("response", "Q");
+
+      // Append spans to the div
+      questionDiv.appendChild(yesSpan);
+      questionDiv.appendChild(noSpan);
     }
   });
-}
 
-playPauseVideo();
+  questionDiv.addEventListener("mouseleave", () => {
+    // Remove spans when mouse leaves, only if no response is selected
+    if (!responseSelected) {
+      questionDiv
+        .querySelectorAll(".response")
+        .forEach((span) => span.remove());
+    }
+  });
+
+  questionDiv.addEventListener("click", (event) => {
+    if (event.target.classList.contains("Q")) {
+      // Prevent further clicks from adding spans
+      if (responseSelected) return;
+
+      // Determine the opposite response
+      const oppositeResponse =
+        event.target.textContent === "Yes" ? "No" : "Yes";
+
+      // Remove any existing child span of the opposite
+      const existingChildSpan = Array.from(
+        questionDiv.querySelectorAll("span")
+      ).find((span) => span.textContent === `${oppositeResponse} span clicked`);
+      if (existingChildSpan) {
+        existingChildSpan.remove();
+      }
+
+      // Create a new span based on which one was clicked
+      const newSpan = document.createElement("span");
+      if (event.target.textContent === "Yes") {
+        newSpan.textContent = "Do you like doing what you're told?";
+      } else {
+        newSpan.textContent = "Do you have a hard time doing what's necessary?";
+      }
+      questionDiv.appendChild(newSpan);
+
+      // Set the flag and store the response
+      responseSelected = true;
+      localStorage.setItem("previousResponse", event.target.textContent);
+    }
+  });
+
+  // Remove spans if a previous response exists
+  if (responseSelected) {
+    questionDiv.querySelectorAll(".response").forEach((span) => span.remove());
+  }
+});
