@@ -26,7 +26,7 @@ document.getElementById("model2").appendChild(renderer2.domElement);
 // Load GLTF Models
 const loader1 = new GLTFLoader();
 loader1.load(
-  "model/calatravaPen3.gltf",
+  "model/CalatravaPen3.gltf",
   (gltf) => {
     scene1.add(gltf.scene);
     gltf.scene.position.set(0, -1, 0);
