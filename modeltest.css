@@ -19,7 +19,6 @@ body {
   height: 100%;
   position: relative;
 }
-
 canvas {
   display: block; /* Remove inline spacing */
   width: 100%;
