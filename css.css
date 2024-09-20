@@ -65,7 +65,13 @@ img {
   width: 90vw;
   gap: 5%;
 }
+.pb {
+  padding-bottom: 10em;
+}
 
+.pt {
+  padding-top: 10em;
+}
 .menu {
   color: rgb(0, 0, 0);
 }
@@ -212,8 +218,6 @@ button {
 
   p {
     width: 55%;
-
-    padding-bottom: 10em;
   }
 
   video {
