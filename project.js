@@ -109,7 +109,6 @@ document.addEventListener("DOMContentLoaded", () => {
       const oppositeResponse =
         event.target.textContent === "Yes" ? "No" : "Yes";
 
-      // Remove any existing child span of the opposite
       const existingChildSpan = Array.from(
         questionDiv.querySelectorAll("span")
       ).find((span) => span.textContent === `${oppositeResponse} span clicked`);
@@ -117,22 +116,19 @@ document.addEventListener("DOMContentLoaded", () => {
         existingChildSpan.remove();
       }
 
-      // Create a new span based on which one was clicked
       const newSpan = document.createElement("span");
       if (event.target.textContent === "Yes") {
-        newSpan.textContent = "Do you like doing what you're told?";
+        newSpan.textContent = "Do you usually do what your told to do?";
       } else {
         newSpan.textContent = "Do you have a hard time doing what's necessary?";
       }
       questionDiv.appendChild(newSpan);
 
-      // Set the flag and store the response
       responseSelected = true;
       localStorage.setItem("previousResponse", event.target.textContent);
     }
   });
 
-  // Remove spans if a previous response exists
   if (responseSelected) {
     questionDiv.querySelectorAll(".response").forEach((span) => span.remove());
   }

@@ -84,10 +84,16 @@ img {
   pointer-events: none;
 }
 
+.resume1 {
+  font-weight: bolder;
+  color: black;
+}
+
 pre {
   font-family: "Nanum Myeongjo", serif;
   font-weight: 400;
   font-style: normal;
+  color: rgba(0, 0, 0, 0.573);
 }
 .carousel {
   display: flex;
@@ -143,11 +149,23 @@ button {
     display: flex;
     flex-direction: column;
     font-size: 1.5em;
+    height: 95vh;
+    width: 80vw;
+    transform: rotate(-2.5deg);
+    padding-left: 10%;
+    padding-top: 5%;
+  }
+  #parentI {
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    font-size: 1.5em;
 
     width: 80vw;
     transform: rotate(-2.5deg);
     padding-left: 10%;
     padding-top: 5%;
+    justify-content: space-between;
   }
   .header {
     padding-top: 5%;
@@ -166,7 +184,6 @@ button {
   }
 
   #contentBox {
-    height: 70vh;
     overflow-y: scroll;
   }
 
@@ -187,11 +204,25 @@ button {
     flex-direction: column;
     font-size: 1em;
     font-weight: 100;
-    width: 90vw;
+    height: 100vh;
     transform: rotate(-3deg);
     padding-left: 15%;
     font-size: 0.8vw;
     width: 70vw;
+  }
+
+  #parentI {
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    font-size: 1em;
+    font-weight: 100;
+    height: 100vh;
+    transform: rotate(-3deg);
+    padding-left: 15%;
+    font-size: 0.8vw;
+    width: 70vw;
+    justify-content: space-between;
   }
   .header {
     display: flex;
