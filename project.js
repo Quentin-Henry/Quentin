@@ -51,48 +51,39 @@ document.addEventListener("DOMContentLoaded", () => {
   const previousResponse = localStorage.getItem("previousResponse");
   let reloadCount = parseInt(localStorage.getItem("reloadCount")) || 0;
 
-  // Increment reload count and store it
   reloadCount++;
   localStorage.setItem("reloadCount", reloadCount);
 
-  // If there was a previous response, mark the response as selected
   if (previousResponse) {
-    responseSelected = true; // Mark as response selected
+    responseSelected = true;
   }
 
-  // If the page has been reloaded four times, reset the reload count
-  // and allow spans to be added back
   if (reloadCount >= 4) {
-    localStorage.removeItem("previousResponse"); // Clear previous response
-    reloadCount = 0; // Reset reload count
-    localStorage.setItem("reloadCount", reloadCount); // Store new count
-    responseSelected = false; // Allow spans to be added again
+    localStorage.removeItem("previousResponse");
+    reloadCount = 0;
+    localStorage.setItem("reloadCount", reloadCount);
+    responseSelected = false;
   }
 
   questionDiv.addEventListener("mouseenter", () => {
-    // Check if spans already exist
     if (
       !responseSelected &&
       questionDiv.querySelectorAll(".response").length === 0
     ) {
-      // Create "yes" span
       const yesSpan = document.createElement("span");
       yesSpan.textContent = "Yes";
       yesSpan.classList.add("response", "Q");
 
-      // Create "no" span
       const noSpan = document.createElement("span");
       noSpan.textContent = "No";
       noSpan.classList.add("response", "Q");
 
-      // Append spans to the div
       questionDiv.appendChild(yesSpan);
       questionDiv.appendChild(noSpan);
     }
   });
 
   questionDiv.addEventListener("mouseleave", () => {
-    // Remove spans when mouse leaves, only if no response is selected
     if (!responseSelected) {
       questionDiv
         .querySelectorAll(".response")
@@ -102,10 +93,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   questionDiv.addEventListener("click", (event) => {
     if (event.target.classList.contains("Q")) {
-      // Prevent further clicks from adding spans
       if (responseSelected) return;
 
-      // Determine the opposite response
       const oppositeResponse =
         event.target.textContent === "Yes" ? "No" : "Yes";
 
