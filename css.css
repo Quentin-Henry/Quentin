@@ -252,7 +252,7 @@ button {
   }
 
   video {
-    width: 100%;
+    width: 101%;
     pointer-events: none;
   }
 }
