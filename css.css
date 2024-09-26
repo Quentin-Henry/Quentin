@@ -143,6 +143,10 @@ button {
   right: 0;
 }
 
+.flex {
+  display: flex;
+}
+
 @media (max-width: 600px) {
   #parent {
     position: fixed;
