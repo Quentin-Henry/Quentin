@@ -17,8 +17,19 @@ a {
   height: 60%;
 }
 
+#containerB {
+  width: 100%;
+  height: 60%;
+}
+
 .model {
   width: 50%;
+  height: 100%;
+  position: relative;
+}
+
+.modelB {
+  width: 100%;
   height: 100%;
   position: relative;
 }
