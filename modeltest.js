@@ -108,12 +108,14 @@ controls1.maxDistance = 110;
 controls1.minPolarAngle = Math.PI / 10;
 controls1.maxPolarAngle = Math.PI / 3.75;
 controls1.autoRotate = true;
+controls1.enablePan = false;
 const controls2 = new OrbitControls(camera2, renderer2.domElement);
 controls2.minDistance = 90;
 controls2.maxDistance = 100;
 controls2.minPolarAngle = Math.PI / 10;
 controls2.maxPolarAngle = Math.PI / 3.75;
 controls2.autoRotate = true;
+controls2.enablePan = false;
 
 // Animation for Model 1
 function animate1() {
