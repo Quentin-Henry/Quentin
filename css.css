@@ -75,6 +75,7 @@ img {
   flex-direction: row;
   width: 90vw;
   gap: 5%;
+  padding-bottom: 1%;
 }
 .pb {
   padding-bottom: 10em;
