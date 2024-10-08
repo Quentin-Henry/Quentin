@@ -34,6 +34,22 @@ a {
   position: relative;
 }
 
+/* Simple styles for the video elements */
+.video-container {
+  display: inline-block; /* Align containers next to each other */
+  padding-bottom: 10%;
+  position: relative; /* To position elements inside */
+}
+
+.videoAudio {
+  opacity: 0.7; /* Default opacity */
+  transition: opacity 0.3s; /* Smooth transition */
+}
+
+.videoAudio.hovered {
+  opacity: 1; /* Full opacity when hovered */
+}
+
 canvas {
   display: block; /* Remove inline spacing */
   width: 100%;
