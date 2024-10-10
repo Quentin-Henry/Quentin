@@ -115,6 +115,7 @@ img {
 #resume {
   transform: rotate(1.2deg);
   pointer-events: none;
+  padding-top: 10%;
 }
 
 .resume1 {
