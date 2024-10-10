@@ -59,23 +59,49 @@ items.forEach((item) => {
   });
 });
 
+document.addEventListener("DOMContentLoaded", () => {
+  const isFirefox = typeof InstallTrigger !== "undefined"; // Firefox detection
+  const mainVideo = document.getElementById("mainVideo");
+  const firefoxVideo = document.getElementById("firefoxVideo");
+
+  if (isFirefox) {
+    mainVideo.style.display = "none"; // Hide the main video
+    firefoxVideo.style.display = "block"; // Show the Firefox-specific video
+  } else {
+    mainVideo.style.display = "block"; // Show the main video
+    firefoxVideo.style.display = "none"; // Hide the Firefox video
+  }
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+  const carousels = document.querySelectorAll(".carousel");
+
+  carousels.forEach((carousel) => {
+    const images = carousel.querySelectorAll(".carousel-image");
+
+    // Hide all images except the first one on load
+    images.forEach((image, index) => {
+      image.style.display = index === 0 ? "block" : "none";
+    });
+  });
+});
+
 function moveSlide(direction, carouselId) {
   const carousel = document.getElementById(carouselId);
   const images = carousel.querySelectorAll(".carousel-image");
   const totalImages = images.length;
 
   let currentIndex = Array.from(images).findIndex(
-    (image) => image.style.display !== "none"
+    (image) => image.style.display === "block"
   );
 
-  if (currentIndex === -1) {
-    currentIndex = 0;
-  }
-
+  // Hide the current image
   images[currentIndex].style.display = "none";
 
+  // Update currentIndex based on direction
   currentIndex = (currentIndex + direction + totalImages) % totalImages;
 
+  // Show the next image
   images[currentIndex].style.display = "block";
 }
 

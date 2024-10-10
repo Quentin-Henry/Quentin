@@ -94,6 +94,11 @@ img {
   display: none;
 }
 
+#contentBox {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none;
+}
+
 .menuParent {
   display: flex;
   flex-direction: row;
