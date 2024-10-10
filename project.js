@@ -7,28 +7,47 @@ document.addEventListener("DOMContentLoaded", () => {
 
   items.forEach((item) => {
     item.addEventListener("click", () => {
-      // Remove active class from all items and content
-      items.forEach((a) => a.classList.remove("active"));
-      others.forEach((a) => a.classList.remove("active"));
-
-      // Add active class to the clicked item
-      item.classList.add("active");
+      // Store the menu identifier
       const menuIdent = item.classList[1];
 
-      // Show active content
-      const activeContentSels = document.querySelectorAll(`.${menuIdent}`);
-      activeContentSels.forEach((activeContentSel) =>
-        activeContentSel.classList.add("active")
-      );
+      // Remove active class from all items and content
+      items.forEach((a) => a.classList.remove("active"));
 
-      // Update styles based on menu item
-      if (menuIdent === "two") {
-        updateStyles("#0139FE", "white");
-      } else if (menuIdent === "four") {
-        updateStyles("black", "white");
-      } else {
-        resetStyles();
-      }
+      // Fade out all contents
+      others.forEach((a) => {
+        a.classList.remove("visible"); // Start fade out
+        a.classList.add("fade-out"); // Add fade-out class
+      });
+
+      // Wait for fade-out to complete before hiding elements
+      setTimeout(() => {
+        others.forEach((a) => {
+          a.classList.remove("active", "fade-out"); // Remove fade-out class
+          a.style.display = "none"; // Hide after fading out
+        });
+
+        // Add active class to the clicked item
+        item.classList.add("active");
+
+        // Show active content
+        const activeContentSels = document.querySelectorAll(`.${menuIdent}`);
+        activeContentSels.forEach((activeContentSel) => {
+          activeContentSel.classList.add("active");
+          // Trigger a reflow to restart the fade-in animation
+          void activeContentSel.offsetWidth;
+          activeContentSel.classList.add("visible");
+          activeContentSel.style.display = "block"; // Ensure it's displayed for fade-in
+        });
+
+        // Update styles based on menu item
+        if (menuIdent === "two") {
+          updateStyles("#0139FE", "white");
+        } else if (menuIdent === "four") {
+          updateStyles("black", "white");
+        } else {
+          resetStyles();
+        }
+      }, 500); // Match this with the CSS transition duration (0.5s)
     });
   });
 

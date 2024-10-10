@@ -7,7 +7,7 @@ body {
 }
 
 body {
-  transition: background-color 0.5s ease, color 0.5s ease;
+  transition: background-color 0.5s ease, color 0.7s ease;
 }
 
 a {
@@ -68,7 +68,23 @@ img {
 }
 
 .con {
-  display: none;
+  opacity: 0;
+  transition: opacity 1s ease-in;
+  display: none; /* Initially hidden */
+}
+
+.con.active {
+  display: block; /* Make it visible when active */
+}
+
+.con.visible {
+  opacity: 1; /* Fully opaque when visible */
+}
+
+.con.fade-out {
+  opacity: 0; /* Start fading out */
+  transition: opacity 0.2s ease; /* Maintain the same transition */
+  display: block; /* Keep it displayed during the fade out */
 }
 
 .Q {
@@ -84,9 +100,6 @@ img {
   display: flex;
   align-items: center;
   gap: 2em;
-}
-.active {
-  display: block;
 }
 
 #contentBox::-webkit-scrollbar {
