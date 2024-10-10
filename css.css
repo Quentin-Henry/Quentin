@@ -224,6 +224,7 @@ button {
 
   #contentBox {
     overflow-y: scroll;
+    overflow-x: hidden;
   }
 
   #resume {
@@ -280,6 +281,7 @@ button {
   #contentBox {
     height: 95vh;
     overflow-y: scroll;
+    overflow-x: hidden;
   }
 
   #resume {
