@@ -42,7 +42,6 @@ a:visited {
   position: relative;
 }
 
-/* Simple styles for the video elements */
 .video-container {
   display: inline-block; /* Align containers next to each other */
   padding-bottom: 10%;
