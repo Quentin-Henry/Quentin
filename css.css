@@ -63,6 +63,10 @@ canvas {
   height: 100%;
 }
 
+img {
+  width: 100.1%;
+}
+
 .con {
   display: none;
 }
@@ -83,10 +87,6 @@ canvas {
 }
 .active {
   display: block;
-}
-
-img {
-  width: 100%;
 }
 
 #contentBox::-webkit-scrollbar {
@@ -155,8 +155,13 @@ pre {
 }
 
 .carousel-image {
-  max-width: 100%;
+  max-width: 102%;
   display: block;
+  margin: -1px;
+}
+
+.clip {
+  width: 102%;
 }
 
 button {
