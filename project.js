@@ -1,147 +1,108 @@
-const items = document.querySelectorAll(".menu");
-console.log(items);
-items.forEach((item) => {
-  item.addEventListener("click", function () {
-    items.forEach((a) => {
-      a.classList.remove("active");
-      let others = document.querySelectorAll(".con");
-      others.forEach((a) => {
-        a.classList.remove("active");
-      });
+document.addEventListener("DOMContentLoaded", () => {
+  // Handle menu interactions
+  const items = document.querySelectorAll(".menu");
+  const others = document.querySelectorAll(".con");
+  const menuParentAnchors = document.querySelectorAll(".menuParent a");
+  const headerAnchors = document.querySelectorAll(".header a");
+
+  items.forEach((item) => {
+    item.addEventListener("click", () => {
+      // Remove active class from all items and content
+      items.forEach((a) => a.classList.remove("active"));
+      others.forEach((a) => a.classList.remove("active"));
+
+      // Add active class to the clicked item
+      item.classList.add("active");
+      const menuIdent = item.classList[1];
+
+      // Show active content
+      const activeContentSels = document.querySelectorAll(`.${menuIdent}`);
+      activeContentSels.forEach((activeContentSel) =>
+        activeContentSel.classList.add("active")
+      );
+
+      // Update styles based on menu item
+      if (menuIdent === "two") {
+        updateStyles("#0139FE", "white");
+      } else if (menuIdent === "four") {
+        updateStyles("black", "white");
+      } else {
+        resetStyles();
+      }
     });
-
-    item.classList.add("active");
-    let selected = document.querySelector(".active");
-    console.log(selected);
-    let selectedClass = selected.classList;
-    let menuIdent = selectedClass[1];
-    console.log(menuIdent);
-    let activeContentSels = document.querySelectorAll("." + menuIdent);
-    console.log(activeContentSels);
-    activeContentSels.forEach((activeContentSel) => {
-      activeContentSel.classList.add("active");
-    });
-
-    // Change styles if "Calatrava" is active
-    if (menuIdent === "two") {
-      document.body.style.backgroundColor = "#0139FE";
-      document.body.style.color = "white";
-
-      // Change text color of anchor tags within menuParent and header
-      const menuParentAnchors = document.querySelectorAll(".menuParent a");
-      const headerAnchors = document.querySelectorAll(".header a");
-      menuParentAnchors.forEach((anchor) => (anchor.style.color = "white"));
-      headerAnchors.forEach((anchor) => (anchor.style.color = "white"));
-    } else if (menuIdent === "four") {
-      // Change this to your actual class or condition
-      // Change body background to black and text to white
-      document.body.style.backgroundColor = "black";
-      document.body.style.color = "white";
-
-      // Change text color of anchor tags within menuParent and header
-      const menuParentAnchors = document.querySelectorAll(".menuParent a");
-      const headerAnchors = document.querySelectorAll(".header a");
-      menuParentAnchors.forEach((anchor) => (anchor.style.color = "white"));
-      headerAnchors.forEach((anchor) => (anchor.style.color = "white"));
-    } else {
-      // Reset styles for other classes
-      document.body.style.backgroundColor = "";
-      document.body.style.color = "";
-      document.querySelector(".menuParent").style.backgroundColor = "";
-      document.querySelector(".header").style.backgroundColor = "";
-
-      // Reset text color of anchor tags
-      const menuParentAnchors = document.querySelectorAll(".menuParent a");
-      const headerAnchors = document.querySelectorAll(".header a");
-      menuParentAnchors.forEach((anchor) => (anchor.style.color = ""));
-      headerAnchors.forEach((anchor) => (anchor.style.color = ""));
-    }
   });
-});
 
-document.addEventListener("DOMContentLoaded", () => {
-  const isFirefox = typeof InstallTrigger !== "undefined"; // Firefox detection
-  const mainVideo = document.getElementById("mainVideo");
-  const firefoxVideo = document.getElementById("firefoxVideo");
-
-  if (isFirefox) {
-    mainVideo.style.display = "none"; // Hide the main video
-    firefoxVideo.style.display = "block"; // Show the Firefox-specific video
-  } else {
-    mainVideo.style.display = "block"; // Show the main video
-    firefoxVideo.style.display = "none"; // Hide the Firefox video
+  // Function to update body and anchor styles
+  function updateStyles(bgColor, textColor) {
+    document.body.style.backgroundColor = bgColor;
+    document.body.style.color = textColor;
+    menuParentAnchors.forEach((anchor) => (anchor.style.color = textColor));
+    headerAnchors.forEach((anchor) => (anchor.style.color = textColor));
   }
-});
 
-document.addEventListener("DOMContentLoaded", () => {
+  // Function to reset styles
+  function resetStyles() {
+    document.body.style.backgroundColor = "";
+    document.body.style.color = "";
+    menuParentAnchors.forEach((anchor) => (anchor.style.color = ""));
+    headerAnchors.forEach((anchor) => (anchor.style.color = ""));
+  }
+
+  // Video handling for different browsers
+  const isFirefox = typeof InstallTrigger !== "undefined";
+  document.getElementById("mainVideo").style.display = isFirefox
+    ? "none"
+    : "block";
+  document.getElementById("firefoxVideo").style.display = isFirefox
+    ? "block"
+    : "none";
+
+  // Carousel initialization
   const carousels = document.querySelectorAll(".carousel");
-
   carousels.forEach((carousel) => {
     const images = carousel.querySelectorAll(".carousel-image");
-
-    // Hide all images except the first one on load
     images.forEach((image, index) => {
       image.style.display = index === 0 ? "block" : "none";
     });
   });
-});
 
-function moveSlide(direction, carouselId) {
-  const carousel = document.getElementById(carouselId);
-  const images = carousel.querySelectorAll(".carousel-image");
-  const totalImages = images.length;
+  // Move slide function
+  window.moveSlide = (direction, carouselId) => {
+    const carousel = document.getElementById(carouselId);
+    const images = carousel.querySelectorAll(".carousel-image");
+    let currentIndex = Array.from(images).findIndex(
+      (image) => image.style.display === "block"
+    );
 
-  let currentIndex = Array.from(images).findIndex(
-    (image) => image.style.display === "block"
-  );
+    images[currentIndex].style.display = "none";
+    currentIndex = (currentIndex + direction + images.length) % images.length;
+    images[currentIndex].style.display = "block";
+  };
 
-  // Hide the current image
-  images[currentIndex].style.display = "none";
-
-  // Update currentIndex based on direction
-  currentIndex = (currentIndex + direction + totalImages) % totalImages;
-
-  // Show the next image
-  images[currentIndex].style.display = "block";
-}
-
-document.addEventListener("DOMContentLoaded", () => {
+  // Question interaction
   const questionDiv = document.querySelector(".question");
-  let responseSelected = false; // Track if a response has been selected
+  let responseSelected = localStorage.getItem("previousResponse") !== null;
 
-  // Check localStorage for previous selection and reload count
-  const previousResponse = localStorage.getItem("previousResponse");
-  let reloadCount = parseInt(localStorage.getItem("reloadCount")) || 0;
-
-  reloadCount++;
-  localStorage.setItem("reloadCount", reloadCount);
-
-  if (previousResponse) {
-    responseSelected = true;
-  }
-
+  // Reset reload count after 4 visits
+  let reloadCount = (parseInt(localStorage.getItem("reloadCount")) || 0) + 1;
   if (reloadCount >= 4) {
     localStorage.removeItem("previousResponse");
     reloadCount = 0;
-    localStorage.setItem("reloadCount", reloadCount);
-    responseSelected = false;
   }
+  localStorage.setItem("reloadCount", reloadCount);
 
+  // Mouse enter and leave events for questionDiv
   questionDiv.addEventListener("mouseenter", () => {
     if (
       !responseSelected &&
       questionDiv.querySelectorAll(".response").length === 0
     ) {
-      const yesSpan = document.createElement("span");
-      yesSpan.textContent = "Yes";
-      yesSpan.classList.add("response", "Q");
-
-      const noSpan = document.createElement("span");
-      noSpan.textContent = "No";
-      noSpan.classList.add("response", "Q");
-
-      questionDiv.appendChild(yesSpan);
-      questionDiv.appendChild(noSpan);
+      ["Yes", "No"].forEach((response) => {
+        const span = document.createElement("span");
+        span.textContent = response;
+        span.classList.add("response", "Q");
+        questionDiv.appendChild(span);
+      });
     }
   });
 
@@ -154,25 +115,18 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   questionDiv.addEventListener("click", (event) => {
-    if (event.target.classList.contains("Q")) {
-      if (responseSelected) return;
-
+    if (event.target.classList.contains("Q") && !responseSelected) {
       const oppositeResponse =
         event.target.textContent === "Yes" ? "No" : "Yes";
-
-      const existingChildSpan = Array.from(
-        questionDiv.querySelectorAll("span")
-      ).find((span) => span.textContent === `${oppositeResponse} span clicked`);
-      if (existingChildSpan) {
-        existingChildSpan.remove();
-      }
+      questionDiv
+        .querySelector(`span:contains('${oppositeResponse}')`)
+        ?.remove();
 
       const newSpan = document.createElement("span");
-      if (event.target.textContent === "Yes") {
-        newSpan.textContent = "Do you usually do what your told to do?";
-      } else {
-        newSpan.textContent = "Do you have a hard time doing what's necessary?";
-      }
+      newSpan.textContent =
+        event.target.textContent === "Yes"
+          ? "Do you usually do what you're told to do?"
+          : "Do you have a hard time doing what's necessary?";
       questionDiv.appendChild(newSpan);
 
       responseSelected = true;
