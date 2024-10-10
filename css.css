@@ -5,9 +5,16 @@ body {
   overflow-x: hidden;
   font-size: 1.5vw;
 }
+
+body {
+  transition: background-color 0.5s ease, color 0.5s ease;
+}
+
 a {
   text-decoration: none;
-  color: black;
+}
+a:visited {
+  text-decoration: none;
 }
 
 #container {
@@ -100,9 +107,7 @@ img {
 .pt {
   padding-top: 10em;
 }
-.menu {
-  color: rgb(0, 0, 0);
-}
+
 .menu:hover {
   color: rgba(0, 0, 0, 0.55);
 }
@@ -203,7 +208,7 @@ button {
     padding-top: 5%;
     display: flex;
     gap: 5em;
-    background-color: white;
+
     left: 10%;
     top: -2%;
     z-index: 10;
@@ -259,7 +264,7 @@ button {
   .header {
     display: flex;
     gap: 5em;
-    background-color: white;
+
     z-index: 10;
   }
 

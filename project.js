@@ -9,6 +9,7 @@ items.forEach((item) => {
         a.classList.remove("active");
       });
     });
+
     item.classList.add("active");
     let selected = document.querySelector(".active");
     console.log(selected);
@@ -20,6 +21,41 @@ items.forEach((item) => {
     activeContentSels.forEach((activeContentSel) => {
       activeContentSel.classList.add("active");
     });
+
+    // Change styles if "Calatrava" is active
+    if (menuIdent === "two") {
+      document.body.style.backgroundColor = "#0139FE";
+      document.body.style.color = "white";
+
+      // Change text color of anchor tags within menuParent and header
+      const menuParentAnchors = document.querySelectorAll(".menuParent a");
+      const headerAnchors = document.querySelectorAll(".header a");
+      menuParentAnchors.forEach((anchor) => (anchor.style.color = "white"));
+      headerAnchors.forEach((anchor) => (anchor.style.color = "white"));
+    } else if (menuIdent === "four") {
+      // Change this to your actual class or condition
+      // Change body background to black and text to white
+      document.body.style.backgroundColor = "black";
+      document.body.style.color = "white";
+
+      // Change text color of anchor tags within menuParent and header
+      const menuParentAnchors = document.querySelectorAll(".menuParent a");
+      const headerAnchors = document.querySelectorAll(".header a");
+      menuParentAnchors.forEach((anchor) => (anchor.style.color = "white"));
+      headerAnchors.forEach((anchor) => (anchor.style.color = "white"));
+    } else {
+      // Reset styles for other classes
+      document.body.style.backgroundColor = "";
+      document.body.style.color = "";
+      document.querySelector(".menuParent").style.backgroundColor = "";
+      document.querySelector(".header").style.backgroundColor = "";
+
+      // Reset text color of anchor tags
+      const menuParentAnchors = document.querySelectorAll(".menuParent a");
+      const headerAnchors = document.querySelectorAll(".header a");
+      menuParentAnchors.forEach((anchor) => (anchor.style.color = ""));
+      headerAnchors.forEach((anchor) => (anchor.style.color = ""));
+    }
   });
 });
 

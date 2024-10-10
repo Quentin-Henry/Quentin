@@ -23,7 +23,7 @@ const camera1 = new THREE.PerspectiveCamera(
 
 function createFloor() {
   const geometry = new THREE.PlaneGeometry(15000, 15000);
-  const material = new THREE.MeshBasicMaterial({ color: 0xffffff });
+  const material = new THREE.MeshBasicMaterial({ color: 0x0139fe });
 
   const floor1 = new THREE.Mesh(geometry, material);
   const floor2 = new THREE.Mesh(geometry, material);
