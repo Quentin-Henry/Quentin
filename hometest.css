@@ -321,8 +321,130 @@ button {
     pointer-events: none;
   }
 }
-
 @media (min-width: 600px) {
+  #parent {
+    transform: rotate(-3deg);
+    position: relative;
+
+    top: -30px;
+    left: 30px;
+    color: rgba(0, 0, 0, 0.388);
+  }
+  .menuParent {
+    position: fixed;
+    left: 1%;
+    top: 100px;
+    display: flex;
+    flex-direction: column;
+    gap: 3%;
+    color: rgba(0, 0, 0, 0.388);
+    font-family: "degular-mono", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 1.5vw;
+    z-index: 20;
+  }
+
+  .header {
+    color: rgba(0, 0, 0, 0.388);
+    font-size: 1.5vw;
+    position: fixed;
+    top: 2%;
+    left: 1%;
+    z-index: 20;
+    display: flex;
+    gap: 5%;
+    width: 50vw;
+  }
+
+  .italicDark {
+    font-style: italic;
+    color: black;
+  }
+
+  .C {
+    height: 45vw;
+  }
+  .buffer {
+    height: 60vh;
+    width: 100vw;
+  }
+  #text {
+    padding-top: 5vw;
+    padding-left: 5%;
+    height: 70vh;
+    width: 60vw;
+    color: rgba(0, 0, 0, 0.388);
+    transition: transform 0.1s ease, font-size 0.1s ease;
+  }
+
+  .innerHeader {
+    display: flex;
+    font-size: 1.5vw;
+    justify-content: space-between;
+    color: rgba(0, 0, 0, 0.388);
+  }
+  .textContainer {
+    font-family: "degular-mono", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 1.5vw;
+    margin-left: 10px;
+    width: 15%;
+    min-height: fit-content;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .subHead {
+    font-family: degular-mono, sans-serif;
+    font-weight: 700;
+    font-style: normal;
+    font-size: 1.5vw;
+  }
+  .imageContainer {
+    width: 70%;
+    display: flex;
+    height: fit-content;
+    flex-direction: column;
+    align-items: center;
+    overflow-x: hidden;
+    overflow-y: hidden;
+  }
+
+  .infoContainer {
+    width: 10%;
+    display: flex;
+    height: fit-content;
+    flex-direction: column;
+  }
+  #contentBox {
+    overflow-y: auto;
+    overflow-x: hidden;
+    scrollbar-width: none;
+
+    flex-direction: row;
+    height: 130vh;
+    position: relative;
+  }
+
+  #resume {
+    font-size: 2em;
+    overflow: scroll;
+    height: 90vh;
+  }
+
+  p {
+    width: 100%;
+  }
+
+  video {
+    max-width: 101%;
+    max-height: 100%;
+    pointer-events: none;
+  }
+}
+@media (min-width: 1000px) {
   #parent {
     transform: rotate(-3deg);
     position: relative;
@@ -367,12 +489,13 @@ button {
     height: 45vw;
   }
   .buffer {
-    height: 50vh;
+    height: 35vh;
     width: 100vw;
   }
   #text {
+    padding-left: 5%;
     height: 70vh;
-    width: 60vw;
+    width: 62vw;
     color: rgba(0, 0, 0, 0.388);
     transition: transform 0.1s ease, font-size 0.1s ease;
   }
