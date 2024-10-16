@@ -1,3 +1,4 @@
+//ummmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm uhhhhhhh
 const spans = document.querySelectorAll("h2 span");
 
 // Function to randomly change a span's letter
@@ -58,4 +59,40 @@ spans.forEach((span) => {
       span.textContent = originalText; // Change back to the original letter
     }, randomDuration);
   });
+
+  function scaleDiv() {
+    const textDiv = document.getElementById("text");
+
+    // Get the viewport dimensions
+
+    const viewportWidth = window.innerWidth;
+
+    // Define different scale factors for mobile and desktop
+    let divScale;
+    let baseFontSize;
+    let textScaleFactor;
+
+    if (viewportWidth < 600) {
+      // Mobile devices
+      divScale = ((viewportWidth * 0.7) / textDiv.offsetWidth) * 1; // Scale factor for mobile
+      baseFontSize = 2; // Base font size in vw for mobile
+      textScaleFactor = 4; // Scale factor for mobile text
+    } else {
+      // Desktop devices
+      divScale = ((viewportWidth * 0.7) / textDiv.offsetWidth) * 1.2; // Scale factor for desktop
+      baseFontSize = 1; // Base font size in vw for desktop
+      textScaleFactor = 2; // Scale factor for desktop text
+    }
+
+    // Set the transform scale for the div
+
+    // Set the font size to scale proportionally
+    textDiv.style.fontSize = `${baseFontSize * divScale * textScaleFactor}vw`; // Scale font size
+  }
+
+  // Initial scale on page load
+  scaleDiv();
+
+  // Recalculate scale on window resize
+  window.addEventListener("resize", scaleDiv);
 });

@@ -1,70 +1,59 @@
 document.addEventListener("DOMContentLoaded", () => {
-  // Handle menu interactions
+  // Select menu items and relevant sections
   const items = document.querySelectorAll(".menu");
-  const others = document.querySelectorAll(".con");
-  const menuParentAnchors = document.querySelectorAll(".menuParent a");
-  const headerAnchors = document.querySelectorAll(".header a");
+  const contentBoxes = document.querySelectorAll(".con");
+  const body = document.body;
+  const menuParent = document.querySelector(".menuParent");
+  const headers = document.querySelectorAll(".header h2");
 
-  items.forEach((item) => {
+  items.forEach((item, index) => {
     item.addEventListener("click", () => {
-      // Store the menu identifier
+      // Identify the menu item clicked
       const menuIdent = item.classList[1];
 
-      // Remove active class from all items and content
-      items.forEach((a) => a.classList.remove("active"));
+      // Reset styles for all items
+      resetStyles();
 
-      // Fade out all contents
-      others.forEach((a) => {
-        a.classList.remove("visible"); // Start fade out
-        a.classList.add("fade-out"); // Add fade-out class
-      });
+      // Change styles and show the corresponding content box
+      if (menuIdent === "two") {
+        updateStyles("#0139FE", "white"); // Blue background, white text
+        setContentTextColor(index, "white"); // Change text color to white in content box
+      } else if (menuIdent === "four") {
+        updateStyles("black", "white"); // Black background, white text
+        setContentTextColor(index, "white"); // Change text color to white in content box
+      }
 
-      // Wait for fade-out to complete before hiding elements
-      setTimeout(() => {
-        others.forEach((a) => {
-          a.classList.remove("active", "fade-out"); // Remove fade-out class
-          a.style.display = "none"; // Hide after fading out
-        });
-
-        // Add active class to the clicked item
-        item.classList.add("active");
-
-        // Show active content
-        const activeContentSels = document.querySelectorAll(`.${menuIdent}`);
-        activeContentSels.forEach((activeContentSel) => {
-          activeContentSel.classList.add("active");
-          // Trigger a reflow to restart the fade-in animation
-          void activeContentSel.offsetWidth;
-          activeContentSel.classList.add("visible");
-          activeContentSel.style.display = "block"; // Ensure it's displayed for fade-in
-        });
-
-        // Update styles based on menu item
-        if (menuIdent === "two") {
-          updateStyles("#0139FE", "white");
-        } else if (menuIdent === "four") {
-          updateStyles("black", "white");
-        } else {
-          resetStyles();
-        }
-      }, 500); // Match this with the CSS transition duration (0.5s)
+      // Show corresponding content box
+      showContentBox(index);
     });
   });
 
-  // Function to update body and anchor styles
   function updateStyles(bgColor, textColor) {
-    document.body.style.backgroundColor = bgColor;
-    document.body.style.color = textColor;
-    menuParentAnchors.forEach((anchor) => (anchor.style.color = textColor));
-    headerAnchors.forEach((anchor) => (anchor.style.color = textColor));
+    body.style.backgroundColor = bgColor; // Change body background
+
+    items.forEach((item) => (item.style.color = textColor)); // Change menu text color
+    headers.forEach((header) => (header.style.color = textColor)); // Change header text color
   }
 
-  // Function to reset styles
   function resetStyles() {
-    document.body.style.backgroundColor = "";
-    document.body.style.color = "";
-    menuParentAnchors.forEach((anchor) => (anchor.style.color = ""));
-    headerAnchors.forEach((anchor) => (anchor.style.color = ""));
+    body.style.backgroundColor = ""; // Reset body background
+    menuParent.style.backgroundColor = ""; // Reset menu background
+    items.forEach((item) => (item.style.color = "")); // Reset menu text color
+    headers.forEach((header) => (header.style.color = "")); // Reset header text color
+    contentBoxes.forEach((box) => {
+      box.classList.remove("active"); // Remove active class from all content boxes
+      box.classList.remove("visible"); // Remove visible class from all content boxes
+      box.style.color = ""; // Reset text color for all content boxes
+    });
+  }
+
+  function showContentBox(index) {
+    contentBoxes[index].classList.add("active"); // Add active class to the corresponding content box
+    contentBoxes[index].classList.add("visible"); // Add visible class to the corresponding content box
+  }
+
+  function setContentTextColor(index, color) {
+    contentBoxes[index].style.color = color; // Change text color of the active content box
   }
 
   // Video handling for different browsers

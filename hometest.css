@@ -1,0 +1,449 @@
+body {
+  font-family: "Times New Roman", Times, serif;
+  font-weight: 400;
+  font-style: normal;
+  overflow: hidden;
+  transition: background-color 0.5s ease, color 0.7s ease;
+  font-size: 1.5vw;
+}
+h2 {
+  font-style: normal;
+  font-weight: normal;
+}
+
+.act {
+  color: black;
+}
+
+a {
+  text-decoration: none;
+  color: rgba(0, 0, 0, 0.388);
+}
+a:visited {
+  text-decoration: none;
+}
+a:hover {
+  color: rgb(0, 0, 0);
+}
+
+#container {
+  display: flex;
+  justify-content: space-between;
+  width: 80%;
+}
+
+#containerB {
+  width: 100%;
+}
+
+.model {
+  width: 50%;
+  height: 100%;
+  position: relative;
+}
+
+.modelB {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.video-container {
+  display: inline-block; /* Align containers next to each other */
+  padding-bottom: 10%;
+  position: relative; /* To position elements inside */
+}
+
+.videoAudio {
+  opacity: 0.7; /* Default opacity */
+  transition: opacity 0.3s; /* Smooth transition */
+}
+
+.videoAudio.hovered {
+  opacity: 1; /* Full opacity when hovered */
+}
+
+canvas {
+  display: block; /* Remove inline spacing */
+  width: 100%;
+  height: 100%;
+}
+
+img {
+  max-height: 100%;
+  max-width: 100%;
+}
+
+.con {
+  opacity: 0;
+  transition: opacity 1s ease-in;
+  display: none; /* Initially hidden */
+}
+
+.con.active {
+  display: flex;
+}
+
+.con.visible {
+  opacity: 1; /* Fully opaque when visible */
+}
+
+.con.fade-out {
+  opacity: 0; /* Start fading out */
+  transition: opacity 0.2s ease; /* Maintain the same transition */
+  display: block; /* Keep it displayed during the fade out */
+}
+
+.Q {
+  color: red;
+}
+.t {
+  color: rgb(255, 255, 255);
+  background-color: rgb(0, 0, 0);
+  border: none;
+  cursor: pointer;
+}
+.question {
+  display: flex;
+  align-items: center;
+  gap: 2em;
+}
+
+#contentBox::-webkit-scrollbar {
+  display: none;
+}
+
+#contentBox {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none;
+}
+
+#resume {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none;
+}
+
+#resume::-webkit-scrollbar {
+  display: none;
+}
+
+.pb {
+  padding-bottom: 10em;
+}
+
+.pt {
+  padding-top: 10em;
+}
+
+.menu:hover {
+  color: rgb(0, 0, 0);
+}
+
+#resume {
+  padding-top: 10%;
+  padding-left: 15%;
+}
+
+.resume1 {
+  font-weight: bolder;
+  color: black;
+}
+
+pre {
+  color: rgba(0, 0, 0, 0.388);
+}
+.carousel {
+  display: flex;
+  align-items: center;
+
+  overflow: hidden;
+  position: relative;
+}
+.calatravaExamples {
+  display: flex;
+  flex-direction: row;
+  gap: 5%;
+}
+.exampleImg {
+  width: 40%;
+}
+.carousel-images {
+  display: flex;
+  transition: transform 0.5s ease-in-out;
+}
+
+.carousel-image {
+  max-width: 102%;
+  display: block;
+  margin: -1px;
+}
+
+.clip {
+  width: 102%;
+}
+
+button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  filter: invert(1);
+  mix-blend-mode: difference;
+}
+
+.prev,
+.next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.prev {
+  left: 0;
+}
+
+.next {
+  right: 0;
+}
+
+.flex {
+  display: flex;
+}
+
+@media (max-width: 600px) {
+  #parent {
+    transform: rotate(-3deg);
+    position: relative;
+    height: 100vh;
+    overflow: hidden;
+    color: rgba(0, 0, 0, 0.388);
+  }
+  .header {
+    padding-top: 2%;
+    padding-right: 5%;
+    padding-left: 5%;
+    padding-bottom: 10%;
+    display: flex;
+    gap: 5em;
+    justify-content: space-between;
+    z-index: 10;
+    width: 90vw;
+    font-size: 3vw;
+    color: rgba(0, 0, 0, 0.388);
+  }
+
+  .menuParent {
+    position: fixed;
+    left: 5%;
+    top: 7%;
+    display: flex;
+    flex-direction: row;
+    gap: 7%;
+    color: rgba(0, 0, 0, 0.388);
+    font-family: "degular-mono", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 3vw;
+    z-index: 20;
+    width: 100vw;
+  }
+
+  .italicDark {
+    font-style: italic;
+    color: black;
+  }
+
+  #text {
+    padding-top: 60vh;
+
+    max-height: 70%;
+    width: 120vw;
+    color: rgba(0, 0, 0, 0.388);
+    transition: transform 0.1s ease, font-size 0.1s ease;
+    overflow: hidden;
+  }
+  .innerHeader {
+    display: flex;
+    width: 30%;
+    justify-content: space-between;
+    color: rgba(0, 0, 0, 0.388);
+  }
+
+  #contentBox {
+    height: 95vh;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    scrollbar-width: none;
+  }
+
+  .textContainer {
+    font-family: "degular-mono", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 3vw;
+    margin-left: 10px;
+    width: 30%;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .subHead {
+    font-family: degular-mono, sans-serif;
+    font-weight: 700;
+    font-style: normal;
+    font-size: 3vw;
+  }
+
+  .imageContainer {
+    width: 70%;
+    display: flex;
+    height: fit-content;
+    flex-direction: column;
+    align-items: center;
+    overflow-x: hidden;
+    overflow-y: hidden;
+  }
+
+  #resume {
+    font-size: 3vw;
+    overflow: scroll;
+    height: 90vh;
+  }
+
+  p {
+    width: 90%;
+  }
+
+  video {
+    max-width: 101%;
+    max-height: 100%;
+
+    pointer-events: none;
+  }
+}
+
+@media (min-width: 600px) {
+  #parent {
+    transform: rotate(-3deg);
+    position: relative;
+    height: 120vh;
+    top: -30px;
+    left: 30px;
+    color: rgba(0, 0, 0, 0.388);
+  }
+
+  .C {
+    height: 45vw;
+  }
+  .menuParent {
+    position: fixed;
+    left: 1%;
+    top: 10%;
+    display: flex;
+    flex-direction: column;
+    gap: 3%;
+    color: rgba(0, 0, 0, 0.388);
+    font-family: "degular-mono", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 0.8vw;
+    z-index: 20;
+  }
+
+  #text {
+    padding-top: 180px;
+  }
+
+  .header {
+    color: rgba(0, 0, 0, 0.388);
+    font-size: 1vw;
+    position: fixed;
+    top: 2%;
+    left: 1%;
+    z-index: 20;
+    display: flex;
+    gap: 5%;
+    width: 30vw;
+  }
+
+  .italicDark {
+    font-style: italic;
+    color: black;
+  }
+
+  #text {
+    left: 45%;
+    max-height: 70%;
+    width: 60vw;
+    padding-top: 300px;
+    padding-left: 70px;
+    color: rgba(0, 0, 0, 0.388);
+    transition: transform 0.1s ease, font-size 0.1s ease;
+  }
+
+  .innerHeader {
+    display: flex;
+    font-size: 1vw;
+    justify-content: space-between;
+    color: rgba(0, 0, 0, 0.388);
+  }
+  .textContainer {
+    font-family: "degular-mono", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 0.8vw;
+    margin-left: 10px;
+    width: 15%;
+    min-height: fit-content;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .subHead {
+    font-family: degular-mono, sans-serif;
+    font-weight: 700;
+    font-style: normal;
+    font-size: 0.8vw;
+  }
+  .imageContainer {
+    width: 70%;
+    display: flex;
+    height: fit-content;
+    flex-direction: column;
+    align-items: center;
+    overflow-x: hidden;
+    overflow-y: hidden;
+  }
+
+  .infoContainer {
+    width: 10%;
+    display: flex;
+    height: fit-content;
+    flex-direction: column;
+  }
+  #contentBox {
+    overflow-y: auto;
+    overflow-x: hidden;
+    scrollbar-width: none;
+
+    flex-direction: row;
+    height: 130vh;
+    position: relative;
+  }
+
+  #resume {
+    font-size: 0.8em;
+    overflow: scroll;
+    height: 90vh;
+  }
+
+  p {
+    width: 100%;
+  }
+
+  video {
+    max-width: 101%;
+    max-height: 100%;
+    pointer-events: none;
+  }
+}
