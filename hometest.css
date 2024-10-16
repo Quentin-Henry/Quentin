@@ -456,7 +456,7 @@ button {
   .menuParent {
     position: fixed;
     left: 1%;
-    top: 50px;
+    top: 10vh;
     display: flex;
     flex-direction: column;
     gap: 3%;
