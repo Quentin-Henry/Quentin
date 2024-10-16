@@ -79,8 +79,8 @@ spans.forEach((span) => {
       textScaleFactor = 4; // Scale factor for mobile text
     } else {
       // Desktop devices
-      divScale = ((viewportWidth * 0.7) / textDiv.offsetWidth) * 1.2; // Scale factor for desktop
-      baseFontSize = 1; // Base font size in vw for desktop
+      divScale = ((viewportWidth * 1.2) / textDiv.offsetWidth) * 1.2; // Scale factor for desktop
+      baseFontSize = 0.6; // Base font size in vw for desktop
       textScaleFactor = 2; // Scale factor for desktop text
     }
 

@@ -213,7 +213,7 @@ button {
   #parent {
     transform: rotate(-3deg);
     position: relative;
-    height: 100vh;
+    height: 110vh;
     overflow: hidden;
     color: rgba(0, 0, 0, 0.388);
   }
@@ -251,12 +251,12 @@ button {
     font-style: italic;
     color: black;
   }
-
+  .buffer {
+    height: 50vh;
+    width: 100vw;
+  }
   #text {
-    padding-top: 60vh;
-
-    max-height: 70%;
-    width: 120vw;
+    width: 100vw;
     color: rgba(0, 0, 0, 0.388);
     transition: transform 0.1s ease, font-size 0.1s ease;
     overflow: hidden;
@@ -326,14 +326,10 @@ button {
   #parent {
     transform: rotate(-3deg);
     position: relative;
-    height: 120vh;
+
     top: -30px;
     left: 30px;
     color: rgba(0, 0, 0, 0.388);
-  }
-
-  .C {
-    height: 45vw;
   }
   .menuParent {
     position: fixed;
@@ -348,10 +344,6 @@ button {
     font-style: normal;
     font-size: 0.8vw;
     z-index: 20;
-  }
-
-  #text {
-    padding-top: 180px;
   }
 
   .header {
@@ -371,12 +363,16 @@ button {
     color: black;
   }
 
+  .C {
+    height: 45vw;
+  }
+  .buffer {
+    height: 50vh;
+    width: 100vw;
+  }
   #text {
-    left: 45%;
-    max-height: 70%;
+    height: 70vh;
     width: 60vw;
-    padding-top: 300px;
-    padding-left: 70px;
     color: rgba(0, 0, 0, 0.388);
     transition: transform 0.1s ease, font-size 0.1s ease;
   }
