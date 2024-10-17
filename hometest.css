@@ -11,6 +11,12 @@ h2 {
   font-weight: normal;
 }
 
+.fixedElem {
+  position: fixed;
+  transform: rotate(-3deg);
+  z-index: 20;
+}
+
 .act {
   color: black;
 }
@@ -516,6 +522,7 @@ button {
     min-height: fit-content;
     display: flex;
     flex-direction: column;
+    padding-top: 15%;
   }
 
   .subHead {
@@ -557,6 +564,7 @@ button {
   }
 
   p {
+    padding-top: 50%;
     width: 100%;
   }
 
