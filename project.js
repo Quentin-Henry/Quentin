@@ -140,7 +140,7 @@ document.addEventListener("DOMContentLoaded", () => {
       // Get the active content box
       const activeContentBox = document.querySelector(".con.active");
       if (!activeContentBox) {
-        follower.textContent = "No active content box";
+        follower.textContent = "Info";
         console.log("No active content box found.");
         return; // If no active content box, do nothing
       }
