@@ -25,82 +25,65 @@ document.addEventListener("DOMContentLoaded", () => {
 
   items.forEach((item, index) => {
     item.addEventListener("click", () => {
-      // Identify the menu item clicked
       const menuIdent = item.classList[1];
-
-      // Reset styles for all items
       resetStyles();
-
-      // Remove 'menuActive' class from all menu items
       items.forEach((menuItem) => menuItem.classList.remove("menuActive"));
-
-      // Add 'menuActive' class to the clicked menu item
       item.classList.add("menuActive");
 
-      // Change styles and show the corresponding content box
       if (menuIdent === "two") {
-        updateStyles("#0139FE", "white", item); // Blue background, white text
-        setFollowerTextColor("white"); // Change follower text color to white
-        setContentTextColor(index, "white"); // Change text color to white in content box
+        updateStyles("#0139FE", "white", item);
+        setFollowerTextColor("white");
+        setContentTextColor(index, "white");
       } else if (menuIdent === "four") {
-        updateStyles("black", "white", item); // Black background, white text
-        setFollowerTextColor("white"); // Change follower text color to white
-        setContentTextColor(index, "white"); // Change text color to white in content box
+        updateStyles("black", "white", item);
+        setFollowerTextColor("white");
+        setContentTextColor(index, "white");
       } else {
-        setFollowerTextColor("black"); // Default follower text color
-        // Only change text color for inactive items
-        items.forEach((menuItem) => {
-          if (!menuItem.classList.contains("menuActive")) {
-            menuItem.style.color = ""; // Reset color for inactive items
-          }
-        });
+        setFollowerTextColor("black");
       }
 
-      // Show corresponding content box
       showContentBox(index);
-
-      // Update the follower text based on the menuIdent
-      currentFollowerText = textMapping[menuIdent] || "Hover over an image"; // Set follower text based on menuIdent
-      follower.textContent = currentFollowerText; // Update follower text
+      currentFollowerText = textMapping[menuIdent] || "Hover over an image";
+      follower.textContent = currentFollowerText;
     });
   });
 
   function updateStyles(bgColor, textColor, activeItem) {
-    body.style.backgroundColor = bgColor; // Change body background
-    // Only change the color of inactive items
+    body.style.backgroundColor = bgColor;
+
     items.forEach((item) => {
       if (item !== activeItem) {
-        item.style.color = textColor; // Change menu text color for inactive items
+        item.style.color = textColor;
       }
     });
-    headers.forEach((header) => (header.style.color = textColor)); // Change header text color
+    headers.forEach((header) => (header.style.color = textColor));
   }
 
   function resetStyles() {
-    body.style.backgroundColor = ""; // Reset body background
-    menuParent.style.backgroundColor = ""; // Reset menu background
+    body.style.backgroundColor = "";
+    menuParent.style.backgroundColor = "";
     items.forEach((item) => {
-      item.style.color = ""; // Reset menu text color
+      item.style.color = "";
     });
-    headers.forEach((header) => (header.style.color = "")); // Reset header text color
+    headers.forEach((header) => (header.style.color = ""));
     contentBoxes.forEach((box) => {
-      box.classList.remove("active"); // Remove active class from all content boxes
-      box.classList.remove("visible"); // Remove visible class from all content boxes
-      box.style.color = ""; // Reset text color for all content boxes
+      box.classList.remove("active");
+      box.classList.remove("visible");
+      box.style.color = "";
     });
   }
 
   function showContentBox(index) {
-    contentBoxes[index].classList.add("active"); // Add active class to the corresponding content box
-    contentBoxes[index].classList.add("visible"); // Add visible class to the corresponding content box
+    contentBoxes[index].classList.add("active");
+    contentBoxes[index].classList.add("visible");
   }
 
   function setContentTextColor(index, color) {
-    contentBoxes[index].style.color = color; // Change text color of the active content box
+    contentBoxes[index].style.color = color;
   }
 
   function setFollowerTextColor(color) {
-    follower.style.color = color; // Change the color of the follower text
+    follower.style.color = color;
   }
 
   // Video handling for different browsers
@@ -134,40 +117,149 @@ document.addEventListener("DOMContentLoaded", () => {
     images[currentIndex].style.display = "block";
   };
 
-  // Mouse follower functionality
-  document.addEventListener("mousemove", (event) => {
-    mouseX = event.pageX;
-    mouseY = event.pageY;
-  });
+  // ... (rest of the JavaScript code)
 
-  function updateFollowerPosition() {
-    // Move the follower toward the cursor position
-    followerX += (mouseX - followerX) * 0.1; // 0.1 for smoothness
-    followerY += (mouseY - followerY) * 0.1; // 0.1 for smoothness
+  // ... (rest of the JavaScript code)
 
-    follower.style.left = `${followerX}px`;
-    follower.style.top = `${followerY}px`;
+  // Mobile behavior
+  const isMobile = window.matchMedia("(max-width: 768px)").matches; // Adjust based on your mobile breakpoint
+  if (isMobile) {
+    // Position follower in the lower right corner on mobile with updated styles
+    follower.style.position = "fixed";
+    follower.style.bottom = "5%"; // Updated to 10% bottom
+    follower.style.right = "5%"; // Updated to 10% right
+    follower.style.fontSize = "3vw"; // Updated font size
+    follower.style.width = "30vw"; // Updated width
+    follower.style.pointerEvents = "none"; // Prevent interaction
 
-    requestAnimationFrame(updateFollowerPosition);
+    // Update follower text based on the center image within the active menu
+    function updateFollowerTextOnMobile() {
+      const centerX = window.innerWidth / 2;
+      const centerY = window.innerHeight / 2;
+
+      // Get the active content box
+      const activeContentBox = document.querySelector(".con.active");
+      if (!activeContentBox) {
+        follower.textContent = "No active content box";
+        console.log("No active content box found.");
+        return; // If no active content box, do nothing
+      }
+
+      // Get images only from the active content box
+      const images = activeContentBox.querySelectorAll(".image");
+      if (images.length === 0) {
+        follower.textContent = "No images found in the active content box.";
+        console.log("No images found in the active content box.");
+        return; // If no images found, do nothing
+      }
+
+      let closestImage = null;
+      let closestDistance = Infinity;
+
+      images.forEach((image) => {
+        const rect = image.getBoundingClientRect();
+        const imageCenterX = rect.left + rect.width / 2;
+        const imageCenterY = rect.top + rect.height / 2;
+        const distance = Math.sqrt(
+          Math.pow(centerX - imageCenterX, 2) +
+            Math.pow(centerY - imageCenterY, 2)
+        );
+
+        // Log the distance for debugging
+        console.log(
+          `Distance to ${image.getAttribute("data-text")}: ${distance}`
+        );
+
+        if (distance < closestDistance) {
+          closestDistance = distance;
+          closestImage = image;
+        }
+      });
+
+      if (closestImage) {
+        follower.textContent = closestImage.getAttribute("data-text");
+        console.log(
+          "Closest image to center:",
+          closestImage.getAttribute("data-text")
+        ); // Log closest image text
+      } else {
+        follower.textContent = "No image found"; // Fallback text
+      }
+    }
+
+    // Update follower text on scroll and resizing
+    function setupScrollListener() {
+      // Remove previous scroll listener if it exists
+      const activeContentBox = document.querySelector(".con.active");
+      if (activeContentBox) {
+        activeContentBox.removeEventListener(
+          "scroll",
+          updateFollowerTextOnMobile
+        );
+        activeContentBox.addEventListener("scroll", () => {
+          console.log("Scroll event detected in contentBox."); // Log scroll event
+          updateFollowerTextOnMobile(); // Update on scroll
+        });
+      }
+    }
+
+    window.addEventListener("resize", updateFollowerTextOnMobile);
+    window.addEventListener("load", updateFollowerTextOnMobile); // Initial update on load
+
+    // Add click event listeners to menu items
+    const items = document.querySelectorAll(".menu");
+    items.forEach((item) => {
+      item.addEventListener("click", () => {
+        updateFollowerTextOnMobile(); // Update follower text on menu item click
+        setupScrollListener(); // Setup the scroll listener for the new active content box
+      });
+    });
+
+    updateFollowerTextOnMobile(); // Additional initial update
+    setupScrollListener(); // Setup initial scroll listener
+  } else {
+    // ... (existing desktop code)
+
+    // ... (rest of the JavaScript code)
+
+    // ... (existing desktop code)
+
+    // ... (rest of the JavaScript code)
+
+    // Regular mouse follower functionality for desktop
+    document.addEventListener("mousemove", (event) => {
+      mouseX = event.pageX;
+      mouseY = event.pageY;
+    });
+
+    function updateFollowerPosition() {
+      followerX += (mouseX - followerX) * 0.1;
+      followerY += (mouseY - followerY) * 0.1;
+
+      follower.style.left = `${followerX}px`;
+      follower.style.top = `${followerY}px`;
+
+      requestAnimationFrame(updateFollowerPosition);
+    }
+
+    // Start the animation loop for the follower
+    updateFollowerPosition();
+
+    const images = document.querySelectorAll(".image");
+    images.forEach((image) => {
+      image.addEventListener("mouseover", () => {
+        if (isVisible) {
+          follower.textContent = image.getAttribute("data-text"); // Show image text
+        }
+      });
+
+      image.addEventListener("mouseleave", () => {
+        if (isVisible) {
+          follower.textContent = currentFollowerText; // Restore menuIdent text when not hovering
+        }
+      });
+    });
   }
-
-  // Start the animation loop for the follower
-  updateFollowerPosition();
-
-  const images = document.querySelectorAll(".image");
-  images.forEach((image) => {
-    image.addEventListener("mouseover", () => {
-      if (isVisible) {
-        follower.textContent = image.getAttribute("data-text"); // Show image text
-      }
-    });
-
-    image.addEventListener("mouseleave", () => {
-      if (isVisible) {
-        follower.textContent = currentFollowerText; // Restore menuIdent text when not hovering
-      }
-    });
-  });
 
   // Toggle visibility on click, unless the click is on a button, anchor tag, or element with class 'menu'
   document.addEventListener("click", (event) => {
