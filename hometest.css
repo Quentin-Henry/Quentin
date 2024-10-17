@@ -19,6 +19,20 @@ h2 {
   left: 2%;
 }
 
+#follower {
+  font-family: degular-mono, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  position: absolute;
+  width: auto;
+  padding: 5px 10px;
+  width: 10vw;
+  font-size: 1vw;
+  border-radius: 5px;
+  pointer-events: none;
+  transition: background-color 0.2s, opacity 0.2s;
+}
+
 .act {
   color: black;
 }
@@ -32,6 +46,14 @@ a:visited {
 }
 a:hover {
   color: rgb(0, 0, 0);
+}
+
+.menuActive {
+  color: transparent;
+}
+
+.menuActive:hover {
+  color: transparent;
 }
 
 #container {
@@ -141,10 +163,6 @@ img {
 
 .pt {
   padding-top: 10em;
-}
-
-.menu:hover {
-  color: rgb(0, 0, 0);
 }
 
 #resume {
@@ -358,10 +376,9 @@ button {
 
   .header {
     font-size: 1vw;
-
+    width: 30vw;
     display: flex;
     gap: 5%;
-    width: 30vw;
   }
 
   .italicDark {
@@ -419,7 +436,7 @@ button {
   }
 
   .infoContainer {
-    width: 10%;
+    width: 20%;
     display: flex;
     height: fit-content;
     flex-direction: column;

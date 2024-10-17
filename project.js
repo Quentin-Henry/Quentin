@@ -5,6 +5,23 @@ document.addEventListener("DOMContentLoaded", () => {
   const body = document.body;
   const menuParent = document.querySelector(".menuParent");
   const headers = document.querySelectorAll(".header h2");
+  const follower = document.getElementById("follower");
+
+  let mouseX = 0;
+  let mouseY = 0;
+  let followerX = 0;
+  let followerY = 0;
+  let isVisible = true; // Track visibility state
+
+  // Text mapping based on menuIdent
+  const textMapping = {
+    one: "Lanternfly",
+    two: "Calatrava",
+    three: "Christina",
+    four: "New York",
+  };
+
+  let currentFollowerText = "Hover over an image"; // Default follower text
 
   items.forEach((item, index) => {
     item.addEventListener("click", () => {
@@ -14,31 +31,57 @@ document.addEventListener("DOMContentLoaded", () => {
       // Reset styles for all items
       resetStyles();
 
+      // Remove 'menuActive' class from all menu items
+      items.forEach((menuItem) => menuItem.classList.remove("menuActive"));
+
+      // Add 'menuActive' class to the clicked menu item
+      item.classList.add("menuActive");
+
       // Change styles and show the corresponding content box
       if (menuIdent === "two") {
-        updateStyles("#0139FE", "white"); // Blue background, white text
+        updateStyles("#0139FE", "white", item); // Blue background, white text
+        setFollowerTextColor("white"); // Change follower text color to white
         setContentTextColor(index, "white"); // Change text color to white in content box
       } else if (menuIdent === "four") {
-        updateStyles("black", "white"); // Black background, white text
+        updateStyles("black", "white", item); // Black background, white text
+        setFollowerTextColor("white"); // Change follower text color to white
         setContentTextColor(index, "white"); // Change text color to white in content box
+      } else {
+        setFollowerTextColor("black"); // Default follower text color
+        // Only change text color for inactive items
+        items.forEach((menuItem) => {
+          if (!menuItem.classList.contains("menuActive")) {
+            menuItem.style.color = ""; // Reset color for inactive items
+          }
+        });
       }
 
       // Show corresponding content box
       showContentBox(index);
+
+      // Update the follower text based on the menuIdent
+      currentFollowerText = textMapping[menuIdent] || "Hover over an image"; // Set follower text based on menuIdent
+      follower.textContent = currentFollowerText; // Update follower text
     });
   });
 
-  function updateStyles(bgColor, textColor) {
+  function updateStyles(bgColor, textColor, activeItem) {
     body.style.backgroundColor = bgColor; // Change body background
-
-    items.forEach((item) => (item.style.color = textColor)); // Change menu text color
+    // Only change the color of inactive items
+    items.forEach((item) => {
+      if (item !== activeItem) {
+        item.style.color = textColor; // Change menu text color for inactive items
+      }
+    });
     headers.forEach((header) => (header.style.color = textColor)); // Change header text color
   }
 
   function resetStyles() {
     body.style.backgroundColor = ""; // Reset body background
     menuParent.style.backgroundColor = ""; // Reset menu background
-    items.forEach((item) => (item.style.color = "")); // Reset menu text color
+    items.forEach((item) => {
+      item.style.color = ""; // Reset menu text color
+    });
     headers.forEach((header) => (header.style.color = "")); // Reset header text color
     contentBoxes.forEach((box) => {
       box.classList.remove("active"); // Remove active class from all content boxes
@@ -54,6 +97,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function setContentTextColor(index, color) {
     contentBoxes[index].style.color = color; // Change text color of the active content box
+  }
+
+  function setFollowerTextColor(color) {
+    follower.style.color = color; // Change the color of the follower text
   }
 
   // Video handling for different browsers
@@ -87,62 +134,50 @@ document.addEventListener("DOMContentLoaded", () => {
     images[currentIndex].style.display = "block";
   };
 
-  // Question interaction
-  const questionDiv = document.querySelector(".question");
-  let responseSelected = localStorage.getItem("previousResponse") !== null;
+  // Mouse follower functionality
+  document.addEventListener("mousemove", (event) => {
+    mouseX = event.pageX;
+    mouseY = event.pageY;
+  });
 
-  // Reset reload count after 4 visits
-  let reloadCount = (parseInt(localStorage.getItem("reloadCount")) || 0) + 1;
-  if (reloadCount >= 4) {
-    localStorage.removeItem("previousResponse");
-    reloadCount = 0;
+  function updateFollowerPosition() {
+    // Move the follower toward the cursor position
+    followerX += (mouseX - followerX) * 0.1; // 0.1 for smoothness
+    followerY += (mouseY - followerY) * 0.1; // 0.1 for smoothness
+
+    follower.style.left = `${followerX}px`;
+    follower.style.top = `${followerY}px`;
+
+    requestAnimationFrame(updateFollowerPosition);
   }
-  localStorage.setItem("reloadCount", reloadCount);
 
-  // Mouse enter and leave events for questionDiv
-  questionDiv.addEventListener("mouseenter", () => {
+  // Start the animation loop for the follower
+  updateFollowerPosition();
+
+  const images = document.querySelectorAll(".image");
+  images.forEach((image) => {
+    image.addEventListener("mouseover", () => {
+      if (isVisible) {
+        follower.textContent = image.getAttribute("data-text"); // Show image text
+      }
+    });
+
+    image.addEventListener("mouseleave", () => {
+      if (isVisible) {
+        follower.textContent = currentFollowerText; // Restore menuIdent text when not hovering
+      }
+    });
+  });
+
+  // Toggle visibility on click, unless the click is on a button, anchor tag, or element with class 'menu'
+  document.addEventListener("click", (event) => {
     if (
-      !responseSelected &&
-      questionDiv.querySelectorAll(".response").length === 0
+      !event.target.closest("button") &&
+      !event.target.closest("a") &&
+      !event.target.closest(".menu")
     ) {
-      ["Yes", "No"].forEach((response) => {
-        const span = document.createElement("span");
-        span.textContent = response;
-        span.classList.add("response", "Q");
-        questionDiv.appendChild(span);
-      });
+      isVisible = !isVisible; // Toggle visibility state
+      follower.style.display = isVisible ? "block" : "none"; // Show or hide follower
     }
   });
-
-  questionDiv.addEventListener("mouseleave", () => {
-    if (!responseSelected) {
-      questionDiv
-        .querySelectorAll(".response")
-        .forEach((span) => span.remove());
-    }
-  });
-
-  questionDiv.addEventListener("click", (event) => {
-    if (event.target.classList.contains("Q") && !responseSelected) {
-      const oppositeResponse =
-        event.target.textContent === "Yes" ? "No" : "Yes";
-      questionDiv
-        .querySelector(`span:contains('${oppositeResponse}')`)
-        ?.remove();
-
-      const newSpan = document.createElement("span");
-      newSpan.textContent =
-        event.target.textContent === "Yes"
-          ? "Do you usually do what you're told to do?"
-          : "Do you have a hard time doing what's necessary?";
-      questionDiv.appendChild(newSpan);
-
-      responseSelected = true;
-      localStorage.setItem("previousResponse", event.target.textContent);
-    }
-  });
-
-  if (responseSelected) {
-    questionDiv.querySelectorAll(".response").forEach((span) => span.remove());
-  }
 });
