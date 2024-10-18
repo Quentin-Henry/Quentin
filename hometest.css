@@ -31,6 +31,7 @@ h2 {
   border-radius: 5px;
   pointer-events: none;
   transition: background-color 0.2s, opacity 0.2s;
+  transform: rotate(-3deg);
 }
 
 .act {
