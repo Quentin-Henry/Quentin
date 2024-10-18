@@ -165,11 +165,6 @@ img {
   padding-top: 10em;
 }
 
-#resume {
-  padding-top: 10%;
-  padding-left: 15%;
-}
-
 .resume1 {
   font-weight: bolder;
   color: black;
@@ -273,7 +268,7 @@ button {
 
   .fixedElem {
     top: 1%;
-    left: 0%;
+    left: 4%;
   }
 
   .C {
@@ -343,7 +338,8 @@ button {
   }
 
   #resume {
-    font-size: 1vw;
+    padding-top: 20%;
+    font-size: 3vw;
     overflow: scroll;
     height: 90vh;
   }
@@ -458,6 +454,8 @@ button {
   }
 
   #resume {
+    padding-top: 10%;
+    padding-left: 15%;
     font-size: 1vw;
     overflow: scroll;
     height: 90vh;
