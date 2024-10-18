@@ -95,43 +95,16 @@ document.addEventListener("DOMContentLoaded", () => {
     ? "block"
     : "none";
 
-  // Function to initialize touch events for swipe functionality
-  function initializeSwipeCarousel(carousel) {
-    let startX;
-
-    carousel.addEventListener("touchstart", (event) => {
-      startX = event.touches[0].clientX; // Get initial touch position
-    });
-
-    carousel.addEventListener("touchmove", (event) => {
-      // Prevent default scrolling behavior
-      event.preventDefault();
-    });
-
-    carousel.addEventListener("touchend", (event) => {
-      const endX = event.changedTouches[0].clientX; // Get final touch position
-      const distance = endX - startX; // Calculate swipe distance
-
-      // Check the swipe direction
-      if (distance > 50) {
-        moveSlide(-1, carousel.id); // Swipe right
-      } else if (distance < -50) {
-        moveSlide(1, carousel.id); // Swipe left
-      }
-    });
-  }
-
-  // Update carousel initialization to include swipe functionality
+  // Carousel initialization
   const carousels = document.querySelectorAll(".carousel");
   carousels.forEach((carousel) => {
     const images = carousel.querySelectorAll(".carousel-image");
     images.forEach((image, index) => {
-      image.style.display = index === 0 ? "block" : "none"; // Only show the first image initially
+      image.style.display = index === 0 ? "block" : "none";
     });
-    initializeSwipeCarousel(carousel); // Initialize swipe functionality for this carousel
   });
 
-  // Move slide function remains the same
+  // Move slide function
   window.moveSlide = (direction, carouselId) => {
     const carousel = document.getElementById(carouselId);
     const images = carousel.querySelectorAll(".carousel-image");
@@ -139,32 +112,10 @@ document.addEventListener("DOMContentLoaded", () => {
       (image) => image.style.display === "block"
     );
 
-    images[currentIndex].style.display = "none"; // Hide current image
-    currentIndex = (currentIndex + direction + images.length) % images.length; // Calculate new index
-    images[currentIndex].style.display = "block"; // Show new image
+    images[currentIndex].style.display = "none";
+    currentIndex = (currentIndex + direction + images.length) % images.length;
+    images[currentIndex].style.display = "block";
   };
-
-  // Function to get the inverted color from pixel data
-  function getInvertedColor(x, y) {
-    const canvas = document.createElement("canvas");
-    const context = canvas.getContext("2d");
-
-    // Set canvas size to a small area
-    canvas.width = 1;
-    canvas.height = 1;
-
-    // Draw a small area from the body to the canvas
-    context.drawImage(document.body, x, y, 1, 1, 0, 0, 1, 1);
-
-    // Get the pixel data from the 1x1 canvas
-    const pixel = context.getImageData(0, 0, 1, 1).data;
-    const r = pixel[0]; // Red
-    const g = pixel[1]; // Green
-    const b = pixel[2]; // Blue
-
-    // Calculate inverted color
-    return `rgb(${255 - r}, ${255 - g}, ${255 - b})`;
-  }
 
   // Mobile behavior
   const isMobile = window.matchMedia("(max-width: 768px)").matches; // Adjust based on your mobile breakpoint
@@ -181,7 +132,6 @@ document.addEventListener("DOMContentLoaded", () => {
       const rect = follower.getBoundingClientRect();
       const x = Math.floor(rect.left + rect.width / 2);
       const y = Math.floor(rect.top + rect.height / 2);
-      follower.style.color = getInvertedColor(x, y);
     }
 
     // Update follower text based on the center image within the active menu
