@@ -95,16 +95,43 @@ document.addEventListener("DOMContentLoaded", () => {
     ? "block"
     : "none";
 
-  // Carousel initialization
+  // Function to initialize touch events for swipe functionality
+  function initializeSwipeCarousel(carousel) {
+    let startX;
+
+    carousel.addEventListener("touchstart", (event) => {
+      startX = event.touches[0].clientX; // Get initial touch position
+    });
+
+    carousel.addEventListener("touchmove", (event) => {
+      // Prevent default scrolling behavior
+      event.preventDefault();
+    });
+
+    carousel.addEventListener("touchend", (event) => {
+      const endX = event.changedTouches[0].clientX; // Get final touch position
+      const distance = endX - startX; // Calculate swipe distance
+
+      // Check the swipe direction
+      if (distance > 50) {
+        moveSlide(-1, carousel.id); // Swipe right
+      } else if (distance < -50) {
+        moveSlide(1, carousel.id); // Swipe left
+      }
+    });
+  }
+
+  // Update carousel initialization to include swipe functionality
   const carousels = document.querySelectorAll(".carousel");
   carousels.forEach((carousel) => {
     const images = carousel.querySelectorAll(".carousel-image");
     images.forEach((image, index) => {
-      image.style.display = index === 0 ? "block" : "none";
+      image.style.display = index === 0 ? "block" : "none"; // Only show the first image initially
     });
+    initializeSwipeCarousel(carousel); // Initialize swipe functionality for this carousel
   });
 
-  // Move slide function
+  // Move slide function remains the same
   window.moveSlide = (direction, carouselId) => {
     const carousel = document.getElementById(carouselId);
     const images = carousel.querySelectorAll(".carousel-image");
@@ -112,25 +139,50 @@ document.addEventListener("DOMContentLoaded", () => {
       (image) => image.style.display === "block"
     );
 
-    images[currentIndex].style.display = "none";
-    currentIndex = (currentIndex + direction + images.length) % images.length;
-    images[currentIndex].style.display = "block";
+    images[currentIndex].style.display = "none"; // Hide current image
+    currentIndex = (currentIndex + direction + images.length) % images.length; // Calculate new index
+    images[currentIndex].style.display = "block"; // Show new image
   };
 
-  // ... (rest of the JavaScript code)
+  // Function to get the inverted color from pixel data
+  function getInvertedColor(x, y) {
+    const canvas = document.createElement("canvas");
+    const context = canvas.getContext("2d");
 
-  // ... (rest of the JavaScript code)
+    // Set canvas size to a small area
+    canvas.width = 1;
+    canvas.height = 1;
+
+    // Draw a small area from the body to the canvas
+    context.drawImage(document.body, x, y, 1, 1, 0, 0, 1, 1);
+
+    // Get the pixel data from the 1x1 canvas
+    const pixel = context.getImageData(0, 0, 1, 1).data;
+    const r = pixel[0]; // Red
+    const g = pixel[1]; // Green
+    const b = pixel[2]; // Blue
+
+    // Calculate inverted color
+    return `rgb(${255 - r}, ${255 - g}, ${255 - b})`;
+  }
 
   // Mobile behavior
   const isMobile = window.matchMedia("(max-width: 768px)").matches; // Adjust based on your mobile breakpoint
   if (isMobile) {
     // Position follower in the lower right corner on mobile with updated styles
     follower.style.position = "fixed";
-    follower.style.bottom = "5%"; // Updated to 10% bottom
-    follower.style.right = "5%"; // Updated to 10% right
+    follower.style.bottom = "10%"; // Updated to 10% bottom
+    follower.style.right = "10%"; // Updated to 10% right
     follower.style.fontSize = "3vw"; // Updated font size
     follower.style.width = "30vw"; // Updated width
     follower.style.pointerEvents = "none"; // Prevent interaction
+
+    function updateFollowerTextColor() {
+      const rect = follower.getBoundingClientRect();
+      const x = Math.floor(rect.left + rect.width / 2);
+      const y = Math.floor(rect.top + rect.height / 2);
+      follower.style.color = getInvertedColor(x, y);
+    }
 
     // Update follower text based on the center image within the active menu
     function updateFollowerTextOnMobile() {
@@ -140,7 +192,7 @@ document.addEventListener("DOMContentLoaded", () => {
       // Get the active content box
       const activeContentBox = document.querySelector(".con.active");
       if (!activeContentBox) {
-        follower.textContent = "Info";
+        follower.textContent = "No active content box";
         console.log("No active content box found.");
         return; // If no active content box, do nothing
       }
@@ -185,11 +237,13 @@ document.addEventListener("DOMContentLoaded", () => {
       } else {
         follower.textContent = "No image found"; // Fallback text
       }
+
+      // Update text color based on the pixels behind
+      updateFollowerTextColor();
     }
 
     // Update follower text on scroll and resizing
     function setupScrollListener() {
-      // Remove previous scroll listener if it exists
       const activeContentBox = document.querySelector(".con.active");
       if (activeContentBox) {
         activeContentBox.removeEventListener(
@@ -203,8 +257,14 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     }
 
-    window.addEventListener("resize", updateFollowerTextOnMobile);
-    window.addEventListener("load", updateFollowerTextOnMobile); // Initial update on load
+    window.addEventListener("resize", () => {
+      updateFollowerTextOnMobile();
+      updateFollowerTextColor(); // Update color on resize
+    });
+    window.addEventListener("load", () => {
+      updateFollowerTextOnMobile();
+      updateFollowerTextColor(); // Initial color update on load
+    });
 
     // Add click event listeners to menu items
     const items = document.querySelectorAll(".menu");
