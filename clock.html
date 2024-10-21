@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./clock.css" />
+    <script defer src="./clock.js"></script>
+    <title>Clock</title>
+  </head>
+  <body>
+    <div id="colorTransition"></div>
+    <div id="timeDiv">
+      <div id="timeDisplay">Loading time...</div>
+    </div>
+    <div id="location"></div>
+    <div id="dialContainer">
+      <div id="otherStuff">
+        <div id="post"></div>
+        <div id="circle"></div>
+      </div>
+      <svg
+        viewBox="0 0 300 500"
+        id="shadow"
+        height="100%"
+        width="100%"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <polygon
+          id="shadowPoly"
+          points="150,30 150,200 1,200"
+          style="
+            fill: rgba(45, 44, 61, 0.692);
+            stroke: rgba(0, 0, 0, 0);
+            stroke-width: 3;
+          "
+        />
+      </svg>
+    </div>
+
+    <div id="testing">
+      <button onclick="toggleOverride()">Toggle Override</button>
+      <input
+        type="range"
+        id="timeSlider"
+        min="0"
+        max="86399"
+        value="0"
+        oninput="updateSliderValue(this.value)"
+        style="display: none"
+      />
+    </div>
+  </body>
+</html>
