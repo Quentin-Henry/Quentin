@@ -1,0 +1,17 @@
+body {
+  background: black;
+  color: white;
+}
+
+#shadow {
+  width: 50%;
+  position: absolute;
+}
+
+#myRect {
+  opacity: 1;
+}
+
+#myEllpise {
+  opacity: 1;
+}

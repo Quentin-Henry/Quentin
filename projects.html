@@ -38,6 +38,7 @@
       <div id="calatrava" class="menu two">Calatrava</div>
       <div class="menu three">Christina</div>
       <div class="menu four">New York</div>
+      <div class="menu five">Digital Sundial</div>
     </div>
   </div>
 
@@ -203,6 +204,62 @@
       </div>
     </div>
     
+    <div id="contentBox" class="con five Digital Sundial">
+      <div class="infoContainer"></div>
+      <div class="imageContainer">
+      <div class="CS image PT" data-text="Coding Project: Creating a sundial from locational data."> <?xml version="1.0" encoding="UTF-8"?><svg
+        id="Layer_1"
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 1366 768"
+      >
+        <ellipse
+          id="myEllipse"
+          cx="692.79"
+          cy="490.44"
+          rx="421.92"
+          ry="174.01"
+          style="fill: #fff; opacity: 1"
+        />
+        <polygon
+          id="shadowPoly"
+          points="675 87.33 675 539.38 255.74 539.38"
+          style="fill: rgb(0, 0, 0); opacity: 0.64"
+        />
+        <rect
+          id="myRect"
+          x="671.04"
+          y="87.33"
+          width="43.49"
+          height="560"
+          style="fill: #fff; opacity: 1"
+        />
+      </svg>
+      <div id="colorTransition"></div>
+      <div id="testing">
+        <button onclick="toggleOverride()" id="toggleButtonSundial">Toggle Override</button>
+        <input
+          type="range"
+          id="timeSlider"
+          min="0"
+          max="86399"
+          value="0"
+          oninput="updateSliderValue(this.value)"
+          style="display: none"
+        />
+      </div>
+      <div id="timeDiv">
+        <div id="timeDisplay">Loading time...</div>
+      </div>
+      <div id="location"></div></div>
+      <script src="clock stuff/clock_test.js"></script>
+     
+      <div class="image C PT" data-text="Documentation: selected times, from before sunrise, through solar noon and sunset."><img src="clock stuff/sundial_doc.png"></div>
+  </div>
+  
+  <div class="textContainer">
+    <div class="C"></div>
+    <div class="C"></div></div>
+</div>
     </div> 
       </div>
     </div>

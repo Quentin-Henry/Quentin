@@ -233,6 +233,25 @@ button {
   display: flex;
 }
 
+#location {
+  font-family: degular-mono, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 1vw;
+  color: white;
+}
+
+#testing {
+  color: black;
+}
+
+#timeDiv {
+  color: black;
+}
+
+#toggleButtonSundial {
+  filter: invert(0);
+}
 @media (max-width: 600px) {
   #parent {
     transform: rotate(-3deg);
@@ -396,6 +415,10 @@ button {
 
   .CS {
     width: 100%;
+  }
+
+  .PT {
+    padding-top: 20vh;
   }
   .buffer {
     height: 35vh;

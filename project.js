@@ -19,6 +19,7 @@ document.addEventListener("DOMContentLoaded", () => {
     two: "Calatrava",
     three: "Christina",
     four: "New York",
+    five: "digital Sundial",
   };
 
   let currentFollowerText = "Hover over an image"; // Default follower text
@@ -35,6 +36,10 @@ document.addEventListener("DOMContentLoaded", () => {
         setFollowerTextColor("white");
         setContentTextColor(index, "white");
       } else if (menuIdent === "four") {
+        updateStyles("black", "white", item);
+        setFollowerTextColor("white");
+        setContentTextColor(index, "white");
+      } else if (menuIdent === "five") {
         updateStyles("black", "white", item);
         setFollowerTextColor("white");
         setContentTextColor(index, "white");
