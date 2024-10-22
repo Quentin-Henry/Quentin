@@ -296,6 +296,14 @@ button {
     height: 100vw;
   }
 
+  .CS {
+    width: 100%;
+  }
+
+  .PT {
+    padding-top: 20vh;
+  }
+
   .italicDark {
     font-style: italic;
     color: black;
