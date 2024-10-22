@@ -207,33 +207,49 @@
     <div id="contentBox" class="con five Digital Sundial">
       <div class="infoContainer"></div>
       <div class="imageContainer">
-      <div class="CS image PT" data-text="Coding Project: Creating a sundial from locational data."> <?xml version="1.0" encoding="UTF-8"?><svg
-        id="Layer_1"
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 1366 768"
-      >
-        <ellipse
-          id="myEllipse"
-          cx="692.79"
-          cy="490.44"
-          rx="421.92"
-          ry="174.01"
-          style="fill: #fff; opacity: 1"
-        />
-        <polygon
-          id="shadowPoly"
-          points="675 87.33 675 539.38 255.74 539.38"
-          style="fill: rgb(0, 0, 0); opacity: 0.64"
-        />
-        <rect
-          id="myRect"
-          x="671.04"
-          y="87.33"
-          width="43.49"
-          height="560"
-          style="fill: #fff; opacity: 1"
-        />
-      </svg>
+      <div class="CS image PT" data-text="Coding Project: Creating a sundial from locational data."> 
+        <?xml version="1.0" encoding="UTF-8"?><svg
+      id="Layer_1"
+      xmlns="http://www.w3.org/2000/svg"
+      xmlns:xlink="http://www.w3.org/1999/xlink"
+      viewBox="0 0 1366 768"
+    >
+    <defs><linearGradient id="linear-gradient" x1="692.79" y1="594.19" x2="692.79" y2="87.33" gradientUnits="userSpaceOnUse">
+      <stop offset=".04" stop-color="#fff" stop-opacity="0"/>
+      <stop offset=".18" stop-color="#7f7f7f" stop-opacity=".7"/>
+      <stop offset="1" stop-color="#000"stop-opacity="1"/>
+      </linearGradient></defs>
+      <ellipse
+        id="myEllipse"
+        cx="692.79"
+        cy="490.44"
+        rx="421.92"
+        ry="174.01"
+        style="fill: #fff"
+      />
+      <polygon
+        id="shadowPoly"
+        points="671.04 87.33 204.51 518.4 671.04 539.38 671.04 87.33"
+        style="opacity: 0.64"
+      />
+      <rect
+        id="myRect"
+        x="671.04"
+        y="87.33"
+        width="43.49"
+        height="460"
+        style="fill: #fff"
+      />
+
+      <rect
+        id="shadowRect"
+        x="671.04"
+        y="87.33"
+        width="43.49"
+        height="480.26"
+        style="fill: url(#linear-gradient)"
+      />
+    </svg>
       <div id="colorTransition"></div>
       <div id="testing">
         <button onclick="toggleOverride()" id="toggleButtonSundial">Toggle Override</button>
@@ -253,7 +269,7 @@
       <div id="location"></div></div>
       <script src="clock stuff/clock_test.js"></script>
      
-      <div class="image C PT" data-text="Documentation: screenshots from Monday October 21 2024, Queens, New York. 3:30, 7:38, 13:20, 15:24, 17:35, 21:09  "><img src="clock stuff/sundial_doc.png"></div>
+      <div class="image C PT" data-text="Documentation: screenshots from Monday October 21 2024, Queens, New York. 3:30, 7:38, 13:20, 15:24, 17:35, 21:09  "><img src="clock stuff/sunDocumentation.png"></div>
   </div>
   
   <div class="textContainer">

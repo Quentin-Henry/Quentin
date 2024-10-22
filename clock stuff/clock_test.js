@@ -82,6 +82,7 @@ function updateTime() {
     }
 
     // Update the coordinates of the 3rd point of the polygon
+    const postShadow = document.getElementById("shadowRect");
     const hand = document.getElementById("shadowPoly");
     hand.setAttribute(
       "points",
@@ -102,6 +103,9 @@ function updateTime() {
     const opacity = 1 - Math.abs(normalizedTime - 0.5) * 2; // Full visibility at solar noon
     hand.style.opacity = opacity;
 
+    const shadowOpacity = 0.1 * (1 - Math.abs(normalizedTime - 0.5) * 2);
+    shadowRect.style.opacity = 0.1 - shadowOpacity; // 0.1 at sunrise/sunset, 0 at solar noon
+
     // Calculate blur effect based on time
     const blurAmount =
       normalizedTime < 0.5
@@ -111,6 +115,7 @@ function updateTime() {
 
     // Make the polygon visible
     hand.style.display = "block";
+    shadowRect.style.display = "block";
   } else {
     // Hide the polygon when not daytime
     document.getElementById("shadowPoly").style.display = "none";

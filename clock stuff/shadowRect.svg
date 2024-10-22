@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1366 768">
+<defs><linearGradient id="linear-gradient" x1="692.79" y1="539.38" x2="692.79" y2="87.33" gradientUnits="userSpaceOnUse">
+<stop offset=".04" stop-color="#fff"/>
+<stop offset=".05" stop-color="#f5f5f5"/>
+<stop offset=".09" stop-color="#c7c7c7"/>
+<stop offset=".13" stop-color="#9c9c9c"/>
+<stop offset=".18" stop-color="#777"/><stop offset=".23" stop-color="#565656"/>
+<stop offset=".28" stop-color="#3b3b3b"/><stop offset=".35" stop-color="#252525"/>
+<stop offset=".42" stop-color="#141414"/><stop offset=".51" stop-color="#080808"/>
+<stop offset=".64" stop-color="#010101"/><stop offset="1" stop-color="#000"/>
+</linearGradient></defs><ellipse cx="692.79" cy="490.44" rx="421.92" ry="174.01" style="fill:#fff;"/>
+<polygon points="671.04 87.33 204.51 518.4 671.04 539.38 671.04 87.33" style="fill:gray; opacity:.64;"/>
+<rect x="671.04" y="87.33" width="43.49" height="452.05" style="fill:#fff;"/><g style="opacity:.14;">
+<rect x="671.04" y="87.33" width="43.49" height="452.05" style="fill:url(#linear-gradient);"/></g></svg>
