@@ -1,1 +1,7 @@
-<?xml version="1.0" encoding="UTF-8"?><svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1366 768"><defs><linearGradient id="linear-gradient" x1="692.79" y1="594.19" x2="692.79" y2="87.33" gradientUnits="userSpaceOnUse"><stop offset=".04" stop-color="#fff" stop-opacity="0"/><stop offset=".18" stop-color="#7f7f7f" stop-opacity=".5"/><stop offset="1" stop-color="#000"/></linearGradient></defs><ellipse cx="692.79" cy="490.44" rx="421.92" ry="174.01" style="fill:#fff;"/><polygon points="671.04 87.33 204.51 518.4 671.04 539.38 671.04 87.33" style="opacity:.64;"/><rect x="671.04" y="87.33" width="43.49" height="452.05" style="fill:#fff;"/><g style="opacity:.6;"><rect x="671.04" y="87.33" width="43.49" height="506.86" style="fill:url(#linear-gradient);"/></g></svg>
+<?xml version="1.0" encoding="UTF-8"?><svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1366 768">
+<defs><linearGradient id="linear-gradient" x1="692.79" y1="594.19" x2="692.79" y2="87.33" gradientUnits="userSpaceOnUse">
+<stop offset=".04" stop-color="#fff" stop-opacity="0"/>
+<stop offset=".18" stop-color="#7f7f7f" stop-opacity=".5"/>
+<stop offset="1" stop-color="#000"/>
+</linearGradient></defs>
+<ellipse cx="692.79" cy="490.44" rx="421.92" ry="174.01" style="fill:#fff;"/><polygon points="671.04 87.33 204.51 518.4 671.04 539.38 671.04 87.33" style="opacity:.64;"/><rect x="671.04" y="87.33" width="43.49" height="452.05" style="fill:#fff;"/><g style="opacity:.6;"><rect x="671.04" y="87.33" width="43.49" height="506.86" style="fill:url(#linear-gradient);"/></g></svg>

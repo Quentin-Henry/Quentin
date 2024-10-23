@@ -167,6 +167,10 @@ img {
   padding-top: 10em;
 }
 
+.F {
+  height: 70vh;
+}
+
 .resume1 {
   font-weight: bolder;
   color: black;
@@ -210,7 +214,7 @@ button {
 
   border: none;
   cursor: pointer;
-  filter: invert(1);
+
   mix-blend-mode: difference;
 }
 

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="building.css">
+    <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon" />
+    <title>East Village Tower</title>
+</head>
+<body>
+
+    <div class="center-wrapper" id="center-wrapper">
+            <div class="parent" id="parent">
+                <div class="corniceDivCont" id="corniceDivCont">
+                <div onclick="changeCornice()" class="corniceDiv clickable" id="corniceDiv"><img class="corniceImg cornice0" id="corniceImg" src="img/cornice_0.png"></div>
+                </div>
+        
+            <div class="buildingCont" id="buildingCont">
+                
+                <div class="architec unitContainer" id="unitContainer">
+                
+                    <div class="architec facade" id="FacadeDiv">
+                    
+                        <div class="architec facade left" id="leftOrnament">
+                            <div class="architec facade leftInner top" id="innerLeftOrnamentTop"></div>
+                            <div class="architec facade leftInner middle" id="innerLeftOrnamentCenter"></div>
+                            <div class="architec facade leftInner bottom" id="innerLeftOrnamentBottom"></div>
+                        </div>
+                    
+                        <div class="architec window center" id="centerWindow">
+                            <div onclick="chnageOrnateAll()" class="architec window ornament centerInner top clickable" id="windowOrnamentTop"><img class="ornamentT0 topOrnateImg OrnateImgT"id="topOrnateImg" src="img/topOrnate_0.png"></img></div>
+                            <div onclick="changeWindow(this)" class="architec window centerInner windowImageContainer clickable"><img class="windowImg" id="windowImg" src="img/window_1.png"></img></div>
+                            <div onclick="changeOrnate(this)" class="architec window ornament centerInner top" id="windowOrnamentBottom"><img class="ornamentB0 bottomOrnateImg OrnateImgB"id="bottomOrnateImg" src="img/bottomOrnate_0.png"></img></div>
+                        </div>
+                        
+                        <div class="architec facade right" id="rightOrnament">
+                            <div class="architec facade rightInner top" id="innerRightOrnamentTop"></div>
+                            <div class="architec facade rightInner middle" id="innerRightOrnamentCenter"></div>
+                        <div class="architec facade rightInner bottom" id="innerRightOrnamentBottom"></div>
+                    </div>
+                </div>
+            </div>
+    </div>
+
+        
+        
+    </div>
+    <div>
+        <div class="buttonContainer">
+            <div>
+                
+            </div>
+            <div class="lButton">
+                <button class="innerButton"id="plusLength" onclick="addLength()">+</button>
+                <button class="innerButton"id="minusLength" onclick="subLength()">-</button>
+                
+            </div>
+            <div class="hButton">
+                <button class="innerButton"id="plusHeight" onclick="addHeight()">+</button>
+                <button class="innerButton"id="minusheight" onclick="subHeight()">-</button>
+            </div>
+            
+        </div>
+    </div>
+
+    <script src="building.js"></script>
+</body>
+</html>

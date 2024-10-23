@@ -20,6 +20,7 @@ document.addEventListener("DOMContentLoaded", () => {
     three: "Christina",
     four: "New York",
     five: "digital Sundial",
+    six: "tower of babel",
   };
 
   let currentFollowerText = "Hover over an image"; // Default follower text
