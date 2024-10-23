@@ -159,6 +159,10 @@ img {
   display: none;
 }
 
+.fullpage {
+  height: 70vh;
+}
+
 .pb {
   padding-bottom: 10em;
 }
@@ -302,10 +306,6 @@ button {
 
   .PT {
     padding-top: 20vh;
-  }
-
-  .F {
-    height: 70vh;
   }
 
   .italicDark {
