@@ -167,10 +167,6 @@ img {
   padding-top: 10em;
 }
 
-.F {
-  height: 70vh;
-}
-
 .resume1 {
   font-weight: bolder;
   color: black;
@@ -306,6 +302,10 @@ button {
 
   .PT {
     padding-top: 20vh;
+  }
+
+  .F {
+    height: 70vh;
   }
 
   .italicDark {
