@@ -163,6 +163,15 @@ img {
   height: 70vh;
 }
 
+.fullscreen {
+  position: fixed;
+  height: 110vh;
+  width: 110vw;
+  left: -5vw;
+  top: 2vh;
+  transform: rotate(3deg);
+}
+
 .pb {
   padding-bottom: 10em;
 }
