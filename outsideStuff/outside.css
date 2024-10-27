@@ -11,3 +11,21 @@ body {
 #contentG {
   width: 100%;
 }
+
+#reloadButton {
+  width: 5vw;
+  height: 5vw;
+  position: fixed;
+  right: 2vw;
+  top: 2vw;
+  opacity: 0.3;
+}
+
+#reloadButton:hover {
+  opacity: 1;
+  transition: 0.3;
+}
+
+#icon {
+  width: 100%;
+}

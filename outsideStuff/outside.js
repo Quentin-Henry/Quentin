@@ -435,6 +435,40 @@ class FirstPersonCameraDemo {
         audio: "audio/ambience_farm.mp3",
         //"Eglise Saint-Alain le vieux, Lavaur (81)" (https://skfb.ly/6U6uL) by Archéomatique is licensed under Creative Commons Attribution-NonCommercial (http://creativecommons.org/licenses/by-nc/4.0/).
       },
+
+      {
+        path: "model/alvao1.glb",
+        position: new THREE.Vector3(1, -4, 1),
+        scale: new THREE.Vector3(1, 1, 1),
+        audio: "audio/ambience_farm.mp3",
+        //"Eglise Saint-Alain le vieux, Lavaur (81)" (https://skfb.ly/6U6uL) by Archéomatique is licensed under Creative Commons Attribution-NonCommercial (http://creativecommons.org/licenses/by-nc/4.0/).
+      },
+
+      {
+        path: "model/suburb.glb",
+        position: new THREE.Vector3(0, -20, 0),
+        scale: new THREE.Vector3(1, 1, 1),
+        audio:
+          "audio/ambience-a-peaceful-afternoon-disrupted-by-noisy-aircraft-250100.mp3",
+        //"Global manor July 23rd 2024" (https://skfb.ly/p7FZC) by mrwrightphoto is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).
+      },
+      {
+        path: "model/2178_gordon_crossing_gallatin_tn.glb",
+        position: new THREE.Vector3(1, -4, 1),
+        scale: new THREE.Vector3(2, 2, 2),
+        audio:
+          "audio/greenfield-birds-suburban-sounds-in-the-background-16683.mp3",
+        //"2178 Gordon Crossing Gallatin TN" (https://skfb.ly/pnPAs) by mrwrightphoto is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).
+      },
+
+      {
+        path: "model/port2.glb",
+        position: new THREE.Vector3(1, -4, 1),
+        scale: new THREE.Vector3(2, 2, 2),
+        audio: "audio/a-quiet-seaside-seagulls-distant-17681.mp3",
+        //"Port de Penn-Lann 2020 - Commune de Billiers" (https://skfb.ly/6SU9J) by dronemapping is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).
+      },
+
       // Add more model configurations as needed
     ];
 
@@ -478,37 +512,43 @@ class FirstPersonCameraDemo {
   }
 
   initializeLights_() {
-    const distance = 50.0;
-    const angle = Math.PI / 4.0;
-    const penumbra = 0.5;
-    const decay = 1.0;
+    // Remove the spotlight setup
+    // const distance = 50.0;
+    // const angle = Math.PI / 4.0;
+    // const penumbra = 0.5;
+    // const decay = 1.0;
 
-    let light = new THREE.SpotLight(
-      0xffffff,
-      100.0,
-      distance,
-      angle,
-      penumbra,
-      decay
-    );
-    light.castShadow = true;
-    light.shadow.bias = -0.00001;
-    light.shadow.mapSize.width = 4096;
-    light.shadow.mapSize.height = 4096;
-    light.shadow.camera.near = 1;
-    light.shadow.camera.far = 100;
+    // const light = new THREE.SpotLight(
+    //   0xffffff,
+    //   100.0,
+    //   distance,
+    //   angle,
+    //   penumbra,
+    //   decay
+    // );
+    // light.castShadow = true;
+    // light.shadow.bias = -0.00001;
+    // light.shadow.mapSize.width = 4096;
+    // light.shadow.mapSize.height = 4096;
+    // light.shadow.camera.near = 1;
+    // light.shadow.camera.far = 100;
 
-    light.position.set(25, 25, 0);
-    light.lookAt(0, 0, 0);
-    this.scene_.add(light);
+    // light.position.set(25, 25, 0);
+    // light.lookAt(0, 0, 0);
+    // this.scene_.add(light);
 
+    // Add pure white ambient light
+    const ambientLight = new THREE.AmbientLight(0xffffff, 2.5); // White color, intensity 1
+    this.scene_.add(ambientLight);
+
+    // If you still want the hemisphere light, you can keep this part
     const upColour = 0xffff80;
     const downColour = 0x808080;
-    light = new THREE.HemisphereLight(upColour, downColour, 0.5);
-    light.color.setHSL(0.6, 1, 0.6);
-    light.groundColor.setHSL(0.095, 1, 0.75);
-    light.position.set(0, 4, 0);
-    this.scene_.add(light);
+    const hemiLight = new THREE.HemisphereLight(upColour, downColour, 0.5);
+    hemiLight.color.setHSL(0.6, 1, 0.6);
+    hemiLight.groundColor.setHSL(0.095, 1, 0.75);
+    hemiLight.position.set(0, 4, 0);
+    this.scene_.add(hemiLight);
   }
 
   initializePostFX_() {}
