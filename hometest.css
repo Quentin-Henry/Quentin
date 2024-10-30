@@ -263,6 +263,7 @@ button {
 
 #toggleButtonSundial {
   filter: invert(0);
+  border: none;
 }
 @media (max-width: 600px) {
   #parent {
