@@ -411,6 +411,7 @@ button {
     display: flex;
     flex-direction: column;
     gap: 5%;
+    max-width: fit-content;
     color: rgba(0, 0, 0, 0.388);
     font-family: "degular-mono", sans-serif;
     font-weight: 400;
