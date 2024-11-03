@@ -11,6 +11,26 @@ body {
 #contentG {
   width: 100%;
 }
+#intro {
+  width: 110vw;
+  height: 110vh;
+  position: fixed;
+  top: 0vw;
+  background-color: rgba(255, 255, 255, 0.052);
+  backdrop-filter: blur(100px);
+}
+
+#diagram {
+  width: 50%;
+  position: fixed;
+  top: 25vh;
+  left: 20vw;
+}
+
+.clicked {
+  opacity: 0;
+  transition: 1s;
+}
 
 #reloadButton {
   width: 5vw;

@@ -10,7 +10,7 @@ body {
   width: fit-content;
   height: fit-content;
   position: fixed;
-
+  background-color: white;
   overflow: scroll;
 }
 

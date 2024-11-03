@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded", () => {
     four: "New York",
     five: "digital Sundial",
     six: "tower of babel",
-    seven: "Going Outside, Walk: Click, then W,A,S,D",
+    seven: "Going Outside",
   };
   const audioEmbed = document.querySelector("#embed2"); // Adjust the selector as necessary
   const embedContainer = document.querySelector("#embedContainer");
@@ -55,7 +55,7 @@ document.addEventListener("DOMContentLoaded", () => {
         // Try to unmute or control the audio if possible
         if (audioEmbed) {
           embedContainer.innerHTML =
-            '<embed id="embed2" data-text="W,A,S,D" src="outsideStuff/outside.html" width="100%" height="100%"/>'; // Remove the embed
+            '<embed id="embed2" data-text="" src="outsideStuff/outside.html" width="100%" height="100%"/>'; // Remove the embed
 
           audioEmbed.setAttribute("src", "outsideStuff/outside.html"); // Attempt to unmute
         }

@@ -600,3 +600,14 @@ let _APP = null;
 window.addEventListener("DOMContentLoaded", () => {
   _APP = new FirstPersonCameraDemo();
 });
+
+let introdiv = document.getElementById("intro");
+
+let endintro = function () {
+  introdiv.className = "clicked"; // Corrected the typo here
+};
+
+if (introdiv) {
+  // Check if the element exists
+  introdiv.onclick = endintro;
+}
