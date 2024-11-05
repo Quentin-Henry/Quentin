@@ -17,6 +17,10 @@ body {
   position: fixed;
   top: 0vw;
   background-color: rgba(255, 255, 255, 0.052);
+  -webkit-backdrop-filter: blur(
+    100px
+  ); /* Add this line first, it fixes blur for Safari*/
+
   backdrop-filter: blur(100px);
 }
 
