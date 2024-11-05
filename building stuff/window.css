@@ -1,0 +1,47 @@
+body {
+  user-select: none;
+  filter: invert(1);
+}
+
+#wrap {
+  position: absolute;
+  top: 20vh;
+  left: 40vw;
+}
+#windowContainer {
+  width: 20vw;
+  height: 40vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+img {
+  width: 100%;
+  pointer-events: none;
+}
+#windowTop {
+  position: relative;
+}
+#windowBottom {
+  width: 92%;
+  position: absolute;
+  top: calc(100% - 80%);
+  cursor: grab;
+}
+
+#airCon {
+  width: 92%;
+  position: absolute;
+  top: calc(100% - 48%);
+
+  opacity: 0;
+  transition: 0.2s;
+}
+
+#airCon.visible {
+  opacity: 0.2;
+}
+#airCon.full-visible {
+  opacity: 1;
+}

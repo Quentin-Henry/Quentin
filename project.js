@@ -47,6 +47,10 @@ document.addEventListener("DOMContentLoaded", () => {
         updateStyles("black", "white", item);
         setFollowerTextColor("white");
         setContentTextColor(index, "white");
+      } else if (menuIdent === "six") {
+        updateStyles("black", "white", item);
+        setFollowerTextColor("white");
+        setContentTextColor(index, "white");
       } else {
         setFollowerTextColor("black");
       }

@@ -5,10 +5,61 @@ body {
   overflow: hidden;
   transition: background-color 0.5s ease, color 0.7s ease;
   font-size: 1.5vw;
+  letter-spacing: 1px;
 }
 h2 {
   font-style: normal;
   font-weight: normal;
+  letter-spacing: 0.5px;
+}
+
+#calvino {
+  font-family: "Times New Roman", Times, serif;
+  font-weight: 400;
+  font-style: normal;
+  text-indent: 50px;
+  font-size: 2vw;
+  padding-left: 15%;
+  padding-right: 15%;
+  color: rgb(113, 113, 113);
+  line-height: 2.5vw;
+  opacity: 0;
+
+  transform: translateY(20px); /* Start below the normal position */
+  animation: fadeInUp 1s ease-out forwards; /* Apply the fade-in and slide-up animation */
+}
+
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(20px); /* Start from 50px below */
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0); /* End at normal position */
+  }
+}
+
+#calvino2 {
+  font-family: "Times New Roman", Times, serif;
+  font-weight: 400;
+  font-style: normal;
+  text-align: end;
+  font-size: 2vw;
+  padding-left: 15%;
+  padding-right: 15%;
+  color: rgb(255, 255, 255);
+  padding-bottom: 20vh;
+}
+
+#calvinoCitizen {
+  color: rgb(255, 255, 255);
+  font-style: italic;
+}
+
+#calvinoNarrator {
+  color: rgb(255, 255, 255);
+  font-style: italic;
 }
 
 .fixedElem {
@@ -33,6 +84,13 @@ h2 {
   transition: background-color 0.2s, opacity 0.2s;
   transform: rotate(-3deg);
   text-align: right;
+}
+
+h3 {
+  font-family: degular-mono, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 1vw;
 }
 
 .act {
@@ -210,6 +268,7 @@ pre {
 
 .carousel-image {
   max-width: 102%;
+  max-height: 100%;
   display: block;
   margin: -1px;
 }
@@ -220,9 +279,9 @@ pre {
 
 button {
   background-color: transparent;
-
+  color: white;
   cursor: pointer;
-
+  border: none;
   mix-blend-mode: difference;
 }
 
@@ -264,6 +323,7 @@ button {
 #toggleButtonSundial {
   filter: invert(0);
   border: none;
+  color: black;
 }
 @media (max-width: 600px) {
   #parent {
@@ -396,6 +456,24 @@ button {
 
     pointer-events: none;
   }
+
+  #mobileBlock {
+    display: block;
+    position: fixed;
+    height: 120vh;
+    width: 120vw;
+    top: -1vh;
+    left: -1vw;
+    background-color: rgba(255, 255, 255, 0.11);
+    backdrop-filter: blur(5px);
+    z-index: 100;
+  }
+
+  #mobileText {
+    color: rgb(255, 0, 0);
+    font-size: 5vw;
+    padding: 20%;
+  }
 }
 
 @media (min-width: 600px) {
@@ -489,7 +567,7 @@ button {
   }
 
   .infoContainer {
-    width: 20%;
+    width: 25%;
     display: flex;
     height: fit-content;
     flex-direction: column;
@@ -521,5 +599,9 @@ button {
     max-width: 101%;
     max-height: 100%;
     pointer-events: none;
+  }
+
+  #mobileBlock {
+    display: none;
   }
 }

@@ -1,6 +1,7 @@
 body {
   font-size: 10px;
   overflow: hidden;
+  filter: invert(1);
 }
 
 .grandParent {

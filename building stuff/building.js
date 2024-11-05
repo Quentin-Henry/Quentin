@@ -16,23 +16,23 @@ let createdCorniceClone = document.querySelector(".corniceLength");
 let unitContainerWidth = unitContainer.clientWidth;
 let unitContainerheight = unitContainer.clientHeight;
 let wrapperDiv = document.getElementById("center-wrapper");
-let nightTogButton = document.getElementById("nightTog");
-let isNightMode = false;
+//let nightTogButton = document.getElementById("nightTog");
+//let isNightMode = false;
 
-let nightTogFunc = function nightTog() {
-  if (!isNightMode) {
-    document.body.style.backgroundColor = "black";
-    document.body.style.filter = "invert(1)";
-    nightTogButton.innerHTML = "D";
-  } else {
-    document.body.style.backgroundColor = "";
-    document.body.style.filter = "";
-    nightTogButton.innerHTML = "N";
-  }
-  isNightMode = !isNightMode; // Toggle the state
-};
+//let nightTogFunc = function nightTog() {
+// if (!isNightMode) {
+//  document.body.style.backgroundColor = "black";
+//  document.body.style.filter = "invert(1)";
+//  nightTogButton.innerHTML = "D";
+// } else {
+//   document.body.style.backgroundColor = "";
+//   document.body.style.filter = "";
+//  nightTogButton.innerHTML = "N";
+// }
+// isNightMode = !isNightMode; // Toggle the state
+//};
 
-nightTogButton.onclick = nightTogFunc;
+//nightTogButton.onclick = nightTogFunc;
 let lengthMulitple = 1.1;
 let length = Math.floor(lengthMulitple);
 let heightMulitple = 1.1;
