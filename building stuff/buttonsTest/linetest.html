@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>navigation</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jsPlumb/2.15.0/js/jsplumb.min.js"></script>
+    <style>
+      body,
+      html {
+        height: 100%;
+        margin: 0;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        padding-left: 5%;
+        background-color: #000000;
+        font-family: Arial, Helvetica, sans-serif;
+        user-select: none;
+        font-size: 2vw;
+      }
+
+      .window {
+        background-color: #00000048;
+        border: 1px solid #ffffff;
+        border-radius: 0.5em;
+        box-shadow: 1px 1px 5px #aaaaaa6c;
+        color: black;
+        height: 12em; /* Increased height for extra buttons */
+        width: 15em; /* Increased width for extra buttons */
+        position: absolute;
+        text-align: center;
+        line-height: 30px;
+        cursor: pointer;
+        padding: 10px;
+        backdrop-filter: blur(7px);
+      }
+      #window1 {
+        height: 10rem; /* Increased height for extra buttons */
+        width: 5rem; /* Increased width for extra buttons */
+        border-radius: 0em;
+        z-index: -100;
+      }
+
+      #window2 {
+        height: 15rem; /* Increased height for extra buttons */
+        width: 7rem; /* Increased width for extra buttons */
+        color: #ffffff;
+      }
+
+      #window3 {
+        height: 5rem; /* Increased height for extra buttons */
+        width: 7rem; /* Increased width for extra buttons */
+        color: #ffffff;
+      }
+
+      #window4 {
+        height: 5rem; /* Increased height for extra buttons */
+        width: 7rem; /* Increased width for extra buttons */
+        color: #ffffff;
+      }
+
+      #window5 {
+        height: 5rem; /* Increased height for extra buttons */
+        width: 7rem; /* Increased width for extra buttons */
+        color: #ffffff;
+      }
+
+      #window6 {
+        height: 8rem; /* Increased height for extra buttons */
+        width: 7rem; /* Increased width for extra buttons */
+        color: #ffffff;
+      }
+
+      .window:hover {
+        box-shadow: inset 0 -3em 3em rgba(255, 255, 255, 0.2),
+          0 0 0 2px rgb(255, 255, 255), 0.3em 0.3em 1em rgba(0, 0, 0, 0.4);
+      }
+
+      #window1:hover {
+        box-shadow: inset 0 -3em 3em rgba(0, 0, 0, 0),
+          0 0 0 2px rgba(0, 0, 0, 0), 0.3em 0.3em 1em rgba(0, 0, 0, 0);
+      }
+
+      .close-btn {
+        background-color: rgba(176, 0, 0, 0);
+        color: rgb(255, 0, 0);
+        border: 1px solid #ffffff;
+
+        border-radius: 50%;
+        width: 10px;
+        height: 10px;
+        text-align: center;
+        line-height: 20px;
+        font-size: 1px;
+        cursor: pointer;
+      }
+
+      .close-btn:hover {
+        background-color: rgb(255, 0, 0);
+
+        transition: 0.1s;
+      }
+
+      .button-container {
+        bottom: 10px;
+        left: 10px;
+        font-size: 12px;
+        cursor: pointer;
+
+        background-color: #00000000;
+        color: white;
+        border-radius: 5px;
+      }
+
+      .two-buttons-container {
+        bottom: 10px;
+        left: 10px;
+        display: flex;
+
+        flex-direction: column;
+        height: 80%;
+        justify-content: space-between;
+        align-items: start;
+        padding-top: 10%;
+      }
+
+      h1 {
+        font-size: 0.7em;
+        text-align: left;
+        font-weight: normal;
+        margin-block-start: 0px;
+        margin-block-end: 0px;
+      }
+
+      h2 {
+        font-size: 0.8em;
+        text-align: left;
+      }
+
+      #headerCont {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      #buttonParent {
+        padding-left: 5%;
+        padding-right: 5%;
+      }
+
+      h3 {
+        font-style: normal;
+        font-size: 0.5em;
+        margin-block-start: 0em;
+        margin-block-end: 0em;
+      }
+
+      #rangeCont {
+        padding-top: 20%;
+      }
+
+      input[type="range"] {
+        -webkit-appearance: none;
+        appearance: none;
+        background: transparent;
+        cursor: pointer;
+        width: 100%;
+      }
+
+      /* Removes default focus */
+      input[type="range"]:focus {
+        outline: none;
+      }
+
+      /******** Chrome, Safari, Opera and Edge Chromium styles ********/
+      /* slider track */
+      input[type="range"]::-webkit-slider-runnable-track {
+        background-color: #ffffff;
+        border-radius: 12rem;
+        height: 0.5rem;
+      }
+
+      /* slider thumb */
+      input[type="range"]::-webkit-slider-thumb {
+        -webkit-appearance: none; /* Override default look */
+        appearance: none;
+        margin-top: -4px; /* Centers thumb on the track */
+        background-color: #ffffff;
+        border-radius: 0.5rem;
+        height: 1rem;
+        width: 50%;
+      }
+
+      /*********** Firefox styles ***********/
+      /* slider track */
+      input[type="range"]::-moz-range-track {
+        background-color: #ffffff;
+        border-radius: 12rem;
+        height: 0.25rem;
+      }
+
+      /* slider thumb */
+      input[type="range"]::-moz-range-thumb {
+        background-color: #ffffff;
+        border: none; /*Removes extra border that FF applies*/
+        border-radius: 0.5rem;
+        height: 0.5rem;
+        width: 50%;
+      }
+
+      .carousel-container {
+        padding-top: 10%;
+        position: relative;
+        width: 50%;
+        margin: auto;
+        overflow: hidden;
+      }
+
+      .carousel {
+        display: flex;
+        transition: transform 0.5s ease;
+      }
+
+      .carousel-images {
+        display: flex;
+      }
+
+      .carousel-image {
+        width: 100%;
+        height: auto;
+        display: block;
+      }
+
+      .but {
+        position: fixed;
+        top: 60%;
+        transform: translateY(-50%);
+        background-color: rgba(0, 0, 0, 0);
+        color: white;
+        border: none;
+        padding: 10px;
+        cursor: pointer;
+        z-index: 10;
+      }
+
+      .but.prev {
+        left: 0;
+      }
+
+      .but.next {
+        right: 0;
+      }
+
+      .but:hover {
+        filter: blur(1px);
+      }
+
+      /* Grid Styles */
+      .grid-container {
+        padding-top: 10%;
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        display: grid;
+        grid-template-columns: repeat(3, 1fr); /* 3 equal columns */
+        grid-template-rows: repeat(3, 1fr); /* 3 equal rows */
+        gap: 5px; /* Spacing between grid items */
+        width: 5rem;
+        height: 5rem;
+      }
+
+      .grid-item {
+        border-radius: 0.2em;
+
+        background-color: transparent;
+        border: 1px solid rgba(255, 255, 255, 0.506);
+        transition: box-shadow 0.3s ease;
+        box-sizing: border-box;
+      }
+
+      /* Hover Effect - Inset Shadow */
+      .grid-item:hover {
+        box-shadow: inset 0 0 10px rgba(255, 255, 255, 0.5);
+      }
+
+      /* Active State - Keep Shadow when Selected */
+      .grid-item.selected {
+        box-shadow: inset 0 0 10px rgba(255, 255, 255, 0.745);
+        border: 1px solid rgb(255, 255, 255);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="window" id="window1">Window 1 (Icon)</div>
+
+    <div class="window" id="window2" style="display: none">
+      <div id="headerCont">
+        <div id="headerText">
+          <h1>Window</h1>
+        </div>
+        <div><div class="close-btn" id="closeWindowBtn">X</div></div>
+      </div>
+
+      <div class="two-buttons-container">
+        <div class="button-container" id="randomizeCheck">
+          <div><h3>Randomize</h3></div>
+        </div>
+        <div class="button-container" id="createWindow5Btn">
+          <div><h3>Openness</h3></div>
+        </div>
+        <div class="button-container" id="createWindow3Btn">
+          <h3>Air Conditioner</h3>
+        </div>
+        <div class="button-container" id="createWindow4Btn">
+          <h3>Blinds</h3>
+        </div>
+        <div class="button-container" id="createWindow6Btn">
+          <div><h3>Items</h3></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="window" id="window3" style="display: none">
+      <div>
+        <div id="headerCont">
+          <div id="headerText"><h1>Air Conditioner</h1></div>
+          <div class="close-btn" id="closeWindow3Btn">X</div>
+        </div>
+
+        <div class="carousel-container" id="carousel-1">
+          <div class="carousel">
+            <div class="carousel-images">
+              <img src="img/AirCon1.png" alt="Image 1" class="carousel-image" />
+              <img src="img/AirCon2.png" alt="Image 2" class="carousel-image" />
+              <img src="img/AirCon3.png" alt="Image 3" class="carousel-image" />
+              <img src="img/AirCon4.png" alt="Image 3" class="carousel-image" />
+            </div>
+          </div>
+          <button
+            id="prevButton"
+            class="prev but"
+            onclick="moveSlide(-1, 'carousel-1')"
+          >
+            &#10094;
+          </button>
+          <button
+            id="nextButton"
+            class="next but"
+            onclick="moveSlide(1, 'carousel-1')"
+          >
+            &#10095;
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="window" id="window4" style="display: none">
+      <div id="headerCont">
+        <div id="headerText"><h1>Blinds</h1></div>
+        <div class="close-btn" id="closeWindow4Btn">X</div>
+      </div>
+    </div>
+
+    <div class="window" id="window5" style="display: none">
+      <div id="buttonParent">
+        <div id="headerCont">
+          <div id="headerText"><h1>Openness</h1></div>
+          <div class="close-btn" id="closeWindow5Btn">X</div>
+        </div>
+        <div id="rangeCont"><input type="range" /></div>
+      </div>
+    </div>
+
+    <div class="window" id="window6" style="display: none">
+      <div>
+        <div id="headerCont">
+          <div id="headerText"><h1>Items</h1></div>
+          <div class="close-btn" id="closeWindow6Btn">X</div>
+        </div>
+        <div>
+          <div class="grid-container">
+            <div class="grid-item" id="box-1"></div>
+            <div class="grid-item" id="box-2"></div>
+            <div class="grid-item" id="box-3"></div>
+            <div class="grid-item" id="box-4"></div>
+            <div class="grid-item" id="box-5"></div>
+            <div class="grid-item" id="box-6"></div>
+            <div class="grid-item" id="box-7"></div>
+            <div class="grid-item" id="box-8"></div>
+            <div class="grid-item" id="box-9"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      jsPlumb.ready(function () {
+        var instance = jsPlumb.getInstance();
+        var connection1, connection2, connection3, connection4, connection5;
+
+        var window3Opened = false;
+        var window4Opened = false;
+        var window5Opened = false;
+        var window6Opened = false;
+
+        var currentZIndex = 10; // Starting Z-index for other windows
+
+        // Connect Window 1 and Window 2 (Initially invisible)
+        connection1 = instance.connect({
+          source: "window1",
+          target: "window2",
+          connector: ["Bezier", { curviness: 20 }],
+          anchors: ["RightMiddle", "LeftMiddle"],
+          endpoint: "Dot",
+          paintStyle: { stroke: "white", strokeWidth: 2 },
+          endpointStyle: { fill: "white", radius: 2 },
+        });
+
+        connection1.setVisible(false);
+
+        // Initialize vertical offset for new windows
+        var verticalOffset = 0;
+
+        function enableDraggable(windowId) {
+          instance.draggable(windowId, { grid: [1, 1] });
+        }
+
+        // Function to disable button after window is created
+        function disableButton(buttonId) {
+          $(buttonId).prop("disabled", true);
+        }
+
+        // Function to enable button after window is closed
+        function enableButton(buttonId) {
+          $(buttonId).prop("disabled", false);
+        }
+
+        // Make window clickable and bring it to the front
+        function bringToFront(windowId) {
+          currentZIndex++;
+          $(windowId).css("z-index", currentZIndex);
+        }
+
+        $("#window1").click(function () {
+          $("#window2").show();
+          connection1.setVisible(true);
+          $("#window2").css("z-index", currentZIndex);
+          enableDraggable("window2");
+          enableButton("#createWindow3Btn"); // Enable button when window is shown
+          instance.repaintEverything();
+          instance.repaint("window2");
+
+          // Keep window1 at the lowest z-index (e.g., 1)
+          $("#window1").css("z-index", 1);
+        });
+
+        $("#closeWindowBtn").click(function () {
+          $("#window2").hide();
+          connection1.setVisible(false);
+          $("#window3, #window4, #window5, #window6").hide();
+          if (connection2) connection2.setVisible(false);
+          if (connection3) connection3.setVisible(false);
+          if (connection4) connection4.setVisible(false);
+          if (connection5) connection5.setVisible(false);
+          $("#window2, #window3, #window4, #window5, #window6").css(
+            "z-index",
+            15
+          );
+          enableButton("#createWindow3Btn");
+          instance.repaintEverything();
+          verticalOffset = 0;
+
+          // Ensure window1 is always at the lowest z-index when any window is closed
+          $("#window1").css("z-index", 1);
+        });
+
+        // Create Window 3 (Air Conditioner)
+        $("#createWindow3Btn").click(function () {
+          if ($("#window3").is(":visible")) return;
+
+          var window2Position = $("#window2").offset();
+
+          var window3Left =
+            window2Position.left + $("#window2").outerWidth() + 20;
+          var window3Top =
+            window2Position.top + (window3Opened ? 0 : verticalOffset);
+          $("#window3").css({
+            left: window3Left,
+            top: window3Top,
+            display: "block",
+          });
+          enableDraggable("window3");
+
+          connection2 = instance.connect({
+            source: "window2",
+            target: "window3",
+            connector: ["Bezier", { curviness: 20 }],
+            anchors: [
+              [0.9, 0.5],
+              [0.1, 0.5],
+            ],
+            endpoint: "Dot",
+            paintStyle: { stroke: "white", strokeWidth: 2 },
+            endpointStyle: { fill: "white", radius: 2 },
+          });
+
+          connection2.setVisible(true);
+          $("#window3").css("z-index", currentZIndex);
+          instance.repaintEverything();
+          disableButton("#createWindow3Btn");
+
+          verticalOffset += 100;
+          window3Opened = true;
+          currentZIndex++; // Increase Z-index for next window
+        });
+
+        $("#closeWindow3Btn").click(function () {
+          $("#window3").hide();
+          if (connection2) connection2.setVisible(false);
+          $("#window3").css("z-index", 5);
+          instance.repaintEverything();
+          enableButton("#createWindow3Btn");
+
+          verticalOffset -= 100;
+          window3Opened = false;
+        });
+
+        // Create Window 4
+        $("#createWindow4Btn").click(function () {
+          if ($("#window4").is(":visible")) return;
+
+          var window2Position = $("#window2").offset();
+
+          var window4Left =
+            window2Position.left + $("#window2").outerWidth() + 20;
+          var window4Top =
+            window2Position.top + (window4Opened ? 0 : verticalOffset);
+          $("#window4").css({
+            left: window4Left,
+            top: window4Top,
+            display: "block",
+          });
+          enableDraggable("window4");
+
+          connection3 = instance.connect({
+            source: "window2",
+            target: "window4",
+            connector: ["Bezier", { curviness: 20 }],
+            anchors: [
+              [0.9, 0.5],
+              [0.1, 0.5],
+            ],
+            endpoint: "Dot",
+            paintStyle: { stroke: "white", strokeWidth: 2 },
+            endpointStyle: { fill: "white", radius: 2 },
+          });
+
+          connection3.setVisible(true);
+          $("#window4").css("z-index", currentZIndex);
+          instance.repaintEverything();
+          disableButton("#createWindow4Btn");
+
+          verticalOffset += 100;
+          window4Opened = true;
+          currentZIndex++;
+        });
+
+        $("#closeWindow4Btn").click(function () {
+          $("#window4").hide();
+          if (connection3) connection3.setVisible(false);
+          $("#window4").css("z-index", 5);
+          instance.repaintEverything();
+          enableButton("#createWindow4Btn");
+
+          verticalOffset -= 100;
+          window4Opened = false;
+        });
+
+        // Create Window 5
+        $("#createWindow5Btn").click(function () {
+          if ($("#window5").is(":visible")) return;
+
+          var window2Position = $("#window2").offset();
+
+          var window5Left =
+            window2Position.left + $("#window2").outerWidth() + 20;
+          var window5Top =
+            window2Position.top + (window5Opened ? 0 : verticalOffset);
+          $("#window5").css({
+            left: window5Left,
+            top: window5Top,
+            display: "block",
+          });
+          enableDraggable("window5");
+
+          connection4 = instance.connect({
+            source: "window2",
+            target: "window5",
+            connector: ["Bezier", { curviness: 20 }],
+            anchors: [
+              [0.9, 0.5],
+              [0.1, 0.5],
+            ],
+            endpoint: "Dot",
+            paintStyle: { stroke: "white", strokeWidth: 2 },
+            endpointStyle: { fill: "white", radius: 2 },
+          });
+
+          connection4.setVisible(true);
+          $("#window5").css("z-index", currentZIndex);
+          instance.repaintEverything();
+          disableButton("#createWindow5Btn");
+
+          verticalOffset += 100;
+          window5Opened = true;
+          currentZIndex++;
+        });
+
+        $("#closeWindow5Btn").click(function () {
+          $("#window5").hide();
+          if (connection4) connection4.setVisible(false);
+          $("#window5").css("z-index", 5);
+          instance.repaintEverything();
+          enableButton("#createWindow5Btn");
+
+          verticalOffset -= 100;
+          window5Opened = false;
+        });
+
+        // Create Window 6
+        $("#createWindow6Btn").click(function () {
+          if ($("#window6").is(":visible")) return;
+
+          var window2Position = $("#window2").offset();
+
+          var window6Left =
+            window2Position.left + $("#window2").outerWidth() + 20;
+          var window6Top =
+            window2Position.top + (window6Opened ? 0 : verticalOffset);
+
+          $("#window6").css({
+            left: window6Left,
+            top: window6Top,
+            display: "block",
+          });
+          enableDraggable("window6");
+
+          connection5 = instance.connect({
+            source: "window2",
+            target: "window6",
+            connector: ["Bezier", { curviness: 20 }],
+            anchors: [
+              [0.9, 0.5],
+              [0.1, 0.5],
+            ],
+            endpoint: "Dot",
+            paintStyle: { stroke: "white", strokeWidth: 2 },
+            endpointStyle: { fill: "white", radius: 2 },
+          });
+
+          connection5.setVisible(true);
+          $("#window6").css("z-index", currentZIndex);
+          instance.repaintEverything();
+          disableButton("#createWindow6Btn");
+
+          verticalOffset += 100;
+          window6Opened = true;
+          currentZIndex++;
+        });
+
+        $("#closeWindow6Btn").click(function () {
+          $("#window6").hide();
+          if (connection5) connection5.setVisible(false);
+          $("#window6").css("z-index", 5);
+          instance.repaintEverything();
+          enableButton("#createWindow6Btn");
+
+          verticalOffset -= 100;
+          window6Opened = false;
+        });
+
+        // Bring window to front when clicked, except window1
+        $(".window").click(function () {
+          if ($(this).attr("id") !== "window1") {
+            bringToFront(this);
+          }
+        });
+      });
+
+      // Function to move the carousel images
+      function moveSlide(direction, carouselId) {
+        const carouselContainer = document.getElementById(carouselId);
+        const carouselImages =
+          carouselContainer.querySelector(".carousel-images");
+        const totalImages = carouselImages.children.length;
+        const currentTransform =
+          carouselImages.style.transform || "translateX(0%)";
+        const currentIndex =
+          parseInt(
+            currentTransform.replace("translateX(", "").replace("%)", "")
+          ) || 0;
+
+        let newIndex = currentIndex + direction * 100;
+
+        // If we're at the last image, loop back to the first
+        if (newIndex < -((totalImages - 1) * 100)) {
+          newIndex = 0;
+        }
+        // If we're at the first image, loop to the last
+        if (newIndex > 0) {
+          newIndex = -((totalImages - 1) * 100);
+        }
+
+        carouselImages.style.transform = `translateX(${newIndex}%)`;
+      }
+
+      // Get all grid items
+      const gridItems = document.querySelectorAll(".grid-item");
+
+      // Add click event listener to each grid item
+      gridItems.forEach((item) => {
+        item.addEventListener("click", function () {
+          // Toggle the "selected" class on click to add/remove the inset shadow
+          this.classList.toggle("selected");
+        });
+      });
+    </script>
+  </body>
+</html>

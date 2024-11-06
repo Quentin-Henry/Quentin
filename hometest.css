@@ -159,6 +159,10 @@ canvas {
   height: 100%;
 }
 
+.FC {
+  height: 100vh;
+}
+
 img {
   max-width: 100%;
 }

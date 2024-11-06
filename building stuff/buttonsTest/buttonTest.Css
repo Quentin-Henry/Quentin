@@ -1,0 +1,98 @@
+/* Basic Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  user-select: none;
+}
+
+/* App Icon Styles */
+.app-icon {
+  width: 100px;
+  height: 100px;
+  background-color: #3498db;
+  color: white;
+  text-align: center;
+  line-height: 100px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  position: absolute; /* Ensure icons are positioned absolutely */
+}
+
+/* Positions for the icons */
+.app-icon:nth-child(1) {
+  background-color: #3498db;
+  top: 50px; /* Positioning Icon 1 */
+  left: 200px; /* Positioning Icon 1 */
+}
+
+.app-icon:nth-child(2) {
+  background-color: #e74c3c;
+  top: 150px;
+  left: 200px;
+}
+
+.app-icon:nth-child(3) {
+  background-color: #2ecc71;
+  top: 150px;
+  left: 350px;
+}
+
+.app-icon:nth-child(4) {
+  background-color: #f39c12;
+  top: 300px;
+  left: 150px;
+}
+
+.app-icon:nth-child(5) {
+  background-color: #9b59b6;
+  top: 300px;
+  left: 350px;
+}
+
+/* Window Styles */
+.window {
+  width: 300px;
+  height: 300px;
+  position: absolute;
+  display: none;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.window-header {
+  background-color: #34495e;
+  color: white;
+  padding: 10px;
+  border-radius: 8px 8px 0 0;
+  cursor: move;
+  display: flex;
+  justify-content: space-between;
+}
+
+.window-content {
+  padding: 20px;
+  background-color: #f9f9f9;
+  height: calc(100% - 50px);
+}
+
+/* Close Button */
+.close-btn {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+/* Tether Line Styles */
+/* Line Styles */
+.line {
+  position: absolute;
+  width: 2px;
+  background-color: black;
+  z-index: 0;
+  transition: all 0.1s;
+}

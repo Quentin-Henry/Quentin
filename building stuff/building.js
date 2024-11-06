@@ -121,26 +121,19 @@ function changeCornice() {
 }
 
 let addLength = function addLength() {
-  // Clone the existing cornice div and its children
-  let cloneCornice = corniceDiv.cloneNode(true); // Deep clone to include children
-
-  // Update the image source of the cloned cornice
-  let corniceImg = cloneCornice.querySelector(".corniceImg"); // Select the image element
+  let cloneCornice = corniceDiv.cloneNode(true);
+  let corniceImg = cloneCornice.querySelector(".corniceImg");
   if (corniceImg) {
-    corniceImg.src = "img/cornice_" + currentCorniceIndex + ".png"; // Set the correct image
+    corniceImg.src = "img/cornice_" + currentCorniceIndex + ".png";
   }
-
   console.log(cloneCornice);
   lengthMulitple++;
-
   for (let i = 0; i < Math.round(heightMulitple); i++) {
     let randWidnow = Math.floor(Math.random() * 36);
     let windowImg = document.getElementById("windowImg");
     let cloneUnitContainer = unitContainer.cloneNode(true);
     let length = Math.floor(lengthMulitple);
-
     cloneCount++;
-
     let buildingContainerWidth = unitContainerWidth * lengthMulitple;
     buildingContainer.style.width = buildingContainerWidth + "px";
     const cloneClass = "unitContainer clone new length x";
@@ -151,24 +144,13 @@ let addLength = function addLength() {
     corniceDivCont.style.width = buildingContainerWidth + "px";
     windowImg.src = "img/window_" + randWidnow + ".png";
   }
-
-  // Append the cloned cornice to the container
   corniceDivCont.appendChild(cloneCornice);
-
-  // Set the same event listeners if necessary
-  // Example:
-  // cloneCornice.addEventListener('click', someEventHandler);
-
   let wrapperMargin = wrapperDiv.clientWidth - wrapperDiv.clientWidth * 0.35;
   let newScale = 1 * (wrapperMargin / parent.clientWidth);
-
-  // Only update scale if the new scale is lower than the current scale
   if (newScale < parent.style.scale) {
     parent.style.scale = newScale;
     console.log("scale is " + parent.style.scale);
   }
-
-  // Additional condition for lengthMulitple
   if (
     lengthMulitple > 5.2 &&
     newScale < 1 * (wrapperMargin / parent.clientHeight)
@@ -203,9 +185,9 @@ let addHeight = function addHeight() {
     parent.style.scale = newScale;
   }
 };
-// Variables to keep track of last scales
-let lastHeightScale = 1; // Initialize with 1, assuming no scaling
-let lastLengthScale = 1; // Initialize with 1, assuming no scaling
+
+let lastHeightScale = 1;
+let lastLengthScale = 1;
 
 let subLength = function subLength() {
   if (lengthMulitple > 1.3) {

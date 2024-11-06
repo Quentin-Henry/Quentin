@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Movable App Windows</title>
+    <link rel="stylesheet" href="buttonTest.Css" />
+  </head>
+  <body>
+    <!-- App Icons -->
+    <div class="app-icon" id="icon1" onclick="openWindow(1)">App 1</div>
+    <div class="app-icon" id="icon2" onclick="openWindow(2)">App 2</div>
+    <div class="app-icon" id="icon3" onclick="openWindow(3)">App 3</div>
+    <div class="app-icon" id="icon4" onclick="openWindow(4)">App 4</div>
+    <div class="app-icon" id="icon5" onclick="openWindow(5)">App 5</div>
+
+    <!-- Line containers (one per window) -->
+    <div class="line" id="line1"></div>
+    <div class="line" id="line2"></div>
+    <div class="line" id="line3"></div>
+    <div class="line" id="line4"></div>
+    <div class="line" id="line5"></div>
+
+    <!-- Window Containers -->
+    <div class="window" id="window1">
+      <div class="window-header">
+        <span>App Window 1</span>
+        <button class="close-btn" onclick="closeWindow(1)">X</button>
+      </div>
+      <div class="window-content">Content for App 1</div>
+    </div>
+
+    <div class="window" id="window2">
+      <div class="window-header">
+        <span>App Window 2</span>
+        <button class="close-btn" onclick="closeWindow(2)">X</button>
+      </div>
+      <div class="window-content">Content for App 2</div>
+    </div>
+
+    <div class="window" id="window3">
+      <div class="window-header">
+        <span>App Window 3</span>
+        <button class="close-btn" onclick="closeWindow(3)">X</button>
+      </div>
+      <div class="window-content">Content for App 3</div>
+    </div>
+
+    <div class="window" id="window4">
+      <div class="window-header">
+        <span>App Window 4</span>
+        <button class="close-btn" onclick="closeWindow(4)">X</button>
+      </div>
+      <div class="window-content">Content for App 4</div>
+    </div>
+
+    <div class="window" id="window5">
+      <div class="window-header">
+        <span>App Window 5</span>
+        <button class="close-btn" onclick="closeWindow(5)">X</button>
+      </div>
+      <div class="window-content">Content for App 5</div>
+    </div>
+
+    <script src="ButtonTest.js"></script>
+  </body>
+</html>
