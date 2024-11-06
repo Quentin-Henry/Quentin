@@ -229,8 +229,7 @@ img {
   height: 110vh;
   width: 110vw;
   left: -5vw;
-  top: 2vh;
-  transform: rotate(3deg);
+  top: -1vh;
 }
 
 .pb {
