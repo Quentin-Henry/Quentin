@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Rotary Dial Example</title>
+    <style>
+      .dacircles {
+        width: 200px;
+        height: 200px;
+        cursor: pointer;
+        transform-origin: center center;
+        transition: transform 0.1s ease-out;
+      }
+      .outer-circle {
+        fill: #000000;
+      }
+      .inner-circle {
+        fill: #ffffff;
+        cursor: pointer;
+      }
+      .guideline-circle {
+        fill: none;
+        stroke: none; /* Make the guideline circle invisible */
+      }
+    </style>
+  </head>
+  <body>
+    <svg id="svgCanvas" xmlns="http://www.w3.org/2000/svg" class="dacircles">
+      <circle cx="100" cy="100" r="90" class="outer-circle" />
+      <circle cx="100" cy="100" r="60" class="guideline-circle" />
+      <circle cx="40" cy="100" r="10" class="inner-circle" />
+    </svg>
+
+    <script>
+      const svgCanvas = document.getElementById("svgCanvas");
+      const innerCircle = svgCanvas.querySelector(".inner-circle");
+      const guidelineCircle = svgCanvas.querySelector(".guideline-circle");
+      const centerX = 100; // The center X position of the circle
+      const centerY = 100; // The center Y position of the circle
+      const radius = 60; // The radius of the guideline circle
+
+      let isDragging = false;
+      let angle = 0;
+
+      // Set initial position of the inner circle along the guideline (at 0 degrees)
+      function setInnerCirclePosition() {
+        const x = centerX + radius * Math.cos(angle);
+        const y = centerY + radius * Math.sin(angle);
+        innerCircle.setAttribute("cx", x);
+        innerCircle.setAttribute("cy", y);
+      }
+
+      setInnerCirclePosition(); // Set the initial position
+
+      // Handle mouse down event to start dragging
+      innerCircle.addEventListener("mousedown", (e) => {
+        isDragging = true;
+
+        // Calculate the initial angle based on mouse position
+        const dx = e.clientX - centerX;
+        const dy = e.clientY - centerY;
+        angle = Math.atan2(dy, dx);
+
+        // Prevent text selection during drag
+        e.preventDefault();
+      });
+
+      // Handle mouse move event during dragging
+      window.addEventListener("mousemove", (e) => {
+        if (isDragging) {
+          const dx = e.clientX - centerX;
+          const dy = e.clientY - centerY;
+          angle = Math.atan2(dy, dx);
+          setInnerCirclePosition();
+        }
+      });
+
+      // Handle mouse up event to stop dragging
+      window.addEventListener("mouseup", () => {
+        isDragging = false;
+      });
+
+      // Make the inner circle draggable even if the mouse leaves the SVG area
+      window.addEventListener("mouseleave", () => {
+        isDragging = false;
+      });
+    </script>
+  </body>
+</html>

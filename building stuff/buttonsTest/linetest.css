@@ -1,22 +1,378 @@
-.jtk-node {
-  outline: 1px solid;
-  padding: 3px;
+body,
+html {
+  height: 100%;
+  margin: 0;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding-left: 5%;
+  background-color: #000000;
+  font-family: Arial, Helvetica, sans-serif;
+  user-select: none;
+  font-size: 2vw;
+}
+
+.window {
+  background-color: #000000;
+  border-radius: 0.5em;
+  color: black;
+  height: 12em;
+  width: 15em;
+  position: absolute;
+  text-align: center;
+  line-height: 30px;
+  cursor: pointer;
+  padding: 10px;
+  backdrop-filter: blur(20px);
+}
+#window1 {
+  border: 1px solid #ffffff;
+  height: 10rem;
+  width: 5rem;
+  border-radius: 0em;
+  z-index: -100;
+}
+
+#window2,
+#window3,
+#window4,
+#window5,
+#window6,
+#window7 {
+  background-color: rgba(90, 90, 90, 0.2);
+  border: 0.5px solid #292929;
+  padding: 1em;
+  color: #ffffff;
+}
+
+#window2 {
+  height: 15rem;
+  width: 7rem;
+}
+
+#window3 {
+  height: 10rem; /* Increased height for extra buttons */
+  width: 7rem; /* Increased width for extra buttons */
+}
+
+#window4 {
+  height: 5rem; /* Increased height for extra buttons */
+  width: 7rem; /* Increased width for extra buttons */
+}
+
+#window5 {
+  height: 5rem; /* Increased height for extra buttons */
+  width: 7rem; /* Increased width for extra buttons */
+}
+
+#window6 {
+  height: 8rem; /* Increased height for extra buttons */
+  width: 7rem; /* Increased width for extra buttons */
+}
+
+#window7 {
+  height: 12rem; /* Increased height for extra buttons */
+  width: 9rem; /* Increased width for extra buttons */
+}
+
+#window1:hover {
+  box-shadow: inset 0 -3em 3em rgba(0, 0, 0, 0), 0 0 0 2px rgba(0, 0, 0, 0),
+    0.3em 0.3em 1em rgba(0, 0, 0, 0);
+}
+
+.close-btn {
+  background-color: rgba(176, 0, 0, 0);
+  color: rgb(255, 0, 0);
+  border: 1px solid #ffffff;
+
+  border-radius: 50%;
+  width: 10px;
+  height: 10px;
+  text-align: center;
+  line-height: 20px;
+  font-size: 1px;
+  cursor: pointer;
+}
+
+.close-btn:hover {
+  background-color: rgb(255, 0, 0);
+
+  transition: 0.1s;
+}
+
+.button-container {
+  bottom: 10px;
+  left: 10px;
+  font-size: 12px;
+  cursor: pointer;
+  width: 100%;
+  background-color: #00000000;
+  color: white;
+  border-radius: 5px;
+}
+
+.two-buttons-container {
+  bottom: 10px;
+  left: 10px;
+  display: flex;
+
+  flex-direction: column;
+  height: 80%;
+  justify-content: space-between;
+  align-items: start;
+  padding-top: 10%;
+}
+
+h1 {
+  font-size: 1em;
+  text-align: left;
+  font-weight: bold;
+  margin-block-start: 0px;
+  margin-block-end: 0px;
+}
+
+h2 {
+  font-size: 0.8em;
+  text-align: left;
+}
+
+#headerCont {
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+}
+
+#buttonParent {
+  padding-left: 5%;
+  padding-right: 5%;
+}
+
+h3 {
+  font-style: normal;
+  font-weight: 300;
+  font-size: 0.8em;
+  margin-block-start: 0em;
+  margin-block-end: 0em;
+}
+
+h4 {
+  font-style: normal;
+  font-weight: 300;
+  font-size: 0.5em;
+  margin-block-start: 0em;
+  margin-block-end: 0em;
+  color: #5b5b5b;
+}
+
+#rangeCont {
+  padding-top: 20%;
+}
+
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+  cursor: pointer;
+  width: 100%;
+}
+
+/* Removes default focus */
+input[type="range"]:focus {
+  outline: none;
+}
+
+/******** Chrome, Safari, Opera and Edge Chromium styles ********/
+/* slider track */
+input[type="range"]::-webkit-slider-runnable-track {
+  background-color: #ffffff;
+  border-radius: 12rem;
+  height: 0.5rem;
+}
+
+/* slider thumb */
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none; /* Override default look */
+  appearance: none;
+  margin-top: -4px; /* Centers thumb on the track */
+  background-color: #ffffff;
+  border-radius: 0.5rem;
+  height: 1rem;
+  width: 50%;
+}
+
+/*********** Firefox styles ***********/
+/* slider track */
+input[type="range"]::-moz-range-track {
+  background-color: #ffffff;
+  border-radius: 12rem;
+  height: 0.25rem;
+}
+
+/* slider thumb */
+input[type="range"]::-moz-range-thumb {
+  background-color: #ffffff;
+  border: none; /*Removes extra border that FF applies*/
+  border-radius: 0.5rem;
+  height: 0.5rem;
+  width: 50%;
+}
+
+.carousel-container {
+  padding-top: 10%;
+  position: relative;
+  width: 50%;
+  margin: auto;
+  overflow: hidden;
+}
+
+.carousel {
+  display: flex;
+  transition: transform 0.5s ease;
+}
+
+.carousel-images {
+  display: flex;
+}
+
+.carousel-image {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.but {
+  position: fixed;
+  top: 60%;
+  transform: translateY(-50%);
+  background-color: rgba(0, 0, 0, 0);
+  color: white;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  z-index: 10;
+}
+
+.but.prev {
+  left: 0;
+}
+
+.but.next {
+  right: 0;
+}
+
+.but:hover {
+  filter: blur(1px);
+}
+
+/* Grid Styles */
+.grid-container {
+  padding-top: 10%;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 3 equal columns */
+  grid-template-rows: repeat(3, 1fr); /* 3 equal rows */
+  gap: 5px; /* Spacing between grid items */
+  width: 5rem;
+  height: 5rem;
+}
+
+.grid-item {
+  border-radius: 1em;
+  background-color: #4c4c4c97;
+
+  transition: 0.4s ease;
+  box-sizing: border-box;
+}
+
+/* Hover Effect - Inset Shadow */
+
+/* Active State - Keep Shadow when Selected */
+.grid-item.selected {
+  background-color: rgb(255, 255, 255);
+}
+
+.toggle-container {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.toggle-switch {
   display: flex;
   align-items: center;
-  justify-content: center;
 }
 
-.hello-node {
-  width: 100px;
-  height: 80px;
-  background-color: white;
+.toggle-switch input {
+  display: none;
 }
 
-.world-node {
-  width: 80px;
-  height: 80px;
+.toggle-switch .slider {
+  position: relative;
+  width: 50px;
+  height: 25px;
+  background-color: #4c4c4c97;
+  border-radius: 25px;
+  transition: 0.3s;
+  cursor: pointer;
+}
+
+.toggle-switch .slider:before {
+  content: "";
+  position: absolute;
+  top: 4px;
+  left: 3px;
+  width: 18px;
+  height: 18px;
+  background-color: rgb(255, 255, 255);
   border-radius: 50%;
-  background-color: purple;
-  color: white;
-  font-weight: bold;
+  transition: 0.3s;
+}
+
+.toggle-switch input:checked + .slider {
+  background-color: #4c4c4c;
+}
+
+.toggle-switch input:checked + .slider:before {
+  transform: translateX(25px);
+}
+
+.toggle-switch .label {
+  margin-left: 10px;
+  font-size: 16px;
+}
+
+.innerWindowCont {
+  display: flex;
+  justify-content: space-between;
+}
+
+#svgCanvas {
+  position: relative;
+  z-index: 1000;
+}
+
+.dacircles {
+  width: 200px;
+  height: 200px;
+  cursor: pointer;
+  transform-origin: center center;
+  transition: transform 0.1s ease-out;
+  z-index: 1000;
+}
+.outer-circle {
+  fill: #ffffff;
+}
+
+.guideline-circle {
+  fill: #ef0000;
+}
+.inner-circle {
+  fill: #262626;
+  cursor: pointer;
+}
+.guideline-circle {
+  fill: none;
+  stroke: none; /* Make the guideline circle invisible */
 }
