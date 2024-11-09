@@ -23,6 +23,9 @@ html {
   line-height: 30px;
   cursor: pointer;
   padding: 10px;
+  -webkit-backdrop-filter: blur(
+    20px
+  ); /* Add this line first, it fixes blur for Safari*/
   backdrop-filter: blur(20px);
 }
 #window1 {
