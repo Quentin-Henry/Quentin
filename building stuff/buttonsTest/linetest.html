@@ -120,11 +120,20 @@
 
     <div class="window" id="window5" style="display: none">
       <div id="buttonParent">
-        <div id="headerCont">
-          <div><h4>Window</h4></div>
-          <div id="headerText"><h1>Openness</h1></div>
+        <div id="opt">
+          <div id="rangeOpt">
+            <div id="rangeCont">
+              <input id="myRange" type="range" min="10" max="99" />
+            </div>
+          </div>
+          <div class="windownContentCont">
+            <div id="headerCont">
+              <div><h4>Window</h4></div>
+              <div id="headerText"><h1>Openness</h1></div>
+            </div>
+            <div id="rangeValueCont"><h6 id="rangeValueContText">97%</h6></div>
+          </div>
         </div>
-        <div id="rangeCont"><input type="range" min="20" max="80" /></div>
       </div>
     </div>
 
@@ -188,6 +197,13 @@
         var window7Opened = false;
 
         var currentZIndex = 10; // Starting Z-index for other windows
+
+        var slider = document.getElementById("myRange");
+        var output = document.getElementById("rangeValueContText");
+        output.innerHTML = slider.value;
+        slider.oninput = function () {
+          output.innerHTML = this.value + "%";
+        };
 
         // Connect Window 1 and Window 2 (Initially invisible)
         connection1 = instance.connect({

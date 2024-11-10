@@ -479,8 +479,40 @@ class FirstPersonCameraDemo {
       // Add more model configurations as needed
     ];
 
-    const randomModelConfig =
-      glbModels[Math.floor(Math.random() * glbModels.length)];
+    let lastModelIndex = localStorage.getItem("lastModelIndex")
+      ? parseInt(localStorage.getItem("lastModelIndex"))
+      : null;
+    let secondLastModelIndex = localStorage.getItem("secondLastModelIndex")
+      ? parseInt(localStorage.getItem("secondLastModelIndex"))
+      : null;
+
+    function getRandomModelIndex() {
+      let availableIndexes = [];
+
+      // Collect all indices except for the last two
+      for (let i = 0; i < glbModels.length; i++) {
+        if (i !== lastModelIndex && i !== secondLastModelIndex) {
+          availableIndexes.push(i);
+        }
+      }
+
+      // Select a random index from the available indices
+      const randomIndex =
+        availableIndexes[Math.floor(Math.random() * availableIndexes.length)];
+
+      // Update the last two indices and store them in localStorage
+      secondLastModelIndex = lastModelIndex;
+      lastModelIndex = randomIndex;
+
+      // Save the updated indices to localStorage
+      localStorage.setItem("lastModelIndex", lastModelIndex);
+      localStorage.setItem("secondLastModelIndex", secondLastModelIndex);
+
+      return randomIndex;
+    }
+
+    // Use the modified randomness function
+    const randomModelConfig = glbModels[getRandomModelIndex()];
 
     const gltfLoader = new GLTFLoader();
     gltfLoader.load(randomModelConfig.path, (gltf) => {

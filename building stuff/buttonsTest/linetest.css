@@ -64,7 +64,7 @@ html {
 }
 
 #window5 {
-  height: 6rem; /* Increased height for extra buttons */
+  height: 6.5rem; /* Increased height for extra buttons */
   width: 7rem; /* Increased width for extra buttons */
 }
 
@@ -127,7 +127,7 @@ html {
 }
 
 h1 {
-  font-size: 1em;
+  font-size: 1rem;
   text-align: left;
   font-weight: bold;
   margin-block-start: 0px;
@@ -139,7 +139,7 @@ h1 {
 }
 
 h2 {
-  font-size: 0.8em;
+  font-size: 0.8rem;
   text-align: left;
 }
 
@@ -152,12 +152,27 @@ h2 {
 #buttonParent {
   padding-left: 5%;
   padding-right: 5%;
+  height: 100%;
+}
+
+#opt {
+  display: flex;
+  justify-content: flex-end;
+  flex-direction: row-reverse;
+  height: 100%;
+}
+
+.windownContentCont {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-bottom: 20%;
 }
 
 h3 {
   font-style: normal;
   font-weight: 300;
-  font-size: 0.8em;
+  font-size: 0.4rem;
   margin-block-start: 0em;
   margin-block-end: 0em;
 }
@@ -171,12 +186,25 @@ h4 {
   color: #5b5b5b;
 }
 
+h6 {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-variant: normal;
+  font-weight: 100;
+  line-height: 25px;
+  font-style: normal;
+  font-weight: 10;
+  font-size: 3rem;
+  margin-block-start: 0px;
+  margin-block-end: 0px;
+}
+
 #rangeCont {
-  padding-top: 20%;
-  transform: rotate(90deg);
+  transform: rotate(270deg);
+
+  width: 8rem;
   position: relative;
-  left: 55%;
-  top: -0.8em;
+  top: 2.7rem;
+  left: -3rem;
 }
 
 input[type="range"] {
@@ -184,48 +212,43 @@ input[type="range"] {
   appearance: none;
   background: transparent;
   cursor: pointer;
-  width: 90%;
+  width: 75%; /* Ensures the range slider adapts to container width */
+  height: 1.5vw; /* Responsive height */
 }
 
-/* Removes default focus */
-input[type="range"]:focus {
-  outline: none;
-}
-
-/******** Chrome, Safari, Opera and Edge Chromium styles ********/
-/* slider track */
+/* Chrome, Safari, Opera and Edge Chromium styles */
 input[type="range"]::-webkit-slider-runnable-track {
   background-color: #4c4c4c97;
   border-radius: 12rem;
-  height: 1rem;
+  height: 1.5vw; /* Responsive height */
 }
 
 /* slider thumb */
 input[type="range"]::-webkit-slider-thumb {
-  -webkit-appearance: none; /* Override default look */
+  -webkit-appearance: none;
   appearance: none;
-  margin-top: 3.5px; /* Centers thumb on the track */
+  margin-top: 0.12rem;
   background-color: #ffffff;
   border-radius: 0.5rem;
-  height: 0.7rem;
-  width: 50%;
+  height: 1vw; /* Responsive thumb height */
+  width: 7vw; /* Responsive thumb width */
 }
 
-/*********** Firefox styles ***********/
-/* slider track */
 input[type="range"]::-moz-range-track {
   background-color: #4c4c4c97;
   border-radius: 12rem;
-  height: 0.25rem;
+  height: 1.5vw; /* Responsive height */
+}
+#rangeOpt {
+  width: 20%;
 }
 
-/* slider thumb */
 input[type="range"]::-moz-range-thumb {
   background-color: #ffffff;
-  border: none; /*Removes extra border that FF applies*/
+  border: none;
   border-radius: 0.5rem;
-  height: 0.5rem;
-  width: 50%;
+  height: 2vw; /* Responsive thumb height */
+  width: 2vw; /* Responsive thumb width */
 }
 
 .carousel-container {
@@ -307,12 +330,13 @@ input[type="range"]::-moz-range-thumb {
 .toggle-container {
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 1em; /* Adjusted gap for smaller screens */
 }
 
 .toggle-switch {
   display: flex;
   align-items: center;
+  justify-content: center;
 }
 
 .toggle-switch input {
@@ -321,8 +345,8 @@ input[type="range"]::-moz-range-thumb {
 
 .toggle-switch .slider {
   position: relative;
-  width: 40px;
-  height: 20px;
+  width: 4vw; /* Responsive width */
+  height: 2vw; /* Responsive height */
   background-color: #4c4c4c97;
   border-radius: 25px;
   transition: 0.3s;
@@ -334,8 +358,8 @@ input[type="range"]::-moz-range-thumb {
   position: absolute;
   top: 3px;
   left: 3px;
-  width: 15px;
-  height: 15px;
+  width: 1.5vw; /* Responsive width */
+  height: 1.5vw; /* Responsive height */
   background-color: rgb(255, 255, 255);
   border-radius: 50%;
   transition: 0.3s;
@@ -346,12 +370,12 @@ input[type="range"]::-moz-range-thumb {
 }
 
 .toggle-switch input:checked + .slider:before {
-  transform: translateX(19px);
+  transform: translateX(120%); /* Moves the thumb to the right */
 }
 
 .toggle-switch .label {
   margin-left: 10px;
-  font-size: 16px;
+  font-size: 1em; /* Responsive font size */
 }
 
 .innerWindowCont {
