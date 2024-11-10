@@ -21,7 +21,7 @@
       <div class="two-buttons-container">
         <div class="button-container" id="randomizeCheck">
           <div class="innerWindowCont">
-            <h3>Randomize</h3>
+            <h3>Randomizer</h3>
             <div class="toggle-container">
               <label class="toggle-switch">
                 <input type="checkbox" id="toggle7" />
@@ -43,7 +43,7 @@
         </div>
         <div class="button-container" id="createWindow3Btn">
           <div class="innerWindowCont">
-            <h3>Air Conditioner</h3>
+            <h3>AirCon</h3>
             <div class="toggle-container">
               <label class="toggle-switch">
                 <input type="checkbox" id="toggle3" />
@@ -81,7 +81,7 @@
       <div>
         <div id="headerCont">
           <div><h4>Window</h4></div>
-          <div id="headerText"><h1>Air Conditioner</h1></div>
+          <div id="headerText"><h1>AirCon</h1></div>
         </div>
 
         <div class="carousel-container" id="carousel-1">
@@ -124,7 +124,7 @@
           <div><h4>Window</h4></div>
           <div id="headerText"><h1>Openness</h1></div>
         </div>
-        <div id="rangeCont"><input type="range" /></div>
+        <div id="rangeCont"><input type="range" min="20" max="80" /></div>
       </div>
     </div>
 
@@ -154,14 +154,20 @@
       <div id="buttonParent">
         <div id="headerCont">
           <div><h4>Window</h4></div>
-          <div id="headerText"><h1>Randomize</h1></div>
+          <div id="headerText"><h1>Randomizer</h1></div>
+        </div>
+        <div id="circleCont">
+          <svg
+            id="svgCanvas"
+            xmlns="http://www.w3.org/2000/svg"
+            class="dacircles"
+          >
+            <circle cx="100" cy="100" r="90" class="outer-circle" />
+            <circle cx="100" cy="100" r="60" class="guideline-circle" />
+            <circle cx="40" cy="100" r="12" class="inner-circle" />
+          </svg>
         </div>
       </div>
-      <svg id="svgCanvas" xmlns="http://www.w3.org/2000/svg" class="dacircles">
-        <circle cx="100" cy="100" r="90" class="outer-circle" />
-        <circle cx="100" cy="100" r="60" class="guideline-circle" />
-        <circle cx="40" cy="100" r="12" class="inner-circle" />
-      </svg>
     </div>
 
     <script>

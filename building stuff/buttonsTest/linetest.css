@@ -44,13 +44,13 @@ html {
 #window7 {
   background-color: rgba(90, 90, 90, 0.2);
   border: 0.5px solid #292929;
-  padding: 1em;
+  padding: 0.5em;
   color: #ffffff;
 }
 
 #window2 {
-  height: 15rem;
-  width: 7rem;
+  height: 12rem;
+  width: 5rem;
 }
 
 #window3 {
@@ -64,7 +64,7 @@ html {
 }
 
 #window5 {
-  height: 5rem; /* Increased height for extra buttons */
+  height: 6rem; /* Increased height for extra buttons */
   width: 7rem; /* Increased width for extra buttons */
 }
 
@@ -74,8 +74,8 @@ html {
 }
 
 #window7 {
-  height: 12rem; /* Increased height for extra buttons */
-  width: 9rem; /* Increased width for extra buttons */
+  height: 10rem; /* Increased height for extra buttons */
+  width: 7rem; /* Increased width for extra buttons */
 }
 
 #window1:hover {
@@ -134,6 +134,10 @@ h1 {
   margin-block-end: 0px;
 }
 
+#circleCont {
+  width: 100%;
+}
+
 h2 {
   font-size: 0.8em;
   text-align: left;
@@ -169,6 +173,10 @@ h4 {
 
 #rangeCont {
   padding-top: 20%;
+  transform: rotate(90deg);
+  position: relative;
+  left: 55%;
+  top: -0.8em;
 }
 
 input[type="range"] {
@@ -176,7 +184,7 @@ input[type="range"] {
   appearance: none;
   background: transparent;
   cursor: pointer;
-  width: 100%;
+  width: 90%;
 }
 
 /* Removes default focus */
@@ -187,26 +195,26 @@ input[type="range"]:focus {
 /******** Chrome, Safari, Opera and Edge Chromium styles ********/
 /* slider track */
 input[type="range"]::-webkit-slider-runnable-track {
-  background-color: #ffffff;
+  background-color: #4c4c4c97;
   border-radius: 12rem;
-  height: 0.5rem;
+  height: 1rem;
 }
 
 /* slider thumb */
 input[type="range"]::-webkit-slider-thumb {
   -webkit-appearance: none; /* Override default look */
   appearance: none;
-  margin-top: -4px; /* Centers thumb on the track */
+  margin-top: 3.5px; /* Centers thumb on the track */
   background-color: #ffffff;
   border-radius: 0.5rem;
-  height: 1rem;
+  height: 0.7rem;
   width: 50%;
 }
 
 /*********** Firefox styles ***********/
 /* slider track */
 input[type="range"]::-moz-range-track {
-  background-color: #ffffff;
+  background-color: #4c4c4c97;
   border-radius: 12rem;
   height: 0.25rem;
 }
@@ -313,8 +321,8 @@ input[type="range"]::-moz-range-thumb {
 
 .toggle-switch .slider {
   position: relative;
-  width: 50px;
-  height: 25px;
+  width: 40px;
+  height: 20px;
   background-color: #4c4c4c97;
   border-radius: 25px;
   transition: 0.3s;
@@ -324,10 +332,10 @@ input[type="range"]::-moz-range-thumb {
 .toggle-switch .slider:before {
   content: "";
   position: absolute;
-  top: 4px;
+  top: 3px;
   left: 3px;
-  width: 18px;
-  height: 18px;
+  width: 15px;
+  height: 15px;
   background-color: rgb(255, 255, 255);
   border-radius: 50%;
   transition: 0.3s;
@@ -338,7 +346,7 @@ input[type="range"]::-moz-range-thumb {
 }
 
 .toggle-switch input:checked + .slider:before {
-  transform: translateX(25px);
+  transform: translateX(19px);
 }
 
 .toggle-switch .label {
@@ -353,6 +361,8 @@ input[type="range"]::-moz-range-thumb {
 
 #svgCanvas {
   position: relative;
+  left: -28px;
+  top: -10px;
   z-index: 1000;
 }
 
@@ -363,6 +373,7 @@ input[type="range"]::-moz-range-thumb {
   transform-origin: center center;
   transition: transform 0.1s ease-out;
   z-index: 1000;
+  scale: 0.7;
 }
 .outer-circle {
   fill: #ffffff;
