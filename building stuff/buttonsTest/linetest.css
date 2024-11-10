@@ -24,7 +24,7 @@ html {
   cursor: pointer;
   padding: 10px;
   -webkit-backdrop-filter: blur(
-    20px
+    15px
   ); /* Add this line first, it fixes blur for Safari*/
   backdrop-filter: blur(20px);
 }
