@@ -472,7 +472,8 @@ class FirstPersonCameraDemo {
         path: "model/calatrava_la_vieja_ciudad_real_spain.glb",
         position: new THREE.Vector3(1, -90, 1),
         scale: new THREE.Vector3(2.5, 2.5, 2.5),
-        audio: "audio/a-quiet-seaside-seagulls-distant-17681.mp3",
+        audio:
+          "audio/sonido-ambiente-desierto-ambience-sound-desert-217122.mp3",
         //"Port de Penn-Lann 2020 - Commune de Billiers" (https://skfb.ly/6SU9J) by dronemapping is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).
       },
 
