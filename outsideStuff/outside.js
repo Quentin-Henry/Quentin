@@ -17,6 +17,8 @@ function clamp(x, a, b) {
 class InputController {
   constructor(target) {
     this.target_ = target || document;
+    this.isHoveringD = false; // Track if the mouse is over a 'D' element
+    this.freezeFrame = false; // Condition to freeze frame movement
     this.initialize_();
   }
 
@@ -32,6 +34,7 @@ class InputController {
     this.previous_ = null;
     this.keys_ = {};
     this.previousKeys_ = {};
+
     this.target_.addEventListener(
       "mousedown",
       (e) => this.onMouseDown_(e),
@@ -45,9 +48,40 @@ class InputController {
     this.target_.addEventListener("mouseup", (e) => this.onMouseUp_(e), false);
     this.target_.addEventListener("keydown", (e) => this.onKeyDown_(e), false);
     this.target_.addEventListener("keyup", (e) => this.onKeyUp_(e), false);
+
+    // Add listeners for hover detection
+    this.target_.addEventListener(
+      "mouseover",
+      (e) => this.onMouseOver_(e),
+      false
+    );
+    this.target_.addEventListener(
+      "mouseout",
+      (e) => this.onMouseOut_(e),
+      false
+    );
+  }
+
+  // Detect if the mouse is over an element with class 'D'
+  onMouseOver_(e) {
+    if (e.target && e.target.classList.contains("D")) {
+      this.isHoveringD = true;
+      this.freezeFrame = true; // Freeze the frame when hovering over 'D'
+    }
+  }
+
+  // Reset hover state and unfreeze frame when the mouse leaves the 'D' element
+  onMouseOut_(e) {
+    if (e.target && e.target.classList.contains("D")) {
+      this.isHoveringD = false;
+      this.freezeFrame = false; // Unfreeze the frame when leaving 'D'
+    }
   }
 
   onMouseMove_(e) {
+    // Only update mouse movement if not hovering over a 'D' element
+    if (this.isHoveringD) return;
+
     this.current_.mouseX = e.pageX - window.innerWidth / 2;
     this.current_.mouseY = e.pageY - window.innerHeight / 2;
 
@@ -107,10 +141,23 @@ class InputController {
 
   update(_) {
     if (this.previous_ !== null) {
-      this.current_.mouseXDelta = this.current_.mouseX - this.previous_.mouseX;
-      this.current_.mouseYDelta = this.current_.mouseY - this.previous_.mouseY;
+      if (!this.isHoveringD) {
+        // Only update if not hovering over 'D'
+        this.current_.mouseXDelta =
+          this.current_.mouseX - this.previous_.mouseX;
+        this.current_.mouseYDelta =
+          this.current_.mouseY - this.previous_.mouseY;
 
-      this.previous_ = { ...this.current_ };
+        this.previous_ = { ...this.current_ };
+      }
+
+      // Optionally, freeze any frame or object that follows the mouse
+      if (this.freezeFrame) {
+        // Freeze any positional changes tied to mouse
+        // You can store the last known mouse position and use that to prevent movement
+        this.current_.mouseXDelta = 0;
+        this.current_.mouseYDelta = 0;
+      }
     }
   }
 }
@@ -420,20 +467,24 @@ class FirstPersonCameraDemo {
         position: new THREE.Vector3(0, -4, 0),
         scale: new THREE.Vector3(1, 1, 1),
         audio: "audio/forest.mp3",
-        //"Rocks with snow" (https://skfb.ly/oOquD) by Lassi Kaukonen is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).
+        credit: "Rock terrain with melting snow by Lassi Kaukonen",
+        AudioCredit: "winter-windy-forest.mp3 by Jonas_Jocys",
       },
       {
         path: "model/i_ergidali_i_hovi.glb",
         position: new THREE.Vector3(0, -4, 0),
         scale: new THREE.Vector3(2, 2, 2),
         audio: "audio/river-in-the-forest.mp3",
+        credit: "Í Ergidali í Hovi by Helgi D. Michelsen",
+        AudioCredit: "river-in-the-forest.mp3 by artembirdman",
       },
       {
         path: "model/eglise_saint-alain_le_vieux_lavaur_81.glb",
         position: new THREE.Vector3(1, -4, 1),
         scale: new THREE.Vector3(1, 1, 1),
         audio: "audio/ambience_farm.mp3",
-        //"Eglise Saint-Alain le vieux, Lavaur (81)" (https://skfb.ly/6U6uL) by Archéomatique is licensed under Creative Commons Attribution-NonCommercial (http://creativecommons.org/licenses/by-nc/4.0/).
+        credit: "Eglise Saint-Alain le vieux by Archéomatique",
+        AudioCredit: "ambience_farm_04.mp3 by BenDrain",
       },
 
       {
@@ -441,7 +492,8 @@ class FirstPersonCameraDemo {
         position: new THREE.Vector3(1, -10, 1),
         scale: new THREE.Vector3(1, 1, 1),
         audio: "audio/ambience_farm.mp3",
-        //"Eglise Saint-Alain le vieux, Lavaur (81)" (https://skfb.ly/6U6uL) by Archéomatique is licensed under Creative Commons Attribution-NonCommercial (http://creativecommons.org/licenses/by-nc/4.0/).
+        credit: "Verifica Intersezione Fognatura Alveo by Giorgio Scioldo ",
+        AudioCredit: "ambience_farm_04.mp3 by BenDrain",
       },
 
       {
@@ -450,7 +502,9 @@ class FirstPersonCameraDemo {
         scale: new THREE.Vector3(1, 1, 1),
         audio:
           "audio/ambience-a-peaceful-afternoon-disrupted-by-noisy-aircraft-250100.mp3",
-        //"Global manor July 23rd 2024" (https://skfb.ly/p7FZC) by mrwrightphoto is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).
+        credit: "Global manor July 23rd 2024 by mrwrightphoto",
+        AudioCredit:
+          "ambience-a-peaceful-afternoon-disrupted-by-noisy-aircraft-250100.mp3 by Fronbondi_Skegs",
       },
       {
         path: "model/2178_gordon_crossing_gallatin_tn.glb",
@@ -458,7 +512,9 @@ class FirstPersonCameraDemo {
         scale: new THREE.Vector3(2, 2, 2),
         audio:
           "audio/greenfield-birds-suburban-sounds-in-the-background-16683.mp3",
-        //"2178 Gordon Crossing Gallatin TN" (https://skfb.ly/pnPAs) by mrwrightphoto is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).
+        credit: "2178 Gordon Crossing Gallatin TN by mrwrightphoto",
+        AudioCredit:
+          "greenfield-birds-suburban-sounds-in-the-background-16683.mp3 by originalmaja",
       },
 
       {
@@ -466,7 +522,8 @@ class FirstPersonCameraDemo {
         position: new THREE.Vector3(1, -4, 1),
         scale: new THREE.Vector3(2, 2, 2),
         audio: "audio/a-quiet-seaside-seagulls-distant-17681.mp3",
-        //"Port de Penn-Lann 2020 - Commune de Billiers" (https://skfb.ly/6SU9J) by dronemapping is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).
+        credit: "Port de Penn-Lann by dronemapping",
+        AudioCredit: "a-quiet-seaside-seagulls-distant-17681.mp3 by N/A",
       },
       {
         path: "model/calatrava_la_vieja_ciudad_real_spain.glb",
@@ -474,7 +531,10 @@ class FirstPersonCameraDemo {
         scale: new THREE.Vector3(2.5, 2.5, 2.5),
         audio:
           "audio/sonido-ambiente-desierto-ambience-sound-desert-217122.mp3",
-        //"Port de Penn-Lann 2020 - Commune de Billiers" (https://skfb.ly/6SU9J) by dronemapping is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).
+        credit:
+          "Calatrava La Vieja (Ciudad Real, Spain) by Global Digital Heritage and GDH-Afrika ",
+        AudioCredit:
+          "sonido-ambiente-desierto-ambience-sound-desert-217122.mp3 by EstudioCoati",
       },
 
       // Add more model configurations as needed
@@ -533,6 +593,23 @@ class FirstPersonCameraDemo {
       // Set the position and scale from the model configuration
       model.position.copy(randomModelConfig.position);
       model.scale.copy(randomModelConfig.scale);
+
+      // Display the credit in the #worldInfoText div
+      const creditDivWorld = document.getElementById("wordlInfoTextWorld");
+      const creditDivAudio = document.getElementById("wordlInfoTextAudio");
+
+      console.log(creditDivWorld);
+      console.log(creditDivAudio);
+
+      if (creditDivWorld) {
+        creditDivWorld.innerHTML = `${randomModelConfig.credit}`;
+      }
+
+      console.log(`${randomModelConfig.credit}`);
+      console.log(`${randomModelConfig.AudioCredit}`);
+      if (creditDivAudio) {
+        creditDivAudio.innerHTML = `${randomModelConfig.AudioCredit}`;
+      }
     });
 
     // Initialize this.objects_ as an empty array

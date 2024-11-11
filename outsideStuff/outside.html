@@ -11,10 +11,44 @@
     <div id="intro">
       <img id="diagram" src="icon/diagram-01.png" />
     </div>
-    <a href="./outside.html"
-      ><div id="reloadButton"><img id="icon" src="./icon/exit@2x.png" /></div
-    ></a>
+
+    <!-- Button to trigger the bottom drawer -->
+    <button id="openMenuBtn" class="open-btn D"></button>
+
+    <!-- Bottom Drawer Menu -->
+    <div id="bottomDrawer" class="drawer D">
+      <div class="drawer-content D">
+        <button class="drawer-item drawerButton D" id="settingsButton">Settings</a>
+
+        <button class="drawer-item drawerButton D" id="controlsButton">Controls</a>
+        <button class="drawer-item drawerButton D" id="worldInfoButton">
+          World Info
+        </button>
+        <a href="./outside.html" class="drawer-item drawerButton D" id="newWorldButton">New World</a>
+        <button id="closeMenuBtn" class="close-btn one D"></button>
+      </div>
+    </div>
+
+    <div class="subDrwawer D" id="worldInfo">
+      <div class="subDrwawerContent D">
+      <div class="D"><p class="D">World: <span id="wordlInfoTextWorld" class="D"> N/A</span></p></div>
+      <div class="D"><p class="D">Audio: <span id="wordlInfoTextAudio" class="D">  N/A</span></p></div>
+    </div>
+      <button id="worldInfocloseMenuBtn" class="close-btn two D"></button>
+    </div>
+
+    <div class="subDrwawer D" id="controls">
+      <img id="diagram" class="D" src="icon/diagram-02.png" />
+
+      <button id="controlscloseMenuBtn" class="close-btn three D"></button>
+    </div>
+
+    <div class="subDrwawer D" id="settings">
+      <div class="subDrwawerContent D"><p>Work in Progress</p></div>
+      <button id="settingscloseMenuBtn" class="close-btn four D"></button>
+    </div>
 
     <script src="./outside.js" type="module"></script>
+    <script src="./outsidePage.js"></script>
   </body>
 </html>

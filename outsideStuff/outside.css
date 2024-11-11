@@ -37,19 +37,169 @@ body {
 }
 
 #reloadButton {
-  width: 5vw;
-  height: 5vw;
   position: fixed;
-  right: 8.5vw;
-  top: 2vw;
-  opacity: 0.3;
-}
-
-#reloadButton:hover {
-  opacity: 1;
-  transition: 0.3;
+  top: 20px;
+  right: 20px;
 }
 
 #icon {
-  width: 100%;
+  width: 30px;
+  height: 30px;
+}
+
+/* Button to open the bottom drawer */
+.open-btn {
+  position: fixed;
+  bottom: -10px;
+  left: 50%;
+  border: 0.5px solid #ffffff70;
+  transform: translateX(-50%);
+  padding: 2vw 6vw;
+  background-color: rgba(255, 255, 255, 0.052);
+  -webkit-backdrop-filter: blur(
+    100px
+  ); /* Add this line first, it fixes blur for Safari*/
+
+  backdrop-filter: blur(100px);
+  color: white;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.open-btn:hover {
+  background-color: #ffffff;
+  transition: 0.3s;
+}
+
+/* Bottom Drawer (initially hidden) */
+.drawer {
+  position: fixed;
+  bottom: -100%; /* Hidden below the screen initially */
+  left: 0;
+  right: 0;
+  height: 40%;
+  background-color: rgba(255, 255, 255, 0.052);
+  -webkit-backdrop-filter: blur(
+    100px
+  ); /* Add this line first, it fixes blur for Safari*/
+
+  backdrop-filter: blur(100px);
+  color: white;
+  overflow-y: auto;
+  transition: bottom 0.5s ease-in-out;
+  z-index: 6;
+}
+
+.subDrwawer {
+  position: fixed;
+  bottom: -100%; /* Hidden below the screen initially */
+  left: 0;
+  right: 0;
+  background-color: rgba(255, 255, 255, 0.052);
+  -webkit-backdrop-filter: blur(
+    100px
+  ); /* Add this line first, it fixes blur for Safari*/
+
+  backdrop-filter: blur(100px);
+  color: white;
+  overflow-y: auto;
+  transition: bottom 0.5s ease-in-out;
+}
+
+#worldInfo {
+  height: 60%;
+
+  z-index: 5;
+}
+
+.subDrwawerContent {
+  padding: 10%;
+}
+
+#controls {
+  height: 80%;
+  z-index: 4;
+}
+
+#settings {
+  height: 90%;
+  z-index: 3;
+}
+
+/* Drawer content */
+.drawer-content {
+  padding-top: 7%;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+}
+
+.drawer-item {
+  display: block;
+  color: white;
+  text-decoration: none;
+  padding: 10px;
+  margin: 5px 0;
+  border-radius: 10px;
+}
+
+.drawerButton {
+  border: 1px solid #e9e9e970;
+  padding: 2vw 6vw;
+  background-color: rgba(255, 255, 255, 0);
+
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.drawer-item:hover {
+  background-color: #ffffff;
+  transition: 0.3s;
+}
+
+#newWorldButton {
+  background-color: rgba(207, 207, 207, 0.133);
+}
+
+#newWorldButton:hover {
+  background-color: #ffffff;
+  transition: 0.3s;
+}
+
+/* Close button */
+.close-btn {
+  position: fixed;
+  left: 50%;
+  border: 0.5px solid #e9e9e970;
+  transform: translateX(-50%);
+  padding: 2vw 6vw;
+  background-color: rgba(255, 255, 255, 0.886);
+  -webkit-backdrop-filter: blur(
+    100px
+  ); /* Add this line first, it fixes blur for Safari*/
+
+  backdrop-filter: blur(100px);
+  color: white;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.one {
+  bottom: -10px;
+}
+
+.two {
+  bottom: -10px;
+}
+
+.three {
+  bottom: -10px;
+}
+
+.four {
+  bottom: -10px;
+}
+
+.close-btn:hover {
+  background-color: #ffffff;
 }
