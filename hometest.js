@@ -21,6 +21,35 @@ function changeSpan(span) {
   }, randomDuration);
 }
 
+// Select all menu items
+const menuItems = document.querySelectorAll(".menu");
+
+// Add event listeners to each menu item
+menuItems.forEach((item) => {
+  item.addEventListener("mouseenter", () => {
+    // Hide all videos
+    document.querySelectorAll(".menuhover").forEach((video) => {
+      video.style.display = "none";
+    });
+
+    // Get the corresponding video element and display it
+    const videoId = item.id + "MenuHover"; // Build the corresponding video ID
+    const videoElement = document.getElementById(videoId);
+    if (videoElement) {
+      videoElement.style.display = "block"; // Show the video
+    }
+  });
+
+  // Optional: Hide video when mouse leaves the menu item
+  item.addEventListener("mouseleave", () => {
+    const videoId = item.id + "MenuHover";
+    const videoElement = document.getElementById(videoId);
+    if (videoElement) {
+      videoElement.style.display = "none"; // Hide the video when hover ends
+    }
+  });
+});
+
 // Function to start random changes for each span
 function startRandomChanges() {
   spans.forEach((span) => {

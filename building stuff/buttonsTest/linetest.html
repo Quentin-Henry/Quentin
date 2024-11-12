@@ -17,60 +17,61 @@
           <h1>Window</h1>
         </div>
       </div>
-
-      <div class="two-buttons-container">
-        <div class="button-container" id="randomizeCheck">
-          <div class="innerWindowCont">
-            <h3>Randomizer</h3>
-            <div class="toggle-container">
-              <label class="toggle-switch">
-                <input type="checkbox" id="toggle7" />
-                <span class="slider"></span>
-              </label>
+      <div id-buttonParent>
+        <div class="two-buttons-container">
+          <div class="button-container" id="randomizeCheck">
+            <div class="innerWindowCont">
+              <h3>Randomizer</h3>
+              <div class="toggle-container">
+                <label class="toggle-switch">
+                  <input type="checkbox" id="toggle7" />
+                  <span class="slider"></span>
+                </label>
+              </div>
             </div>
           </div>
-        </div>
-        <div class="button-container" id="createWindow5Btn">
-          <div class="innerWindowCont">
-            <h3>Openness</h3>
-            <div class="toggle-container">
-              <label class="toggle-switch">
-                <input type="checkbox" id="toggle1" />
-                <span class="slider"></span>
-              </label>
+          <div class="button-container" id="createWindow5Btn">
+            <div class="innerWindowCont">
+              <h3>Openness</h3>
+              <div class="toggle-container">
+                <label class="toggle-switch">
+                  <input type="checkbox" id="toggle1" />
+                  <span class="slider"></span>
+                </label>
+              </div>
             </div>
           </div>
-        </div>
-        <div class="button-container" id="createWindow3Btn">
-          <div class="innerWindowCont">
-            <h3>AirCon</h3>
-            <div class="toggle-container">
-              <label class="toggle-switch">
-                <input type="checkbox" id="toggle3" />
-                <span class="slider"></span>
-              </label>
+          <div class="button-container" id="createWindow3Btn">
+            <div class="innerWindowCont">
+              <h3>AirCon</h3>
+              <div class="toggle-container">
+                <label class="toggle-switch">
+                  <input type="checkbox" id="toggle3" />
+                  <span class="slider"></span>
+                </label>
+              </div>
             </div>
           </div>
-        </div>
-        <div class="button-container" id="createWindow4Btn">
-          <div class="innerWindowCont">
-            <h3>Blinds</h3>
-            <div class="toggle-container">
-              <label class="toggle-switch">
-                <input type="checkbox" id="toggle4" />
-                <span class="slider"></span>
-              </label>
+          <div class="button-container" id="createWindow4Btn">
+            <div class="innerWindowCont">
+              <h3>Blinds</h3>
+              <div class="toggle-container">
+                <label class="toggle-switch">
+                  <input type="checkbox" id="toggle4" />
+                  <span class="slider"></span>
+                </label>
+              </div>
             </div>
           </div>
-        </div>
-        <div class="button-container" id="createWindow6Btn">
-          <div class="innerWindowCont">
-            <h3>Items</h3>
-            <div class="toggle-container">
-              <label class="toggle-switch">
-                <input type="checkbox" id="toggle2" />
-                <span class="slider"></span>
-              </label>
+          <div class="button-container" id="createWindow6Btn">
+            <div class="innerWindowCont">
+              <h3>Items</h3>
+              <div class="toggle-container">
+                <label class="toggle-switch">
+                  <input type="checkbox" id="toggle2" />
+                  <span class="slider"></span>
+                </label>
+              </div>
             </div>
           </div>
         </div>
@@ -170,6 +171,7 @@
             id="svgCanvas"
             xmlns="http://www.w3.org/2000/svg"
             class="dacircles"
+            viewBox="0 0 200 200"
           >
             <circle cx="100" cy="100" r="90" class="outer-circle" />
             <circle cx="100" cy="100" r="60" class="guideline-circle" />
@@ -200,7 +202,7 @@
 
         var slider = document.getElementById("myRange");
         var output = document.getElementById("rangeValueContText");
-        output.innerHTML = slider.value;
+        output.innerHTML = slider.value + "%";
         slider.oninput = function () {
           output.innerHTML = this.value + "%";
         };

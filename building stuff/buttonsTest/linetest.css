@@ -64,8 +64,8 @@ html {
 }
 
 #window5 {
-  height: 6.5rem; /* Increased height for extra buttons */
-  width: 7rem; /* Increased width for extra buttons */
+  height: 7rem; /* Increased height for extra buttons */
+  width: 8rem; /* Increased width for extra buttons */
 }
 
 #window6 {
@@ -136,6 +136,7 @@ h1 {
 
 #circleCont {
   width: 100%;
+  height: 100%;
 }
 
 h2 {
@@ -147,6 +148,7 @@ h2 {
   display: flex;
   align-items: flex-start;
   flex-direction: column;
+  padding-bottom: 0.75rem;
 }
 
 #buttonParent {
@@ -155,9 +157,12 @@ h2 {
   height: 100%;
 }
 
+#rangeValueCont {
+  height: 30%;
+}
 #opt {
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
   flex-direction: row-reverse;
   height: 100%;
 }
@@ -166,7 +171,7 @@ h2 {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  margin-bottom: 20%;
+  margin-bottom: 0.3rem;
 }
 
 h3 {
@@ -180,9 +185,9 @@ h3 {
 h4 {
   font-style: normal;
   font-weight: 300;
-  font-size: 0.5em;
-  margin-block-start: 0em;
-  margin-block-end: 0em;
+  font-size: 0.5rem;
+  margin-block-start: -0.2rem;
+  margin-block-end: -0.6rem;
   color: #5b5b5b;
 }
 
@@ -345,8 +350,8 @@ input[type="range"]::-moz-range-thumb {
 
 .toggle-switch .slider {
   position: relative;
-  width: 4vw; /* Responsive width */
-  height: 2vw; /* Responsive height */
+  width: 3vw;
+  height: 1.5vw;
   background-color: #4c4c4c97;
   border-radius: 25px;
   transition: 0.3s;
@@ -356,10 +361,10 @@ input[type="range"]::-moz-range-thumb {
 .toggle-switch .slider:before {
   content: "";
   position: absolute;
-  top: 3px;
-  left: 3px;
-  width: 1.5vw; /* Responsive width */
-  height: 1.5vw; /* Responsive height */
+  top: 1.7px;
+  left: 1.7px;
+  width: 1.2vw; /* Responsive width */
+  height: 1.2vw; /* Responsive height */
   background-color: rgb(255, 255, 255);
   border-radius: 50%;
   transition: 0.3s;
@@ -370,7 +375,7 @@ input[type="range"]::-moz-range-thumb {
 }
 
 .toggle-switch input:checked + .slider:before {
-  transform: translateX(120%); /* Moves the thumb to the right */
+  transform: translateX(125%); /* Moves the thumb to the right */
 }
 
 .toggle-switch .label {
@@ -381,23 +386,18 @@ input[type="range"]::-moz-range-thumb {
 .innerWindowCont {
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 
 #svgCanvas {
-  position: relative;
-  left: -28px;
-  top: -10px;
   z-index: 1000;
 }
 
 .dacircles {
-  width: 200px;
-  height: 200px;
   cursor: pointer;
   transform-origin: center center;
   transition: transform 0.1s ease-out;
   z-index: 1000;
-  scale: 0.7;
 }
 .outer-circle {
   fill: #ffffff;

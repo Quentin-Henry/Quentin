@@ -23,6 +23,7 @@ document.addEventListener("DOMContentLoaded", () => {
     six: "tower of babel",
     seven: "Going Outside",
   };
+
   const audioEmbed = document.querySelector("#embed2"); // Adjust the selector as necessary
   const embedContainer = document.querySelector("#embedContainer");
   console.log(audioEmbed);

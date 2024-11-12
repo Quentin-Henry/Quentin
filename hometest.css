@@ -163,6 +163,27 @@ canvas {
   height: 100vh;
 }
 
+/* Initially hide all videos */
+.menuhover {
+  display: none;
+  position: fixed;
+  top: -1vh;
+  width: 100vw;
+  transform: rotate(-3deg);
+}
+
+/* Make the menu items look clickable */
+.menu {
+  cursor: pointer;
+}
+
+/* Optional: Add some styling to the hover effect */
+.menu:hover {
+  color: #ffffff; /* Change color when hovering over menu item */
+}
+
+/* Show the corresponding video when hovering over menu items using JS */
+
 img {
   max-width: 100%;
   max-height: 100%;
