@@ -5,7 +5,7 @@ html {
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  padding-left: 5%;
+  gap: 1vw;
   background-color: #000000;
   font-family: Arial, Helvetica, sans-serif;
   user-select: none;
@@ -17,7 +17,6 @@ html {
   color: black;
   height: 12em;
   width: 15em;
-  position: absolute;
   text-align: center;
   line-height: 30px;
   cursor: pointer;
@@ -27,7 +26,6 @@ html {
   ); /* Add this line first, it fixes blur for Safari*/
   backdrop-filter: blur(20px);
 }
-
 #window1 {
   border: 1px solid #ffffff;
   height: 10rem;
@@ -221,14 +219,14 @@ input[type="range"] {
   background: transparent;
   cursor: pointer;
   width: 75%; /* Ensures the range slider adapts to container width */
-  height: 1rem; /* Responsive height */
+  height: 1.5vw; /* Responsive height */
 }
 
 /* Chrome, Safari, Opera and Edge Chromium styles */
 input[type="range"]::-webkit-slider-runnable-track {
   background-color: #4c4c4c97;
   border-radius: 12rem;
-  height: 1rem; /* Responsive height */
+  height: 1.5vw; /* Responsive height */
 }
 
 /* slider thumb */
@@ -238,8 +236,8 @@ input[type="range"]::-webkit-slider-thumb {
   margin-top: 0.12rem;
   background-color: #ffffff;
   border-radius: 0.5rem;
-  height: 0.7rem; /* Responsive thumb height */
-  width: 3rem; /* Responsive thumb width */
+  height: 1vw; /* Responsive thumb height */
+  width: 7vw; /* Responsive thumb width */
 }
 
 input[type="range"]::-moz-range-track {
@@ -257,6 +255,29 @@ input[type="range"]::-moz-range-thumb {
   border-radius: 0.5rem;
   height: 2vw; /* Responsive thumb height */
   width: 2vw; /* Responsive thumb width */
+}
+
+.carousel-container {
+  padding-top: 10%;
+  position: relative;
+  width: 50%;
+  margin: auto;
+  overflow: hidden;
+}
+
+.carousel {
+  display: flex;
+  transition: transform 0.5s ease;
+}
+
+.carousel-images {
+  display: flex;
+}
+
+.carousel-image {
+  width: 100%;
+  height: auto;
+  display: block;
 }
 
 .but {
@@ -293,7 +314,7 @@ input[type="range"]::-moz-range-thumb {
   width: 100%;
   background-color: #4c4c4c97;
   border-radius: 12rem;
-  height: 1rem; /* Responsive height */
+  height: 1.5vw; /* Responsive height */
 }
 
 #progressSilder {
@@ -356,8 +377,8 @@ input[type="range"]::-moz-range-thumb {
 
 .toggle-switch .slider {
   position: relative;
-  width: 2rem;
-  height: 1rem;
+  width: 3vw;
+  height: 1.5vw;
   background-color: #4c4c4c97;
   border-radius: 25px;
   transition: 0.3s;
@@ -367,10 +388,10 @@ input[type="range"]::-moz-range-thumb {
 .toggle-switch .slider:before {
   content: "";
   position: absolute;
-  top: 0.13rem;
-  left: 0.15rem;
-  width: 0.75rem; /* Responsive width */
-  height: 0.75rem; /* Responsive height */
+  top: 1.7px;
+  left: 1.7px;
+  width: 1.2vw; /* Responsive width */
+  height: 1.2vw; /* Responsive height */
   background-color: rgb(255, 255, 255);
   border-radius: 50%;
   transition: 0.3s;

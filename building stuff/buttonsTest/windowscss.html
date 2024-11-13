@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>navigation</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jsPlumb/2.15.0/js/jsplumb.min.js"></script>
+    <link rel="stylesheet" href="linetestMOCK.css" />
+  </head>
+  <body>
+    <div class="window" id="window1">Window 1 (Icon)</div>
+
+    <div class="window" id="window2">
+      <div id="headerCont">
+        <div id="headerText">
+          <h1>Window</h1>
+        </div>
+      </div>
+      <div class="buttonParent">
+        <div class="two-buttons-container">
+          <div class="button-container" id="randomizeCheck">
+            <div class="innerWindowCont">
+              <h3>Randomizer</h3>
+              <div class="toggle-container">
+                <label class="toggle-switch">
+                  <input type="checkbox" id="toggle7" />
+                  <span class="slider"></span>
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="button-container" id="createWindow5Btn">
+            <div class="innerWindowCont">
+              <h3>Openness</h3>
+              <div class="toggle-container">
+                <label class="toggle-switch">
+                  <input type="checkbox" id="toggle1" />
+                  <span class="slider"></span>
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="button-container" id="createWindow3Btn">
+            <div class="innerWindowCont">
+              <h3>AirCon</h3>
+              <div class="toggle-container">
+                <label class="toggle-switch">
+                  <input type="checkbox" id="toggle3" />
+                  <span class="slider"></span>
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="button-container" id="createWindow4Btn">
+            <div class="innerWindowCont">
+              <h3>Blinds</h3>
+              <div class="toggle-container">
+                <label class="toggle-switch">
+                  <input type="checkbox" id="toggle4" />
+                  <span class="slider"></span>
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="button-container" id="createWindow6Btn">
+            <div class="innerWindowCont">
+              <h3>Items</h3>
+              <div class="toggle-container">
+                <label class="toggle-switch">
+                  <input type="checkbox" id="toggle2" />
+                  <span class="slider"></span>
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="window" id="window3">
+      <div id="headerCont">
+        <div><h4>Window</h4></div>
+        <div id="headerText"><h1>AirCon</h1></div>
+      </div>
+
+      <div class="buttonParent">
+        <div class="two-buttons-container">
+          <div class="button-container" id="randomizeCheck">
+            <div class="innerWindowCont">
+              <h3>Activate</h3>
+              <div class="toggle-container">
+                <label class="toggle-switch">
+                  <input type="checkbox" id="toggle7" />
+                  <span class="slider"></span>
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="button-container" id="createWindow5Btn">
+            <div class="innerWindowCont">
+              <h3>Rotation</h3>
+              <div class="toggle-container">
+                <label class="toggle-switch">
+                  <input type="checkbox" id="toggle1" />
+                  <span class="slider"></span>
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="button-container" id="createWindow3Btn">
+            <div class="innerWindowCont">
+              <h3>Suports</h3>
+              <div class="toggle-container">
+                <label class="toggle-switch">
+                  <input type="checkbox" id="toggle3" />
+                  <span class="slider"></span>
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="button-container" id="createWindow4Btn">
+            <div class="innerWindowCont">
+              <h3>Location</h3>
+              <div class="toggle-container">
+                <label class="toggle-switch">
+                  <input type="checkbox" id="toggle4" />
+                  <span class="slider"></span>
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="window" id="window4">
+      <div class="buttonParent">
+        <div id="headerCont">
+          <div><h4>Window</h4></div>
+          <div id="headerText"><h1>Blinds</h1></div>
+        </div>
+        <div class="bigtextCont"><h6>Type:A</h6></div>
+      </div>
+    </div>
+
+    <div class="window" id="window5">
+      <div class="buttonParent">
+        <div id="opt">
+          <div id="rangeOpt">
+            <div id="rangeCont">
+              <input id="myRange" type="range" min="10" max="99" />
+            </div>
+          </div>
+          <div class="windownContentCont">
+            <div id="headerCont">
+              <div><h4>Window</h4></div>
+              <div id="headerText"><h1>Openness</h1></div>
+            </div>
+            <div id="rangeValueCont"><h6 id="rangeValueContText">97%</h6></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="window" id="window6">
+      <div>
+        <div id="headerCont">
+          <div><h4>Window</h4></div>
+          <div id="headerText"><h1>Items</h1></div>
+        </div>
+        <div>
+          <div id="progressBarCont">
+            <div>
+              <p><span id="gridProgressText">0</span> of 4</p>
+            </div>
+            <div id="progressBar"><div id="progressSilder"></div></div>
+          </div>
+          <div>
+            <div class="grid-container">
+              <div class="grid-item" id="box-1"></div>
+              <div class="grid-item" id="box-2"></div>
+              <div class="grid-item" id="box-3"></div>
+              <div class="grid-item" id="box-4"></div>
+              <div class="grid-item" id="box-5"></div>
+              <div class="grid-item" id="box-6"></div>
+              <div class="grid-item" id="box-7"></div>
+              <div class="grid-item" id="box-8"></div>
+              <div class="grid-item" id="box-9"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="window" id="window7">
+      <div class="buttonParent">
+        <div id="headerCont">
+          <div><h4>Window</h4></div>
+          <div id="headerText"><h1>Randomizer</h1></div>
+        </div>
+        <div id="circleCont">
+          <svg
+            id="svgCanvas"
+            xmlns="http://www.w3.org/2000/svg"
+            class="dacircles"
+            viewBox="0 0 200 200"
+          >
+            <circle cx="100" cy="100" r="90" class="outer-circle" />
+            <circle cx="100" cy="100" r="60" class="guideline-circle" />
+            <circle cx="40" cy="100" r="12" class="inner-circle" />
+          </svg>
+        </div>
+      </div>
+    </div>
+    <script src="linetestMock.js"></script>
+  </body>
+</html>

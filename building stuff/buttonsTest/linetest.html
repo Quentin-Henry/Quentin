@@ -17,7 +17,7 @@
           <h1>Window</h1>
         </div>
       </div>
-      <div id-buttonParent>
+      <div class="buttonParent">
         <div class="two-buttons-container">
           <div class="button-container" id="randomizeCheck">
             <div class="innerWindowCont">
@@ -79,48 +79,73 @@
     </div>
 
     <div class="window" id="window3" style="display: none">
-      <div>
-        <div id="headerCont">
-          <div><h4>Window</h4></div>
-          <div id="headerText"><h1>AirCon</h1></div>
-        </div>
+      <div id="headerCont">
+        <div><h4>Window</h4></div>
+        <div id="headerText"><h1>AirCon</h1></div>
+      </div>
 
-        <div class="carousel-container" id="carousel-1">
-          <div class="carousel">
-            <div class="carousel-images">
-              <img src="img/AirCon1.png" alt="Image 1" class="carousel-image" />
-              <img src="img/AirCon2.png" alt="Image 2" class="carousel-image" />
-              <img src="img/AirCon3.png" alt="Image 3" class="carousel-image" />
-              <img src="img/AirCon4.png" alt="Image 3" class="carousel-image" />
+      <div class="buttonParent">
+        <div class="two-buttons-container">
+          <div class="button-container" id="randomizeCheck">
+            <div class="innerWindowCont">
+              <h3>Activate</h3>
+              <div class="toggle-container">
+                <label class="toggle-switch">
+                  <input type="checkbox" id="toggle7" />
+                  <span class="slider"></span>
+                </label>
+              </div>
             </div>
           </div>
-          <button
-            id="prevButton"
-            class="prev but"
-            onclick="moveSlide(-1, 'carousel-1')"
-          >
-            &#10094;
-          </button>
-          <button
-            id="nextButton"
-            class="next but"
-            onclick="moveSlide(1, 'carousel-1')"
-          >
-            &#10095;
-          </button>
+          <div class="button-container" id="createWindow5Btn">
+            <div class="innerWindowCont">
+              <h3>Rotation</h3>
+              <div class="toggle-container">
+                <label class="toggle-switch">
+                  <input type="checkbox" id="toggle1" />
+                  <span class="slider"></span>
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="button-container" id="createWindow3Btn">
+            <div class="innerWindowCont">
+              <h3>Supports</h3>
+              <div class="toggle-container">
+                <label class="toggle-switch">
+                  <input type="checkbox" id="toggle3" />
+                  <span class="slider"></span>
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="button-container" id="createWindow4Btn">
+            <div class="innerWindowCont">
+              <h3>Location</h3>
+              <div class="toggle-container">
+                <label class="toggle-switch">
+                  <input type="checkbox" id="toggle4" />
+                  <span class="slider"></span>
+                </label>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
 
     <div class="window" id="window4" style="display: none">
-      <div id="headerCont">
-        <div><h4>Window</h4></div>
-        <div id="headerText"><h1>Blinds</h1></div>
+      <div class="buttonParent">
+        <div id="headerCont">
+          <div><h4>Window</h4></div>
+          <div id="headerText"><h1>Blinds</h1></div>
+        </div>
+        <div class="bigtextCont"><h6>Type:A</h6></div>
       </div>
     </div>
 
     <div class="window" id="window5" style="display: none">
-      <div id="buttonParent">
+      <div class="buttonParent">
         <div id="opt">
           <div id="rangeOpt">
             <div id="rangeCont">
@@ -145,23 +170,31 @@
           <div id="headerText"><h1>Items</h1></div>
         </div>
         <div>
-          <div class="grid-container">
-            <div class="grid-item" id="box-1"></div>
-            <div class="grid-item" id="box-2"></div>
-            <div class="grid-item" id="box-3"></div>
-            <div class="grid-item" id="box-4"></div>
-            <div class="grid-item" id="box-5"></div>
-            <div class="grid-item" id="box-6"></div>
-            <div class="grid-item" id="box-7"></div>
-            <div class="grid-item" id="box-8"></div>
-            <div class="grid-item" id="box-9"></div>
+          <div id="progressBarCont">
+            <div>
+              <p><span id="gridProgressText">0</span> of 4</p>
+            </div>
+            <div id="progressBar"><div id="progressSilder"></div></div>
+          </div>
+          <div>
+            <div class="grid-container">
+              <div class="grid-item" id="box-1"></div>
+              <div class="grid-item" id="box-2"></div>
+              <div class="grid-item" id="box-3"></div>
+              <div class="grid-item" id="box-4"></div>
+              <div class="grid-item" id="box-5"></div>
+              <div class="grid-item" id="box-6"></div>
+              <div class="grid-item" id="box-7"></div>
+              <div class="grid-item" id="box-8"></div>
+              <div class="grid-item" id="box-9"></div>
+            </div>
           </div>
         </div>
       </div>
     </div>
 
     <div class="window" id="window7" style="display: none">
-      <div id="buttonParent">
+      <div class="buttonParent">
         <div id="headerCont">
           <div><h4>Window</h4></div>
           <div id="headerText"><h1>Randomizer</h1></div>
@@ -180,7 +213,6 @@
         </div>
       </div>
     </div>
-
     <script>
       jsPlumb.ready(function () {
         var instance = jsPlumb.getInstance();
@@ -214,8 +246,8 @@
           connector: ["Bezier", { curviness: 20 }],
           anchors: ["RightMiddle", "LeftMiddle"],
           endpoint: "Dot",
-          paintStyle: { stroke: "white", strokeWidth: 2 },
-          endpointStyle: { fill: "white", radius: 2 },
+          paintStyle: { stroke: "Grey", strokeWidth: 2 },
+          endpointStyle: { fill: "Grey", radius: 2 },
         });
 
         connection1.setVisible(false);
@@ -304,8 +336,8 @@
                 [0.1, 0.5],
               ],
               endpoint: "Dot",
-              paintStyle: { stroke: "white", strokeWidth: 2 },
-              endpointStyle: { fill: "white", radius: 2 },
+              paintStyle: { stroke: "Grey", strokeWidth: 2 },
+              endpointStyle: { fill: "Grey", radius: 2 },
             });
 
             connection2.setVisible(true);
@@ -354,8 +386,8 @@
                 [0.1, 0.5],
               ],
               endpoint: "Dot",
-              paintStyle: { stroke: "white", strokeWidth: 2 },
-              endpointStyle: { fill: "white", radius: 2 },
+              paintStyle: { stroke: "Grey", strokeWidth: 2 },
+              endpointStyle: { fill: "Grey", radius: 2 },
             });
 
             connection3.setVisible(true);
@@ -404,8 +436,8 @@
                 [0.1, 0.5],
               ],
               endpoint: "Dot",
-              paintStyle: { stroke: "white", strokeWidth: 2 },
-              endpointStyle: { fill: "white", radius: 2 },
+              paintStyle: { stroke: "Grey", strokeWidth: 2 },
+              endpointStyle: { fill: "Grey", radius: 2 },
             });
 
             connection4.setVisible(true);
@@ -454,8 +486,8 @@
                 [0.1, 0.5],
               ],
               endpoint: "Dot",
-              paintStyle: { stroke: "white", strokeWidth: 2 },
-              endpointStyle: { fill: "white", radius: 2 },
+              paintStyle: { stroke: "Grey", strokeWidth: 2 },
+              endpointStyle: { fill: "Grey", radius: 2 },
             });
 
             connection5.setVisible(true);
@@ -504,8 +536,8 @@
                 [0.1, 0.5],
               ],
               endpoint: "Dot",
-              paintStyle: { stroke: "white", strokeWidth: 2 },
-              endpointStyle: { fill: "white", radius: 2 },
+              paintStyle: { stroke: "Grey", strokeWidth: 2 },
+              endpointStyle: { fill: "Grey", radius: 2 },
             });
 
             connection6.setVisible(true);
@@ -565,14 +597,53 @@
 
       // Get all grid items
       const gridItems = document.querySelectorAll(".grid-item");
+      const progressSlider = document.querySelector("#progressSilder"); // Select the slider element
+      const gridprogressText = document.querySelector("#gridProgressText");
+      console.log(progressSlider);
+      let activeCircles = 0; // Keep track of the number of active circles
 
       // Add click event listener to each grid item
       gridItems.forEach((item) => {
         item.addEventListener("click", function () {
-          // Toggle the "selected" class on click to add/remove the inset shadow
-          this.classList.toggle("selected");
+          // Check if the circle is already selected or not
+          const isSelected = this.classList.contains("selected");
+
+          if (isSelected) {
+            // If selected, deselect it and reduce the activeCircles count
+            activeCircles--;
+            this.classList.remove("selected");
+          } else {
+            // If not selected, check if we're already at 4 active circles
+            if (activeCircles < 4) {
+              activeCircles++;
+              this.classList.add("selected");
+            } else {
+              // If 4 circles are already selected, remove one before adding the new one
+              const selectedItems = document.querySelectorAll(
+                ".grid-item.selected"
+              );
+              // Deselect the first selected circle
+              selectedItems[0].classList.remove("selected");
+              activeCircles--;
+              activeCircles++; // Re-add the new selected circle
+              this.classList.add("selected");
+            }
+          }
+          console.log(gridprogressText);
+          // Log the active circles count
+          console.log(`Active Circles: ${activeCircles}`);
+          gridprogressText.innerHTML = `${activeCircles}`;
+
+          // Update the slider width based on the number of active circles
+          updateProgressSlider();
         });
       });
+
+      // Function to update the slider width based on activeCircles
+      function updateProgressSlider() {
+        const percentage = (activeCircles / 4) * 96;
+        progressSlider.style.width = `${percentage}%`;
+      }
 
       const toggles = document.querySelectorAll('input[type="checkbox"]');
 
