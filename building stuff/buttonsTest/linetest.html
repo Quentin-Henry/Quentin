@@ -599,7 +599,7 @@
       const gridItems = document.querySelectorAll(".grid-item");
       const progressSlider = document.querySelector("#progressSilder"); // Select the slider element
       const gridprogressText = document.querySelector("#gridProgressText");
-      console.log(progressSlider);
+      //console.log(progressSlider);
       let activeCircles = 0; // Keep track of the number of active circles
 
       // Add click event listener to each grid item
@@ -631,7 +631,7 @@
           }
           console.log(gridprogressText);
           // Log the active circles count
-          console.log(`Active Circles: ${activeCircles}`);
+          //console.log(`Active Circles: ${activeCircles}`);
           gridprogressText.innerHTML = `${activeCircles}`;
 
           // Update the slider width based on the number of active circles
@@ -649,9 +649,9 @@
 
       toggles.forEach((toggle) => {
         toggle.addEventListener("change", function () {
-          console.log(
-            `Toggle ${toggle.id} is ${toggle.checked ? "ON" : "OFF"}`
-          );
+          //console.log(
+          // `Toggle ${toggle.id} is ${toggle.checked ? "ON" : "OFF"}`
+          //);
         });
       });
 
@@ -671,8 +671,8 @@
           const dx = e.clientX - rect.left - centerX; // Adjust mouse X relative to SVG's position
           const dy = e.clientY - rect.top - centerY; // Adjust mouse Y relative to SVG's position
 
-          console.log("Mouse Coordinates:", e.clientX, e.clientY);
-          console.log("Adjusted Coordinates:", dx, dy);
+          //console.log("Mouse Coordinates:", e.clientX, e.clientY);
+          //console.log("Adjusted Coordinates:", dx, dy);
 
           return Math.atan2(dy, dx); // Returns angle in radians
         }
@@ -682,7 +682,7 @@
           const x = centerX + radius * Math.cos(angle);
           const y = centerY + radius * Math.sin(angle);
 
-          console.log("Inner Circle Position:", x, y); // Log the updated position
+          //console.log("Inner Circle Position:", x, y); // Log the updated position
 
           innerCircle.setAttribute("cx", x);
           innerCircle.setAttribute("cy", y);
@@ -693,7 +693,7 @@
 
         // Handle mouse down event to start dragging
         innerCircle.addEventListener("mousedown", (e) => {
-          console.log("Mouse Down:", e.clientX, e.clientY);
+          //console.log("Mouse Down:", e.clientX, e.clientY);
           isDragging = true;
           angle = calculateAngle(e); // Initialize the angle based on the initial mouse position
           e.preventDefault(); // Prevent text selection during drag
@@ -709,13 +709,13 @@
 
         // Handle mouse up event to stop dragging
         window.addEventListener("mouseup", () => {
-          console.log("Mouse Up");
+          //console.log("Mouse Up");
           isDragging = false;
         });
 
         // Prevent dragging from continuing if the mouse leaves the SVG area
         window.addEventListener("mouseleave", () => {
-          console.log("Mouse Leave");
+          //console.log("Mouse Leave");
           isDragging = false;
         });
       });

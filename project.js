@@ -26,7 +26,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const audioEmbed = document.querySelector("#embed2"); // Adjust the selector as necessary
   const embedContainer = document.querySelector("#embedContainer");
-  console.log(audioEmbed);
+  //console.log(audioEmbed);
   let currentFollowerText = "Hover over an image"; // Default follower text
 
   items.forEach((item, index) => {
@@ -336,15 +336,140 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // Toggle visibility on click, unless the click is on a button, anchor tag, or element with class 'menu'
-  document.addEventListener("click", (event) => {
-    if (
-      !event.target.closest("button") &&
-      !event.target.closest("a") &&
-      !event.target.closest(".menu")
-    ) {
-      isVisible = !isVisible; // Toggle visibility state
-      follower.style.display = isVisible ? "block" : "none"; // Show or hide follower
+  // Select menu6 and follower2 elements
+  const menu6 = document.querySelector(".six");
+  const follower2 = document.querySelector("#follower2");
+
+  function updateFollower2Visibility() {
+    console.log(menu6.classList); // Log to check class list
+
+    if (menu6.classList.contains("menuActive")) {
+      // Position follower in the lower right corner on mobile
+      follower2.style.position = "fixed";
+      follower2.style.bottom = "7%"; // Updated to 10% from bottom
+      follower2.style.left = "2%"; // Updated to 10% from left
+      follower2.style.fontSize = "1vw"; // Adjusted font size
+      follower2.style.width = "27vw"; // Adjusted width
+      follower2.style.pointerEvents = "none"; // Prevent interaction
+      follower2.style.color = "white"; // Text color
+      console.log("Follower should be on");
+      follower2.style.display = "block"; // Show the follower
+    } else {
+      console.log("Follower should be off");
+      follower2.style.display = "none"; // Hide the follower
     }
+  }
+
+  // MutationObserver to watch for class changes on the menu
+  const observer = new MutationObserver(() => {
+    updateFollower2Visibility(); // Call visibility update when class changes
   });
+
+  observer.observe(menu6, {
+    attributes: true, // Watch for attribute changes
+    attributeFilter: ["class"], // Only look for changes to the 'class' attribute
+  });
+
+  // Update follower text based on the center image within the active menu
+  function updateFollower2Text() {
+    const centerX = window.innerWidth / 2;
+    const centerY = window.innerHeight / 2;
+
+    // Get the active content box
+    const activeContentBox = document.querySelector(".con.active");
+
+    // Debug log to check if the element is being selected
+    console.log("Active Content Box: ", activeContentBox);
+
+    if (!activeContentBox) {
+      follower2.textContent = "     "; // Default text if no active box found
+      console.log("No active content box found.");
+      return; // If no active content box, do nothing
+    }
+
+    // Get images from the active content box
+    const images = activeContentBox.querySelectorAll(".image");
+    if (images.length === 0) {
+      follower2.textContent = "No images found in the active content box.";
+      console.log("No images found in the active content box.");
+      return; // If no images, do nothing
+    }
+
+    let closestImage = null;
+    let closestDistance = Infinity;
+
+    images.forEach((image) => {
+      const rect = image.getBoundingClientRect();
+      const imageCenterX = rect.left + rect.width / 2;
+      const imageCenterY = rect.top + rect.height / 2;
+      const distance = Math.sqrt(
+        Math.pow(centerX - imageCenterX, 2) +
+          Math.pow(centerY - imageCenterY, 2)
+      );
+
+      // Log the distance for debugging
+      console.log(
+        `Distance to image with data-description: "${image.getAttribute(
+          "data-description"
+        )}": ${distance}`
+      );
+
+      if (distance < closestDistance) {
+        closestDistance = distance;
+        closestImage = image;
+      }
+    });
+
+    if (closestImage) {
+      // Use data-description instead of alt
+      const description = closestImage.getAttribute("data-description");
+      follower2.textContent = description
+        ? description
+        : "No description available";
+      console.log("Closest image description:", description); // Log closest image description
+    } else {
+      follower2.textContent = "No image found"; // Fallback text
+    }
+  }
+
+  // Setup scroll listener for the active content box
+  function setupScrollListener() {
+    const activeContentBox = document.querySelector(".con.active");
+    if (activeContentBox) {
+      // Remove previous event listener if it exists
+      activeContentBox.removeEventListener("scroll", updateFollower2Text);
+
+      // Add a new event listener for scroll
+      activeContentBox.addEventListener("scroll", () => {
+        console.log("Scroll event detected in content box."); // Log scroll event
+        updateFollower2Text(); // Update follower text on scroll
+      });
+    } else {
+      // If the content box isn't available, retry after a short delay
+      setTimeout(setupScrollListener, 100); // Retry after 100ms
+    }
+  }
+
+  // This function helps to ensure the content box is available before running
+  function waitForActiveContentBox() {
+    const interval = setInterval(() => {
+      const activeContentBox = document.querySelector(".con.active");
+      if (activeContentBox) {
+        console.log("Active content box found!");
+        clearInterval(interval); // Stop the interval once the element is found
+        updateFollower2Text(); // Call the function once active box is found
+        setupScrollListener(); // Setup the scroll listener once the active box is ready
+      }
+    }, 100); // Check every 100ms for the active content box
+
+    // If the box is never found, you can log a message for troubleshooting
+    setTimeout(() => {
+      console.log("No active content box found after waiting.");
+      clearInterval(interval); // Stop checking if not found after 5 seconds
+    }, 5000);
+  }
+
+  // Initial updates
+  updateFollower2Visibility(); // Check the visibility of the follower
+  waitForActiveContentBox(); // Wait for active content box to appear
 });

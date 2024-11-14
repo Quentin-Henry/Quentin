@@ -308,9 +308,9 @@ function fetchSunriseSunset(latitude, longitude) {
         duskTime = data.results.dusk; // Dusk time
         goldenHourTime = data.results.golden_hour; // Golden hour time
 
-        console.log(
-          `Sunrise: ${sunriseTime}, Sunset: ${sunsetTime}, Solar Noon: ${solarNoonTime}, First Light: ${firstLightTime}, Last Light: ${lastLightTime}, Dawn: ${dawnTime}, Dusk: ${duskTime}, Golden Hour: ${goldenHourTime}`
-        );
+        //console.log(
+        //  `Sunrise: ${sunriseTime}, Sunset: ${sunsetTime}, Solar Noon: ${solarNoonTime}, First Light: ${firstLightTime}, Last Light: ${lastLightTime}, Dawn: ${dawnTime}, Dusk: ${duskTime}, Golden Hour: ${goldenHourTime}`
+        // );
       } else {
         console.error("No results in API response.");
       }
@@ -359,4 +359,4 @@ window.onload = () => {
   getLocation();
   updateTime(); // Initial call to set position
 };
-console.log(shadowPoly);
+//console.log(shadowPoly);

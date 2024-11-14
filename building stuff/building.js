@@ -96,18 +96,18 @@ let chnageOrnateAll = function chnageOrnateAll() {
 function widthScale() {
   wrapperDiv.clientWidth;
   let wrapperMargin = wrapperDiv.clientWidth - wrapperDiv.clientWidth * 0.35;
-  console.log(wrapperMargin, parent.clientWidth);
-  console.log(wrapperMargin / parent.clientWidth);
+  //console.log(wrapperMargin, parent.clientWidth);
+  //console.log(wrapperMargin / parent.clientWidth);
   parent.style.scale = 1 * (wrapperMargin / parent.clientWidth);
-  console.log("scale is " + parent.style.scale);
+  //console.log("scale is " + parent.style.scale);
 }
 function heightScale() {
   wrapperDiv.clientHeight;
   let wrapperMargin = wrapperDiv.clientHeight - wrapperDiv.clientHeight * 0.1;
-  console.log(wrapperMargin, parent.clientHeight);
-  console.log(wrapperMargin / parent.clientHeight);
+  //console.log(wrapperMargin, parent.clientHeight);
+  //console.log(wrapperMargin / parent.clientHeight);
   parent.style.scale = 1 * (wrapperMargin / parent.clientHeight);
-  console.log("scale is " + parent.style.scale);
+  //console.log("scale is " + parent.style.scale);
 }
 
 let currentCorniceIndex = 0; // Track the current cornice index
@@ -126,7 +126,7 @@ let addLength = function addLength() {
   if (corniceImg) {
     corniceImg.src = "img/cornice_" + currentCorniceIndex + ".png";
   }
-  console.log(cloneCornice);
+  //console.log(cloneCornice);
   lengthMulitple++;
   for (let i = 0; i < Math.round(heightMulitple); i++) {
     let randWidnow = Math.floor(Math.random() * 36);
@@ -149,14 +149,14 @@ let addLength = function addLength() {
   let newScale = 1 * (wrapperMargin / parent.clientWidth);
   if (newScale < parent.style.scale) {
     parent.style.scale = newScale;
-    console.log("scale is " + parent.style.scale);
+    //console.log("scale is " + parent.style.scale);
   }
   if (
     lengthMulitple > 5.2 &&
     newScale < 1 * (wrapperMargin / parent.clientHeight)
   ) {
-    console.log(wrapperMargin, parent.clientWidth);
-    console.log(wrapperMargin / parent.clientWidth);
+    //console.log(wrapperMargin, parent.clientWidth);
+    //console.log(wrapperMargin / parent.clientWidth);
   }
 };
 
@@ -180,7 +180,7 @@ let addHeight = function addHeight() {
   let wrapperMargin = wrapperDiv.clientHeight - wrapperDiv.clientHeight * 0.1;
   let newScale = 1 * (wrapperMargin / parent.clientHeight);
   if (newScale < parent.style.scale) {
-    console.log("scale is " + parent.style.scale);
+    //console.log("scale is " + parent.style.scale);
 
     parent.style.scale = newScale;
   }
@@ -205,9 +205,9 @@ let subLength = function subLength() {
 
       cloneCount--;
 
-      console.log("building Length is " + lengthMulitple);
-      console.log("building Length is " + buildingContainerWidth);
-      console.log("number of clones is " + cloneCount);
+      //console.log("building Length is " + lengthMulitple);
+      // console.log("building Length is " + buildingContainerWidth);
+      // console.log("number of clones is " + cloneCount);
     }
   }
 
@@ -215,22 +215,22 @@ let subLength = function subLength() {
   let newScale = 1 * (wrapperMargin / parent.clientWidth);
 
   // Log current scales
-  console.log("Current newScale (length):", newScale);
-  console.log("Last Height Scale:", lastHeightScale);
-  console.log("Comparing Length and Height scales...");
+  //console.log("Current newScale (length):", newScale);
+  //console.log("Last Height Scale:", lastHeightScale);
+  //console.log("Comparing Length and Height scales...");
 
   // Adopt the smaller value if newScale is less than or equal to lastHeightScale
   if (newScale <= lastHeightScale) {
     parent.style.scale = newScale; // Adopt the smaller scale
     lastLengthScale = newScale; // Update last length scale
-    console.log("scale (length) adopted to:", parent.style.scale);
+    //console.log("scale (length) adopted to:", parent.style.scale);
   } else {
     // If newScale is greater, just update the last length scale
     lastLengthScale = newScale;
-    console.log(
-      "scale (length) not updated; retaining height scale:",
-      lastHeightScale
-    );
+    //console.log(
+    // "scale (length) not updated; retaining height scale:",
+    //lastHeightScale
+    //);
   }
 
   // Prevent scaling above 1
@@ -249,8 +249,8 @@ let subHeight = function subHeight() {
       createdClone.remove();
       cloneCount--;
 
-      console.log("building height is " + height);
-      console.log("number of clones is " + cloneCount);
+      //console.log("building height is " + height);
+      //console.log("number of clones is " + cloneCount);
     }
   }
 
@@ -258,22 +258,22 @@ let subHeight = function subHeight() {
   let newScale = 1 * (wrapperMargin / parent.clientHeight);
 
   // Log current scales
-  console.log("Current newScale (height):", newScale);
-  console.log("Last Length Scale:", lastLengthScale);
-  console.log("Comparing Height and Length scales...");
+  //console.log("Current newScale (height):", newScale);
+  //console.log("Last Length Scale:", lastLengthScale);
+  //console.log("Comparing Height and Length scales...");
 
   // Adopt the smaller value if newScale is less than or equal to lastLengthScale
   if (newScale <= lastLengthScale) {
     parent.style.scale = newScale; // Adopt the smaller scale
     lastHeightScale = newScale; // Update last height scale
-    console.log("scale (height) adopted to:", parent.style.scale);
+    //console.log("scale (height) adopted to:", parent.style.scale);
   } else {
     // If newScale is greater, just update the last height scale
     lastHeightScale = newScale;
-    console.log(
-      "scale (height) not updated; retaining length scale:",
-      lastLengthScale
-    );
+    //console.log(
+    // "scale (height) not updated; retaining length scale:",
+    // lastLengthScale
+    //);
   }
 
   // Prevent scaling above 1
@@ -296,29 +296,29 @@ let resizeParentScale = function () {
     wrapperDiv.clientHeight - wrapperDiv.clientHeight * 0.1;
   let newHeightScale = wrapperMarginHeight / parent.clientHeight;
 
-  console.log("New Width Scale:", newWidthScale);
-  console.log("New Height Scale:", newHeightScale);
+  // console.log("New Width Scale:", newWidthScale);
+  // console.log("New Height Scale:", newHeightScale);
 
   // Choose the smaller scale to maintain consistency with existing functions
   let newScale = Math.min(newWidthScale, newHeightScale);
-  console.log("Chosen newScale (min of both):", newScale);
+  //console.log("Chosen newScale (min of both):", newScale);
 
   // Log the current last scales
-  console.log("Last Height Scale:", lastHeightScale);
-  console.log("Last Length Scale:", lastLengthScale);
+  // console.log("Last Height Scale:", lastHeightScale);
+  // console.log("Last Length Scale:", lastLengthScale);
 
   // Update the parent scale only if the newScale is less than or equal to the last height and length scales
   if (newScale <= lastHeightScale && newScale <= lastLengthScale) {
     parent.style.scale = newScale; // Ensure scale is set correctly
-    console.log("Parent scale updated to:", parent.style.scale);
+    //  console.log("Parent scale updated to:", parent.style.scale);
   } else {
-    console.log("Parent scale not updated; retaining current scale.");
+    //  console.log("Parent scale not updated; retaining current scale.");
   }
 
   // Prevent scaling above 1
   if (parseFloat(parent.style.scale) > 1) {
     parent.style.scale = 1;
-    console.log("Parent scale set to 1 to prevent overflow.");
+    // console.log("Parent scale set to 1 to prevent overflow.");
   }
 };
 
