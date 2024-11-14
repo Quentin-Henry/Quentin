@@ -376,7 +376,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const centerY = window.innerHeight / 2;
 
     // Get the active content box
-    const activeContentBox = document.querySelector(".con.active");
+    const activeContentBox = document.querySelector(".con.six.active");
 
     // Debug log to check if the element is being selected
     console.log("Active Content Box: ", activeContentBox);
@@ -432,7 +432,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Setup scroll listener for the active content box
   function setupScrollListener() {
-    const activeContentBox = document.querySelector(".con.active");
+    const activeContentBox = document.querySelector(".con.six.active");
     if (activeContentBox) {
       // Remove previous event listener if it exists
       activeContentBox.removeEventListener("scroll", updateFollower2Text);
