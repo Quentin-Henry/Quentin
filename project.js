@@ -423,9 +423,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (closestImage) {
       // Use data-description instead of alt
       const description = closestImage.getAttribute("data-description");
-      follower2.textContent = description
-        ? description
-        : "No description available";
+      follower2.textContent = description ? description : "   ";
       console.log("Closest image description:", description); // Log closest image description
     } else {
       follower2.textContent = "No image found"; // Fallback text
