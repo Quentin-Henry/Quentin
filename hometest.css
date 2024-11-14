@@ -172,6 +172,19 @@ canvas {
   transform: rotate(-3deg);
 }
 
+.carousel-imageB {
+  display: none;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.PB {
+  padding-bottom: 10vw;
+}
+
+.carousel-imageB:first-child {
+  display: block;
+}
+
 /* Make the menu items look clickable */
 .menu {
   cursor: pointer;

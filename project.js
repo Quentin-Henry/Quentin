@@ -37,8 +37,8 @@ document.addEventListener("DOMContentLoaded", () => {
       item.classList.add("menuActive");
 
       if (menuIdent === "two") {
-        updateStyles("#0139FE", "white", item);
-        setFollowerTextColor("white");
+        updateStyles("white", "blue", item);
+        setFollowerTextColor("blue");
         setContentTextColor(index, "white");
       } else if (menuIdent === "four") {
         updateStyles("black", "white", item);
@@ -51,6 +51,14 @@ document.addEventListener("DOMContentLoaded", () => {
       } else if (menuIdent === "six") {
         updateStyles("black", "white", item);
         setFollowerTextColor("white");
+        setContentTextColor(index, "white");
+      } else if (menuIdent === "one") {
+        updateStyles("white", "red", item);
+        setFollowerTextColor("red");
+        setContentTextColor(index, "white");
+      } else if (menuIdent === "three") {
+        updateStyles("white", "red", item);
+        setFollowerTextColor("red");
         setContentTextColor(index, "white");
       } else {
         setFollowerTextColor("black");
@@ -114,15 +122,6 @@ document.addEventListener("DOMContentLoaded", () => {
     follower.style.color = color;
   }
 
-  // Video handling for different browsers
-  const isFirefox = typeof InstallTrigger !== "undefined";
-  document.getElementById("mainVideo").style.display = isFirefox
-    ? "none"
-    : "block";
-  document.getElementById("firefoxVideo").style.display = isFirefox
-    ? "block"
-    : "none";
-
   // Carousel initialization
   const carousels = document.querySelectorAll(".carousel");
   carousels.forEach((carousel) => {
@@ -144,6 +143,44 @@ document.addEventListener("DOMContentLoaded", () => {
     currentIndex = (currentIndex + direction + images.length) % images.length;
     images[currentIndex].style.display = "block";
   };
+
+  const newCarousel = document.getElementById("carouselB"); // Renamed variable for carousel
+  const newImages = newCarousel.querySelectorAll(".carousel-imageB"); // Renamed variable for images
+  let currentImageIndex = 0; // Renamed variable for current image index
+  let hoverIntervalId; // Renamed variable for the interval ID
+
+  // Function to change to the next image
+  function showNextImage() {
+    // Hide the current image
+    newImages[currentImageIndex].style.display = "none";
+
+    // Move to the next image, wrap around using modulo
+    currentImageIndex = (currentImageIndex + 1) % newImages.length;
+
+    // Show the next image
+    newImages[currentImageIndex].style.display = "block";
+  }
+
+  // Start the carousel when hovering
+  newCarousel.addEventListener("mouseenter", () => {
+    hoverIntervalId = setInterval(showNextImage, 700); // Change image every 0.3s
+  });
+
+  // Stop the carousel when mouse leaves
+  newCarousel.addEventListener("mouseleave", () => {
+    clearInterval(hoverIntervalId); // Stop the image cycling
+    // Keep only the current image visible
+    newImages.forEach((img, index) => {
+      img.style.display = index === currentImageIndex ? "block" : "none";
+    });
+  });
+
+  // Initially hide all images except the first one
+  newImages.forEach((img, index) => {
+    if (index !== 0) {
+      img.style.display = "none"; // Hide all but the first image
+    }
+  });
 
   // Mobile behavior
   const isMobile = window.matchMedia("(max-width: 768px)").matches; // Adjust based on your mobile breakpoint

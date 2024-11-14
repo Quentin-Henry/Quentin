@@ -1,27 +1,3 @@
-// Function to move the carousel images
-function moveSlide(direction, carouselId) {
-  const carouselContainer = document.getElementById(carouselId);
-  const carouselImages = carouselContainer.querySelector(".carousel-images");
-  const totalImages = carouselImages.children.length;
-  const currentTransform = carouselImages.style.transform || "translateX(0%)";
-  const currentIndex =
-    parseInt(currentTransform.replace("translateX(", "").replace("%)", "")) ||
-    0;
-
-  let newIndex = currentIndex + direction * 100;
-
-  // If we're at the last image, loop back to the first
-  if (newIndex < -((totalImages - 1) * 100)) {
-    newIndex = 0;
-  }
-  // If we're at the first image, loop to the last
-  if (newIndex > 0) {
-    newIndex = -((totalImages - 1) * 100);
-  }
-
-  carouselImages.style.transform = `translateX(${newIndex}%)`;
-}
-
 const gridItems = document.querySelectorAll(".grid-item");
 const progressSlider = document.querySelector("#progressSilder"); // Select the slider element
 const gridprogressText = document.querySelector("#gridProgressText");
