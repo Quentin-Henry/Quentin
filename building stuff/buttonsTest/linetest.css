@@ -235,7 +235,7 @@ input[type="range"]::-webkit-slider-runnable-track {
 input[type="range"]::-webkit-slider-thumb {
   -webkit-appearance: none;
   appearance: none;
-  margin-top: 0.12rem;
+  margin-top: 0.15rem;
   background-color: #ffffff;
   border-radius: 0.5rem;
   height: 0.7rem; /* Responsive thumb height */
