@@ -13,7 +13,7 @@ html {
 
 .window {
   background-color: #000000;
-  border-radius: 0.5em;
+  border-radius: 0.75em;
   color: black;
   height: 12em;
   width: 15em;
@@ -69,7 +69,7 @@ html {
 }
 
 #window6 {
-  height: 12rem; /* Increased height for extra buttons */
+  height: 13rem; /* Increased height for extra buttons */
   width: 7rem; /* Increased width for extra buttons */
 }
 
