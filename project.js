@@ -458,10 +458,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }, 100); // Check every 100ms for the active content box
 
     // If the box is never found, you can log a message for troubleshooting
-    setTimeout(() => {
-      console.log("No active content box found after waiting.");
-      clearInterval(interval); // Stop checking if not found after 5 seconds
-    }, 5000);
   }
 
   // Initial updates
