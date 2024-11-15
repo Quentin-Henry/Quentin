@@ -341,7 +341,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const follower2 = document.querySelector("#follower2");
 
   function updateFollower2Visibility() {
-    console.log(menu6.classList); // Log to check class list
+    //console.log(menu6.classList); // Log to check class list
 
     if (menu6.classList.contains("menuActive")) {
       // Position follower in the lower right corner on mobile
@@ -352,10 +352,10 @@ document.addEventListener("DOMContentLoaded", () => {
       follower2.style.width = "20vw"; // Adjusted width
       follower2.style.pointerEvents = "none"; // Prevent interaction
       follower2.style.color = "white"; // Text color
-      console.log("Follower should be on");
+      // console.log("Follower should be on");
       follower2.style.display = "block"; // Show the follower
     } else {
-      console.log("Follower should be off");
+      //console.log("Follower should be off");
       follower2.style.display = "none"; // Hide the follower
     }
   }
@@ -379,19 +379,19 @@ document.addEventListener("DOMContentLoaded", () => {
     const activeContentBox = document.querySelector(".con.six.active");
 
     // Debug log to check if the element is being selected
-    console.log("Active Content Box: ", activeContentBox);
+    //console.log("Active Content Box: ", activeContentBox);
 
     if (!activeContentBox) {
       follower2.textContent = "     "; // Default text if no active box found
-      console.log("No active content box found.");
+      //console.log("No active content box found.");
       return; // If no active content box, do nothing
     }
 
     // Get images from the active content box
     const images = activeContentBox.querySelectorAll(".image");
     if (images.length === 0) {
-      follower2.textContent = "No images found in the active content box.";
-      console.log("No images found in the active content box.");
+      follower2.textContent = "error 2";
+      //console.log("No images found in the active content box.");
       return; // If no images, do nothing
     }
 
@@ -408,11 +408,11 @@ document.addEventListener("DOMContentLoaded", () => {
       );
 
       // Log the distance for debugging
-      console.log(
-        `Distance to image with data-description: "${image.getAttribute(
-          "data-description"
-        )}": ${distance}`
-      );
+      //console.log(
+      // `Distance to image with data-description: "${image.getAttribute(
+      //   "data-description"
+      // )}": ${distance}`
+      //);
 
       if (distance < closestDistance) {
         closestDistance = distance;
@@ -424,9 +424,9 @@ document.addEventListener("DOMContentLoaded", () => {
       // Use data-description instead of alt
       const description = closestImage.getAttribute("data-description");
       follower2.textContent = description ? description : "   ";
-      console.log("Closest image description:", description); // Log closest image description
+      //console.log("Closest image description:", description); // Log closest image description
     } else {
-      follower2.textContent = "No image found"; // Fallback text
+      follower2.textContent = "error"; // Fallback text
     }
   }
 
@@ -439,7 +439,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       // Add a new event listener for scroll
       activeContentBox.addEventListener("scroll", () => {
-        console.log("Scroll event detected in content box."); // Log scroll event
+        //console.log("Scroll event detected in content box."); // Log scroll event
         updateFollower2Text(); // Update follower text on scroll
       });
     }
@@ -450,7 +450,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const interval = setInterval(() => {
       const activeContentBox = document.querySelector(".con.six.active");
       if (activeContentBox) {
-        console.log("Active content box found!");
+        //console.log("Active content box found!");
         clearInterval(interval); // Stop the interval once the element is found
         updateFollower2Text(); // Call the function once active box is found
         setupScrollListener(); // Setup the scroll listener once the active box is ready
