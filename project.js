@@ -349,7 +349,7 @@ document.addEventListener("DOMContentLoaded", () => {
       follower2.style.bottom = "7%"; // Updated to 10% from bottom
       follower2.style.left = "2%"; // Updated to 10% from left
       follower2.style.fontSize = "1vw"; // Adjusted font size
-      follower2.style.width = "27vw"; // Adjusted width
+      follower2.style.width = "20vw"; // Adjusted width
       follower2.style.pointerEvents = "none"; // Prevent interaction
       follower2.style.color = "white"; // Text color
       console.log("Follower should be on");
@@ -442,9 +442,6 @@ document.addEventListener("DOMContentLoaded", () => {
         console.log("Scroll event detected in content box."); // Log scroll event
         updateFollower2Text(); // Update follower text on scroll
       });
-    } else {
-      // If the content box isn't available, retry after a short delay
-      setTimeout(setupScrollListener, 100); // Retry after 100ms
     }
   }
 
