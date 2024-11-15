@@ -536,6 +536,123 @@ class FirstPersonCameraDemo {
         AudioCredit:
           "sonido-ambiente-desierto-ambience-sound-desert-217122.mp3 by EstudioCoati",
       },
+      {
+        path: "model/track.glb",
+        position: new THREE.Vector3(1, -10, 1),
+        scale: new THREE.Vector3(1, 1, 1),
+        audio:
+          "audio/forest-ambiance-light-wind-birds-screeching-trees-158554.mp3",
+        credit: "NCHS Track Simplified 3d Mesh by George",
+        AudioCredit:
+          "forest-ambiance-light-wind-birds-screeching-trees-158554.mp3",
+      },
+
+      {
+        path: "model/stripmall.glb",
+        position: new THREE.Vector3(40, -1, -200),
+        scale: new THREE.Vector3(0.8, 0.8, 0.8),
+        audio: "audio/athens-cicadas-19521.mp3",
+        credit: "Foodland Shopping Center by johnnokomis",
+        AudioCredit: "athens-cicadas.mp3 by jenkmasler",
+      },
+      {
+        path: "model/soisson.glb",
+        position: new THREE.Vector3(-20, -10, 1),
+        scale: new THREE.Vector3(2, 2, 2),
+        audio: "audio/summer-outdoors-nature-ambience-228110.mp3",
+        credit:
+          "Abbaye de Saint-Jean-des-Vignes - SOISSONS (02) by cabinet_houdry",
+        AudioCredit: "summer-outdoors-nature-ambience-228110.mp3 by Alex_Jauk",
+      },
+      {
+        path: "model/mine.glb",
+        position: new THREE.Vector3(1, -1, 1),
+        scale: new THREE.Vector3(1, 1, 1),
+        audio:
+          "audio/sonido-ambiente-desierto-ambience-sound-desert-217122.mp3",
+        credit: "Magpie Mine by CT Aerial Surveys ",
+        AudioCredit:
+          "sonido-ambiente-desierto-ambience-sound-desert-217122.mp3 by EstudioCoati",
+      },
+      {
+        path: "model/huntsville_fc.glb",
+        position: new THREE.Vector3(1, -1, 1),
+        scale: new THREE.Vector3(1, 1, 1),
+        audio: "audio/quiet-city-square-night-19743.mp3",
+        credit: "Huntsville FC Field at Joe Davis Stadium by johnnokomis",
+        AudioCredit: "quiet-city-square-night.mp3 by ecfike",
+      },
+      {
+        path: "model/ayuttha.glb",
+        position: new THREE.Vector3(-150, -1, -60),
+        scale: new THREE.Vector3(1, 1, 1),
+        audio: "audio/cicadas-18654.mp3",
+        credit: "Wat_Phra_Si_Sanphet.glb by Agisoft",
+        AudioCredit: "cicadas.mp3 by nervousneal",
+      },
+
+      {
+        path: "model/hightway.glb",
+        position: new THREE.Vector3(1, -50, 1),
+        scale: new THREE.Vector3(1, 1, 1),
+        audio:
+          "audio/sonido-ambiente-desierto-ambience-sound-desert-217122.mp3",
+        credit: "Levantamento - LOHMM - Porto Real by vivadrone",
+        AudioCredit:
+          "sonido-ambiente-desierto-ambience-sound-desert.mp3 by EstudioCoati",
+      },
+      {
+        path: "model/construction.glb",
+        position: new THREE.Vector3(-70, -10, -70),
+        scale: new THREE.Vector3(2, 2, 2),
+        audio: "audio/ambience-city-daytime-birds-traffic-61955.mp3",
+        credit: "Construction Site .::RAWscan::. by Andrea Spognetta (Spogna) ",
+        AudioCredit: "ambience-city-daytime-birds-traffic.mp3 by lwdickens",
+      },
+      {
+        path: "model/leipzig.glb",
+        position: new THREE.Vector3(-10, -10, 1),
+        scale: new THREE.Vector3(2, 2, 2),
+        audio: "audio/city-slums-ambience-at-night-55182.mp3",
+        credit: "Leipzig industrial area by 333DDD",
+        AudioCredit: "city-slums-ambience-at-night.mp3 by CaganCelik",
+      },
+
+      {
+        path: "model/culdesac.glb",
+        position: new THREE.Vector3(-21, -10, 1),
+        scale: new THREE.Vector3(1, 1, 1),
+        audio: "audio/summer-outdoors-nature-ambience-228110.mp3",
+        credit: "Terreno en Cadereyta by ZUNUUM ",
+        AudioCredit: "summer-outdoors-nature-ambience-228110.mp3 by Alex_Jauk",
+      },
+      {
+        path: "model/zamek_j_zytkiewicz_low_poly.glb",
+        position: new THREE.Vector3(-21, -20, 1),
+        scale: new THREE.Vector3(10, 10, 10),
+        audio: "audio/ambience-wind-blowing-through-trees-01-186986.mp3",
+        credit: "Zamek J Zytkiewicz Low Poly by Robert Szymaniuk ",
+        AudioCredit:
+          "ambience-wind-blowing-through-trees-01-186986.mp3 by Traian1984",
+      },
+      {
+        path: "model/d65136ffb80041cdbe3ad4f632482d7d.glb",
+        position: new THREE.Vector3(-21, -10, 1),
+        scale: new THREE.Vector3(1, 1, 1),
+        audio:
+          "audio/sonido-ambiente-desierto-ambience-sound-desert-217122.mp3",
+        credit: "矢作川 by m-kato1007",
+        AudioCredit:
+          "sonido-ambiente-desierto-ambience-sound-desert-217122.mp3 by EstudioCoati",
+      },
+      {
+        path: "model/cistercian_abbey_of_belapatfalva_hungary.glb",
+        position: new THREE.Vector3(-21, -20, 20),
+        scale: new THREE.Vector3(2, 2, 2),
+        audio: "audio/late-summer-forest-september-28th-2019-17768.mp3",
+        credit: "Cistercian Abbey of Bélapátfalva, Hungary by droneheli.hu",
+        AudioCredit: "late-summer-forest-september-28th-2019.mp3 by kvgarlic",
+      },
 
       // Add more model configurations as needed
     ];
