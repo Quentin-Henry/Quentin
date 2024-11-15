@@ -20,7 +20,7 @@ document.addEventListener("DOMContentLoaded", () => {
     three: "Christina",
     four: "New York",
     five: "digital Sundial",
-    six: "tower of babel",
+    six: "Tower of Babel",
     seven: "Going Outside",
   };
 
