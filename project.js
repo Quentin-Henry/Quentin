@@ -448,7 +448,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // This function helps to ensure the content box is available before running
   function waitForActiveContentBox() {
     const interval = setInterval(() => {
-      const activeContentBox = document.querySelector(".con.active");
+      const activeContentBox = document.querySelector(".con.six.active");
       if (activeContentBox) {
         console.log("Active content box found!");
         clearInterval(interval); // Stop the interval once the element is found
