@@ -280,10 +280,10 @@ img {
 
 .fullscreen {
   position: fixed;
-  height: 110vh;
-  width: 110vw;
-  left: -5vw;
-  top: -1vh;
+  height: 103vh;
+  width: 101vw;
+  left: -40px;
+  top: 20px;
   transform: rotate(3deg);
 }
 
