@@ -13,7 +13,7 @@ body {
   width: 100%;
 }
 #intro {
-  width: 110vw;
+  width: 100vw;
   height: 110vh;
   position: fixed;
   top: 0vw;
@@ -26,10 +26,11 @@ body {
 }
 
 #diagram {
+  padding-top: 10%;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
   width: 50%;
-  position: fixed;
-  top: 25vh;
-  left: 20vw;
 }
 
 .clicked {
@@ -59,7 +60,6 @@ button {
   left: 50%;
   border: 0.5px solid #ffffff70;
   transform: translateX(-50%);
-  padding: 2vw 6vw;
   background-color: rgba(255, 255, 255, 0.052);
   -webkit-backdrop-filter: blur(
     100px
@@ -69,6 +69,8 @@ button {
   color: white;
   border-radius: 10px;
   cursor: pointer;
+  width: 10%;
+  height: 5%;
 }
 
 .open-btn:hover {
@@ -76,13 +78,18 @@ button {
   transition: 0.3s;
 }
 
+img {
+  width: 25%;
+}
 /* Bottom Drawer (initially hidden) */
 .drawer {
   position: fixed;
   bottom: -100%; /* Hidden below the screen initially */
-  left: 0;
-  right: 0;
+  left: 50;
+  right: 50;
   height: 40%;
+  border-radius: 10px;
+
   background-color: rgba(255, 255, 255, 0.052);
   -webkit-backdrop-filter: blur(
     100px
@@ -91,8 +98,9 @@ button {
   backdrop-filter: blur(100px);
   color: white;
   overflow-y: auto;
-  transition: bottom 0.5s ease-in-out;
+
   z-index: 6;
+  transition: 0.5s;
 }
 
 .subDrwawer {
@@ -143,14 +151,12 @@ button {
   display: block;
   color: white;
   text-decoration: none;
-  padding: 10px;
-  margin: 5px 0;
   border-radius: 10px;
+  width: 25%;
 }
 
 .drawerButton {
-  border: 1px solid #e9e9e970;
-  padding: 2vw 6vw;
+  border: 0px solid #e9e9e970;
   background-color: rgba(255, 255, 255, 0);
 
   border-radius: 10px;
@@ -158,17 +164,16 @@ button {
 }
 
 .drawer-item:hover {
-  background-color: #ffffff;
-  transition: 0.3s;
+  opacity: 0.5;
+  transition: 0.5s;
 }
 
 #newWorldButton {
-  background-color: rgba(207, 207, 207, 0.133);
+  background-color: rgba(207, 207, 207, 0);
 }
 
 #newWorldButton:hover {
-  background-color: #ffffff;
-  transition: 0.3s;
+  background-color: #ffffff00;
 }
 
 /* Close button */
@@ -177,7 +182,7 @@ button {
   left: 50%;
   border: 0.5px solid #e9e9e970;
   transform: translateX(-50%);
-  padding: 2vw 6vw;
+  padding: 1.25vw 5vw;
   background-color: rgba(255, 255, 255, 0.886);
   -webkit-backdrop-filter: blur(
     100px
