@@ -91,14 +91,32 @@ closeButtons.bottomDrawerCloseMenuButton.addEventListener("click", () =>
 
 // Function to update the image based on the slider value
 function updateIconBasedOnValue(slider, imgId, thresholds, icons) {
-  let value = slider.value;
+  let value = parseFloat(slider.value); // Ensure the value is a float for comparison
   let imgElement = document.getElementById(imgId);
 
   if (imgElement) {
-    // Calculate the index for the icons based on the thresholds
-    let iconIndex = Math.floor(value / thresholds);
+    let iconIndex;
 
-    // Make sure the index does not exceed the maximum available icons
+    // Check thresholds for movement speed and FOV sliders (which have a range divided into thirds)
+    if (thresholds === 3) {
+      // Movement Speed Slider (1-10)
+      iconIndex = Math.floor(value / thresholds);
+    } else if (thresholds === 47) {
+      // FOV Slider (1-140)
+      iconIndex = Math.floor(value / thresholds);
+    } else if (thresholds === 0.66) {
+      // Volume Slider (0-1)
+      // Handle volume slider's custom logic
+      if (value === 0) {
+        iconIndex = 0; // Show first icon for value 0
+      } else if (value <= 0.66) {
+        iconIndex = 1; // Show second icon for values between 0 and 0.66
+      } else {
+        iconIndex = 2; // Show third icon for values between 0.67 and 1
+      }
+    }
+
+    // Make sure the index doesn't exceed the available icons array length
     iconIndex = Math.min(iconIndex, icons.length - 1);
 
     // Update the image source
@@ -139,15 +157,15 @@ document.addEventListener("DOMContentLoaded", function () {
   // Music Volume Slider (0-1)
   const musicVolumeSlider = document.getElementById("musicVolumeSlider");
   const volumeIcons = [
-    "icon/volumeIcon_1.png", // 0-0.33
-    "icon/volumeIcon_2.png", // 0.34-0.66
-    "icon/volumeIcon_3.png", // 0.67-1
+    "icon/volumeIcon_1.png", // 0
+    "icon/volumeIcon_2.png", // 0 < value <= 0.66
+    "icon/volumeIcon_3.png", // 0.67 <= value <= 1
   ];
   musicVolumeSlider.addEventListener("input", function () {
     updateIconBasedOnValue(
       musicVolumeSlider,
       "rangeiconimg3",
-      0.33,
+      0.66,
       volumeIcons
     );
   });
@@ -155,5 +173,5 @@ document.addEventListener("DOMContentLoaded", function () {
   // Initialize the images based on initial slider values
   updateIconBasedOnValue(movementSpeedSlider, "rangeiconimg1", 3, walkingIcons);
   updateIconBasedOnValue(fovSlider, "rangeiconimg2", 47, fovIcons);
-  updateIconBasedOnValue(musicVolumeSlider, "rangeiconimg3", 0.33, volumeIcons);
+  updateIconBasedOnValue(musicVolumeSlider, "rangeiconimg3", 0.66, volumeIcons);
 });
