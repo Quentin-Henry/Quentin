@@ -233,7 +233,7 @@ class FirstPersonCamera {
         this.camera_.position.y = this.lastValidHeight; // Keep the last valid height
       }
     } else {
-      console.warn("No objects found for raycasting");
+      //console.warn("No objects found for raycasting");
       this.camera_.position.y = this.lastValidHeight; // Fallback
     }
 
@@ -362,7 +362,7 @@ class FirstPersonCamera {
         this.camera_.position.y = this.translation_.y; // Adjust accordingly
       }
     } else {
-      console.warn("No objects found for raycasting");
+      //console.warn("No objects found for raycasting");
       this.camera_.position.y = this.translation_.y; // Fallback
     }
   }
@@ -715,15 +715,15 @@ class FirstPersonCameraDemo {
       const creditDivWorld = document.getElementById("wordlInfoTextWorld");
       const creditDivAudio = document.getElementById("wordlInfoTextAudio");
 
-      console.log(creditDivWorld);
-      console.log(creditDivAudio);
+      //console.log(creditDivWorld);
+      //console.log(creditDivAudio);
 
       if (creditDivWorld) {
         creditDivWorld.innerHTML = `${randomModelConfig.credit}`;
       }
 
-      console.log(`${randomModelConfig.credit}`);
-      console.log(`${randomModelConfig.AudioCredit}`);
+      //console.log(`${randomModelConfig.credit}`);
+      //console.log(`${randomModelConfig.AudioCredit}`);
       if (creditDivAudio) {
         creditDivAudio.innerHTML = `${randomModelConfig.AudioCredit}`;
       }
@@ -731,18 +731,57 @@ class FirstPersonCameraDemo {
 
     // Initialize this.objects_ as an empty array
     this.objects_ = [];
-  }
 
+    this.initEscapeKeyListener();
+
+    // Initialize the click listener to start audio playback
+    this.initClickListener();
+  }
   playBackgroundMusic(audioPath) {
     if (this.backgroundMusic) {
       this.backgroundMusic.pause(); // Stop any currently playing music
       this.backgroundMusic.currentTime = 0; // Reset the audio to the start
+      console.log(this.backgroundMusic);
     }
 
     this.backgroundMusic = new Audio(audioPath); // Create a new audio instance
     this.backgroundMusic.loop = true; // Set to loop
     this.backgroundMusic.volume = 0.7; // Set volume (0.0 to 1.0)
     this.backgroundMusic.play(); // Start playing the new background music
+    console.log(this.backgroundMusic);
+  }
+
+  initEscapeKeyListener() {
+    window.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") {
+        console.log("Escape pressed for audio");
+
+        // Mute all audio elements when Escape key is pressed
+        document.querySelectorAll("audio").forEach((audio) => {
+          audio.muted = true;
+          console.log("Audio muted");
+        });
+
+        // Also, mute the background music if it's playing
+        if (this.backgroundMusic) {
+          this.backgroundMusic.muted = true; // Mute the specific background music
+          console.log("Background music muted");
+        }
+      }
+    });
+  }
+
+  // Initialize the click listener to start audio playback
+  initClickListener() {
+    document.addEventListener("click", () => {
+      this.backgroundMusic.muted = false; // Mute the specific background music
+
+      // Check if background music is not already playing
+      if (this.backgroundMusic && this.backgroundMusic.paused) {
+        console.log("Audio playing on click...");
+        this.backgroundMusic.play(); // Play the background music
+      }
+    });
   }
 
   initializeLights_() {
@@ -822,6 +861,27 @@ class FirstPersonCameraDemo {
   }
 }
 
+window.addEventListener("keydown", function (event) {
+  if (event.key === "Escape") {
+    console.log("ecp pressed in game");
+
+    // Determine the target origin dynamically based on the environment
+    let targetOrigin = "";
+
+    if (
+      window.location.hostname === "127.0.0.1" ||
+      window.location.hostname === "localhost"
+    ) {
+      targetOrigin = "http://127.0.0.1:5501/projects.html"; // Use localhost for testing
+    } else {
+      targetOrigin = "https://quentinhenry.com/projects.html"; // Use the live site for production
+    }
+
+    // Send the message to the parent window
+    window.parent.postMessage("escape", targetOrigin);
+  }
+});
+
 let _APP = null;
 
 window.addEventListener("DOMContentLoaded", () => {
@@ -838,3 +898,27 @@ if (introdiv) {
   // Check if the element exists
   introdiv.onclick = endintro;
 }
+
+// Listen for the Escape key press inside the embed (game)
+
+// Listen for clicks inside the embed content
+document.addEventListener("click", function () {
+  // Send a message to the parent window (where the embed is embedded)
+  window.parent.postMessage({ type: "enterFullscreen" }, "*"); // "*" can be replaced with the parent domain for security
+});
+
+window.addEventListener("message", function (event) {
+  // Ensure the message is from a trusted origin
+  if (
+    event.origin === "http://127.0.0.1:5501" || // Adjust this to your local test URL
+    event.origin === "https://quentinhenry.com" // Adjust to production URL
+  ) {
+    // Handle the 'pauseBackgroundMusic' message
+    if (event.data === "pauseBackgroundMusic") {
+      console.log("Received pauseBackgroundMusic message. Pausing the audio.");
+      pauseBackgroundMusic(); // Pause the background music
+    }
+  } else {
+    console.warn("Untrusted message origin:", event.origin);
+  }
+});

@@ -63,18 +63,94 @@ document.addEventListener("DOMContentLoaded", () => {
       } else {
         setFollowerTextColor("black");
       }
+      function handleEscape(event) {
+        if (menuIdent === "seven") {
+          // Ensure the embed is not added again unnecessarily
+          if (!embedContainer.querySelector("embed")) {
+            embedContainer.innerHTML =
+              '<embed id="embed2" data-text="" src="outsideStuff/outside.html" width="100%" height="100%"/>';
+            audioEmbed.setAttribute("src", "outsideStuff/outside.html");
+          }
 
-      if (menuIdent === "seven") {
-        // Try to unmute or control the audio if possible
-        if (audioEmbed) {
-          embedContainer.innerHTML =
-            '<embed id="embed2" data-text="" src="outsideStuff/outside.html" width="100%" height="100%"/>'; // Remove the embed
+          if (event.key === "Escape") {
+            console.log("Escape key pressed in parent window");
 
-          audioEmbed.setAttribute("src", "outsideStuff/outside.html"); // Attempt to unmute
+            // Remove the fullscreen class when Escape is pressed
+            embedContainer.classList.remove("fullscreen");
+
+            // Pause the audio (if it's playing)
+            if (audioEmbed && audioEmbed.pause) {
+              console.log("Pausing the audio.");
+              audioEmbed.pause(); // Pause the audio
+            }
+          }
         }
-      } else {
+      }
+
+      // Add global keydown listener to detect Escape when not focused on the embed
+      if (menuIdent === "seven") {
+        console.log("menuIdent is 'seven'");
+
+        // Ensure the Escape key is always detected globally
+        document.addEventListener("keydown", handleEscape);
+
         if (audioEmbed) {
-          embedContainer.innerHTML = ""; // Remove the embed
+          console.log("audioEmbed exists");
+
+          // Check if the embed is not already added before adding it
+          if (!embedContainer.querySelector("embed")) {
+            embedContainer.innerHTML =
+              '<embed id="embed2" data-text="" src="outsideStuff/outside.html" width="100%" height="100%"/>';
+            audioEmbed.setAttribute("src", "outsideStuff/outside.html");
+          }
+
+          // Add a listener for messages from the embed (postMessage)
+          window.addEventListener("message", function (event) {
+            // Check the origin of the incoming message
+            if (
+              event.origin === "http://127.0.0.1:5501" || // Adjusted origin
+              event.origin === "https://quentinhenry.com"
+            ) {
+              // Handle the 'escape' message from either localhost or production
+              if (event.data === "escape") {
+                console.log("Escape key pressed inside the embed");
+
+                // Remove the fullscreen class to exit fullscreen
+                embedContainer.classList.remove("fullscreen");
+
+                // Pause the audio when the escape is pressed inside the embed
+                if (audioEmbed && audioEmbed.pause) {
+                  console.log("Pausing the audio.");
+                  audioEmbed.pause(); // Pause the audio
+                }
+              }
+              // Handle the 'enterFullscreen' message from the embed
+              if (event.data.type === "enterFullscreen") {
+                console.log("Embed container clicked, entering fullscreen.");
+
+                // Add the fullscreen class to re-enter fullscreen
+                embedContainer.classList.add("fullscreen");
+              }
+            } else {
+              console.warn(
+                "Message received from an untrusted origin:",
+                event.origin
+              );
+            }
+          });
+        }
+
+        // Add a click listener to the embed container to re-enter fullscreen (optional, if you still want manual click on parent)
+        embedContainer.addEventListener("click", function () {
+          console.log("Embed container clicked, entering fullscreen.");
+
+          // Add the fullscreen class to re-enter fullscreen
+          embedContainer.classList.add("fullscreen");
+        });
+      } else {
+        console.log("menuIdent is not 'seven'");
+        if (audioEmbed) {
+          embedContainer.innerHTML = ""; // Remove the embed if not 'seven'
         }
       }
 
@@ -293,14 +369,6 @@ document.addEventListener("DOMContentLoaded", () => {
     updateFollowerTextOnMobile(); // Additional initial update
     setupScrollListener(); // Setup initial scroll listener
   } else {
-    // ... (existing desktop code)
-
-    // ... (rest of the JavaScript code)
-
-    // ... (existing desktop code)
-
-    // ... (rest of the JavaScript code)
-
     // Regular mouse follower functionality for desktop
     document.addEventListener("mousemove", (event) => {
       mouseX = event.pageX;

@@ -211,5 +211,5 @@ img {
 }
 
 .close-btn:hover {
-  background-color: #ffffff;
+  opacity: 0.5;
 }
