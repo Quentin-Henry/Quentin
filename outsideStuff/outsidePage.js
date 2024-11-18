@@ -126,19 +126,59 @@ function updateIconBasedOnValue(slider, imgId, thresholds, icons) {
   }
 }
 
+// Function to update the image based on the slider value
+function updateIconBasedOnValue(slider, imgId, thresholds, icons) {
+  let value = parseFloat(slider.value); // Ensure the value is a float for comparison
+  let imgElement = document.getElementById(imgId);
+
+  if (imgElement) {
+    let iconIndex;
+
+    // Check thresholds for movement speed and FOV sliders (which have a range divided into fourths)
+    if (thresholds === 2.5) {
+      // Movement Speed Slider (1-10)
+      iconIndex = Math.floor(value / thresholds);
+    } else if (thresholds === 35) {
+      // FOV Slider (1-140)
+      iconIndex = Math.floor(value / thresholds);
+    } else if (thresholds === 0.25) {
+      // Volume Slider (0-1)
+      // Handle volume slider's custom logic
+      if (value === 0) {
+        iconIndex = 0; // Show first icon for value 0
+      } else if (value <= 0.25) {
+        iconIndex = 1; // Show second icon for values between 0 and 0.25
+      } else if (value <= 0.5) {
+        iconIndex = 2; // Show third icon for values between 0.26 and 0.5
+      } else {
+        iconIndex = 3; // Show fourth icon for values between 0.51 and 1
+      }
+    }
+
+    // Make sure the index doesn't exceed the available icons array length
+    iconIndex = Math.min(iconIndex, icons.length - 1);
+
+    // Update the image source
+    imgElement.src = icons[iconIndex];
+  } else {
+    console.error("Image element with id " + imgId + " not found.");
+  }
+}
+
 document.addEventListener("DOMContentLoaded", function () {
   // Movement Speed Slider (1-10)
   const movementSpeedSlider = document.getElementById("movementSpeedSlider");
   const walkingIcons = [
-    "icon/walkingIcon_1.png", // 1-3
-    "icon/walkingIcon_2.png", // 4-6
-    "icon/walkingIcon_3.png", // 7-10
+    "icon/walkingIcon_1.png", // 1-2.5
+    "icon/walkingIcon_2.png", // 2.5-5
+    "icon/walkingIcon_3.png", // 5-7.5
+    "icon/walkingIcon_4.png", // 7.5-10
   ];
   movementSpeedSlider.addEventListener("input", function () {
     updateIconBasedOnValue(
       movementSpeedSlider,
       "rangeiconimg1",
-      3,
+      2.5,
       walkingIcons
     );
   });
@@ -146,32 +186,39 @@ document.addEventListener("DOMContentLoaded", function () {
   // FOV Slider (1-140)
   const fovSlider = document.getElementById("fovSlider");
   const fovIcons = [
-    "icon/fovIcon_1.png", // 1-46
-    "icon/fovIcon_2.png", // 47-93
-    "icon/fovIcon_3.png", // 94-140
+    "icon/fovIcon_1.png", // 1-35
+    "icon/fovIcon_2.png", // 36-70
+    "icon/fovIcon_3.png", // 71-105
+    "icon/fovIcon_4.png", // 106-140
   ];
   fovSlider.addEventListener("input", function () {
-    updateIconBasedOnValue(fovSlider, "rangeiconimg2", 47, fovIcons);
+    updateIconBasedOnValue(fovSlider, "rangeiconimg2", 35, fovIcons);
   });
 
   // Music Volume Slider (0-1)
   const musicVolumeSlider = document.getElementById("musicVolumeSlider");
   const volumeIcons = [
     "icon/volumeIcon_1.png", // 0
-    "icon/volumeIcon_2.png", // 0 < value <= 0.66
-    "icon/volumeIcon_3.png", // 0.67 <= value <= 1
+    "icon/volumeIcon_2.png", // 0 < value <= 0.25
+    "icon/volumeIcon_3.png", // 0.26 <= value <= 0.5
+    "icon/volumeIcon_4.png", // 0.51 <= value <= 1
   ];
   musicVolumeSlider.addEventListener("input", function () {
     updateIconBasedOnValue(
       musicVolumeSlider,
       "rangeiconimg3",
-      0.66,
+      0.25,
       volumeIcons
     );
   });
 
   // Initialize the images based on initial slider values
-  updateIconBasedOnValue(movementSpeedSlider, "rangeiconimg1", 3, walkingIcons);
-  updateIconBasedOnValue(fovSlider, "rangeiconimg2", 47, fovIcons);
-  updateIconBasedOnValue(musicVolumeSlider, "rangeiconimg3", 0.66, volumeIcons);
+  updateIconBasedOnValue(
+    movementSpeedSlider,
+    "rangeiconimg1",
+    2.5,
+    walkingIcons
+  );
+  updateIconBasedOnValue(fovSlider, "rangeiconimg2", 35, fovIcons);
+  updateIconBasedOnValue(musicVolumeSlider, "rangeiconimg3", 0.25, volumeIcons);
 });
