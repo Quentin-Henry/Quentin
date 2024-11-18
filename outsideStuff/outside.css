@@ -119,12 +119,45 @@ img {
   transition: bottom 0.5s ease-in-out;
 }
 
+#worldInfoIcon {
+  width: 30%;
+}
+
 #worldInfo {
   height: 60%;
 
   z-index: 5;
 }
 
+#worldInfoContent {
+  display: flex;
+  justify-content: space-between;
+}
+
+#worldInfoContentLetter {
+  width: 50%;
+  margin-right: 10%;
+}
+
+#worldInfoContentCreditBox {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  justify-content: space-between;
+}
+
+.WorldInfoCreditDiv {
+  display: flex;
+  align-items: center;
+}
+
+.WorldInfoCreditDivTextHolder {
+  width: 80%;
+}
+
+.WorldInfoCreditDivIconHolder {
+  width: 20%;
+}
 .subDrwawerContent {
   padding: 10%;
 }
