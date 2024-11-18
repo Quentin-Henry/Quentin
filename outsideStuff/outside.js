@@ -178,10 +178,22 @@ class FirstPersonCamera {
     this.raycaster = new THREE.Raycaster();
     this.updateHeadBob_ = this.updateHeadBob_.bind(this); // Bind the method
 
-    this.lastValidHeight = this.camera_.position.y; // Store last valid height
-
     this.footstepAudioFiles = [
-      // footstep files here
+      "audio/footstep_1.mp3",
+      "audio/footstep_2.mp3",
+      "audio/footstep_3.mp3",
+      "audio/footstep_4.mp3",
+      "audio/footstep_5.mp3",
+      "audio/footstep_6.mp3",
+      "audio/footstep_7.mp3",
+      "audio/footstep_8.mp3",
+      "audio/footstep_9.mp3",
+      "audio/footstep_10.mp3",
+      "audio/footstep_11.mp3",
+      "audio/footstep_12.mp3",
+      "audio/footstep_13.mp3",
+      "audio/footstep_14.mp3",
+      "audio/footstep_15.mp3",
     ];
     this.lastStepTime = 0;
     this.isMoving = false; // Track if a movement key is pressed
@@ -240,7 +252,7 @@ class FirstPersonCamera {
     moveDirection.normalize();
 
     // Debug the movement speed
-    console.log(`Movement Speed: ${this.movementSpeed_}`);
+    //console.log(`Movement Speed: ${this.movementSpeed_}`);
 
     // Apply speed and time elapsed
     moveDirection.multiplyScalar(this.movementSpeed_ * timeElapsedS);
@@ -253,21 +265,43 @@ class FirstPersonCamera {
   }
 
   updateCamera_(_) {
-    this.camera_.quaternion.copy(this.rotation_);
-    const down = new THREE.Vector3(0, -1, 0);
-    this.raycaster.set(this.camera_.position, down);
-
-    let isAboveModel = false; // Flag to check if the camera is above the model
-
+    // Check if there are objects for raycasting
     if (this.objects_ && this.objects_.length > 0) {
-      const intersects = this.raycaster.intersectObjects(this.objects_, true);
+      //console.log("Objects for raycasting: ", this.objects_);
+
+      // Set up raycasting: Ray origin and direction
+      this.raycaster.ray.origin.copy(this.camera_.position);
+      this.raycaster.ray.direction.set(0, -2, 0).normalize(); // Ray goes downward
+
+      // Check the positions and scales of objects for raycasting
+      this.objects_.forEach((obj) => {
+        //console.log("Object position: ", obj.position);
+        //console.log("Object scale: ", obj.scale);
+        if (obj.geometry) {
+          obj.geometry.computeBoundingBox(); // Ensure bounding box is calculated
+          //console.log("Bounding box: ", obj.geometry.boundingBox);
+        }
+      });
+
+      // Perform raycasting
+      const intersects = this.raycaster.intersectObjects(this.objects_, true); // With recursion
+      //console.log("Raycasting results: ", intersects);
+
+      // If there's an intersection, move the camera
       if (intersects.length > 0) {
-        const heightAboveGround = 1.5;
-        this.camera_.position.y = intersects[0].point.y + heightAboveGround;
-        this.lastValidHeight = this.camera_.position.y; // Update last valid height
-        isAboveModel = true; // Camera is above the model
+        const heightAboveGround = 2;
+        let groundHeight = intersects[0].point.y + heightAboveGround;
+        // console.log("ground height", groundHeight);
+        // Apply head bobbing offset
+        let headBobOffset = Math.sin(this.headBobTimer_ * 5) * 2;
+        this.camera_.position.y = groundHeight + headBobOffset;
+
+        //console.log("Camera position Y: ", this.camera_.position.y);
+        this.lastValidHeight = this.camera_.position.y + headBobOffset;
+        // console.log("lastValidHeight", this.lastValidHeight);
       } else {
-        this.camera_.position.y = this.lastValidHeight; // Keep the last valid height
+        // console.warn("No intersections found.");
+        this.camera_.position.y = this.lastValidHeight; // Fallback to last valid height
       }
     } else {
       //console.warn("No objects found for raycasting");
@@ -275,11 +309,6 @@ class FirstPersonCamera {
     }
 
     // Mute or unmute background music based on camera height
-    if (isAboveModel) {
-      this.backgroundMusic.volume = 0.7; // Set to desired volume
-    } else {
-      this.backgroundMusic.volume = 0; // Mute
-    }
 
     // Update camera translation based on the translation vector
     this.camera_.position.copy(this.translation_);
@@ -314,10 +343,8 @@ class FirstPersonCamera {
         nextStepTime
       );
 
-      // Check if we just completed a cycle
-      if (this.headBobTimer_ >= nextStepTime) {
+      if (this.headBobTimer_ == nextStepTime) {
         this.headBobActive_ = false;
-        this.playFootstepAudio(); // Play footstep sound
       }
     }
   }
@@ -391,24 +418,47 @@ class FirstPersonCamera {
   }
 
   adjustCameraYPosition() {
-    // Perform raycasting downwards
-    const down = new THREE.Vector3(0, -1, 0); // Direction down
-    this.raycaster.set(this.camera_.position, down); // Set ray from camera position
-
-    // Check for intersections with the objects in the scene
+    // Check if there are objects for raycasting
     if (this.objects_ && this.objects_.length > 0) {
-      const intersects = this.raycaster.intersectObjects(this.objects_, true);
+      //console.log("Objects for raycasting: ", this.objects_);
+
+      // Set up raycasting: Ray origin and direction
+      this.raycaster.ray.origin.copy(this.camera_.position);
+      this.raycaster.ray.direction.set(0, -2, 0).normalize(); // Ray goes downward
+
+      // Check the positions and scales of objects for raycasting
+      this.objects_.forEach((obj) => {
+        //console.log("Object position: ", obj.position);
+        //console.log("Object scale: ", obj.scale);
+        if (obj.geometry) {
+          obj.geometry.computeBoundingBox(); // Ensure bounding box is calculated
+          //console.log("Bounding box: ", obj.geometry.boundingBox);
+        }
+      });
+
+      // Perform raycasting
+      const intersects = this.raycaster.intersectObjects(this.objects_, true); // With recursion
+      //console.log("Raycasting results: ", intersects);
+
+      // If there's an intersection, move the camera
       if (intersects.length > 0) {
-        // Set camera's Y position to be above the ground
-        const heightAboveGround = 3; // Desired height above the surface
-        this.camera_.position.y = intersects[0].point.y + heightAboveGround;
+        const heightAboveGround = 3;
+        let groundHeight = intersects[0].point.y + heightAboveGround;
+        // console.log("ground height", groundHeight);
+        // Apply head bobbing offset
+        let headBobOffset = Math.sin(this.headBobTimer_ * 10) * 0.08;
+        this.camera_.position.y = groundHeight + headBobOffset;
+
+        //console.log("Camera position Y: ", this.camera_.position.y);
+        this.lastValidHeight = this.camera_.position.y + headBobOffset;
+        // console.log("lastValidHeight", this.lastValidHeight);
       } else {
-        // If no intersection, set camera to a default height
-        this.camera_.position.y = this.translation_.y; // Adjust accordingly
+        // console.warn("No intersections found.");
+        this.camera_.position.y = this.lastValidHeight; // Fallback to last valid height
       }
     } else {
       //console.warn("No objects found for raycasting");
-      this.camera_.position.y = this.translation_.y; // Fallback
+      this.camera_.position.y = this.lastValidHeight; // Fallback
     }
   }
 
