@@ -106,8 +106,10 @@ img {
 .subDrwawer {
   position: fixed;
   bottom: -100%; /* Hidden below the screen initially */
-  left: 0;
-  right: 0;
+  left: 50;
+  right: 50;
+  border-radius: 10px;
+
   background-color: rgba(255, 255, 255, 0.052);
   -webkit-backdrop-filter: blur(
     100px
