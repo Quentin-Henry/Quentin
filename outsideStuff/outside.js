@@ -181,30 +181,44 @@ class FirstPersonCamera {
     this.lastValidHeight = this.camera_.position.y; // Store last valid height
 
     this.footstepAudioFiles = [
-      "audio/footstep_1.mp3",
-      "audio/footstep_2.mp3",
-      "audio/footstep_3.mp3",
-      "audio/footstep_4.mp3",
-      "audio/footstep_5.mp3",
-      "audio/footstep_6.mp3",
-      "audio/footstep_7.mp3",
-      "audio/footstep_8.mp3",
-      "audio/footstep_9.mp3",
-      "audio/footstep_10.mp3",
-      "audio/footstep_11.mp3",
-      "audio/footstep_12.mp3",
-      "audio/footstep_13.mp3",
-      "audio/footstep_14.mp3",
-      // Add more footstep audio files as needed
+      // footstep files here
     ];
     this.lastStepTime = 0;
     this.isMoving = false; // Track if a movement key is pressed
 
+    // Default movement speed
+    this.movementSpeed_ = 3;
+
     // Create audio elements
-    this.footstepAudio = new Audio(); // For footstep sounds
-    this.backgroundMusic = new Audio("audio/forest.mp3"); // Load background music
-    this.backgroundMusic.loop = true; // Set to loop
-    this.backgroundMusic.volume = 0.7; // Set volume (0.0 to 1.0)
+    this.footstepAudio = new Audio();
+    this.backgroundMusic = new Audio("audio/forest.mp3");
+    this.backgroundMusic.loop = true;
+    this.backgroundMusic.volume = 0.7;
+
+    // Initialize the slider change listener
+    this.initializeMovementSpeedSlider();
+  }
+
+  // Initialize movement speed slider event listener
+  initializeMovementSpeedSlider() {
+    const movementSpeedSlider = document.getElementById("movementSpeedSlider");
+    const movementSpeedValue = document.getElementById("movementSpeedValue");
+
+    if (!movementSpeedSlider || !movementSpeedValue) {
+      console.error("Slider or value element not found!");
+      return;
+    }
+
+    movementSpeedSlider.addEventListener("input", (event) => {
+      // Update movement speed
+      this.movementSpeed_ = parseFloat(event.target.value);
+
+      // Debug the speed change
+      //console.log(`Updated Movement Speed: ${this.movementSpeed_}`);
+
+      // Update the displayed value for current speed
+      movementSpeedValue.textContent = this.movementSpeed_;
+    });
   }
 
   update(timeElapsedS) {
@@ -213,6 +227,29 @@ class FirstPersonCamera {
     this.updateTranslation_(timeElapsedS);
     this.updateHeadBob_(timeElapsedS);
     this.input_.update(timeElapsedS);
+  }
+
+  updateTranslation_(timeElapsedS) {
+    const moveDirection = new THREE.Vector3();
+
+    if (this.input_.moveForward) moveDirection.z -= 1;
+    if (this.input_.moveBackward) moveDirection.z += 1;
+    if (this.input_.moveLeft) moveDirection.x -= 1;
+    if (this.input_.moveRight) moveDirection.x += 1;
+
+    moveDirection.normalize();
+
+    // Debug the movement speed
+    console.log(`Movement Speed: ${this.movementSpeed_}`);
+
+    // Apply speed and time elapsed
+    moveDirection.multiplyScalar(this.movementSpeed_ * timeElapsedS);
+
+    console.log(
+      `Move Direction: ${moveDirection.x}, ${moveDirection.y}, ${moveDirection.z}`
+    );
+
+    this.camera_.position.add(moveDirection);
   }
 
   updateCamera_(_) {
@@ -300,11 +337,13 @@ class FirstPersonCamera {
     }
   }
   updateTranslation_(timeElapsedS) {
+    // Calculate forward and strafe velocities based on input keys (W, A, S, D)
     const forwardVelocity =
       (this.input_.key(KEYS.w) ? 1 : 0) + (this.input_.key(KEYS.s) ? -1 : 0);
     const strafeVelocity =
       (this.input_.key(KEYS.a) ? 1 : 0) + (this.input_.key(KEYS.d) ? -1 : 0);
 
+    // Update the movement state (whether the player is moving or not)
     if (forwardVelocity !== 0 || strafeVelocity !== 0) {
       this.isMoving = true;
       this.playFootstepAudio(timeElapsedS); // Play audio when moving
@@ -312,23 +351,29 @@ class FirstPersonCamera {
       this.isMoving = false;
     }
 
+    // Create a quaternion to rotate the movement vector based on the camera's orientation
     const qx = new THREE.Quaternion();
     qx.setFromAxisAngle(new THREE.Vector3(0, 1, 0), this.phi_);
 
+    // Create the movement vectors (forward and left)
     const forward = new THREE.Vector3(0, 0, -1);
     forward.applyQuaternion(qx);
-    forward.multiplyScalar(forwardVelocity * timeElapsedS * 3);
+    forward.multiplyScalar(
+      forwardVelocity * timeElapsedS * this.movementSpeed_
+    ); // Use movementSpeed_
 
     const left = new THREE.Vector3(-1, 0, 0);
     left.applyQuaternion(qx);
-    left.multiplyScalar(strafeVelocity * timeElapsedS * 3);
+    left.multiplyScalar(strafeVelocity * timeElapsedS * this.movementSpeed_); // Use movementSpeed_
 
+    // Add the movement vectors to the camera's translation
     this.translation_.add(forward);
     this.translation_.add(left);
 
     // After moving, adjust the camera's Y position based on the ground below
     this.adjustCameraYPosition();
 
+    // Activate head bobbing if the player is moving
     if (forwardVelocity != 0 || strafeVelocity != 0) {
       this.headBobActive_ = true;
     }
@@ -438,11 +483,12 @@ class FirstPersonCameraDemo {
       false
     );
 
-    const fov = 60;
-    const aspect = 1920 / 1080;
+    // Initial FOV and Camera setup
+    const initialFov = 60;
+    const aspect = window.innerWidth / window.innerHeight; // Use dynamic aspect ratio
     const near = 1.0;
     const far = 1000.0;
-    this.camera_ = new THREE.PerspectiveCamera(fov, aspect, near, far);
+    this.camera_ = new THREE.PerspectiveCamera(initialFov, aspect, near, far);
     this.camera_.position.set(0, 2, 0);
 
     this.scene_ = new THREE.Scene();
@@ -456,6 +502,23 @@ class FirstPersonCameraDemo {
       1000
     );
     this.uiScene_ = new THREE.Scene();
+
+    // Handle FOV slider change
+    const fovSlider = document.getElementById("fovSlider");
+    fovSlider.addEventListener("input", (event) => {
+      const newFov = parseFloat(event.target.value);
+      this.updateFov(newFov);
+    });
+  }
+
+  updateFov(fov) {
+    // Update the camera's FOV and adjust the projection matrix
+    this.camera_.fov = fov;
+    this.camera_.updateProjectionMatrix();
+    const fovValue = document.getElementById("fovValue");
+    //console.log(fov);
+    // Update the displayed value for current speed
+    fovValue.textContent = fov;
   }
 
   initializeScene_() {
@@ -733,22 +796,52 @@ class FirstPersonCameraDemo {
     this.objects_ = [];
 
     this.initEscapeKeyListener();
+    this.initializeMusicVolumeSlider();
 
     // Initialize the click listener to start audio playback
     this.initClickListener();
+  }
+
+  initializeMusicVolumeSlider() {
+    const musicVolumeSlider = document.getElementById("musicVolumeSlider");
+
+    musicVolumeSlider.addEventListener("input", (event) => {
+      const volume = parseFloat(event.target.value); // Get the slider value
+      this.setMusicVolume(volume); // Update the volume
+    });
+  }
+
+  setMusicVolume(volume) {
+    if (this.backgroundMusic) {
+      this.backgroundMusic.volume = volume; // Set the new volume
+      // console.log("Background music volume set to: ", volume);
+      const volumeValue = document.getElementById("volumeValue");
+      //console.log(volume);
+      const volumePercentage = (volume * 100).toFixed(0);
+      // Update the displayed value for current speed
+      volumeValue.textContent = volumePercentage;
+    }
   }
   playBackgroundMusic(audioPath) {
     if (this.backgroundMusic) {
       this.backgroundMusic.pause(); // Stop any currently playing music
       this.backgroundMusic.currentTime = 0; // Reset the audio to the start
-      console.log(this.backgroundMusic);
     }
 
     this.backgroundMusic = new Audio(audioPath); // Create a new audio instance
     this.backgroundMusic.loop = true; // Set to loop
-    this.backgroundMusic.volume = 0.7; // Set volume (0.0 to 1.0)
+
+    // Set initial volume from the slider value
+    const initialVolume = parseFloat(
+      document.getElementById("musicVolumeSlider").value
+    );
+    this.backgroundMusic.volume = initialVolume; // Set the initial volume
     this.backgroundMusic.play(); // Start playing the new background music
-    console.log(this.backgroundMusic);
+
+    console.log(
+      "Playing background music at volume: ",
+      this.backgroundMusic.volume
+    );
   }
 
   initEscapeKeyListener() {

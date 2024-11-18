@@ -135,8 +135,14 @@ img {
 }
 
 #settings {
-  height: 90%;
+  height: 50%;
   z-index: 3;
+}
+
+.settingsCont {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
 
 /* Drawer content */
@@ -212,4 +218,53 @@ img {
 
 .close-btn:hover {
   opacity: 0.5;
+}
+.DontShow {
+  display: none;
+}
+
+.inputarea {
+  width: 33%;
+  display: flex;
+}
+
+.rangeicon {
+  width: 25%;
+}
+
+#rangeiconimg {
+  width: 100%;
+}
+
+/*********** Baseline, reset styles ***********/
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+  cursor: pointer;
+  width: 100%;
+}
+
+/* Removes default focus */
+input[type="range"]:focus {
+  outline: none;
+}
+
+/******** Chrome, Safari, Opera and Edge Chromium styles ********/
+/* slider track */
+input[type="range"]::-webkit-slider-runnable-track {
+  background-color: #ffffff;
+  border-radius: 0.5rem;
+  height: 0.5rem;
+}
+
+/* slider thumb */
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none; /* Override default look */
+  appearance: none;
+  margin-top: -20px; /* Centers thumb on the track */
+  background-color: #ffffff;
+  border-radius: 0.5rem;
+  height: 3rem;
+  width: 2rem;
 }

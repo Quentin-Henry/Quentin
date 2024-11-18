@@ -45,10 +45,19 @@
     </div>
 
     <div class="subDrwawer D" id="settings">
-      <div class="subDrwawerContent D"><p>Work in Progress</p></div>
+      <div class="subDrwawerContent D">
+        <div class="settingsCont D">
+     <div class="D inputarea"><div class="D rangeicon"><img class="D" id="rangeiconimg" src="icon/walkingIcon_2.png"></div><input class="D" type="range" id="movementSpeedSlider" min="1" max="10" value="3" step="1">  </div>
+     <div class="D inputarea"><div class="D rangeicon"><img class="D" id="rangeiconimg" src="icon/fovIcon_2.png"></div> <input class="D" id="fovSlider" type="range" min="1" max="140" value="60" step="1"></div>
+     <div class="D inputarea"><div class="D rangeicon"><img class="D" id="rangeiconimg" src="icon/volumeIcon_2.png"></div> <input class="D" type="range" id="musicVolumeSlider" min="0" max="1" value="0.7" step="0.1"></div>
+    
+      </div>
+      </div>
       <button id="settingscloseMenuBtn" class="close-btn four D"></button>
     </div>
-
+    <p class="DontShow">Walking Speed: <span class="DontShow" id="movementSpeedValue">3</span>
+      <p class="DontShow">FOV: <span class="DontShow" id="fovValue">60</span></p>
+      <p class="DontShow">Audio Volume: <span class="DontShow" id="volumeValue">70</span>
     <script src="./outside.js" type="module"></script>
     <script src="./outsidePage.js"></script>
   </body>
