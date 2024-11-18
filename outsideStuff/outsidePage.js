@@ -88,3 +88,72 @@ closeButtons.bottomDrawerCloseMenuButton =
 closeButtons.bottomDrawerCloseMenuButton.addEventListener("click", () =>
   closeMenu(menus.bottomDrawer)
 );
+
+// Function to update the image based on the slider value
+function updateIconBasedOnValue(slider, imgId, thresholds, icons) {
+  let value = slider.value;
+  let imgElement = document.getElementById(imgId);
+
+  if (imgElement) {
+    // Calculate the index for the icons based on the thresholds
+    let iconIndex = Math.floor(value / thresholds);
+
+    // Make sure the index does not exceed the maximum available icons
+    iconIndex = Math.min(iconIndex, icons.length - 1);
+
+    // Update the image source
+    imgElement.src = icons[iconIndex];
+  } else {
+    console.error("Image element with id " + imgId + " not found.");
+  }
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+  // Movement Speed Slider (1-10)
+  const movementSpeedSlider = document.getElementById("movementSpeedSlider");
+  const walkingIcons = [
+    "icon/walkingIcon_1.png", // 1-3
+    "icon/walkingIcon_2.png", // 4-6
+    "icon/walkingIcon_3.png", // 7-10
+  ];
+  movementSpeedSlider.addEventListener("input", function () {
+    updateIconBasedOnValue(
+      movementSpeedSlider,
+      "rangeiconimg1",
+      3,
+      walkingIcons
+    );
+  });
+
+  // FOV Slider (1-140)
+  const fovSlider = document.getElementById("fovSlider");
+  const fovIcons = [
+    "icon/fovIcon_1.png", // 1-46
+    "icon/fovIcon_2.png", // 47-93
+    "icon/fovIcon_3.png", // 94-140
+  ];
+  fovSlider.addEventListener("input", function () {
+    updateIconBasedOnValue(fovSlider, "rangeiconimg2", 47, fovIcons);
+  });
+
+  // Music Volume Slider (0-1)
+  const musicVolumeSlider = document.getElementById("musicVolumeSlider");
+  const volumeIcons = [
+    "icon/volumeIcon_1.png", // 0-0.33
+    "icon/volumeIcon_2.png", // 0.34-0.66
+    "icon/volumeIcon_3.png", // 0.67-1
+  ];
+  musicVolumeSlider.addEventListener("input", function () {
+    updateIconBasedOnValue(
+      musicVolumeSlider,
+      "rangeiconimg3",
+      0.33,
+      volumeIcons
+    );
+  });
+
+  // Initialize the images based on initial slider values
+  updateIconBasedOnValue(movementSpeedSlider, "rangeiconimg1", 3, walkingIcons);
+  updateIconBasedOnValue(fovSlider, "rangeiconimg2", 47, fovIcons);
+  updateIconBasedOnValue(musicVolumeSlider, "rangeiconimg3", 0.33, volumeIcons);
+});
