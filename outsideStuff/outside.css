@@ -89,6 +89,7 @@ img {
   right: 50;
   height: 40%;
   border-radius: 10px;
+  border: 0.5px solid #ffffff70;
 
   background-color: rgba(255, 255, 255, 0.052);
   -webkit-backdrop-filter: blur(
@@ -109,6 +110,7 @@ img {
   left: 50;
   right: 50;
   border-radius: 10px;
+  border: 0.5px solid #ffffff70;
 
   background-color: rgba(255, 255, 255, 0.052);
   -webkit-backdrop-filter: blur(
