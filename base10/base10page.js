@@ -34,9 +34,9 @@ function drawPolygon(sides) {
     "polygon"
   );
   polygon.setAttribute("points", points.trim());
-  polygon.setAttribute("fill", "none"); // No fill
-  polygon.setAttribute("stroke", "white"); // White stroke for the polygon
-  polygon.setAttribute("stroke-width", 2); // Make the polygon lines a bit thicker for visibility
+  polygon.setAttribute("fill", "none");
+  polygon.setAttribute("stroke", "white");
+  polygon.setAttribute("stroke-width", 2);
   polygonGroup.appendChild(polygon);
 
   // Draw radial lines for divisions (sides == divisions)
