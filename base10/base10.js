@@ -123,7 +123,7 @@ class HexadecimalTimeSystem extends TimeSystem {
       displayText: this.formatDisplay(hexHours, hexMinutes, hexSeconds, 16),
       extraInfo: `${this.baseInfo} - Fraction: 0x${hexFraction}`,
       description:
-        "The base-16 hexadecimal system is used in some clocks, particularly digital ones, to represent time. In this system, numbers are expressed using 16 symbols: 0-9 and A-F, where A represents 10, B is 11, and so on. Hexadecimal is useful for efficiently displaying larger values in a compact format, often seen in 24-hour or military time displays.",
+        "The base-16 hexadecimal system is expressed using 16 symbols: 0-9 and A-F, where A represents 10, B is 11, and so on. Hexadecimal is useful for efficiently displaying larger values in a compact format.",
     };
   }
 
@@ -352,7 +352,7 @@ class GoldenTimeSystem extends TimeSystem {
 
 class QuantumTimeSystem extends TimeSystem {
   constructor() {
-    super("quantum", "Quantum Probability Time", 50); // Faster update rate for smooth animations
+    super("quantum", "Quantum Probability Time", 50);
     this.planckTime = 5.391e-44; // Planck time in seconds
     this.uncertaintyScale = {
       hours: 0.1, // Lowest uncertainty
@@ -387,7 +387,7 @@ class QuantumTimeSystem extends TimeSystem {
       displayText,
       extraInfo: this.getQuantumInfo(uncertainties),
       description:
-        "The clock's hands exist in multiple positions at once. The uncertainty in each hand's position grows smaller over time, seconds are more uncertain than hours. based Heisenberg's Uncertainty Principle.",
+        "The clock's hands exist in multiple positions at once. The uncertainty in each hand's position grows smaller over time, seconds are more uncertain than hours. Based Heisenberg's Uncertainty Principle.",
       // Add probability cloud data for rendering
       probabilityCloud: {
         hours: distributions.hours,
@@ -584,7 +584,8 @@ class SeptimalTimeSystem extends TimeSystem {
         .toString(7)
         .padStart(2, "0")}:${septalSeconds.toString(7).padStart(2, "0")}`,
       extraInfo: `Septimal Time (Base 7) - Dec: ${septalHours}:${septalMinutes}:${septalSeconds}`,
-      description: "   ",
+      description:
+        "How would your day change if the divisions were longer, yet fewer. Would you feel you had more or less time, Would you be rushed or relaxed?",
     };
   }
 
@@ -797,7 +798,8 @@ class VigesimalTimeSystem extends TimeSystem {
         vigSeconds
       )}`,
       extraInfo: `Base 20 (A-J = 10-19) - Dec: ${vigHours}:${vigMinutes}:${vigSeconds}`,
-      description: "   ",
+      description:
+        "The Maya used a vigesimal counting system with Dot and Bar symbols. Similar to the sexagesimal system, the Maya's system is believed to have originated from counting of fingers but unlike the Sumerians, the Maya counted their toes as well.",
     };
   }
 
