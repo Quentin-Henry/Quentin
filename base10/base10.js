@@ -78,7 +78,7 @@ class DecimalTimeSystem extends TimeSystem {
       ),
       extraInfo: this.getExtraInfo(),
       description:
-        "This system is designed to simplify timekeeping by using a base-10 structure, similar to the metric system. Although it was briefly used during the French Revolution.",
+        "This system is designed to simplify timekeeping by using a base-10 structure, similar to the metric system. it was briefly used during the French Revolution.",
     };
   }
   getTimeSubdivisions() {
@@ -176,7 +176,7 @@ class BinaryTimeSystem extends TimeSystem {
       hourDeg: ((binaryHours + binaryMinutes / 32) / 16) * 360,
       displayText: `${hoursBinary}:${minutesBinary}:${secondsBinary}`,
       extraInfo: `Binary Time - Dec: ${binaryHours}:${binaryMinutes}:${binarySeconds}`,
-      description: "bin decs",
+      description: "  ",
     };
   }
 
@@ -221,7 +221,7 @@ class OctalTimeSystem extends TimeSystem {
         8
       )}:${this.pad(octalSeconds, 8)}`,
       extraInfo: this.getExtraInfo(),
-      description: "oct decs",
+      description: "   ",
     };
   }
 
@@ -387,7 +387,7 @@ class QuantumTimeSystem extends TimeSystem {
       displayText,
       extraInfo: this.getQuantumInfo(uncertainties),
       description:
-        "This clock uses two quantum principles: Superposition and the Uncertainty. The clock's hands exist in multiple positions at once. The uncertainty in each hand's position grows smaller over time—seconds are more uncertain than hours—based Heisenberg's Uncertainty Principle.",
+        "The clock's hands exist in multiple positions at once. The uncertainty in each hand's position grows smaller over time, seconds are more uncertain than hours. based Heisenberg's Uncertainty Principle.",
       // Add probability cloud data for rendering
       probabilityCloud: {
         hours: distributions.hours,
@@ -584,7 +584,7 @@ class SeptimalTimeSystem extends TimeSystem {
         .toString(7)
         .padStart(2, "0")}:${septalSeconds.toString(7).padStart(2, "0")}`,
       extraInfo: `Septimal Time (Base 7) - Dec: ${septalHours}:${septalMinutes}:${septalSeconds}`,
-      description: "sept",
+      description: "   ",
     };
   }
 
@@ -686,7 +686,7 @@ class DuodecimalTimeSystem extends TimeSystem {
         duoSeconds
       )}`,
       extraInfo: `Base 12 (A=10, B=11) - Dec: ${duoHours}:${duoMinutes}:${duoSeconds}`,
-      description: "duo",
+      description: "  ",
     };
   }
 
@@ -797,7 +797,7 @@ class VigesimalTimeSystem extends TimeSystem {
         vigSeconds
       )}`,
       extraInfo: `Base 20 (A-J = 10-19) - Dec: ${vigHours}:${vigMinutes}:${vigSeconds}`,
-      description: "vig",
+      description: "   ",
     };
   }
 
@@ -860,7 +860,7 @@ class HarmonicTimeSystem extends TimeSystem {
       hourDeg: ((hours + minutes / harmonicMinutes) / harmonicHours) * 360,
       displayText: this.formatDisplay(hours, minutes, seconds),
       extraInfo: `Harmonic Time (${hourInterval}:${minuteInterval}:${secondInterval})`,
-      description: "Based on the Cirle of Fiths, western musical notation",
+      description: "Based on the Cirle of Fiths, western musical rhythms",
     };
   }
 
