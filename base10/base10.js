@@ -538,7 +538,7 @@ class TrueBinaryTimeSystem extends TimeSystem {
       hourDeg: ((binaryHours + binaryMinutes / 8) / 8) * 360,
       displayText: `${hoursBinary}:${minutesBinary}:${secondsBinary}`,
       extraInfo: `Pure Binary (Base 2) - Dec: ${binaryHours}:${binaryMinutes}:${binarySeconds}`,
-      description: "true bin",
+      description: "   ",
     };
   }
 
