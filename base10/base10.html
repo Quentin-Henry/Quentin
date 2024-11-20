@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Clock</title>
+    <link rel="stylesheet" href="base10.css" />
+  </head>
+  <body>
+    <div class="TimeElementsContainer" id="TimeElementsContainer">
+      <div class="time-display">
+        <p id="timeText">00:00:00</p>
+      </div>
+      <div class="clockContainer">
+        <div class="clock">
+          <div id="rotatedDiv">
+            <div id="rotatecircle"></div>
+
+            <img id="rotatedImg" src="rotated/Rotated Instances_24.png" />
+          </div>
+          <div class="clock-face">
+            <div class="hand hour-hand"></div>
+            <div class="hand minute-hand"></div>
+            <div class="hand second-hand"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="infoContainer" style="transform: translateX(0%)">
+      <div class="infoContainerTab" id="infoContainerTab"></div>
+      <div class="infoContainerContent">
+        <div id="clockMenu">
+          <span class="clockMenuItem" id="BasePrime">Base p′ (prime) </span>
+          <span class="clockMenuItem" id="Base7">Base 7 (Septimal) </span>
+          <span class="clockMenuItem" id="base2">Base 8 (Binary) </span>
+          <span class="clockMenuItem" id="Base8">Base 8 (Octal) </span>
+          <span class="clockMenuItem" id="Base10">Base 10 (Decimal) </span>
+          <span class="clockMenuItem" id="Base12">Base 12 (Dozenal) </span>
+          <span class="clockMenuItem" id="BaseHarmonic"
+            >Base 12 (Harmonic)</span
+          >
+          <span class="clockMenuItem" id="Base16">Base 16 (Hexadecimal) </span>
+          <span class="clockMenuItem" id="Base20">Base 20 (vigesimal) </span>
+
+          <span class="clockMenuItem active" id="Base60"
+            >Base 60 (Standard)</span
+          >
+          <span class="clockMenuItem" id="BaseΨ"
+            >Base Ψ (Quantum Probabilistic)</span
+          >
+          <span class="clockMenuItem" id="Baseφ">Base φ (Fibonacci) </span>
+          <span class="clockMenuItem" id="BasePi">Base π (pi) </span>
+
+          <span class="clockMenuItem ionwaana" id="Base16B"
+            >Base 16 (Binary)
+          </span>
+        </div>
+        <div id="extraInfo" class="ionwaana"></div>
+        <div class="container">
+          <svg id="polygonSvg" viewBox="0 0 270 270">
+            <g id="polygonGroup"></g>
+          </svg>
+        </div>
+        <div class="buttons">
+          <button class="innerbutton active" id="buttonH">24H</button>
+          <button class="innerbutton" id="buttonM">60M</button>
+          <button class="innerbutton" id="buttonS">60S</button>
+        </div>
+        <div>
+          <button id="advancedToggleButton" class="ionwaana">
+            Switch to Next Time System
+          </button>
+        </div>
+        <div class="clockDescription">
+          <p id="clockDescription">
+            The standard sexagesimal finds its roots in sumerian astology,
+            although the reasoning behind the choice of 60 is unknown, but it
+            may be related to segemnted finger counting, where each hand could
+            produce a value of 12.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <script src="base10.js"></script>
+    <script src="base10page.js"></script>
+  </body>
+</html>

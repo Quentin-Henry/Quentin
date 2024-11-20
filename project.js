@@ -21,7 +21,8 @@ document.addEventListener("DOMContentLoaded", () => {
     four: "New York",
     five: "digital Sundial",
     six: "Tower of Babel",
-    seven: "Going Outside",
+    seven: "Base 60",
+    eight: "Going Outside",
   };
 
   const audioEmbed = document.querySelector("#embed2"); // Adjust the selector as necessary
@@ -60,11 +61,15 @@ document.addEventListener("DOMContentLoaded", () => {
         updateStyles("white", "red", item);
         setFollowerTextColor("red");
         setContentTextColor(index, "white");
+      } else if (menuIdent === "seven") {
+        updateStyles("black", "#2b2b2b", item);
+        setFollowerTextColor("white");
+        setContentTextColor(index, "#2b2b2b");
       } else {
         setFollowerTextColor("black");
       }
       function handleEscape(event) {
-        if (menuIdent === "seven") {
+        if (menuIdent === "eight") {
           // Ensure the embed is not added again unnecessarily
           if (!embedContainer.querySelector("embed")) {
             embedContainer.innerHTML =
@@ -88,8 +93,8 @@ document.addEventListener("DOMContentLoaded", () => {
       }
 
       // Add global keydown listener to detect Escape when not focused on the embed
-      if (menuIdent === "seven") {
-        console.log("menuIdent is 'seven'");
+      if (menuIdent === "eight") {
+        console.log("menuIdent is 'eight'");
 
         // Ensure the Escape key is always detected globally
         document.addEventListener("keydown", handleEscape);
@@ -148,7 +153,7 @@ document.addEventListener("DOMContentLoaded", () => {
           embedContainer.classList.add("fullscreen");
         });
       } else {
-        console.log("menuIdent is not 'seven'");
+        console.log("menuIdent is not 'eight'");
         if (audioEmbed) {
           embedContainer.innerHTML = ""; // Remove the embed if not 'seven'
         }
