@@ -198,29 +198,47 @@ class BinaryTimeSystem extends TimeSystem {
   }
 }
 
-// Octal Time System
 class OctalTimeSystem extends TimeSystem {
   constructor() {
     super("octal", "Octal Time (Base 8)", 336);
+    this.maxHours = 8; // 8 hours (0-7)
+    this.maxMinutes = 64; // 8² minutes per hour
+    this.maxSeconds = 64; // 8² seconds per minute
   }
 
   calculateTime(date) {
     const dayProgress = this.getDayProgress(date);
-    const totalOctalSeconds = Math.floor(dayProgress * (8 * 64 * 64));
+    const totalOctalSeconds = Math.floor(
+      dayProgress * (this.maxHours * this.maxMinutes * this.maxSeconds)
+    );
 
-    const octalHours = Math.floor(totalOctalSeconds / (64 * 64));
-    const octalMinutes = Math.floor((totalOctalSeconds % (64 * 64)) / 64);
-    const octalSeconds = Math.floor(totalOctalSeconds % 64);
+    const octalHours = Math.floor(
+      totalOctalSeconds / (this.maxMinutes * this.maxSeconds)
+    );
+    const octalMinutes = Math.floor(
+      (totalOctalSeconds % (this.maxMinutes * this.maxSeconds)) /
+        this.maxSeconds
+    );
+    const octalSeconds = Math.floor(totalOctalSeconds % this.maxSeconds);
+
+    // Convert to base 8 for display
+    const toBase8 = (num) => {
+      return num.toString(8).padStart(2, "0");
+    };
 
     return {
-      secondDeg: (octalSeconds / 64) * 360,
-      minuteDeg: ((octalMinutes + octalSeconds / 64) / 64) * 360,
-      hourDeg: ((octalHours + octalMinutes / 64) / 8) * 360,
-      displayText: `${octalHours.toString(8)}:${this.pad(
-        octalMinutes,
-        8
-      )}:${this.pad(octalSeconds, 8)}`,
-      extraInfo: this.getExtraInfo(),
+      secondDeg: (octalSeconds / this.maxSeconds) * 360,
+      minuteDeg:
+        ((octalMinutes + octalSeconds / this.maxSeconds) / this.maxMinutes) *
+        360,
+      hourDeg:
+        ((octalHours + octalMinutes / this.maxMinutes) / this.maxHours) * 360,
+      displayText: `${toBase8(octalHours)}:${toBase8(octalMinutes)}:${toBase8(
+        octalSeconds
+      )}`,
+      extraInfo: `Octal Decimal Conversion: ${octalHours}:${octalMinutes}:${octalSeconds} | Base-8: ${toBase8(
+        octalHours
+      )}:${toBase8(octalMinutes)}:${toBase8(octalSeconds)}`,
       description: "   ",
     };
   }
@@ -234,11 +252,89 @@ class OctalTimeSystem extends TimeSystem {
       (hours * 3600 + minutes * 60 + seconds + milliseconds / 1000) / 86400
     );
   }
+
   getTimeSubdivisions() {
     return {
       hours: "8",
       minutes: "64",
       seconds: "64",
+    };
+  }
+
+  // Helper method for converting and padding numbers to base 8
+  pad(number, base) {
+    return number.toString(base).padStart(2, "0");
+  }
+}
+
+class QuinaryTimeSystem extends TimeSystem {
+  constructor() {
+    super("quinary", "Quinary Time (Base 5)", 1000);
+    this.maxHours = 5; // 5 hours (0-4)
+    this.maxMinutes = 25; // 5² minutes per hour
+    this.maxSeconds = 25; // 5² seconds per minute
+
+    this.standardSecondsInDay = 86400;
+    this.standardSecondsPerQuinarySecond =
+      this.standardSecondsInDay /
+      (this.maxHours * this.maxMinutes * this.maxSeconds);
+  }
+
+  calculateTime(date) {
+    const dayProgress = this.getDayProgress(date);
+    const totalStandardSeconds = dayProgress * this.standardSecondsInDay;
+    const totalQuinarySeconds =
+      totalStandardSeconds / this.standardSecondsPerQuinarySecond;
+
+    const totalUnits = this.maxHours * this.maxMinutes * this.maxSeconds;
+    const currentUnits = Math.floor(totalQuinarySeconds % totalUnits);
+
+    const quinaryHours = Math.floor(
+      currentUnits / (this.maxMinutes * this.maxSeconds)
+    );
+    const remainingAfterHours =
+      currentUnits % (this.maxMinutes * this.maxSeconds);
+    const quinaryMinutes = Math.floor(remainingAfterHours / this.maxSeconds);
+    const quinarySeconds = Math.floor(remainingAfterHours % this.maxSeconds);
+
+    const toBase5 = (num) => {
+      return num.toString(5).padStart(2, "0");
+    };
+
+    return {
+      secondDeg: (quinarySeconds / this.maxSeconds) * 360,
+      minuteDeg:
+        ((quinaryMinutes + quinarySeconds / this.maxSeconds) /
+          this.maxMinutes) *
+        360,
+      hourDeg:
+        ((quinaryHours + quinaryMinutes / this.maxMinutes) / this.maxHours) *
+        360,
+      displayText: `${quinaryHours}:${toBase5(quinaryMinutes)}:${toBase5(
+        quinarySeconds
+      )}`,
+      extraInfo: `Quinary Decimal Conversion: ${quinaryHours}:${quinaryMinutes}:${quinarySeconds} | Base-5: ${quinaryHours}:${toBase5(
+        quinaryMinutes
+      )}:${toBase5(quinarySeconds)}`,
+      description: "  ",
+    };
+  }
+
+  getDayProgress(date) {
+    const hours = date.getHours();
+    const minutes = date.getMinutes();
+    const seconds = date.getSeconds();
+    const milliseconds = date.getMilliseconds();
+    return (
+      (hours * 3600 + minutes * 60 + seconds + milliseconds / 1000) / 86400
+    );
+  }
+
+  getTimeSubdivisions() {
+    return {
+      hours: "5",
+      minutes: "25",
+      seconds: "25",
     };
   }
 }
@@ -537,7 +633,7 @@ class TrueBinaryTimeSystem extends TimeSystem {
       minuteDeg: ((binaryMinutes + binarySeconds / 8) / 8) * 360,
       hourDeg: ((binaryHours + binaryMinutes / 8) / 8) * 360,
       displayText: `${hoursBinary}:${minutesBinary}:${secondsBinary}`,
-      extraInfo: `Pure Binary (Base 2) - Dec: ${binaryHours}:${binaryMinutes}:${binarySeconds}`,
+      extraInfo: `Binary - Dec: ${binaryHours}:${binaryMinutes}:${binarySeconds}`,
       description: "   ",
     };
   }
@@ -561,31 +657,58 @@ class TrueBinaryTimeSystem extends TimeSystem {
   }
 }
 
-// Base 7 Time System (Septimal)
 class SeptimalTimeSystem extends TimeSystem {
   constructor() {
     super("septimal", "Septimal Time (Base 7)", 1000);
+    this.maxHours = 7;
+    this.maxMinutes = 49;
+    this.maxSeconds = 49;
+
+    this.standardSecondsInSeptimalDay = 86400;
+    this.standardSecondsPerSeptimalSecond =
+      this.standardSecondsInSeptimalDay /
+      (this.maxHours * this.maxMinutes * this.maxSeconds);
   }
 
   calculateTime(date) {
     const dayProgress = this.getDayProgress(date);
-    // Using powers of 7: 7 hours, 49 minutes, 49 seconds
-    const totalSeptalSeconds = Math.floor(dayProgress * (7 * 49 * 49));
+    const totalStandardSeconds =
+      dayProgress * this.standardSecondsInSeptimalDay;
+    const totalSeptimalSeconds =
+      totalStandardSeconds / this.standardSecondsPerSeptimalSecond;
 
-    const septalHours = Math.floor(totalSeptalSeconds / (49 * 49));
-    const septalMinutes = Math.floor((totalSeptalSeconds % (49 * 49)) / 49);
-    const septalSeconds = Math.floor(totalSeptalSeconds % 49);
+    const totalUnits = this.maxHours * this.maxMinutes * this.maxSeconds;
+    const currentUnits = Math.floor(totalSeptimalSeconds % totalUnits);
+
+    const septalHours = Math.floor(
+      currentUnits / (this.maxMinutes * this.maxSeconds)
+    );
+    const remainingAfterHours =
+      currentUnits % (this.maxMinutes * this.maxSeconds);
+    const septalMinutes = Math.floor(remainingAfterHours / this.maxSeconds);
+    const septalSeconds = Math.floor(remainingAfterHours % this.maxSeconds);
+
+    // Convert to base 7 for display, but keep original values for angles
+    const toBase7 = (num) => {
+      return num.toString(7).padStart(2, "0");
+    };
+
+    // Calculate angles using decimal values
+    const secondFraction = septalSeconds / this.maxSeconds;
+    const minuteFraction = (septalMinutes + secondFraction) / this.maxMinutes;
+    const hourFraction = (septalHours + minuteFraction) / this.maxHours;
 
     return {
-      secondDeg: (septalSeconds / 49) * 360,
-      minuteDeg: ((septalMinutes + septalSeconds / 49) / 49) * 360,
-      hourDeg: ((septalHours + septalMinutes / 49) / 7) * 360,
-      displayText: `${septalHours.toString(7)}:${septalMinutes
-        .toString(7)
-        .padStart(2, "0")}:${septalSeconds.toString(7).padStart(2, "0")}`,
-      extraInfo: `Septimal Time (Base 7) - Dec: ${septalHours}:${septalMinutes}:${septalSeconds}`,
-      description:
-        "How would your day change if the divisions were longer, yet fewer. Would you feel you had more or less time, Would you be rushed or relaxed?",
+      secondDeg: secondFraction * 360,
+      minuteDeg: minuteFraction * 360,
+      hourDeg: hourFraction * 360,
+      displayText: `${septalHours}:${toBase7(septalMinutes)}:${toBase7(
+        septalSeconds
+      )}`,
+      extraInfo: `Septimal Decimal Conversion: ${septalHours}:${septalMinutes}:${septalSeconds} | Base-7: ${septalHours}:${toBase7(
+        septalMinutes
+      )}:${toBase7(septalSeconds)}`,
+      description: "  ",
     };
   }
 
@@ -928,6 +1051,7 @@ class ClockController {
       new VigesimalTimeSystem(),
       new PiTimeSystem(),
       new HarmonicTimeSystem(),
+      new QuinaryTimeSystem(),
     ];
 
     systems.forEach((system) => {
@@ -1042,6 +1166,7 @@ document.getElementById("clockMenu").addEventListener("click", (event) => {
     Base20: "vigesimal",
     BasePi: "pi",
     BaseHarmonic: "harmonic",
+    Base5: "quinary",
   };
 
   // Check if the clicked span has a valid ID that maps to a time system
