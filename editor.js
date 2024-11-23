@@ -49,9 +49,9 @@ const editorStyles = `
     position: fixed;
     top: 100px;
     left: 100px;
-    width: 250px;
     width: 300px;
     height: fit-content;
+    height: 320px;
     background: rgba(72, 72, 72, 0.443) !important;
     border: 1px solid #3b3b3b;
     border-radius: 10px;
@@ -60,6 +60,7 @@ const editorStyles = `
     font-family: helvetica, sans-serif;
     font-size: 14px !important;
     color: #ffffff !important;
+    -webkit-backdrop-filter: blur(10px);
     backdrop-filter: blur(15px);
     
   }
