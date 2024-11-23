@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      .container {
+        display: flex;
+        justify-content: space-around;
+        max-width: 1200px;
+        margin: 20px auto;
+        font-family: Arial, sans-serif;
+      }
+
+      .game-board {
+        position: relative;
+        padding: 20px;
+        border: 2px solid #333;
+        border-radius: 8px;
+      }
+
+      .status-dot {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background-color: red;
+      }
+
+      .turn-counter {
+        text-align: center;
+        font-size: 24px;
+        margin: 20px;
+      }
+
+      .board {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 5px;
+        background-color: #333;
+        padding: 5px;
+        border-radius: 5px;
+      }
+
+      .cell {
+        width: 80px;
+        height: 80px;
+        background-color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 40px;
+        cursor: pointer;
+      }
+
+      .cell:hover {
+        background-color: #eee;
+      }
+
+      .game-log {
+        margin-top: 20px;
+        max-height: 150px;
+        overflow-y: auto;
+        padding: 10px;
+        border: 1px solid #ccc;
+      }
+
+      .combine-button {
+        display: block;
+        margin: 20px auto;
+        padding: 10px 20px;
+        font-size: 16px;
+        background-color: #4caf50;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+
+      .combine-button:hover {
+        background-color: #45a049;
+      }
+
+      .combine-button:disabled {
+        background-color: #cccccc;
+        cursor: not-allowed;
+      }
+
+      .game-over {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: rgba(0, 0, 0, 0.9);
+        color: white;
+        padding: 20px 40px;
+        border-radius: 10px;
+        font-size: 24px;
+        display: none;
+      }
+
+      .restart-button {
+        display: block;
+        margin: 10px auto;
+        padding: 10px 20px;
+        font-size: 16px;
+        background-color: #4caf50;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="turn-counter">Turn: 1</div>
+    <button class="combine-button">Combine Boards</button>
+    <div class="container">
+      <div class="game-board" id="board1">
+        <div class="status-dot"></div>
+        <div class="board"></div>
+        <div class="game-log"></div>
+      </div>
+      <div class="game-board" id="board2">
+        <div class="status-dot"></div>
+        <div class="board"></div>
+        <div class="game-log"></div>
+      </div>
+    </div>
+    <div class="game-over">
+      <span id="game-result"></span>
+      <button class="restart-button">Play Again</button>
+    </div>
+
+    <script>
+      class TicTacToe {
+        constructor(boardId) {
+          this.boardId = boardId;
+          this.board = Array(9).fill("");
+          this.container = document.getElementById(boardId);
+          this.boardElement = this.container.querySelector(".board");
+          this.statusDot = this.container.querySelector(".status-dot");
+          this.gameLog = this.container.querySelector(".game-log");
+          this.hasMoved = false;
+          this.createBoard();
+        }
+
+        createBoard() {
+          this.boardElement.innerHTML = "";
+          for (let i = 0; i < 9; i++) {
+            const cell = document.createElement("div");
+            cell.className = "cell";
+            cell.dataset.index = i;
+            cell.addEventListener("click", () => this.handleClick(i));
+            cell.textContent = this.board[i];
+            this.boardElement.appendChild(cell);
+          }
+        }
+
+        updateBoard() {
+          const cells = this.boardElement.getElementsByClassName("cell");
+          for (let i = 0; i < cells.length; i++) {
+            cells[i].textContent = this.board[i];
+          }
+        }
+
+        handleClick(index) {
+          if (
+            this.board[index] === "" &&
+            !this.hasMoved &&
+            gameManager.isPlayerTurn
+          ) {
+            this.board[index] = "X";
+            this.hasMoved = true;
+            this.updateBoard();
+            this.statusDot.style.backgroundColor = "green";
+            this.log(`Player moved to position ${index}`);
+            gameManager.checkPlayerTurn();
+          }
+        }
+
+        computerMove() {
+          if (!this.isGameOver()) {
+            const bestMove = gameManager.getBestMove();
+            if (bestMove.combine) {
+              gameManager.combineBoards("O");
+              this.hasMoved = true;
+            } else {
+              this.board[bestMove.index] = "O";
+              this.hasMoved = true;
+              this.updateBoard();
+              this.statusDot.style.backgroundColor = "red";
+              this.log(`Computer moved to position ${bestMove.index}`);
+            }
+          }
+        }
+
+        getEmptyCells(board) {
+          return board.reduce((acc, cell, index) => {
+            if (cell === "") acc.push(index);
+            return acc;
+          }, []);
+        }
+
+        checkWin(board, player) {
+          const winCombos = [
+            [0, 1, 2],
+            [3, 4, 5],
+            [6, 7, 8],
+            [0, 3, 6],
+            [1, 4, 7],
+            [2, 5, 8],
+            [0, 4, 8],
+            [2, 4, 6],
+          ];
+
+          return winCombos.some((combo) => {
+            return combo.every((pos) => board[pos] === player);
+          });
+        }
+
+        isGameOver() {
+          return (
+            this.checkWin(this.board, "X") ||
+            this.checkWin(this.board, "O") ||
+            this.getEmptyCells(this.board).length === 0
+          );
+        }
+
+        reset() {
+          this.board = Array(9).fill("");
+          this.hasMoved = false;
+          this.statusDot.style.backgroundColor = "red";
+          this.createBoard();
+          this.gameLog.innerHTML = "";
+        }
+
+        log(message) {
+          const logEntry = document.createElement("div");
+          logEntry.textContent = `Turn ${gameManager.turnCount}: ${message}`;
+          this.gameLog.appendChild(logEntry);
+          this.gameLog.scrollTop = this.gameLog.scrollHeight;
+        }
+
+        evaluatePosition() {
+          if (this.checkWin(this.board, "O")) return 10; // Computer wins
+          if (this.checkWin(this.board, "X")) return -10; // Player wins
+          if (this.getEmptyCells(this.board).length === 0) return 0; // Draw
+          return null; // Game ongoing
+        }
+      }
+
+      class GameManager {
+        constructor() {
+          this.game1 = new TicTacToe("board1");
+          this.game2 = new TicTacToe("board2");
+          this.turnCount = 1;
+          this.isPlayerTurn = true;
+          this.turnCounter = document.querySelector(".turn-counter");
+          this.combineButton = document.querySelector(".combine-button");
+          this.setupCombineButton();
+          this.gameOverScreen = document.querySelector(".game-over");
+          this.gameResult = document.getElementById("game-result");
+          document
+            .querySelector(".restart-button")
+            .addEventListener("click", () => this.restartGame());
+        }
+
+        showGameOver(result) {
+          this.gameResult.textContent = result;
+          this.gameOverScreen.style.display = "block";
+          this.combineButton.disabled = true;
+        }
+
+        restartGame() {
+          this.reset();
+          this.gameOverScreen.style.display = "none";
+          this.combineButton.disabled = false;
+        }
+
+        checkGameState() {
+          // Check both boards for game ending conditions
+          const result1 = this.game1.evaluatePosition();
+          const result2 = this.game2.evaluatePosition();
+
+          if (result1 !== null || result2 !== null) {
+            if (result1 === -10 || result2 === -10) {
+              this.showGameOver("You Win!");
+              return true;
+            } else if (result1 === 10 || result2 === 10) {
+              this.showGameOver("Computer Wins!");
+              return true;
+            } else if (result1 === 0 && result2 === 0) {
+              this.showGameOver("Draw!");
+              return true;
+            }
+          }
+          return false;
+        }
+
+        setupCombineButton() {
+          this.combineButton.addEventListener("click", () => {
+            if (this.isPlayerTurn) {
+              this.combineBoards("X");
+              this.game1.hasMoved = true;
+              this.game2.hasMoved = true;
+              this.isPlayerTurn = false;
+              setTimeout(() => this.computerTurn(), 500);
+            }
+          });
+        }
+
+        getCombinedBoard(board1, board2, winningPlayer) {
+          const combined = Array(9).fill("");
+
+          for (let i = 0; i < 9; i++) {
+            const cell1 = board1[i];
+            const cell2 = board2[i];
+
+            if (cell1 === cell2) {
+              if (cell1 !== "") {
+                combined[i] = "";
+              }
+            } else if (cell1 === "" && cell2 !== "") {
+              combined[i] = cell2;
+            } else if (cell1 !== "" && cell2 === "") {
+              combined[i] = cell1;
+            } else {
+              combined[i] = winningPlayer;
+            }
+          }
+
+          return combined;
+        }
+
+        combineBoards(winningPlayer) {
+          const combinedBoard = this.getCombinedBoard(
+            this.game1.board,
+            this.game2.board,
+            winningPlayer
+          );
+
+          this.game1.board = [...combinedBoard];
+          this.game2.board = [...combinedBoard];
+          this.game1.updateBoard();
+          this.game2.updateBoard();
+
+          this.game1.log(`Boards combined by ${winningPlayer}`);
+          this.game2.log(`Boards combined by ${winningPlayer}`);
+        }
+
+        evaluateBoard(board, isComputer) {
+          const player = isComputer ? "O" : "X";
+          const opponent = isComputer ? "X" : "O";
+
+          if (this.game1.checkWin(board, player)) return 10;
+          if (this.game1.checkWin(board, opponent)) return -10;
+
+          let score = 0;
+          const winCombos = [
+            [0, 1, 2],
+            [3, 4, 5],
+            [6, 7, 8],
+            [0, 3, 6],
+            [1, 4, 7],
+            [2, 5, 8],
+            [0, 4, 8],
+            [2, 4, 6],
+          ];
+
+          for (const combo of winCombos) {
+            const line = combo.map((i) => board[i]);
+            const playerCount = line.filter((cell) => cell === player).length;
+            const emptyCount = line.filter((cell) => cell === "").length;
+
+            if (playerCount === 2 && emptyCount === 1) score += 2;
+            if (playerCount === 1 && emptyCount === 2) score += 1;
+          }
+
+          return score;
+        }
+
+        getBestMove() {
+          let bestScore = -Infinity;
+          let bestMove = { index: -1, combine: false };
+
+          // Evaluate regular moves
+          const emptyCells = this.game1.getEmptyCells(this.game1.board);
+          for (const cell of emptyCells) {
+            this.game1.board[cell] = "O";
+            const score = this.evaluateBoard(this.game1.board, true);
+            this.game1.board[cell] = "";
+
+            if (score > bestScore) {
+              bestScore = score;
+              bestMove = { index: cell, combine: false };
+            }
+          }
+
+          // Evaluate combine move
+          const combinedBoard = this.getCombinedBoard(
+            this.game1.board,
+            this.game2.board,
+            "O"
+          );
+          const combineScore = this.evaluateBoard(combinedBoard, true);
+
+          if (combineScore > bestScore) {
+            bestScore = combineScore;
+            bestMove = { index: -1, combine: true };
+          }
+
+          return bestMove;
+        }
+
+        checkPlayerTurn() {
+          if (this.game1.hasMoved && this.game2.hasMoved) {
+            this.isPlayerTurn = false;
+            setTimeout(() => this.computerTurn(), 500);
+          }
+        }
+
+        computerTurn() {
+          if (this.checkGameState()) return;
+
+          this.game1.hasMoved = false;
+          this.game2.hasMoved = false;
+
+          const bestMove = this.getBestMove();
+          if (bestMove.combine) {
+            this.combineBoards("O");
+            this.game1.hasMoved = true;
+            this.game2.hasMoved = true;
+          } else {
+            this.game1.computerMove();
+            this.game2.computerMove();
+          }
+
+          this.turnCount++;
+          this.turnCounter.textContent = `Turn: ${this.turnCount}`;
+          this.isPlayerTurn = true;
+
+          this.game1.hasMoved = false;
+          this.game2.hasMoved = false;
+
+          this.checkGameState();
+        }
+
+        evaluateBoard(board, isComputer) {
+          const player = isComputer ? "O" : "X";
+          const opponent = isComputer ? "X" : "O";
+
+          if (this.game1.checkWin(board, player)) return 10;
+          if (this.game1.checkWin(board, opponent)) return -10;
+          if (this.game1.getEmptyCells(board).length === 0) return 0;
+
+          let score = 0;
+          const winCombos = [
+            [0, 1, 2],
+            [3, 4, 5],
+            [6, 7, 8],
+            [0, 3, 6],
+            [1, 4, 7],
+            [2, 5, 8],
+            [0, 4, 8],
+            [2, 4, 6],
+          ];
+
+          for (const combo of winCombos) {
+            const line = combo.map((i) => board[i]);
+            const playerCount = line.filter((cell) => cell === player).length;
+            const opponentCount = line.filter(
+              (cell) => cell === opponent
+            ).length;
+            const emptyCount = line.filter((cell) => cell === "").length;
+
+            if (playerCount === 2 && emptyCount === 1) score += 5;
+            if (opponentCount === 2 && emptyCount === 1) score -= 5;
+            if (playerCount === 1 && emptyCount === 2) score += 2;
+            if (opponentCount === 1 && emptyCount === 2) score -= 2;
+          }
+
+          return score;
+        }
+
+        reset() {
+          this.game1.reset();
+          this.game2.reset();
+          this.turnCount = 1;
+          this.isPlayerTurn = true;
+          this.turnCounter.textContent = `Turn: ${this.turnCount}`;
+        }
+      }
+
+      const gameManager = new GameManager();
+    </script>
+  </body>
+</html>

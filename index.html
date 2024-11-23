@@ -1,119 +1,115 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700;800&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="https://use.typekit.net/ttx7oum.css" />
     <meta charset="UTF-8" />
-    <link rel="stylesheet" href="hometest.css" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="I am a website" />
-    <link rel="icon" type="image/x-icon" href="./img/favicon_q1.ico" />
+    <link rel="stylesheet" href="style.css" />
     <title>Quentin Henry</title>
-    <style>
-      h2 span {
-        transition: color 0.3s ease;
-      }
-      h2:hover span {
-        color: randomColor();
-      }
-    </style>
+    <link rel="icon" type="image/x-icon" href="/img/Q_fav2.ico" />
   </head>
   <body>
-    <div class="fixedElem">
-      <div class="header">
-        <h2 class="act">Quentin Henry</h2>
-
-        <a href="./projects.html"><h2>Projects</h2></a>
+    <div class="mainNavContainerI">
+      <div class="title">
+        <span class="active">Quentin Henry</span
+        ><span class="menuItem" id="asterix">*</span>
+      </div>
+      <div class="menu">
+        <a href="./lanternfly.html"><span class="menuItem">Lanternfly</span></a>
+        <a href="./calatrava.html"><span class="menuItem">Calatrava</span></a>
+        <a href="./christina.html"><span class="menuItem">Christina</span></a>
+        <a href="./newyork.html"><span class="menuItem">New York</span></a>
+        <a href="sundial.html"><span class="menuItem">Digital Sundial</span></a>
+        <a href="./babel.html"><span class="menuItem">Tower of Babel</span></a>
+        <a href="./base60.html"><span class="menuItem">Base 60</span></a>
+        <a href="./outside.html"><span class="menuItem">Go Outside</span></a>
       </div>
     </div>
-    <div id="parent">
-      <div class="buffer"></div>
-      <div id="text">
-        <h2>
-          <span>M</span><span>y</span> <span>n</span><span>a</span><span>m</span
-          ><span>e</span> <span>i</span><span>s</span>
-          <span class="italicDark">Q</span><span class="italicDark">u</span
-          ><span class="italicDark">e</span><span class="italicDark">n</span
-          ><span class="italicDark">t</span><span class="italicDark">i</span
-          ><span class="italicDark">n</span> <span class="italicDark">H</span
-          ><span class="italicDark">e</span><span class="italicDark">n</span
-          ><span class="italicDark">r</span><span class="italicDark">y</span>
-          <span>a</span><span>n</span><span>d</span> <span>I</span>'<span
-            >m</span
-          >
-          <span>f</span><span>r</span><span>o</span><span>m</span> <span>N</span
-          ><span>e</span><span>w</span> <span>Y</span><span>o</span
-          ><span>r</span><span>k</span> <span>C</span><span>i</span
-          ><span>t</span><span>y</span>. <span>I</span>'<span>m</span>
-          <span>i</span><span>n</span><span>t</span><span>e</span><span>r</span
-          ><span>e</span><span>s</span><span>t</span><span>e</span
-          ><span>d</span> <span>i</span><span>n</span> <span>t</span
-          ><span>h</span><span>i</span><span>n</span><span>g</span
-          ><span>s</span> <span>t</span><span>h</span><span>a</span
-          ><span>t</span> <span>r</span><span>e</span><span>p</span
-          ><span>e</span><span>a</span><span>t</span>, <span>a</span
-          ><span>n</span><span>d</span> <span>c</span><span>h</span
-          ><span>a</span><span>n</span><span>g</span><span>e</span>
-          <span>a</span> <span>l</span><span>i</span><span>t</span><span>t</span
-          ><span>l</span><span>e</span> <span>e</span><span>a</span
-          ><span>c</span><span>h</span> <span>t</span><span>i</span
-          ><span>m</span><span>e</span>. <span>I</span> <span>e</span
-          ><span>x</span><span>p</span><span>l</span><span>o</span><span>r</span
-          ><span>e</span> <span>r</span><span>e</span><span>p</span
-          ><span>e</span><span>t</span><span>i</span><span>t</span><span>i</span
-          ><span>o</span><span>n</span> <span>t</span><span>h</span
-          ><span>r</span><span>o</span><span>u</span><span>g</span
-          ><span>h</span> <span class="italicDark">G</span
-          ><span class="italicDark">r</span><span class="italicDark">a</span
-          ><span class="italicDark">p</span><span class="italicDark">h</span
-          ><span class="italicDark">i</span><span class="italicDark">c</span>
-          <span class="italicDark">D</span><span class="italicDark">e</span
-          ><span class="italicDark">s</span><span class="italicDark">i</span
-          ><span class="italicDark">g</span><span class="italicDark">n</span>,
-          <span>p</span><span>h</span><span>o</span><span>t</span><span>o</span
-          ><span>g</span><span>r</span><span>a</span><span>p</span><span>h</span
-          ><span>y</span> <span>a</span><span>n</span><span>d</span>
-          <span>w</span><span>r</span><span>i</span><span>t</span><span>i</span
-          ><span>n</span><span>g</span>. <span>I</span>'<span>v</span
-          ><span>e</span> <span>l</span><span>e</span><span>a</span
-          ><span>r</span><span>n</span><span>e</span><span>d</span>
-          <span>a</span> <span>b</span><span>r</span><span>o</span><span>a</span
-          ><span>d</span> <span>v</span><span>a</span><span>r</span
-          ><span>i</span><span>e</span><span>t</span><span>y</span>
-          <span>o</span><span>f</span> <span>t</span><span>o</span><span>p</span
-          ><span>i</span><span>c</span><span>s</span> <span>i</span
-          ><span>n</span> <span>v</span><span>a</span><span>r</span
-          ><span>i</span><span>o</span><span>u</span><span>s</span>
-          <span>i</span><span>n</span><span>d</span><span>u</span><span>s</span
-          ><span>t</span><span>r</span><span>i</span><span>e</span
-          ><span>s</span>, <span>b</span><span>y</span> <span>s</span
-          ><span>t</span><span>u</span><span>d</span><span>y</span><span>i</span
-          ><span>n</span><span>g</span> <span>a</span> <span>v</span
-          ><span>a</span><span>r</span><span>i</span><span>o</span><span>u</span
-          ><span>s</span> <span>e</span><span>d</span><span>u</span
-          ><span>c</span><span>a</span><span>t</span><span>i</span><span>o</span
-          ><span>n</span><span>a</span><span>l</span> <span>f</span
-          ><span>a</span><span>c</span><span>i</span><span>l</span><span>i</span
-          ><span>t</span><span>i</span><span>e</span><span>s</span>
-          <span>a</span><span>n</span><span>d</span> <span>a</span>
-          <span>b</span><span>r</span><span>o</span><span>a</span
-          ><span>d</span> <span>v</span><span>a</span><span>r</span
-          ><span>i</span><span>e</span><span>t</span><span>y</span>
-          <span>o</span><span>f</span> <span>j</span><span>o</span><span>b</span
-          ><span>s</span>. <span>T</span><span>h</span><span>r</span
-          ><span>o</span><span>u</span><span>g</span><span>h</span>
-          <span>t</span><span>h</span><span>e</span><span>s</span
-          ><span>e</span> <span>e</span><span>x</span><span>p</span
-          ><span>e</span><span>r</span><span>i</span><span>e</span><span>n</span
-          ><span>c</span><span>e</span><span>s</span>
-        </h2>
-      </div>
+    <div id="aboutMe">
+      <h2>
+        <span>M</span><span>y</span> <span>n</span><span>a</span><span>m</span
+        ><span>e</span> <span>i</span><span>s</span>
+        <span class="italicDark cap">Q</span><span class="italicDark">u</span
+        ><span class="italicDark">e</span><span class="italicDark">n</span
+        ><span class="italicDark">t</span><span class="italicDark">i</span
+        ><span class="italicDark">n</span> <span class="italicDark cap">H</span
+        ><span class="italicDark">e</span><span class="italicDark">n</span
+        ><span class="italicDark">r</span><span class="italicDark">y</span>
+        <span>a</span><span>n</span><span>d</span> <span>I</span>'<span>m</span>
+        <span>f</span><span>r</span><span>o</span><span>m</span>
+        <span class="italicDark cap">N</span><span class="italicDark">e</span
+        ><span class="italicDark">w</span> <span class="italicDark cap">Y</span
+        ><span class="italicDark">o</span><span class="italicDark">r</span
+        ><span class="italicDark">k</span> <span class="italicDark cap">C</span
+        ><span class="italicDark">i</span><span class="italicDark">t</span
+        ><span class="italicDark">y</span>. <span>I</span>'<span>m</span>
+        <span>i</span><span>n</span><span>t</span><span>e</span><span>r</span
+        ><span>e</span><span>s</span><span>t</span><span>e</span><span>d</span>
+        <span>i</span><span>n</span> <span>t</span><span>h</span><span>i</span
+        ><span>n</span><span>g</span><span>s</span> <span>t</span><span>h</span
+        ><span>a</span><span>t</span> <span>r</span><span>e</span><span>p</span
+        ><span>e</span><span>a</span><span>t</span>, <span>a</span><span>n</span
+        ><span>d</span> <span>c</span><span>h</span><span>a</span><span>n</span
+        ><span>g</span><span>e</span> <span>a</span> <span>l</span><span>i</span
+        ><span>t</span><span>t</span><span>l</span><span>e</span> <span>e</span
+        ><span>a</span><span>c</span><span>h</span> <span>t</span><span>i</span
+        ><span>m</span><span>e</span>. <span>I</span> <span>e</span
+        ><span>x</span><span>p</span><span>l</span><span>o</span><span>r</span
+        ><span>e</span> <span>r</span><span>e</span><span>p</span><span>e</span
+        ><span>t</span><span>i</span><span>t</span><span>i</span><span>o</span
+        ><span>n</span> <span>t</span><span>h</span><span>r</span><span>o</span
+        ><span>u</span><span>g</span><span>h</span>
+        <span class="italicDark cap">G</span><span class="italicDark">r</span
+        ><span class="italicDark">a</span><span class="italicDark">p</span
+        ><span class="italicDark">h</span><span class="italicDark">i</span
+        ><span class="italicDark">c</span> <span class="italicDark cap">D</span
+        ><span class="italicDark">e</span><span class="italicDark">s</span
+        ><span class="italicDark">i</span><span class="italicDark">g</span
+        ><span class="italicDark">n</span>, <span>P</span><span>h</span
+        ><span>o</span><span>t</span><span>o</span><span>g</span><span>r</span
+        ><span>a</span><span>p</span><span>h</span><span>y</span> <span>a</span
+        ><span>n</span><span>d</span> <span>W</span><span>r</span><span>i</span
+        ><span>t</span><span>i</span><span>n</span><span>g</span>.
+        <span>I</span>'<span>v</span><span>e</span> <span>l</span><span>e</span
+        ><span>a</span><span>r</span><span>n</span><span>e</span><span>d</span>
+        <span>a</span> <span>b</span><span>r</span><span>o</span><span>a</span
+        ><span>d</span> <span>v</span><span>a</span><span>r</span><span>i</span
+        ><span>e</span><span>t</span><span>y</span> <span>o</span
+        ><span>f</span> <span>t</span><span>o</span><span>p</span><span>i</span
+        ><span>c</span><span>s</span> <span>i</span><span>n</span> <span>v</span
+        ><span>a</span><span>r</span><span>i</span><span>o</span><span>u</span
+        ><span>s</span> <span>i</span><span>n</span><span>d</span><span>u</span
+        ><span>s</span><span>t</span><span>r</span><span>i</span><span>e</span
+        ><span>s</span>, <span>b</span><span>y</span> <span>s</span
+        ><span>t</span><span>u</span><span>d</span><span>y</span><span>i</span
+        ><span>n</span><span>g</span> <span>i</span><span>n</span> <span>v</span
+        ><span>a</span><span>r</span><span>i</span><span>o</span><span>u</span
+        ><span>s</span> <span>e</span><span>d</span><span>u</span><span>c</span
+        ><span>a</span><span>t</span><span>i</span><span>o</span><span>n</span
+        ><span>a</span><span>l</span> <span>f</span><span>a</span><span>c</span
+        ><span>i</span><span>l</span><span>i</span><span>t</span><span>i</span
+        ><span>e</span><span>s</span> <span>a</span><span>n</span
+        ><span>d</span> <span>a</span> <span>b</span><span>r</span><span>o</span
+        ><span>a</span><span>d</span> <span>v</span><span>a</span><span>r</span
+        ><span>i</span><span>e</span><span>t</span><span>y</span> <span>o</span
+        ><span>f</span> <span>j</span><span>o</span><span>b</span
+        ><span>s</span>. <span>T</span><span>h</span><span>r</span><span>o</span
+        ><span>u</span><span>g</span><span>h</span> <span>t</span><span>h</span
+        ><span>e</span><span>s</span><span>e</span> <span>e</span><span>x</span
+        ><span>p</span><span>e</span><span>r</span><span>i</span><span>e</span
+        ><span>n</span><span>c</span><span>e</span><span>s</span>
+        <span>I</span> <span>d</span><span>e</span><span>v</span
+        ><span>e</span>l<span>o</span><span>p</span><span>e</span
+        ><span>d</span> <span>a</span>
+      </h2>
     </div>
-    <script src="hometest.js"></script>
+    <canvas id="canvas"></canvas>
+    <div id="controls">
+      <button id="drawToggle">Draw</button>
+      <button id="clearBtn">Clear</button>
+      <div class="editButton"><span>Edit</span></div>
+    </div>
+    <script src="drawing.js"></script>
+    <script src="editor.js"></script>
+    <script src="homepage.js"></script>
   </body>
 </html>

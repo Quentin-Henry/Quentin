@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="icon" type="image/x-icon" href="/img/Q_fav2.ico" />
+
+    <title>Q:Tower of Babel</title>
+  </head>
+  <body>
+    <div class="mainNavContainer">
+      <div class="title">
+        <a href="./index.html"><span class="name">Quentin Henry</span></a>
+      </div>
+      <div class="menu">
+        <a href="./lanternfly.html"><span class="menuItem">Lanternfly</span></a>
+        <a href="./calatrava.html"><span class="menuItem">Calatrava</span></a>
+        <a href="./christina.html"><span class="menuItem">Christina</span></a>
+        <a href="./newyork.html"><span class="menuItem">New York</span></a>
+        <a href="sundial.html"><span class="menuItem">Digital Sundial</span></a>
+        <a href="./babel.html"
+          ><span class="menuItem active">Tower of Babel</span></a
+        >
+        <a href="./base60.html"><span class="menuItem">Base 60</span></a>
+        <a href="./outside.html"><span class="menuItem">Go Outside</span></a>
+      </div>
+    </div>
+    <div class="content">
+      <div class="innerContent">
+        <div
+          class="contentItem"
+          data-text="An interactive exploration of urban preservation versus evolution, using New York's East Village architecture as a canvas for examining how cities change while holding onto their past"
+        >
+          <div>
+            <img src="newyorkContent/screen/buildings.png" />
+          </div>
+        </div>
+        <div
+          class="contentItem"
+          data-text="Early sketches explore windows as architectural portraits, mapping the dialogue between interior lives and public space."
+        >
+          <div class="carousel" id="carousel8">
+            <button class="prev" onclick="moveSlide(-1, 'carousel8')">❮</button>
+            <div class="carousel-images">
+              <img
+                src="building stuff/drawings/windowDrawing1.png"
+                class="carousel-image"
+                alt="Image 8A"
+              />
+              <img
+                src="building stuff/drawings/windowDrawing2.png"
+                class="carousel-image"
+                alt="Image 8B"
+              />
+              <img
+                src="building stuff/drawings/windowDrawing3.png"
+                class="carousel-image"
+                alt="Image 8C"
+              />
+            </div>
+            <button class="next" onclick="moveSlide(1, 'carousel8')">❯</button>
+          </div>
+        </div>
+        <div
+          class="contentItem"
+          data-text="In dense urban spaces, the line between public and private dissolves into a permanent state of ambiguity"
+        >
+          <img src="building stuff/drawings/bunchOfWindows.png" />
+        </div>
+        <div
+          class="contentItem"
+          data-text="Digital interactivity as a tool to explore the relationship between observer and observed in urban spaces"
+        >
+          <embed
+            class="embedHalfscreen"
+            src="building stuff/window.html"
+            width="100%"
+            height="100%"
+          />
+        </div>
+        <div
+          class="contentItem"
+          data-text="Inspired by Borges' Library of Babel, this infinite architectural system treats building elements as letters in an endless urban vocabulary"
+        >
+          <div
+            data-text="Testing2"
+            class="carousel image C"
+            id="carousel10"
+            data-text="Inital sketches"
+            data-description="     "
+          >
+            <button class="prev" onclick="moveSlide(-1, 'carousel10')">
+              ❮
+            </button>
+            <div class="carousel-images" data-text="Testing3">
+              <img
+                data-text="Testing3"
+                src="building stuff/drawings/buildingDiagram1.png"
+                class="carousel-image"
+                data-description="Image 10A"
+              />
+              <img
+                src="building stuff/drawings/buildingDiagram2.png"
+                class="carousel-image"
+                data-description="Image 10B"
+              />
+            </div>
+            <button class="next" onclick="moveSlide(1, 'carousel10')">❯</button>
+          </div>
+        </div>
+
+        <div
+          class="contentItem"
+          data-text="A nostalgic web-based building creator that recreates pre-war tenement architecture, allowing users to construct endless variations of familiar forms"
+        >
+          <embed
+            class="embedHalfscreen"
+            src="building stuff/building.html"
+            width="100%"
+            height="100%"
+          />
+        </div>
+        <div
+          class="contentItem"
+          data-text="User testing revealed the need for a more sophisticated interface beyond simple additive controls"
+        >
+          <img src="building stuff/drawings/newNavFig2.png" />
+        </div>
+        <div
+          class="contentItem"
+          data-text="A Blender-inspired node editor that presents architectural customization as a complex but discoverable system"
+        >
+          <embed
+            class="embedHalfscreen"
+            src="building stuff/buttonsTest/linetest.html"
+            width="100%"
+            height="100%"
+          />
+        </div>
+        <div
+          class="contentItem"
+          data-text="The final interface encourages organic exploration, allowing users to uncover possibilities rather than follow prescribed paths"
+        >
+          <img src="building stuff/drawings/babelMenu.png" />
+        </div>
+      </div>
+    </div>
+    <div class="infoButton">*</div>
+    <div id="follower"></div>
+
+    <script src="carosels.js"></script>
+    <script src="follower2.js"></script>
+  </body>
+</html>

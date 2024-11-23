@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="styleAlt.css" />
+    <link rel="icon" type="image/x-icon" href="/img/Q_fav2.ico" />
+
+    <title>Q:Calatrava</title>
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "https://cdn.jsdelivr.net/npm/three@0.153.0/build/three.module.js",
+          "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.153.0/examples/jsm/"
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <div class="mainNavContainer">
+      <div class="title">
+        <a href="./index.html"
+          ><span class="name">Quentin Henry</span
+          ></a
+        >
+      </div>
+      <div class="menu">
+        <a href="./lanternfly.html"><span class="menuItem">Lanternfly</span></a>
+        <a href="./calatrava.html"
+          ><span class="menuItem active">Calatrava</span></a
+        >
+        <a href="./christina.html"><span class="menuItem">Christina</span></a>
+        <a href="./newyork.html"><span class="menuItem">New York</span></a>
+        <a href="sundial.html"><span class="menuItem">Digital Sundial</span></a>
+        <a href="./babel.html"><span class="menuItem">Tower of Babel</span></a>
+        <a href="./base60.html"><span class="menuItem">Base 60</span></a>
+        <a href="./outside.html"><span class="menuItem">Go Outside</span></a>
+      </div>
+    </div>
+    <div class="content">
+      <div class="innerContent">
+        <div class="contentItem" data-text="Exhibition Identity">
+          <img src="calatravaV3/calatravaV3_intro.png" />
+        </div>
+        <div class="contentItem" data-text="Blocks">
+            <img src="calatravaV3/calatravaV3_Blocks.png" />
+          </div>
+        <div class="contentItem" data-text="Cards">
+          <div class="carouselB image C" id="carouselB" data-text="cards">
+            <div class="carousel-imagesB">
+              <img
+                src="calatravaV3/calatravaV3_Card_1.png"
+                class="carousel-imageB"
+                alt="Image 5A"
+              />
+              <img
+                src="calatravaV3/calatravaV3_card_2.png"
+                class="carousel-imageB"
+                alt="Image 5B"
+              />
+              <img
+                src="calatravaV3/calatravaV3_Card_3.png"
+                class="carousel-imageB"
+                alt="Image 5C"
+              />
+            </div>
+          </div>
+        </div>
+        <div class="contentItem" data-text="More Cards">
+          <embed class="embedHalfscreen" src="calatravaV3/embed/cards.html" />
+        </div>
+        <div class="contentItem" data-text="Modular Strcutres">
+            <img src="calatravaV3/calatravaV3_structure.png" />
+          </div>
+        <div class="contentItem" data-text="Drawings of Turning Torso and Audiotorio De Tenerife">
+          <img src="calatravaV3/calatravaV3_Drawings.png" />
+        </div>
+        <div class="contentItem" data-text="Gift Shop: Turning Torso Pen and Audiotorio De Tenerife Keychain Bottle Opener">
+
+          <div id="model1" class="model"></div>
+          <div id="model2" class="model"></div>
+        </div>
+        </div>
+      </div>
+    </div>
+    <div class="infoButton">*</div>
+    <div id="follower"></div>
+
+    
+    <script src="carosels.js"></script>
+    <script type="module" src="modeltest.js"></script>
+    <script src="follower2.js"></script>
+
+  </body>
+</html>

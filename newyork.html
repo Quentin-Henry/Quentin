@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="icon" type="image/x-icon" href="/img/Q_fav2.ico" />
+
+    <title>Q:New York</title>
+    <script type="importmap">
+        {
+          "imports": {
+            "three": "https://cdn.jsdelivr.net/npm/three@0.153.0/build/three.module.js",
+            "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.153.0/examples/jsm/"
+          }
+        }
+      </script>
+  </head>
+  <body>
+    <div class="mainNavContainer">
+      <div class="title">
+        <a href="./newsite.html"
+          ><span class="name">Quentin Henry</span
+          ></a
+        >
+      </div>
+      <div class="menu">
+        <a href="./lanternfly.html"><span class="menuItem">Lanternfly</span></a>
+        <a href="./calatrava.html"><span class="menuItem">Calatrava</span></a>
+        <a href="./christina.html"><span class="menuItem">Christina</span></a>
+        <a href="./newyork.html"
+          ><span class="menuItem active">New York</span></a
+        >
+        <a href="sundial.html"><span class="menuItem">Digital Sundial</span></a>
+        <a href="./babel.html"><span class="menuItem">Tower of Babel</span></a>
+        <a href="./base60.html"><span class="menuItem">Base 60</span></a>
+        <a href="./outside.html"><span class="menuItem">Go Outside</span></a>
+      </div>
+    </div>
+    <div class="content">
+        <div class="innerContent">
+      <div class="contentItem" data-text="The first chapter of a story told through screenshots from Google Street View.">
+        <div
+          class="carousel"
+          id="carousel4"
+        >
+          <button class="prev" onclick="moveSlide(-1, 'carousel4')">❮</button>
+          <div class="carousel-images">
+            <img
+              src="newyorkContent/book/googlebookpages1+2.png"
+              class="carousel-image"
+              alt="Image 4A"
+            />
+            <img
+              src="newyorkContent/book/googlebookpages2+3.png"
+              class="carousel-image"
+              alt="Image 4B"
+            />
+            <img
+              src="newyorkContent/book/googlebookpages4+5.png"
+              class="carousel-image"
+              alt="Image 4C"
+            />
+            <img
+              src="newyorkContent/book/googlebookpages6+7.png"
+              class="carousel-image"
+              alt="Image 4D"
+            />
+            <img
+              src="newyorkContent/book/googlebookpages8+9.png"
+              class="carousel-image"
+              alt="Image 4E"
+            />
+            <img
+              src="newyorkContent/book/googlebookpages10+11.png"
+              class="carousel-image clip"
+              alt="Image 4F"
+            />
+            <img
+              src="newyorkContent/book/googlebookpage12+13png.png"
+              class="carousel-image clip"
+              alt="Image 4G"
+            />
+            <img
+              src="newyorkContent/book/googlebookpage14+15.png"
+              class="carousel-image clip"
+              alt="Image 4H"
+            />
+            <img
+              src="newyorkContent/book/googlebookpages16+17.png"
+              class="carousel-image clip"
+              alt="Image 4I"
+            />
+          </div>
+          <button class="next" onclick="moveSlide(1, 'carousel4')">❯</button>
+        </div>
+      </div>
+      <div class="contentItem" data-text="Selections from a book of maps drawn from memory by passengers in an elevator.">
+        <div
+          class="carousel image C"
+          id="carousel7"
+        >
+          <button class="prev" onclick="moveSlide(-1, 'carousel7')">❮</button>
+          <div class="carousel-images">
+            <img
+              src="newyorkContent/Atlas/atlas_18-19.png"
+              class="carousel-image"
+              alt="Image 7A"
+            />
+            <img
+              src="newyorkContent/Atlas/atlas_24-25.png"
+              class="carousel-image"
+              alt="Image 7B"
+            />
+            <img
+              src="newyorkContent/Atlas/atlas_26-27.png"
+              class="carousel-image"
+              alt="Image 7C"
+            />
+            <img
+              src="newyorkContent/Atlas/atlas_32-33.png"
+              class="carousel-image"
+              alt="Image 7D"
+            />
+            <img
+              src="newyorkContent/Atlas/atlas_34-35.png"
+              class="carousel-image"
+              alt="Image 7E"
+            />
+            <img
+              src="newyorkContent/Atlas/atlas_48-49.png"
+              class="carousel-image"
+              alt="Image 7F"
+            />
+            <img
+              src="newyorkContent/Atlas/atlas_50-51.png"
+              class="carousel-image"
+              alt="Image 7G"
+            />
+          </div>
+          <button class="next" onclick="moveSlide(1, 'carousel7')">❯</button>
+        </div>
+      </div>
+      <div class="contentItem" data-text="A book of notes and sketches focused on the experience of walking in New York.">
+        <video autoplay loop muted playsinline>
+          <source src="newyorkContent/map_book.mp4" />
+        </video>
+      </div>
+      <div class="contentItem" data-text="A story about New York created from a collection of images.">
+        <video  autoplay loop muted playsinline >
+            <source src="newyorkContent/fuResize.mp4" type="video/mp4" /></video>
+        </video>
+      </div>
+      <div class="contentItem" data-text="3D Image created from a collection of images.">
+        <div id="modelB1" class="modelB"></div>
+      </div>
+    </div>
+</div>
+    <div class="infoButton">*</div>
+    <div id="follower"></div>
+
+    <script type="module" src="newYorkModels.js"></script>
+
+    <script src="carosels.js"></script>
+    <script src="follower2.js"></script>
+
+  </body>
+</html>

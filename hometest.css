@@ -190,18 +190,18 @@ canvas {
   transform: rotate(-3deg);
 }
 
-.carousel-imageB {
-  display: none;
-  transition: opacity 0.5s ease-in-out;
-  cursor: crosshair;
-}
-
 .PB {
   padding-bottom: 10vw;
 }
 
 .carousel-imageB:first-child {
   display: block;
+}
+
+.carousel-imageB {
+  display: none;
+  transition: opacity 0.5s ease-in-out;
+  cursor: crosshair;
 }
 
 /* Make the menu items look clickable */
@@ -310,6 +310,16 @@ pre {
   overflow: hidden;
   position: relative;
 }
+
+.carousel-imageB:first-child {
+  display: block;
+}
+
+.carousel-imageB {
+  display: none;
+  transition: opacity 0.5s ease-in-out;
+  cursor: crosshair;
+}
 .calatravaExamples {
   display: flex;
   flex-direction: row;
@@ -321,6 +331,23 @@ pre {
 .carousel-images {
   display: flex;
   transition: transform 0.5s ease-in-out;
+}
+.carousel {
+  display: flex;
+  align-items: center;
+
+  overflow: hidden;
+  position: relative;
+}
+
+.carousel-imageB:first-child {
+  display: block;
+}
+
+.carousel-imageB {
+  display: none;
+  transition: opacity 0.5s ease-in-out;
+  cursor: crosshair;
 }
 
 .carousel-image {
