@@ -166,6 +166,8 @@ const editorStyles = `
   .custom-color-input::-moz-color-swatch {
     border: none;
     border-radius: 8px;
+    box-shadow: inset 3px 4px 7px -3px rgb(0, 0, 0),
+      inset -3px -3px 10px -2px #ffffff38;
   }
   
   /* Optional hover effects */
@@ -219,19 +221,21 @@ const editorStyles = `
   
   /* Thumb styling for Firefox */
   .growing-slider::-moz-range-thumb {
-    width: 20px; /* Fixed width */
+    width: 40px; /* Fixed width */
     height: var(--thumb-height, 20px);
     border-radius: 8px;
-    background: #ffffff;
+    background: rgb(160, 160, 160);
     cursor: pointer;
     border: none;
     transition: height 0.1s ease;
+    box-shadow: inset 4px 4px 7px -2px rgb(206, 206, 206),
+      inset -4px -4px 10px -4px #585858d4, 0px 0px 10px -2px #20202086;
   }
   
   /* Track styling for Firefox */
   .growing-slider::-moz-range-track {
-    background: #e0e0e0;
-    height: 40px;
+    background: #e0e0e000;
+    height: 3px;
     border-radius: 10px;
   }
   
@@ -255,7 +259,7 @@ const editorStyles = `
     height: 20px;
     border-radius: 8px;
     /* Use rgba for opacity */
-    background: rgba(160, 160, 160, var(--thumb-opacity, 1));
+    background: rgba(160, 160, 160, var(--thumb-opacity, 0.3));
     cursor: pointer;
     border: none;
     /* Smooth opacity transition */
@@ -266,24 +270,25 @@ const editorStyles = `
   
   /* Thumb styling for Firefox */
   .opacity-slider::-moz-range-thumb {
-    width: 20px;
+    width: 40px;
     height: 20px;
-    border-radius: 50%;
-    background: rgb(255, 255, 255);
-    border: 2px solid #ffffff;
+    border-radius: 8px;
     /* Use rgba for opacity */
-    background: rgba(33, 150, 243, var(--thumb-opacity, 0.1));
+    background: rgba(160, 160, 160, var(--thumb-opacity, 1));
     cursor: pointer;
     border: none;
     transition: background-color 0.1s ease;
+    box-shadow: inset 4px 4px 7px -2px rgb(206, 206, 206),
+      inset -4px -4px 10px -4px #585858d4, 0px 0px 10px -2px #20202086;
   }
   
   /* Track styling for Firefox */
   .opacity-slider::-moz-range-track {
-    background: #e0e0e0;
+    background: #e0e0e000;
     height: 20px;
     border-radius: 10px;
   }
+  
   
 
 

@@ -5,6 +5,9 @@ body {
   color: #0000004d;
   background-color: rgb(255, 255, 255);
   overflow: hidden;
+  user-select: none;
+
+  -webkit-user-select: none;
 }
 
 a {
