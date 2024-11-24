@@ -81,7 +81,7 @@ button {
   height: 100%;
   padding: 10%;
   width: 80%;
-  border: 1px solid #2b2b2b;
+  border-left: 1px solid #2b2b2b;
   display: flex;
   flex-direction: column;
   gap: 10px;
