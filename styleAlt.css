@@ -5,6 +5,7 @@ body {
   color: #0000004d;
   background-color: rgb(255, 255, 255);
   overflow: hidden;
+  overflow-x: hidden;
   user-select: none;
 
   -webkit-user-select: none;
@@ -50,7 +51,7 @@ a {
 
 .content {
   height: 101vh;
-  width: 100vw;
+  width: 99vw;
   display: flex;
   justify-content: flex-end;
   overflow: scroll;
@@ -151,4 +152,30 @@ img {
 .embedHalfscreen {
   width: 100vw;
   height: 100%;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 0px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #00000000;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #00000034;
+  width: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #000000;
+  transition: 0.3s;
+}
+
+* {
+  scrollbar-width: none;
 }

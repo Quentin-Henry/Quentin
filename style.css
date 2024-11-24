@@ -6,6 +6,8 @@ body {
   background-color: black;
   user-select: none;
   -webkit-user-select: none;
+  overflow: hidden;
+  overflow-x: hidden;
 }
 
 a {
@@ -54,10 +56,11 @@ a {
 
 .content {
   height: 101vh;
-  width: 100vw;
+  width: 99vw;
   position: absolute;
   top: -1%;
-  overflow: scroll;
+  overflow-y: scroll;
+  overflow-x: hidden;
   display: flex;
   justify-content: flex-end;
 }
@@ -232,4 +235,31 @@ h2 {
   font-size: 2vw;
   text-align: justify;
   text-justify: inter-word;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 0px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f100;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #ffffff34;
+  width: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #ffffff;
+  transition: 0.3s;
+}
+
+* {
+  scrollbar-width: none;
+  scrollbar-color: #ffffff #f1f1f100;
 }
