@@ -11,6 +11,28 @@ body {
   -webkit-user-select: none;
 }
 
+button {
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  font-family: helvetica;
+  font-size: 2vw;
+  font-weight: bold;
+  color: rgba(0, 0, 0, 0.3);
+  text-decoration: underline;
+  z-index: 50;
+}
+button:hover {
+  color: rgb(0, 0, 0);
+}
+button.active {
+  background: #394e6300;
+}
+
+button.active:hover {
+  color: rgba(255, 255, 255, 0.3);
+}
+
 a {
   text-decoration: none;
   color: #0000004d;
@@ -260,8 +282,8 @@ img {
 
 #liveTooltip {
   position: fixed;
-  top: 45px;
-  right: 20px;
+  top: 3.5rem;
+  right: 1.5rem;
   background: rgba(255, 255, 255, 0.8);
   color: rgb(0, 0, 0);
   padding: 8px 12px;
