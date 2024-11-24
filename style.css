@@ -165,8 +165,24 @@ button.active:hover {
   justify-content: center;
 }
 
+.dude {
+  color: aqua;
+  border: 50px solid black;
+  height: 70%;
+  width: 95%;
+  position: absolute;
+  top: 0%;
+  left: 0%;
+}
+
 .carousel-image {
   width: 110%;
+
+  display: block;
+}
+
+.carousel-image.alt {
+  padding-bottom: 100px;
 
   display: block;
 }
