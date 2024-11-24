@@ -110,6 +110,7 @@ button {
   font-weight: bold;
   color: rgba(255, 255, 255, 0.3);
   text-decoration: underline;
+  z-index: 50;
 }
 button:hover {
   color: rgb(255, 255, 255);
@@ -161,11 +162,18 @@ button.active:hover {
 .carousel-images {
   display: flex;
   transition: transform 0.5s ease-in-out;
+  justify-content: center;
 }
+
+.carousel-image {
+  width: 110%;
+
+  display: block;
+}
+
 .carousel {
   display: flex;
   align-items: center;
-
   overflow: hidden;
   position: relative;
 }
@@ -188,13 +196,6 @@ button.active:hover {
   cursor: crosshair;
 }
 
-.carousel-image {
-  max-width: 102%;
-  max-height: 100%;
-  display: block;
-  margin: -1px;
-}
-
 .dontshow {
   display: none;
 }
@@ -205,6 +206,13 @@ button.active:hover {
 
 .model {
   width: 50%;
+}
+
+#sundialContainer {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .infoButton {

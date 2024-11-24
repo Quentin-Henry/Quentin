@@ -1,50 +1,174 @@
-let isOverride = false; // Flag for toggling time override
-let sliderValue = 0; // Slider value in seconds since midnight
-let sunriseTime, sunsetTime, solarNoonTime; // Variables to store sunrise, sunset, and solar noon times
+// Global variables for loading and error states
+let isLoading = true;
+let loadingInterval;
+let locationLoadingInterval;
+let errorAnimationInterval;
+let errorAnimationDirection = 1;
+let errorAnimationProgress = 0;
+
+// Global variables for time tracking
+let isOverride = false;
+let sliderValue = 0;
+let sunriseTime, sunsetTime, solarNoonTime;
+let firstLightTime, lastLightTime, dawnTime, duskTime, goldenHourTime;
+
+// Loading animation for location text
+function updateLocationLoadingText() {
+  if (!isLoading) {
+    clearInterval(locationLoadingInterval);
+    return;
+  }
+
+  const locationElement = document.getElementById("location");
+  if (!locationElement) return;
+
+  const currentText = locationElement.innerText;
+  switch (currentText) {
+    case "Loading":
+      locationElement.innerText = "Loading.";
+      break;
+    case "Loading.":
+      locationElement.innerText = "Loading..";
+      break;
+    case "Loading..":
+      locationElement.innerText = "Loading...";
+      break;
+    case "Loading...":
+      locationElement.innerText = "Loading";
+      break;
+    default:
+      locationElement.innerText = "Loading";
+  }
+}
+
+// Loading and error animation for the SVG
+function updateLoadingAnimation() {
+  const time = Date.now() / 1000;
+  const brightness = Math.sin(time * 2) * 0.1 + 0.9;
+  const colorValue = Math.round(brightness * 255);
+
+  const myRect = document.getElementById("myRect");
+  const myEllipse = document.getElementById("myEllipse");
+  const color = `rgb(${colorValue}, ${colorValue}, ${colorValue})`;
+
+  if (myRect && myEllipse) {
+    myRect.style.fill = color;
+    myEllipse.style.fill = color;
+  }
+}
+
+function startErrorAnimation() {
+  clearInterval(window.normalUpdateInterval);
+
+  if (!errorAnimationInterval) {
+    errorAnimationInterval = setInterval(updateErrorAnimation, 50);
+
+    const shadowRect = document.getElementById("shadowRect");
+    const hand = document.getElementById("shadowPoly");
+    if (shadowRect && hand) {
+      shadowRect.style.display = "block";
+      hand.style.display = "block";
+    }
+  }
+}
+
+function updateErrorAnimation() {
+  errorAnimationProgress += 0.01 * errorAnimationDirection;
+
+  if (errorAnimationProgress >= 1) {
+    errorAnimationProgress = 1;
+    errorAnimationDirection = -1;
+  } else if (errorAnimationProgress <= 0) {
+    errorAnimationProgress = 0;
+    errorAnimationDirection = 1;
+  }
+
+  const minY = 310;
+  const maxY = 550;
+  const minX = 100;
+  const maxX = 1200;
+  const noonX = 653.89;
+
+  let x, y;
+  const normalizedTime = errorAnimationProgress;
+
+  if (normalizedTime < 0.5) {
+    const angle = normalizedTime * Math.PI;
+    y = maxY - (maxY - minY) * Math.sin(angle);
+    x = minX + (noonX - minX) * (normalizedTime / 0.5);
+  } else {
+    const angle = (normalizedTime - 0.5) * Math.PI;
+    y = minY + (maxY - minY) * (1 - Math.cos(angle));
+    x = noonX + (maxX - noonX) * Math.sin(angle);
+  }
+
+  const hand = document.getElementById("shadowPoly");
+  const xPoint1 = normalizedTime < 0.5 ? 675 : 712;
+
+  if (hand) {
+    hand.setAttribute(
+      "points",
+      `${xPoint1},87.33 ${xPoint1},539.38 ${x.toFixed(2)},${y.toFixed(2)}`
+    );
+
+    const opacity = 1 - Math.abs(normalizedTime - 0.5) * 2;
+    hand.style.opacity = opacity;
+
+    const blurAmount =
+      normalizedTime < 0.5
+        ? Math.min(10, 10 * (1 - normalizedTime * 2))
+        : Math.min(10, 10 * (1 - (1 - normalizedTime) * 2));
+    hand.style.filter = `blur(${blurAmount}px)`;
+  }
+
+  const shadowRect = document.getElementById("shadowRect");
+  if (shadowRect) {
+    const shadowOpacity = 0.1 * (1 - Math.abs(normalizedTime - 0.5) * 2);
+    shadowRect.style.opacity = 0.1 - shadowOpacity;
+  }
+}
 
 function toggleOverride() {
-  isOverride = !isOverride; // Toggle the override flag
+  isOverride = !isOverride;
   const slider = document.getElementById("timeSlider");
-  slider.style.display = isOverride ? "block" : "none"; // Show slider when overriding
+  slider.style.display = isOverride ? "block" : "none";
 
   if (isOverride) {
-    // Set the slider to the current time in seconds
     const now = new Date();
     slider.value =
       now.getHours() * 3600 + now.getMinutes() * 60 + now.getSeconds();
-    updateSliderValue(slider.value); // Update the polygon position immediately
+    updateSliderValue(slider.value);
   } else {
-    updateTime(); // Update to the current time when not overriding
+    updateTime();
   }
 }
 
 function updateSliderValue(value) {
-  sliderValue = parseInt(value, 10); // Update the slider value
+  sliderValue = parseInt(value, 10);
 }
-// Get the current date and time
+
 function updateTime() {
+  // Skip normal update if error animation is running
+  if (errorAnimationInterval) return;
+
   let totalSeconds;
 
   if (isOverride) {
     totalSeconds = sliderValue;
   } else {
     const now = new Date();
-    const hours = now.getHours();
-    const minutes = now.getMinutes();
-    const seconds = now.getSeconds();
-    totalSeconds = hours * 3600 + minutes * 60 + seconds;
+    totalSeconds =
+      now.getHours() * 3600 + now.getMinutes() * 60 + now.getSeconds();
   }
 
-  // Convert sunrise, sunset, and solar noon times to seconds
   const sunriseInSeconds = sunriseTime ? convertTimeToSeconds(sunriseTime) : 0;
   const sunsetInSeconds = sunsetTime
     ? convertTimeToSeconds(sunsetTime)
     : 24 * 3600;
   const solarNoonInSeconds = solarNoonTime
     ? convertTimeToSeconds(solarNoonTime)
-    : 12 * 3600; // Default to noon if not available
+    : 12 * 3600;
 
-  // Check if the time is within the daytime range (sunrise to sunset)
   const isDaytime =
     totalSeconds >= sunriseInSeconds && totalSeconds <= sunsetInSeconds;
 
@@ -55,73 +179,58 @@ function updateTime() {
     sunsetInSeconds
   );
 
-  // Normalize the time if daytime
   const normalizedTime = isDaytime
     ? (totalSeconds - sunriseInSeconds) / (sunsetInSeconds - sunriseInSeconds)
-    : 0; // 0 if not daytime
-  // Define the ranges for x and y based on the new SVG
-  const minY = 310; // Minimum y value at solar noon
-  const maxY = 550; // Maximum y value at sunrise and sunset
-  const minX = 100; // Minimum x value at sunrise
-  const maxX = 1200; // Maximum x value at sunset
-  const noonX = 653.89; // Approximate midpoint between minX and maxX
+    : 0;
+
+  const minY = 310;
+  const maxY = 550;
+  const minX = 100;
+  const maxX = 1200;
+  const noonX = 653.89;
 
   if (isDaytime) {
     let x, y;
 
     if (normalizedTime < 0.5) {
-      // Before solar noon: sunrise to solar noon
-      const angle = normalizedTime * Math.PI; // From 0 to π/2
-      y = maxY - (maxY - minY) * Math.sin(angle); // Transition from maxY to minY
-      x = minX + (noonX - minX) * (normalizedTime / 0.5); // Transition x from minX to noonX
+      const angle = normalizedTime * Math.PI;
+      y = maxY - (maxY - minY) * Math.sin(angle);
+      x = minX + (noonX - minX) * (normalizedTime / 0.5);
     } else {
-      // After solar noon: solar noon to sunset
-      const angle = (normalizedTime - 0.5) * Math.PI; // From 0 to π/2
-      y = minY + (maxY - minY) * (1 - Math.cos(angle)); // Adjusted to have slower increase at first
-      x = noonX + (maxX - noonX) * Math.sin(angle); // Adjusted to have faster increase at first
+      const angle = (normalizedTime - 0.5) * Math.PI;
+      y = minY + (maxY - minY) * (1 - Math.cos(angle));
+      x = noonX + (maxX - noonX) * Math.sin(angle);
     }
 
-    // Update the coordinates of the 3rd point of the polygon
-    const postShadow = document.getElementById("shadowRect");
+    const shadowRect = document.getElementById("shadowRect");
     const hand = document.getElementById("shadowPoly");
-    hand.setAttribute(
-      "points",
-      `671.04,87.33 671.04,539.38 ${x.toFixed(2)},${y.toFixed(2)}`
-    );
 
-    // Set the other two points based on the time of day
-    const xPoint1 = normalizedTime < 0.5 ? 675 : 712; // x for point 1
-    const xPoint2 = normalizedTime < 0.5 ? 675 : 712; // x for point 2
+    const xPoint1 = normalizedTime < 0.5 ? 675 : 712;
 
-    // Update the coordinates of the two fixed points
     hand.setAttribute(
       "points",
       `${xPoint1},87.33 ${xPoint1},539.38 ${x.toFixed(2)},${y.toFixed(2)}`
     );
 
-    // Calculate opacity based on time
-    const opacity = 1 - Math.abs(normalizedTime - 0.5) * 2; // Full visibility at solar noon
+    const opacity = 1 - Math.abs(normalizedTime - 0.5) * 2;
     hand.style.opacity = opacity;
 
     const shadowOpacity = 0.1 * (1 - Math.abs(normalizedTime - 0.5) * 2);
-    shadowRect.style.opacity = 0.1 - shadowOpacity; // 0.1 at sunrise/sunset, 0 at solar noon
+    shadowRect.style.opacity = 0.1 - shadowOpacity;
 
-    // Calculate blur effect based on time
     const blurAmount =
       normalizedTime < 0.5
-        ? Math.min(10, 10 * (1 - normalizedTime * 2)) // Increasing blur until solar noon
-        : Math.min(10, 10 * (1 - (1 - normalizedTime) * 2)); // Decreasing blur after solar noon
-    hand.style.filter = `blur(${blurAmount}px)`; // Apply blur
+        ? Math.min(10, 10 * (1 - normalizedTime * 2))
+        : Math.min(10, 10 * (1 - (1 - normalizedTime) * 2));
+    hand.style.filter = `blur(${blurAmount}px)`;
 
-    // Make the polygon visible
     hand.style.display = "block";
     shadowRect.style.display = "block";
   } else {
-    // Hide the polygon when not daytime
     document.getElementById("shadowPoly").style.display = "none";
+    document.getElementById("shadowRect").style.display = "none";
   }
 
-  // Update the displayed time
   updateDisplayedTime(totalSeconds);
 }
 
@@ -131,9 +240,8 @@ function updateBackgroundColor(
   solarNoonInSeconds,
   sunsetInSeconds
 ) {
-  const colorDiv = document.getElementById("colorTransition");
+  if (errorAnimationInterval) return; // Skip color updates if in error animation
 
-  // Convert additional times to seconds
   const firstLightInSeconds = firstLightTime
     ? convertTimeToSeconds(firstLightTime)
     : 0;
@@ -146,40 +254,34 @@ function updateBackgroundColor(
     ? convertTimeToSeconds(goldenHourTime)
     : 24 * 3600;
 
-  // Color interpolation function
   function interpolateColor(color1, color2, factor) {
-    const result = color1.slice(); // Create a copy of color1
+    const result = color1.slice();
     for (let i = 0; i < 3; i++) {
       result[i] = Math.round(result[i] + factor * (color2[i] - color1[i]));
     }
     return `rgb(${result[0]}, ${result[1]}, ${result[2]})`;
   }
 
-  // Convert hex color to RGB array
   function hexToRgb(hex) {
     const bigint = parseInt(hex.slice(1), 16);
     return [(bigint >> 16) & 255, (bigint >> 8) & 255, bigint & 255];
   }
 
-  // Convert RGB array to hex color
   function rgbToHex(rgb) {
     return `#${((1 << 24) + (rgb[0] << 16) + (rgb[1] << 8) + rgb[2])
       .toString(16)
       .slice(1)}`;
   }
 
-  // Define your colors
   const black = hexToRgb("#000533");
   const purple = hexToRgb("#101e9c");
   const orange = hexToRgb("#ffd791");
   const white = hexToRgb("#ffffff");
   const yellow = hexToRgb("#ffe84f");
 
-  // Get references to the SVG elements
   const myRect = document.getElementById("myRect");
   const myEllipse = document.getElementById("myEllipse");
 
-  // Update color based on time
   if (totalSeconds < firstLightInSeconds || totalSeconds > lastLightInSeconds) {
     myRect.style.fill = rgbToHex(black);
     myEllipse.style.fill = rgbToHex(black);
@@ -252,12 +354,11 @@ function updateBackgroundColor(
   }
 }
 
-// Get user's location using Geolocation API
 function getLocation() {
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(showPosition, showError);
   } else {
-    document.getElementById("location").innerText = "location not supported";
+    handleLoadingError("Location not supported");
   }
 }
 
@@ -265,98 +366,129 @@ function showPosition(position) {
   const lat = position.coords.latitude;
   const long = position.coords.longitude;
   document.getElementById("location").innerText = `${lat},${long}`;
-
-  // Fetch sunrise, sunset, and solar noon times
   fetchSunriseSunset(lat, long);
 }
 
-function showError(error) {
-  switch (error.code) {
-    case error.PERMISSION_DENIED:
-      document.getElementById("location").innerText =
-        "User denied the request for Geolocation.";
-      break;
-    case error.POSITION_UNAVAILABLE:
-      document.getElementById("location").innerText =
-        "Location information is unavailable.";
-      break;
-    case error.TIMEOUT:
-      document.getElementById("location").innerText =
-        "The request to get user location timed out.";
-      break;
-    case error.UNKNOWN_ERROR:
-      document.getElementById("location").innerText =
-        "An unknown error occurred.";
-      break;
+function handleLoadingError(message) {
+  isLoading = false;
+  const locationElement = document.getElementById("location");
+  if (locationElement) {
+    locationElement.innerText = message;
   }
+
+  // Keep the loading pulse animation going
+  if (!loadingInterval) {
+    loadingInterval = setInterval(updateLoadingAnimation, 50);
+  }
+
+  // Start the error animation for the sundial
+  startErrorAnimation();
 }
 
-let firstLightTime, lastLightTime, dawnTime, duskTime, goldenHourTime; // Variables for additional time points
+function showError(error) {
+  let errorMessage;
+  switch (error.code) {
+    case error.PERMISSION_DENIED:
+      errorMessage = "Location access denied";
+      break;
+    case error.POSITION_UNAVAILABLE:
+      errorMessage = "Location unavailable";
+      break;
+    case error.TIMEOUT:
+      errorMessage = "Location request timeout";
+      break;
+    case error.UNKNOWN_ERROR:
+      errorMessage = "Location error";
+      break;
+  }
+  handleLoadingError(errorMessage);
+}
 
+// Modify fetchSunriseSunset to clean up error animation if successful
 function fetchSunriseSunset(latitude, longitude) {
   const url = `https://api.sunrisesunset.io/json?lat=${latitude}&lng=${longitude}&formatted=0`;
   fetch(url)
     .then((response) => response.json())
     .then((data) => {
       if (data.results) {
+        // Clear error animation if it was running
+        if (errorAnimationInterval) {
+          clearInterval(errorAnimationInterval);
+          errorAnimationInterval = null;
+        }
+        if (loadingInterval) {
+          clearInterval(loadingInterval);
+          loadingInterval = null;
+        }
+
+        // Rest of your existing success handling code...
         sunriseTime = data.results.sunrise;
         sunsetTime = data.results.sunset;
-        solarNoonTime = data.results.solar_noon; // Get solar noon time
-        firstLightTime = data.results.first_light; // First light time
-        lastLightTime = data.results.last_light; // Last light time
-        dawnTime = data.results.dawn; // Dawn time
-        duskTime = data.results.dusk; // Dusk time
-        goldenHourTime = data.results.golden_hour; // Golden hour time
+        solarNoonTime = data.results.solar_noon;
+        firstLightTime = data.results.first_light;
+        lastLightTime = data.results.last_light;
+        dawnTime = data.results.dawn;
+        duskTime = data.results.dusk;
+        goldenHourTime = data.results.golden_hour;
 
-        //console.log(
-        //  `Sunrise: ${sunriseTime}, Sunset: ${sunsetTime}, Solar Noon: ${solarNoonTime}, First Light: ${firstLightTime}, Last Light: ${lastLightTime}, Dawn: ${dawnTime}, Dusk: ${duskTime}, Golden Hour: ${goldenHourTime}`
-        // );
+        isLoading = false;
+        updateTime();
       } else {
         console.error("No results in API response.");
+        handleLoadingError("Error loading sun data");
       }
     })
     .catch((error) => {
       console.error("Error fetching sunrise/sunset data:", error);
+      handleLoadingError("Error loading sun data");
     });
 }
 
 function convertTimeToSeconds(timeString) {
-  const [time, period] = timeString.split(" "); // Split into time and AM/PM
-  const [hours, minutes, seconds] = time.split(":").map(Number); // Extract hours, minutes, seconds
+  const [time, period] = timeString.split(" ");
+  const [hours, minutes, seconds] = time.split(":").map(Number);
 
-  // Convert hours from 12-hour format to 24-hour format
   let convertedHours = hours;
   if (period === "PM" && hours !== 12) {
-    convertedHours += 12; // Convert PM hours
+    convertedHours += 12;
   } else if (period === "AM" && hours === 12) {
-    convertedHours = 0; // Convert 12 AM to 0 hours
+    convertedHours = 0;
   }
 
-  // Calculate total seconds
-  const totalSeconds = convertedHours * 3600 + minutes * 60 + seconds;
-  return totalSeconds;
+  return convertedHours * 3600 + minutes * 60 + seconds;
 }
 
 function updateDisplayedTime(totalSeconds) {
-  const hours = Math.floor(totalSeconds / 3600) % 24; // Get hours in 24-hour format
+  const hours = Math.floor(totalSeconds / 3600) % 24;
   const minutes = Math.floor((totalSeconds % 3600) / 60);
   const period = hours >= 12 ? "PM" : "AM";
 
-  const formattedHours = hours % 12 === 0 ? 12 : hours % 12; // Convert to 12-hour format
-  const formattedMinutes = minutes < 10 ? "0" + minutes : minutes; // Add leading zero if needed
+  const formattedHours = hours % 12 === 0 ? 12 : hours % 12;
+  const formattedMinutes = minutes < 10 ? "0" + minutes : minutes;
 
   const timeString = `${formattedHours}:${formattedMinutes} ${period}`;
-  document.getElementById("timeDisplay").innerText = timeString; // Update the time display
+  document.getElementById("timeDisplay").innerText = timeString;
 }
 
-// Update time every second
 setInterval(() => {
-  updateTime();
+  if (!isLoading) {
+    updateTime();
+  }
 }, 1000);
 
-// Get location on page load
 window.onload = () => {
+  loadingInterval = setInterval(updateLoadingAnimation, 50);
+  locationLoadingInterval = setInterval(updateLocationLoadingText, 500);
+
+  document.getElementById("location").innerText = "Loading";
+
   getLocation();
-  updateTime(); // Initial call to set position
+  updateTime();
+
+  // Store the normal update interval so we can clear it if needed
+  window.normalUpdateInterval = setInterval(() => {
+    if (!isLoading && !errorAnimationInterval) {
+      updateTime();
+    }
+  }, 1000);
 };
-//console.log(shadowPoly);
