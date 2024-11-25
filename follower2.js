@@ -20,7 +20,7 @@ infoButton.addEventListener("click", () => {
 const tooltip = document.createElement("div");
 tooltip.id = "liveTooltip";
 tooltip.textContent =
-  "This indicator will let you know if a component is interactive or not";
+  "This indicator will let you know if something is interactive or not";
 document.body.appendChild(tooltip);
 
 // Add click handler for the tooltip
@@ -57,7 +57,8 @@ function findCenteredElement() {
     // Check for either embed tags or .MTarget elements
     const hasInteractiveContent =
       centeredElement.querySelector("embed") !== null ||
-      centeredElement.querySelector(".MTarget") !== null;
+      centeredElement.querySelector(".MTarget") !== null ||
+      centeredElement.querySelector(".carousel") !== null;
 
     // Update live indicator based on presence of either type
     if (hasInteractiveContent) {

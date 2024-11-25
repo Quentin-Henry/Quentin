@@ -107,18 +107,6 @@ img {
   width: 25vw;
 }
 
-.carousel-images {
-  display: flex;
-  transition: transform 0.5s ease-in-out;
-}
-.carousel {
-  display: flex;
-  align-items: center;
-
-  overflow: hidden;
-  position: relative;
-}
-
 .carousel-imageB:first-child {
   display: block;
 }
@@ -137,11 +125,85 @@ img {
   width: 50%;
 }
 
+.carousel {
+  position: relative;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  overflow: hidden;
+}
+
 .carousel-image {
-  max-width: 102%;
-  max-height: 100%;
+  width: 100%;
   display: block;
-  margin: -1px;
+  transition: opacity 0.3s ease;
+}
+
+/* Click zones */
+.click-zone {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.click-zone-left {
+  left: 0;
+  width: 51.5%;
+}
+
+.none {
+  display: none;
+}
+
+.click-zone-right {
+  right: 0;
+  width: 48%;
+}
+
+/* Hover effects */
+.click-zone.hover {
+  background-color: rgba(255, 255, 255, 0.27);
+}
+
+.click-zone.hover::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  width: 20px;
+  height: 20px;
+  border-style: solid;
+  border-width: 3px;
+  border-color: rgb(255, 255, 255);
+  transform: translateY(-50%);
+}
+
+.click-zone-left.hover::after {
+  left: 20px;
+  border-right: none;
+  border-bottom: none;
+  transform: translateY(-50%) rotate(-45deg);
+}
+
+.click-zone-right.hover::after {
+  right: 20px;
+  border-left: none;
+  border-bottom: none;
+  transform: translateY(-50%) rotate(45deg);
+}
+
+/* Page indicator */
+.page-indicator {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 14px;
 }
 
 .infoButton:hover {
@@ -161,6 +223,13 @@ img {
 }
 #clearBtn.visible {
   display: block;
+}
+
+.browserEmbed {
+  width: 80%;
+  height: 70%;
+  border-radius: 5px;
+  box-shadow: 0px 5px 10px 2px #0000004b;
 }
 
 .contentItem {
