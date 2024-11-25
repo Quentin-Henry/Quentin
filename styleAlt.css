@@ -95,7 +95,7 @@ img {
 .infoButton {
   position: fixed;
   text-decoration: underline;
-
+  color: #000000;
   padding: 1rem;
   bottom: 0;
 }
@@ -212,7 +212,11 @@ video {
 }
 
 .infoButton:hover {
-  color: black;
+  color: rgba(0, 0, 0, 0.304);
+}
+
+.infoButton.active {
+  color: rgba(0, 0, 0, 0.304);
 }
 
 .fullscreenembed {

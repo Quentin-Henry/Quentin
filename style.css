@@ -159,16 +159,6 @@ button.active:hover {
   height: 100%;
 }
 
-.dude {
-  color: aqua;
-  border: 50px solid black;
-  height: 70%;
-  width: 95%;
-  position: absolute;
-  top: 0%;
-  left: 0%;
-}
-
 .mobileBlock {
   display: none;
 }
@@ -315,10 +305,15 @@ button.active:hover {
   text-decoration: underline;
   padding: 1rem;
   bottom: 0;
+  color: #ffffff;
 }
 
 .infoButton:hover {
-  color: #ffffff;
+  color: hsla(0, 0%, 100%, 0.3);
+}
+
+.infoButton.active {
+  color: hsla(0, 0%, 100%, 0.3);
 }
 
 #aboutMe {
