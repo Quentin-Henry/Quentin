@@ -24,20 +24,20 @@ function updateLocationLoadingText() {
 
   const currentText = locationElement.innerText;
   switch (currentText) {
-    case "Loading":
-      locationElement.innerText = "Loading.";
+    case "Calculating Solar Arcs":
+      locationElement.innerText = "Calculating Solar Arcs.";
       break;
-    case "Loading.":
-      locationElement.innerText = "Loading..";
+    case "Calculating Solar Arcs.":
+      locationElement.innerText = "Calculating Solar Arcs..";
       break;
-    case "Loading..":
-      locationElement.innerText = "Loading...";
+    case "Calculating Solar Arcs..":
+      locationElement.innerText = "Calculating Solar Arcs...";
       break;
-    case "Loading...":
-      locationElement.innerText = "Loading";
+    case "Calculating Solar Arcs...":
+      locationElement.innerText = "Calculating Solar Arcs";
       break;
     default:
-      locationElement.innerText = "Loading";
+      locationElement.innerText = "Calculating Solar Arcs";
   }
 }
 
@@ -480,7 +480,7 @@ window.onload = () => {
   loadingInterval = setInterval(updateLoadingAnimation, 50);
   locationLoadingInterval = setInterval(updateLocationLoadingText, 500);
 
-  document.getElementById("location").innerText = "Loading";
+  document.getElementById("location").innerText = "calculating Solar Arcs";
 
   getLocation();
   updateTime();

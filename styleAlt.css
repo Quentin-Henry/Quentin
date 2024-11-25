@@ -169,7 +169,7 @@ video {
 
 /* Hover effects */
 .click-zone.hover {
-  background-color: rgba(255, 255, 255, 0.27);
+  background-color: rgba(255, 255, 255, 0.391);
 }
 
 .click-zone.hover::after {
