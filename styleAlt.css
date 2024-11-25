@@ -126,6 +126,10 @@ img {
   width: 50%;
 }
 
+video {
+  clip-path: inset(5px 5px);
+}
+
 .carousel {
   position: relative;
   width: 100%;
