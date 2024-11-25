@@ -13,6 +13,7 @@ var hitOptions = {
   fill: true,
   tolerance: 30,
 };
+
 // Ripple management
 var ripples = [];
 
@@ -26,6 +27,11 @@ function createDragPoint(x, y, waveIndex) {
   };
 }
 
+var dragStartTime = 0;
+var dragStartPos = null;
+var dragThreshold = 10; // pixels of movement to consider it a drag
+var clickThreshold = 200; // milliseconds to consider it a click
+
 function createRipple(x, y, waveIndex) {
   return {
     x: x,
@@ -33,7 +39,7 @@ function createRipple(x, y, waveIndex) {
     radius: 0,
     maxRadius: width * 0.4,
     speed: 15,
-    strength: 100,
+    strength: 150, // Increased for more visible effect
     waveIndex: waveIndex,
     life: 1,
   };
@@ -129,7 +135,7 @@ function initializeWaves() {
       0.5,
       1,
       0.3,
-      0.8,
+      10,
       { horizontal: 0.3, vertical: 0.6 },
       0.2,
       offsets.middle.y,
@@ -145,7 +151,7 @@ function initializeWaves() {
       0.4,
       0.6,
       0.15,
-      1.5,
+      10,
       { horizontal: 0.5, vertical: 0.4 },
       0.15,
       offsets.front.y,
@@ -217,13 +223,34 @@ function calculateDragEffect(x, y, dragPoint, wave) {
   return dragEffect;
 }
 
+function calculateRippleEffect(x, y, ripple, wave) {
+  var distance = Math.sqrt(
+    Math.pow(x - ripple.x, 2) + Math.pow(y - ripple.y, 2)
+  );
+  var rippleEffect = 0;
+
+  if (distance < ripple.radius + 100 && distance > ripple.radius - 100) {
+    var normalizedDistance = Math.abs(distance - ripple.radius) / 100;
+    rippleEffect =
+      Math.cos(normalizedDistance * Math.PI) *
+      ripple.strength *
+      ripple.life *
+      wave.rippleStrength;
+
+    // Add some vertical displacement for more dramatic effect
+    rippleEffect *= 1 - Math.abs(normalizedDistance);
+  }
+
+  return rippleEffect;
+}
+
 function onFrame(event) {
   // Update ripples
   for (var i = ripples.length - 1; i >= 0; i--) {
     var ripple = ripples[i];
     ripple.radius += ripple.speed;
-    ripple.life *= 0.95;
-    ripple.strength *= 0.95;
+    ripple.life *= 0.97; // Slower fade out
+    ripple.strength *= 0.97;
 
     if (ripple.life < 0.01) {
       ripples.splice(i, 1);
@@ -233,7 +260,7 @@ function onFrame(event) {
   // Update drag points
   for (var i = dragPoints.length - 1; i >= 0; i--) {
     var dragPoint = dragPoints[i];
-    dragPoint.life *= 0.98;
+    dragPoint.life *= 0.95; // Faster fade out for drag
 
     if (dragPoint.life < 0.01) {
       dragPoints.splice(i, 1);
@@ -321,14 +348,21 @@ function onMouseMove(event) {
     y: mousePos.y + (event.point.y - mousePos.y) * 0.2,
   };
 
-  if (isDragging) {
-    // Find which wave is being dragged
-    var hitResult = project.hitTest(event.point, hitOptions);
-    if (hitResult) {
-      for (var i = 0; i < waves.length; i++) {
-        if (hitResult.item === waves[i].path) {
-          waves[i].isDragging = true;
-          dragPoints.push(createDragPoint(event.point.x, event.point.y, i));
+  if (dragStartPos) {
+    // Calculate distance moved
+    var dragDistance = event.point.subtract(dragStartPos).length;
+
+    // If we've moved past threshold, it's definitely a drag
+    if (dragDistance > dragThreshold) {
+      isDragging = true;
+      // Find which wave is being dragged
+      var hitResult = project.hitTest(event.point, hitOptions);
+      if (hitResult) {
+        for (var i = 0; i < waves.length; i++) {
+          if (hitResult.item === waves[i].path) {
+            waves[i].isDragging = true;
+            dragPoints.push(createDragPoint(event.point.x, event.point.y, i));
+          }
         }
       }
     }
@@ -336,7 +370,9 @@ function onMouseMove(event) {
 }
 
 function onMouseDown(event) {
-  isDragging = true;
+  dragStartTime = Date.now();
+  dragStartPos = event.point;
+
   // Check which wave is being clicked
   var hitResult = project.hitTest(event.point, hitOptions);
   if (hitResult) {
@@ -347,13 +383,32 @@ function onMouseDown(event) {
 }
 
 function onMouseUp(event) {
+  var dragDuration = Date.now() - dragStartTime;
+  var dragDistance = dragStartPos
+    ? event.point.subtract(dragStartPos).length
+    : 0;
+
+  // If it was a short interaction with minimal movement, treat it as a click
+  if (dragDuration < clickThreshold && dragDistance < dragThreshold) {
+    var hitResult = project.hitTest(dragStartPos, hitOptions);
+    if (hitResult) {
+      for (var i = 0; i < waves.length; i++) {
+        if (hitResult.item === waves[i].path) {
+          // Create a more prominent ripple effect
+          ripples.push(createRipple(dragStartPos.x, dragStartPos.y, i));
+        }
+      }
+    }
+  }
+
+  // Reset all states
   isDragging = false;
-  // Reset all wave dragging states
+  dragStartPos = null;
+  dragStartTime = 0;
   waves.forEach(function (wave) {
     wave.isDragging = false;
   });
 }
-
 function onResize(event) {
   initializePath();
 }
