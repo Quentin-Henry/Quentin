@@ -175,6 +175,10 @@
     overflow-x: hidden;
   }
 
+  .lmft {
+    padding-left: 3em;
+  }
+
   a {
     text-decoration: none;
     color: rgb(0, 0, 0);
@@ -214,11 +218,11 @@
     font-weight: 600;
   }
   canvas {
-    height: 90vh;
+    height: 100vh;
     width: 200vw;
     position: fixed;
-    top: 40%;
-    left: -60%;
+    bottom: 0;
+    left: 0;
   }
 
   #canvasB {
@@ -247,7 +251,6 @@
     width: 100vw;
     position: relative;
     left: 0%;
-    padding: 5%;
     overflow-x: hidden;
     background-color: #f7f7f7;
   }
