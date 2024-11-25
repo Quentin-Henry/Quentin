@@ -277,6 +277,18 @@ button.active:hover {
   display: none;
 }
 
+em {
+  font-style: normal;
+}
+
+.emaillink {
+  text-decoration: underline;
+}
+
+.emaillink:hover {
+  opacity: 0.3;
+}
+
 .modelB {
   width: 100%;
 }
