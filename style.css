@@ -267,15 +267,7 @@ button.active:hover {
   width: 25vw;
 }
 
-.carousel-imageB {
-  display: none;
-  transition: opacity 0.5s ease-in-out;
-  cursor: crosshair;
-  background-color: black;
-}
-
 .carousel-imagesB {
-  display: none;
   transition: opacity 0.5s ease-in-out;
   cursor: crosshair;
   background-color: black;
