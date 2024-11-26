@@ -78,6 +78,10 @@ button {
   transition: 0.3s;
 }
 
+.open-btn:focus {
+  outline: #ffffff;
+}
+
 img {
   width: 25%;
 }
@@ -331,4 +335,27 @@ input[type="range"]::-moz-range-thumb {
 input[type="range"]:focus::-moz-range-thumb {
   outline: 3px solid #ffffff;
   outline-offset: 0.125rem;
+}
+
+.tooltip {
+  background-color: rgba(255, 255, 255, 0.435);
+  color: white;
+  padding: 8px 12px;
+  border-radius: 4px;
+  font-size: 14px;
+  pointer-events: none;
+  z-index: 1000;
+  white-space: nowrap;
+  animation: tooltipFadeIn 0.2s ease-in-out;
+}
+
+@keyframes tooltipFadeIn {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -90%);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -100%);
+  }
 }

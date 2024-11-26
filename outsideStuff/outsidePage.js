@@ -40,6 +40,7 @@ const buttons = {
   worldInfoButton: document.getElementById("worldInfoButton"),
   controlsButton: document.getElementById("controlsButton"),
   settingsButton: document.getElementById("settingsButton"),
+  newWorldButton: document.getElementById("newWorldButton"),
 };
 
 const closeButtons = {
@@ -165,6 +166,43 @@ function updateIconBasedOnValue(slider, imgId, thresholds, icons) {
   }
 }
 
+function createTooltip(text) {
+  const tooltip = document.createElement("div");
+  tooltip.className = "tooltip";
+  tooltip.textContent = text;
+  return tooltip;
+}
+
+// Function to handle tooltip display
+function handleTooltip(element, tooltipText) {
+  let tooltipTimeout;
+  let currentTooltip = null;
+
+  element.addEventListener("mouseenter", () => {
+    tooltipTimeout = setTimeout(() => {
+      const tooltip = createTooltip(tooltipText);
+      const rect = element.getBoundingClientRect();
+
+      // Position tooltip above the button
+      tooltip.style.position = "absolute";
+      tooltip.style.left = `${rect.left + rect.width / 2}px`;
+      tooltip.style.top = `${rect.top - 8}px`;
+      tooltip.style.transform = "translate(-50%, -100%)";
+
+      document.body.appendChild(tooltip);
+      currentTooltip = tooltip;
+    }, 1000); // 500ms delay
+  });
+
+  element.addEventListener("mouseleave", () => {
+    clearTimeout(tooltipTimeout);
+    if (currentTooltip) {
+      currentTooltip.remove();
+      currentTooltip = null;
+    }
+  });
+}
+
 // Function to handle menu visibility based on intro state
 function handleMenuVisibility(isIntroVisible) {
   const menuElements = document.querySelectorAll(
@@ -176,6 +214,22 @@ function handleMenuVisibility(isIntroVisible) {
 }
 
 document.addEventListener("DOMContentLoaded", function () {
+  // Add tooltips to buttons
+  handleTooltip(buttons.openMenuBtn, "Open Menu");
+  handleTooltip(buttons.worldInfoButton, "World Information");
+  handleTooltip(buttons.controlsButton, "Controls");
+  handleTooltip(buttons.settingsButton, "Settings");
+  handleTooltip(buttons.newWorldButton, "New World");
+
+  // Add tooltips to close buttons
+  handleTooltip(closeButtons.worldInfoCloseMenuButton, "Close World Info");
+  handleTooltip(closeButtons.controlsCloseMenuButton, "Close Controls");
+  handleTooltip(closeButtons.settingsCloseMenuButton, "Close Settings");
+
+  // Add tooltip to bottom drawer close button after it's assigned
+  closeButtons.bottomDrawerCloseMenuButton =
+    document.getElementById("closeMenuBtn");
+  handleTooltip(closeButtons.bottomDrawerCloseMenuButton, "Close Menu");
   // Set up mutation observer for the intro div
   const introElement = document.getElementById("intro");
   if (introElement) {
