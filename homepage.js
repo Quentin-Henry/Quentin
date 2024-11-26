@@ -22,7 +22,7 @@ function changeSpan(span, duration) {
   const randomLetter = getRandomLetter(isCapital);
   span.textContent = randomLetter;
 
-  console.log(`Changed span from "${originalText}" to "${randomLetter}"`);
+  //console.log(`Changed span from "${originalText}" to "${randomLetter}"`);
 
   // Clear any existing timeout to prevent conflicts
   if (span.timeout) {

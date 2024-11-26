@@ -165,7 +165,36 @@ function updateIconBasedOnValue(slider, imgId, thresholds, icons) {
   }
 }
 
+// Function to handle menu visibility based on intro state
+function handleMenuVisibility(isIntroVisible) {
+  const menuElements = document.querySelectorAll(
+    "#bottomDrawer, #worldInfo, #controls, #settings, #openMenuBtn"
+  );
+  menuElements.forEach((menu) => {
+    menu.style.visibility = isIntroVisible ? "hidden" : "visible";
+  });
+}
+
 document.addEventListener("DOMContentLoaded", function () {
+  // Set up mutation observer for the intro div
+  const introElement = document.getElementById("intro");
+  if (introElement) {
+    // Initially hide menus if intro is visible
+    handleMenuVisibility(true);
+
+    // Create a mutation observer to watch for class changes
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        if (mutation.attributeName === "class") {
+          const isClicked = introElement.classList.contains("clicked");
+          handleMenuVisibility(!isClicked);
+        }
+      });
+    });
+
+    // Start observing the intro element for class changes
+    observer.observe(introElement, { attributes: true });
+  }
   // Movement Speed Slider (1-10)
   const movementSpeedSlider = document.getElementById("movementSpeedSlider");
   const walkingIcons = [

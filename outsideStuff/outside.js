@@ -151,7 +151,7 @@ class InputController {
         this.previous_ = { ...this.current_ };
       }
 
-      // Optionally, freeze any frame or object that follows the mouse
+      // freeze any frame or object that follows the mouse
       if (this.freezeFrame) {
         // Freeze any positional changes tied to mouse
         // You can store the last known mouse position and use that to prevent movement
@@ -352,8 +352,8 @@ class FirstPersonCamera {
   playFootstepAudio(timeElapsedS) {
     const currentTime = Date.now();
 
-    // Play footstep sound every half second (500 ms)
-    if (this.isMoving && currentTime - this.lastStepTime >= 500) {
+    // Play footstep sound (750 ms)
+    if (this.isMoving && currentTime - this.lastStepTime >= 750) {
       const randomIndex = Math.floor(
         Math.random() * this.footstepAudioFiles.length
       );
@@ -767,7 +767,7 @@ class FirstPersonCameraDemo {
         AudioCredit: "late-summer-forest-september-28th-2019.mp3 - kvgarlic",
       },
 
-      // Add more model configurations as needed
+      // future model configurations
     ];
 
     let lastModelIndex = localStorage.getItem("lastModelIndex")
@@ -957,7 +957,6 @@ class FirstPersonCameraDemo {
     const ambientLight = new THREE.AmbientLight(0xffffff, 2.5); // White color, intensity 1
     this.scene_.add(ambientLight);
 
-    // If you still want the hemisphere light, you can keep this part
     const upColour = 0xffff80;
     const downColour = 0x808080;
     const hemiLight = new THREE.HemisphereLight(upColour, downColour, 0.5);
@@ -1015,9 +1014,9 @@ window.addEventListener("keydown", function (event) {
       window.location.hostname === "127.0.0.1" ||
       window.location.hostname === "localhost"
     ) {
-      targetOrigin = "http://127.0.0.1:5501/projects.html"; // Use localhost for testing
+      targetOrigin = "http://127.0.0.1:5501/projects.html";
     } else {
-      targetOrigin = "https://quentinhenry.com/projects.html"; // Use the live site for production
+      targetOrigin = "https://quentinhenry.com/projects.html";
     }
 
     // Send the message to the parent window
@@ -1034,7 +1033,7 @@ window.addEventListener("DOMContentLoaded", () => {
 let introdiv = document.getElementById("intro");
 
 let endintro = function () {
-  introdiv.className = "clicked"; // Corrected the typo here
+  introdiv.className = "clicked";
 };
 
 if (introdiv) {
@@ -1047,14 +1046,14 @@ if (introdiv) {
 // Listen for clicks inside the embed content
 document.addEventListener("click", function () {
   // Send a message to the parent window (where the embed is embedded)
-  window.parent.postMessage({ type: "enterFullscreen" }, "*"); // "*" can be replaced with the parent domain for security
+  window.parent.postMessage({ type: "enterFullscreen" }, "*");
 });
 
 window.addEventListener("message", function (event) {
   // Ensure the message is from a trusted origin
   if (
-    event.origin === "http://127.0.0.1:5501" || // Adjust this to your local test URL
-    event.origin === "https://quentinhenry.com" // Adjust to production URL
+    event.origin === "http://127.0.0.1:5501" ||
+    event.origin === "https://quentinhenry.com"
   ) {
     // Handle the 'pauseBackgroundMusic' message
     if (event.data === "pauseBackgroundMusic") {
