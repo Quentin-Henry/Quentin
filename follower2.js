@@ -6,13 +6,13 @@ const contentItems = document.querySelectorAll(".contentItem");
 const liveIndicator = document.getElementById("liveIndicator");
 // Initialize follower styles
 
-follower.style.display = "none";
+follower.style.display = "block";
 
 // Toggle follower visibility
 let isFollowerVisible = false;
 infoButton.addEventListener("click", () => {
   isFollowerVisible = !isFollowerVisible;
-  follower.style.display = isFollowerVisible ? "block" : "none";
+  follower.style.display = isFollowerVisible ? "none" : "block";
   infoButton.classList.toggle("active");
 });
 

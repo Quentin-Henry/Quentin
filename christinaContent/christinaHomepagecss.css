@@ -45,7 +45,7 @@ h1 {
 
 .header {
   display: flex;
-  width: 75%;
+  width: 98%;
   padding-top: 2%;
   padding-bottom: 2.5%;
   align-items: flex-start;
@@ -161,7 +161,6 @@ h1 {
   padding: 5%;
   border-radius: 15px;
   background-color: #d0483e00;
-  margin-left: 5%;
   margin-top: 5%;
   margin-bottom: 5%;
 }
