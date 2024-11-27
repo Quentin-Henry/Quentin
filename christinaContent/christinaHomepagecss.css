@@ -48,7 +48,7 @@ h1 {
   width: 98%;
   padding-top: 2%;
   padding-bottom: 2.5%;
-  align-items: flex-start;
+  align-items: center;
   justify-content: space-between;
   cursor: pointer;
   transition: opacity 0.3s ease-out, filter 0.3s ease-out;

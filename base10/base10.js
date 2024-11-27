@@ -123,7 +123,7 @@ class HexadecimalTimeSystem extends TimeSystem {
       displayText: this.formatDisplay(hexHours, hexMinutes, hexSeconds, 16),
       extraInfo: `${this.baseInfo} - Fraction: 0x${hexFraction}`,
       description:
-        "The base-16 hexadecimal system is expressed using 16 symbols: 0-9 and A-F, where A represents 10, B is 11, and so on. Hexadecimal is useful for efficiently displaying larger values in a compact format.",
+        "The hexadecimal system is expressed using 16 symbols: 0-9 and A-F, where A represents 10, B is 11, and so on. Hexadecimal is useful for efficiently displaying larger values in a compact format.",
     };
   }
 
@@ -369,7 +369,7 @@ class FibonacciTimeSystem extends TimeSystem {
       hourDeg: ((hours + minutes / this.fibMinutes) / this.fibHours) * 360,
       displayText: this.formatDisplay(hours, minutes, seconds),
       extraInfo: this.getExtraInfo(),
-      description: "natural-feeling rhythms based on the golden ratio",
+      description: "Natural-feeling rhythms based on the golden ratio",
     };
   }
 
@@ -863,7 +863,7 @@ class PiTimeSystem extends TimeSystem {
       hourDeg: ((hours + minutes / piMinutes) / piHours) * 360,
       displayText: this.formatDisplay(hours, minutes, seconds),
       extraInfo: `π Time (${piHours}h:${piMinutes}m:${piSeconds}s)`,
-      description: "yum pie",
+      description: "Yum Pie",
     };
   }
 
