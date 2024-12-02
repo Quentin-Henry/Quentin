@@ -369,7 +369,8 @@ class FibonacciTimeSystem extends TimeSystem {
       hourDeg: ((hours + minutes / this.fibMinutes) / this.fibHours) * 360,
       displayText: this.formatDisplay(hours, minutes, seconds),
       extraInfo: this.getExtraInfo(),
-      description: "Natural-feeling rhythms based on the golden ratio",
+      description:
+        "Natural-feeling rhythms based on the fibonacci sequence and golden ratio",
     };
   }
 
