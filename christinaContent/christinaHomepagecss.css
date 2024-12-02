@@ -158,7 +158,6 @@ h1 {
 }
 
 .B {
-  padding: 5%;
   border-radius: 15px;
   background-color: #d0483e00;
   margin-top: 5%;
@@ -215,7 +214,7 @@ p.fade-initial {
 }
 
 H2 {
-  font-size: 4rem;
+  font-size: 2rem;
   color: #d0483e;
 }
 

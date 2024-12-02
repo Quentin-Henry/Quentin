@@ -272,6 +272,9 @@ button.active:hover {
   cursor: crosshair;
   background-color: black;
 }
+.clip {
+  overflow: hidden;
+}
 
 .dontshow {
   display: none;
