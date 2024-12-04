@@ -170,20 +170,20 @@ const editorStyles = `
       inset -3px -3px 10px -2px #ffffff38;
   }
   
-  /* Optional hover effects */
+  /*  hover effects */
   .custom-color-input:hover {
     transform: scale(1.01);
   
     transition: transform 0.2s ease;
   }
   
-  /* Optional focus styling */
+  /*  focus styling */
   .custom-color-input:focus {
     outline: 1px solid #ffffff;
     outline-offset: 2px;
   }
   
-  /* Optional disabled state */
+  /*  disabled state */
   .custom-color-input:disabled {
     opacity: 0.5;
     cursor: not-allowed;
@@ -259,7 +259,7 @@ const editorStyles = `
     height: 20px;
     border-radius: 8px;
     /* Use rgba for opacity */
-    background: rgba(160, 160, 160, var(--thumb-opacity, 0.3));
+    background: rgba(160, 160, 160, var(--thumb-opacity, 1));
     cursor: pointer;
     border: none;
     /* Smooth opacity transition */

@@ -4,8 +4,11 @@ const follower = document.getElementById("follower");
 const content = document.querySelector(".content");
 const contentItems = document.querySelectorAll(".contentItem");
 const liveIndicator = document.getElementById("liveIndicator");
+const liveIndicatorContainer = document.getElementById(
+  "liveIndicatorContainer"
+);
+const liveIndicatorText = document.getElementById("liveIndicatorText");
 // Initialize follower styles
-
 follower.style.display = "block";
 
 // Toggle follower visibility
@@ -20,12 +23,12 @@ infoButton.addEventListener("click", () => {
 const tooltip = document.createElement("div");
 tooltip.id = "liveTooltip";
 tooltip.textContent =
-  "This indicator will let you know if something is interactive or not";
+  "This indicator will let you know if the content on the screen is interactive";
 document.body.appendChild(tooltip);
 
 // Add click handler for the tooltip
 let tooltipTimeout;
-liveIndicator.addEventListener("click", (e) => {
+liveIndicatorContainer.addEventListener("click", (e) => {
   e.stopPropagation(); // Prevent click from affecting elements underneath
   tooltip.classList.add("visible");
 
@@ -63,8 +66,10 @@ function findCenteredElement() {
     // Update live indicator based on presence of either type
     if (hasInteractiveContent) {
       liveIndicator.classList.add("active");
+      liveIndicatorText.classList.add("active");
     } else {
       liveIndicator.classList.remove("active");
+      liveIndicatorText.classList.remove("active");
     }
 
     return centeredElement;

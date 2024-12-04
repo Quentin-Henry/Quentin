@@ -78,6 +78,11 @@ img {
 .editButton {
   padding: 1rem;
   text-decoration: underline;
+  display: none;
+}
+
+.editButton.visable {
+  display: block;
 }
 
 .editButton:hover {
@@ -93,14 +98,7 @@ img {
   pointer-events: none;
   z-index: 1;
 }
-#controls {
-  position: fixed;
-  bottom: 20px;
-  left: 20px;
-  display: flex;
-  gap: 10px;
-  z-index: 2;
-}
+
 button {
   border: none;
   background-color: transparent;
@@ -263,9 +261,9 @@ button.active:hover {
   position: fixed;
   color: #ffffff;
   padding: 1rem;
-  bottom: 10%;
+  bottom: 25%;
   width: 25vw;
-  font-size: 0.75rem;
+  font-size: 1rem;
 }
 
 .carousel-imagesB {
@@ -306,22 +304,6 @@ em {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-}
-
-.infoButton {
-  position: fixed;
-  text-decoration: underline;
-  padding: 1rem;
-  bottom: 0;
-  color: #ffffff;
-}
-
-.infoButton:hover {
-  color: hsla(0, 0%, 100%, 0.3);
-}
-
-.infoButton.active {
-  color: hsla(0, 0%, 100%, 0.3);
 }
 
 #aboutMe {
@@ -370,10 +352,23 @@ h2 {
   scrollbar-color: #ffffff #f1f1f100;
 }
 
-#liveIndicator {
+#controls {
   position: fixed;
-  top: 2rem;
-  right: 2rem;
+  bottom: 20px;
+  left: 20px;
+  display: flex;
+  gap: 1.5rem;
+  z-index: 2;
+  width: 25vw;
+  justify-content: space-between;
+}
+#liveIndicatorContainer {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+#liveIndicator {
   width: 12px;
   height: 12px;
   border-radius: 50%;
@@ -382,6 +377,20 @@ h2 {
   transition: opacity 0.3s ease;
   pointer-events: auto;
   z-index: 1000;
+}
+
+.infoButton {
+  text-decoration: underline;
+  bottom: 0;
+  color: #ffffff;
+}
+
+.infoButton:hover {
+  color: hsla(0, 0%, 100%, 0.3);
+}
+
+.infoButton.active {
+  color: hsla(0, 0%, 100%, 0.3);
 }
 
 #liveIndicator.active {
@@ -406,17 +415,20 @@ h2 {
 
 #liveTooltip {
   position: fixed;
-  top: 3.5rem;
-  right: 1.5rem;
-  background: rgba(0, 0, 0, 0.8);
-  color: white;
-  padding: 8px 12px;
-  border-radius: 4px;
+  bottom: 0rem;
+  left: 30vw;
+  background: rgba(0, 0, 0, 0.553);
+  border: 1px solid rgb(41, 41, 41);
+  -webkit-backdrop-filter: blur(15px);
+  backdrop-filter: blur(15px);
+  color: rgb(255, 255, 255);
+  padding: 1rem;
+  border-radius: 6px;
   font-size: 0.75rem;
   max-width: 200px;
   opacity: 0;
   transform: translateY(-10px);
-  transition: all 0.3s ease;
+  transition: 0.3s;
   pointer-events: none;
   z-index: 999;
 }
@@ -430,13 +442,10 @@ h2 {
 #liveTooltip::before {
   content: "";
   position: absolute;
-  top: -5px;
-  right: 10px;
+  top: 50%;
+  left: 0;
   width: 0;
   height: 0;
-  border-left: 5px solid transparent;
-  border-right: 5px solid transparent;
-  border-bottom: 5px solid rgba(255, 255, 255, 0.8);
 }
 
 @media (max-width: 600px) {

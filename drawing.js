@@ -2,6 +2,7 @@ const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 const drawToggle = document.getElementById("drawToggle");
 const clearBtn = document.getElementById("clearBtn");
+const editBtn2 = document.getElementById("editButton");
 let isDrawing = false;
 let isDrawMode = false;
 let lastX = 0;
@@ -127,7 +128,7 @@ function toggleDrawingMode() {
   // Toggle button states
   drawToggle.classList.toggle("active");
   clearBtn.classList.toggle("visible");
-
+  editBtn2.classList.toggle("visable");
   // Toggle canvas interaction
   canvas.style.pointerEvents = isDrawMode ? "auto" : "none";
 

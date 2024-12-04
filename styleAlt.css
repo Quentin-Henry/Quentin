@@ -92,21 +92,13 @@ img {
   max-width: 100%;
 }
 
-.infoButton {
-  position: fixed;
-  text-decoration: underline;
-  color: #000000;
-  padding: 1rem;
-  bottom: 0;
-}
-
 #follower {
   position: fixed;
   color: #000000;
   padding: 1rem;
-  bottom: 10%;
+  bottom: 25%;
   width: 25vw;
-  font-size: 0.75rem;
+  font-size: 1rem;
 }
 
 .carousel-imageB:first-child {
@@ -298,20 +290,6 @@ video {
   width: 102%;
 }
 
-#liveIndicator {
-  position: fixed;
-  top: 2rem;
-  right: 2rem;
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  background: #000000;
-  opacity: 0.3;
-  transition: opacity 0.3s ease;
-  pointer-events: auto;
-  z-index: 1000;
-}
-
 #liveIndicator.active {
   opacity: 0.8;
   animation: pulse 2s ease-in-out infinite;
@@ -332,10 +310,30 @@ video {
   }
 }
 
-#liveIndicator {
+#controls {
   position: fixed;
-  top: 2rem;
-  right: 2rem;
+  bottom: 20px;
+  left: 20px;
+  display: flex;
+  gap: 1.5rem;
+  z-index: 2;
+  width: 25vw;
+  justify-content: space-between;
+}
+
+.infoButton {
+  text-decoration: underline;
+  color: #000000;
+  bottom: 0;
+}
+
+#liveIndicatorContainer {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+#liveIndicator {
   width: 12px;
   height: 12px;
   border-radius: 50%;
@@ -368,17 +366,20 @@ video {
 
 #liveTooltip {
   position: fixed;
-  top: 3.5rem;
-  right: 1.5rem;
-  background: rgba(255, 255, 255, 0.8);
+  bottom: 0rem;
+  left: 30vw;
+  background: rgba(255, 255, 255, 0.553);
+  border: 1px solid rgb(222, 222, 222);
+  -webkit-backdrop-filter: blur(15px);
+  backdrop-filter: blur(15px);
   color: rgb(0, 0, 0);
-  padding: 8px 12px;
-  border-radius: 4px;
+  padding: 1rem;
+  border-radius: 6px;
   font-size: 0.75rem;
   max-width: 200px;
   opacity: 0;
   transform: translateY(-10px);
-  transition: all 0.3s ease;
+  transition: 0.3s;
   pointer-events: none;
   z-index: 999;
 }
@@ -392,11 +393,8 @@ video {
 #liveTooltip::before {
   content: "";
   position: absolute;
-  top: -5px;
-  right: 10px;
+  top: 50%;
+  left: 0;
   width: 0;
   height: 0;
-  border-left: 5px solid transparent;
-  border-right: 5px solid transparent;
-  border-bottom: 5px solid rgba(0, 0, 0, 0.8);
 }
