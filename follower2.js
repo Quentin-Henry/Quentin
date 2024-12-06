@@ -44,7 +44,7 @@ document.addEventListener("click", () => {
   tooltip.classList.remove("visible");
   if (tooltipTimeout) clearTimeout(tooltipTimeout);
 });
-
+console.log(document.querySelector(".MTarget"));
 // Modify findCenteredElement to check for both embeds and .MTarget
 function findCenteredElement() {
   const contentRect = content.getBoundingClientRect();
@@ -57,10 +57,10 @@ function findCenteredElement() {
   if (currentIndex >= 0 && currentIndex < contentItems.length) {
     const centeredElement = contentItems[currentIndex];
 
-    // Check for either embed tags or .MTarget elements
+    // Check for either embed tags or .carousel elements
     const hasInteractiveContent =
       centeredElement.querySelector("embed") !== null ||
-      centeredElement.querySelector(".MTarget") !== null ||
+      centeredElement.querySelector("#sundial") !== null ||
       centeredElement.querySelector(".carousel") !== null;
 
     // Update live indicator based on presence of either type

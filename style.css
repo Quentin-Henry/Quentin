@@ -433,6 +433,10 @@ h2 {
   z-index: 999;
 }
 
+.videoFit {
+  width: 100%;
+}
+
 #liveTooltip.visible {
   opacity: 1;
   transform: translateY(0);
