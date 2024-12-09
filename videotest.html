@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+      }
+
+      .frame-container {
+        height: 100vh;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: #000;
+      }
+
+      #frame-animation {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+      }
+
+      .content-section {
+        height: 50vw;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2rem;
+        background: #f0f0f0;
+      }
+
+      /* Add a spacer to control scroll length */
+      .scroll-spacer {
+        height: 200vh;
+        position: relative;
+      }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  </head>
+  <body>
+    <div class="frame-container">
+      <img id="frame-animation" src="frames/frame-001.jpg" />
+    </div>
+    <div class="scroll-spacer"></div>
+    <div class="content-section">Content Section 1</div>
+    <div class="content-section">Content Section 2</div>
+
+    <script>
+      gsap.registerPlugin(ScrollTrigger);
+
+      const frameCount = 41; // Update this to match your total number of frames
+      const currentFrame = (index) =>
+        `frames/frame-${String(index).padStart(3, "0")}.jpg`; // Update path to match your frame images
+
+      // Preload images
+      const preloadImages = () => {
+        for (let i = 1; i < frameCount; i++) {
+          const img = new Image();
+          img.src = currentFrame(i);
+        }
+      };
+
+      // Create a dummy timeline to track progress
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: ".frame-container",
+          start: "top top",
+          end: "bottom+=200% bottom", // Adjust this to control scroll length
+          scrub: 0.5,
+          pin: true,
+          onUpdate: (self) => {
+            const frameIndex = Math.floor(self.progress * (frameCount - 1) + 1);
+            if (frameIndex <= frameCount) {
+              document.getElementById("frame-animation").src =
+                currentFrame(frameIndex);
+            }
+          },
+        },
+      });
+
+      // Add a dummy animation to the timeline
+      tl.to(".frame-container", {
+        scale: 1, // This doesn't actually scale, just gives us something to animate
+        duration: 1,
+      });
+
+      preloadImages();
+    </script>
+  </body>
+</html>

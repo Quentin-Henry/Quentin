@@ -433,8 +433,15 @@ h2 {
   z-index: 999;
 }
 
+.browserEmbed {
+  width: 80%;
+  height: 70%;
+  border-radius: 5px;
+  border: #272727 1px solid;
+}
+
 .videoFit {
-  width: 100%;
+  width: 100%sun;
 }
 
 #liveTooltip.visible {
