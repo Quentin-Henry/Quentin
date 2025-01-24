@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Go Outside - Quentin Henry</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          sans-serif;
+        background: #1d1d1d;
+        color: #000000;
+        min-height: 100vh;
+        overflow: hidden; /* Prevent body scroll */
+      }
+
+      /* Layout */
+      .container {
+        display: grid;
+        grid-template-columns: minmax(300px, 25%) 1fr;
+        height: 100vh;
+        max-width: 100%;
+        margin: 0;
+        padding: 0;
+      }
+
+      /* Left Panel */
+      .left-panel {
+        position: fixed;
+        width: 25%;
+        min-width: 300px;
+        height: 100vh;
+        padding: 2rem;
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+      }
+
+      .name {
+        font-size: 1.25rem;
+        font-weight: 500;
+        letter-spacing: -0.02em;
+        pointer-events: none;
+      }
+
+      .back-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        color: #000000;
+        text-decoration: none;
+        transition: color 0.2s ease;
+      }
+
+      .back-link:hover {
+        color: #ff0000;
+      }
+
+      .project-header {
+        margin-top: auto;
+        margin-bottom: 4rem;
+        pointer-events: none;
+      }
+
+      .project-title {
+        font-size: min(5vw, 4.5rem);
+        font-weight: 600;
+        letter-spacing: -0.03em;
+        line-height: 1;
+        margin-bottom: 1rem;
+        pointer-events: none;
+      }
+
+      .project-info {
+        font-size: 1.125rem;
+        color: #060606;
+        pointer-events: none;
+      }
+
+      /* Main Content Area */
+      .content-wrapper {
+        grid-column: 2;
+        overflow-y: auto;
+        height: 100vh;
+        padding: 2rem 4rem 2rem 2rem;
+      }
+
+      .project-content {
+        display: grid;
+        gap: 4rem;
+        max-width: 1200px;
+      }
+
+      .content-section {
+        display: grid;
+        gap: 2rem;
+      }
+
+      .section-title {
+        font-size: 1.5rem;
+        font-weight: 500;
+        color: #f1f1f1;
+      }
+
+      .section-text {
+        font-size: 1.125rem;
+        line-height: 1.6;
+        color: #888;
+        max-width: 65ch;
+      }
+
+      .image-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+      }
+
+      .project-image {
+        width: 100%;
+        aspect-ratio: 16/9;
+        background: #333;
+        border-radius: 0.5rem;
+      }
+
+      /* Hide floating back button since we have fixed navigation */
+      .floating-back {
+        display: none;
+      }
+
+      /* Mobile Styles */
+      @media (max-width: 768px) {
+        .container {
+          grid-template-columns: 1fr;
+        }
+
+        .left-panel {
+          position: relative;
+          width: 100%;
+          min-width: 100%;
+          height: auto;
+          padding: 1rem;
+        }
+
+        .project-header {
+          margin: 2rem 0;
+        }
+
+        .content-wrapper {
+          grid-column: 1;
+          height: auto;
+          padding: 1rem;
+        }
+
+        .project-title {
+          font-size: 3rem;
+        }
+
+        .project-content {
+          gap: 2rem;
+        }
+
+        /* Show floating back button for mobile */
+        .floating-back {
+          display: flex;
+        }
+      }
+
+      embed {
+        width: 100vw;
+        height: 100vh;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <!-- Fixed Left Panel -->
+      <aside class="left-panel">
+        <h1 class="name">Quentin Henry</h1>
+        <a href="./newOutside.html" class="back-link">
+          <svg
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path d="M19 12H5M12 19l-7-7 7-7" />
+          </svg>
+          Back to Projects
+        </a>
+        <div class="project-header">
+          <h2 class="project-title">Go Outside</h2>
+          <div class="project-info">Interactive, 2024</div>
+        </div>
+      </aside>
+      <embed src="outsideStuff/outside.html" />
+    </div>
+  </body>
+</html>

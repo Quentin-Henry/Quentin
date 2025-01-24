@@ -6,11 +6,11 @@ import { RGBELoader } from "three/addons/loaders/RGBELoader.js";
 const scene1 = new THREE.Scene();
 const scene2 = new THREE.Scene();
 
-// Set pure white backgrounds
+// Set backgrounds
 scene1.background = new THREE.Color(0xffffff);
 scene2.background = new THREE.Color(0xffffff);
 
-// HDRI Loading - only for environment, not background
+// HDRI Loading
 const hdriLoader = new RGBELoader();
 hdriLoader.load("model/studio_small_08_1k.hdr", function (texture) {
   texture.mapping = THREE.EquirectangularReflectionMapping;
@@ -22,7 +22,7 @@ hdriLoader.load("model/studio_small_08_1k.hdr", function (texture) {
 const camera1 = new THREE.PerspectiveCamera(75, 1, 0.1, 1000);
 const camera2 = new THREE.PerspectiveCamera(75, 1, 0.1, 1000);
 
-// Set up renderers with proper size and settings
+// Set up renderers with updated properties
 const renderer1 = new THREE.WebGLRenderer({
   alpha: true,
   antialias: true,
@@ -33,15 +33,14 @@ const renderer2 = new THREE.WebGLRenderer({
 });
 
 // Enable physically correct lighting and tone mapping
-renderer1.physicallyCorrectLights = true;
-renderer2.physicallyCorrectLights = true;
+renderer1.useLegacyLights = false; // Replace physicallyCorrectLights
+renderer2.useLegacyLights = false;
 renderer1.toneMapping = THREE.ACESFilmicToneMapping;
 renderer2.toneMapping = THREE.ACESFilmicToneMapping;
-renderer1.toneMappingExposure = 1.5; // Increased exposure
+renderer1.toneMappingExposure = 1.5;
 renderer2.toneMappingExposure = 1.5;
-renderer1.outputEncoding = THREE.sRGBEncoding;
-renderer2.outputEncoding = THREE.sRGBEncoding;
-
+renderer1.outputColorSpace = THREE.SRGBColorSpace; // Replace outputEncoding
+renderer2.outputColorSpace = THREE.SRGBColorSpace;
 // Get container elements
 const container1 = document.getElementById("model1");
 const container2 = document.getElementById("model2");

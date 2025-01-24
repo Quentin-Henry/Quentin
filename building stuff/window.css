@@ -7,6 +7,7 @@ body {
   position: absolute;
   top: 20vh;
   left: 40vw;
+  height: 235px;
 }
 #windowContainer {
   width: 20vw;
@@ -22,26 +23,11 @@ img {
 }
 #windowTop {
   position: relative;
+  height: 235px;
 }
 #windowBottom {
   width: 92%;
   position: absolute;
   top: calc(100% - 80%);
   cursor: grab;
-}
-
-#airCon {
-  width: 92%;
-  position: absolute;
-  top: calc(100% - 48%);
-
-  opacity: 0;
-  transition: 0.2s;
-}
-
-#airCon.visible {
-  opacity: 0.2;
-}
-#airCon.full-visible {
-  opacity: 1;
 }

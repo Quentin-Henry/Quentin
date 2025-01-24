@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "https://cdn.jsdelivr.net/npm/three@0.153.0/build/three.module.js",
+          "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.153.0/examples/jsm/"
+        }
+      }
+    </script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quentin Henry - New York, New York</title>
+    <link rel="icon" type="image/x-icon" href="/img/Q_fav2.ico" />
+
+    <link rel="stylesheet" href="newCSS.css" />
+  </head>
+  <body>
+    <div class="container">
+      <!-- Fixed Left Panel -->
+      <aside class="left-panel">
+        <h1 class="name">Quentin Henry</h1>
+        <a href="./newTest.html" class="back-link">
+          <svg
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path d="M19 12H5M12 19l-7-7 7-7" />
+          </svg>
+          Back to Projects
+        </a>
+        <div class="project-header">
+          <h2 class="project-title">New York</h2>
+          <div class="project-info">Fine Art, 2024</div>
+        </div>
+      </aside>
+
+      <!-- Scrollable Content Area -->
+      <main class="content-wrapper">
+        <div class="project-content">
+          <section class="content-section">
+            <h3 class="section-title">Overview</h3>
+            <p class="section-text">
+              New York, New York explores the paradox of documenting a city that
+              exists simultaneously as place and perpetual self-image. Through
+              an interwoven series of publications, video installations, and 3D
+              reconstructions, the project examines how personal and collective
+              memories shape urban identity. Street View screenshots trace
+              emotional geographies through fast food chains and childhood
+              homes, while a collaborative atlas—created in a slow
+              elevator—captures fleeting interpretations of the city through
+              spontaneous drawings. The work deliberately exposes the
+              limitations of digital preservation, using photogrammetry's
+              partial perspectives and glitches to reveal how memory, like the
+              city itself, is both a shared construction and a constantly
+              evolving fragment.
+            </p>
+            <div class="deliverables-grid">
+              <span class="deliverable-tag" style="--animation-order: 1"
+                >UX Design</span
+              >
+              <span class="deliverable-tag" style="--animation-order: 2"
+                >interactive</span
+              >
+
+              <span class="deliverable-tag" style="--animation-order: 5"
+                >Icon System</span
+              >
+              <span class="deliverable-tag" style="--animation-order: 6"
+                >Web Design</span
+              >
+            </div>
+          </section>
+
+          <section class="content-section">
+            <div class="image-grid">
+              <div class="image-container">
+                <div
+                  id="model-container"
+                  style="
+                    width: 100%;
+                    aspect-ratio: 4/3;
+                    background: #333;
+                    border-radius: 8px;
+                  "
+                ></div>
+
+                <figcaption class="caption-minimal">
+                  <span class="title-segment"
+                    >Intersection of 7th St and 2nd Ave</span
+                  >
+
+                  <span class="separator">·</span>
+                  <span class="title-segment"
+                    >Pirated Google Street View Fragment</span
+                  >
+                </figcaption>
+              </div>
+            </div>
+          </section>
+
+          <section>
+            <!-- Project Debrief Section -->
+            <style>
+              .section-divider {
+                border-top: 1px solid #444;
+                padding-top: 2rem;
+                margin-top: 2rem;
+              }
+
+              .insight-list {
+                list-style: none;
+                padding: 0;
+              }
+
+              .insight-list li {
+                padding-left: 1rem;
+                position: relative;
+                margin-bottom: 1rem;
+                color: #888;
+              }
+
+              .insight-list li::before {
+                content: "•";
+                position: absolute;
+                left: 0;
+              }
+
+              .highlight-box {
+                background: rgba(255, 255, 255, 0.05);
+                padding: 1.25rem;
+                border-radius: 0.5rem;
+                margin: 1.5rem 0;
+              }
+
+              .quote-box {
+                font-style: italic;
+                border-left: 2px solid #888;
+                padding-left: 1rem;
+                margin: 1.5rem 0;
+                color: #888;
+              }
+
+              .work-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+                gap: 1.5rem;
+                margin: 1.5rem 0;
+              }
+
+              .work-item {
+                background: rgba(255, 255, 255, 0.05);
+                padding: 1.25rem;
+                border-radius: 0.5rem;
+              }
+
+              .work-title {
+                color: #f1f1f1;
+                font-size: 1.1rem;
+                margin-bottom: 0.5rem;
+              }
+
+              .work-desc {
+                color: #888;
+                font-size: 0.9rem;
+              }
+
+              @media (max-width: 768px) {
+                .work-grid {
+                  grid-template-columns: 1fr;
+                }
+              }
+            </style>
+
+            <section class="content-section">
+              <h3 class="section-title">Project Debrief</h3>
+
+              <div class="tabs">
+                <div class="tabs-list">
+                  <button class="tab-trigger active" data-tab="concept">
+                    Concept
+                  </button>
+                  <button class="tab-trigger" data-tab="publications">
+                    Publications
+                  </button>
+                  <button class="tab-trigger" data-tab="media">Media</button>
+                  <button class="tab-trigger" data-tab="theory">Theory</button>
+                </div>
+
+                <div class="tab-content active" id="concept">
+                  <div>
+                    <h4 style="color: #888; margin-bottom: 1.5rem">
+                      Project Overview
+                    </h4>
+                    <div class="quote-box">
+                      "New York is a perpetual image of itself—it's even in the
+                      name: New York, New York."
+                    </div>
+                    <ul class="insight-list">
+                      <li>
+                        Exploration of personal and collective memory in urban
+                        space
+                      </li>
+                      <li>
+                        Documentation of fleeting moments in perpetual change
+                      </li>
+                      <li>
+                        Investigation of shared experience through multiple
+                        media
+                      </li>
+                      <li>Examination of digital and physical preservation</li>
+                    </ul>
+
+                    <div class="highlight-box">
+                      <h4 style="color: #f1f1f1; margin-bottom: 1rem">
+                        Key Themes
+                      </h4>
+                      <ul class="insight-list">
+                        <li>
+                          Memory as both personal and collective construct
+                        </li>
+                        <li>
+                          Digital preservation's limitations and possibilities
+                        </li>
+                        <li>Urban space as shared narrative</li>
+                        <li>Documentation as both truth and fiction</li>
+                      </ul>
+                    </div>
+                  </div>
+
+                  <div class="section-divider">
+                    <h4 style="color: #888; margin-bottom: 1.5rem">
+                      Project Scope
+                    </h4>
+                    <ul class="insight-list">
+                      <li>Three interconnected publications</li>
+                      <li>Video narrative exploration</li>
+                      <li>3D photogrammetry installation</li>
+                      <li>Collective memory documentation</li>
+                    </ul>
+                  </div>
+                </div>
+
+                <div class="tab-content" id="publications">
+                  <div>
+                    <h4 style="color: #888; margin-bottom: 1.5rem">
+                      Published Works
+                    </h4>
+
+                    <div class="work-grid">
+                      <div class="work-item">
+                        <div class="work-title">Google Street View</div>
+                        <div class="work-desc">
+                          A narrative through screenshots, exploring identity
+                          and place through experimental typography and dialogue
+                          chains. Starting from a childhood home, tracking
+                          through fast food restaurants and airports.
+                        </div>
+                      </div>
+
+                      <div class="work-item">
+                        <div class="work-title">Mapping New York</div>
+                        <div class="work-desc">
+                          Personal journal transformed into a meditation on
+                          urban wandering, combining drawings and thoughts from
+                          long walks through the city's changing landscape.
+                        </div>
+                      </div>
+
+                      <div class="work-item">
+                        <div class="work-title">New York Atlas</div>
+                        <div class="work-desc">
+                          Collaborative memory mapping project created in a slow
+                          elevator, collecting diverse interpretations of the
+                          city through spontaneous drawings, ranging from
+                          literal to abstract.
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="section-divider">
+                      <h4 style="color: #888; margin-bottom: 1rem">
+                        Publication Approach
+                      </h4>
+                      <ul class="insight-list">
+                        <li>Multiple perspectives on shared spaces</li>
+                        <li>Combination of found and created content</li>
+                        <li>Integration of public participation</li>
+                        <li>Documentation of ephemeral moments</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="tab-content" id="media">
+                  <div>
+                    <h4 style="color: #888; margin-bottom: 1.5rem">
+                      Digital Works
+                    </h4>
+
+                    <div class="highlight-box">
+                      <p style="color: #f1f1f1; margin-bottom: 1rem">
+                        Video Installation
+                      </p>
+                      <div class="work-desc">
+                        "In still frames a bullet train races. The narrator
+                        contemplates Starbucks orders, train delays, and the
+                        shadows of history."
+                      </div>
+                    </div>
+
+                    <div class="highlight-box">
+                      <p style="color: #f1f1f1; margin-bottom: 1rem">
+                        3D Reconstruction
+                      </p>
+                      <div class="work-desc">
+                        Street corner photogrammetry model revealing digital
+                        memory's limitations: visible only from certain angles,
+                        capturing time's selective preservation.
+                      </div>
+                    </div>
+
+                    <div class="section-divider">
+                      <h4 style="color: #888; margin-bottom: 1rem">
+                        Digital Methodology
+                      </h4>
+                      <ul class="insight-list">
+                        <li>Photogrammetry as memory metaphor</li>
+                        <li>Video as temporal exploration</li>
+                        <li>Digital artifacts as preservation</li>
+                        <li>Technology's role in memory formation</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="tab-content" id="theory">
+                  <div>
+                    <h4 style="color: #888; margin-bottom: 1.5rem">
+                      Theoretical Framework
+                    </h4>
+
+                    <div class="highlight-box">
+                      <p style="color: #f1f1f1; margin-bottom: 1rem">
+                        Memory & Space
+                      </p>
+                      <ul class="insight-list">
+                        <li>Collective vs individual memory</li>
+                        <li>Urban space as palimpsest</li>
+                        <li>Digital preservation paradox</li>
+                        <li>Narrative in shared spaces</li>
+                      </ul>
+                    </div>
+
+                    <div class="highlight-box">
+                      <p style="color: #f1f1f1; margin-bottom: 1rem">
+                        Documentation Methods
+                      </p>
+                      <ul class="insight-list">
+                        <li>Found photography as historical record</li>
+                        <li>Participatory memory collection</li>
+                        <li>Digital vs physical archives</li>
+                        <li>Temporal documentation strategies</li>
+                      </ul>
+                    </div>
+
+                    <div class="section-divider">
+                      <h4 style="color: #888; margin-bottom: 1rem">
+                        Critical Position
+                      </h4>
+                      <ul class="insight-list">
+                        <li>Memory as collective construction</li>
+                        <li>Documentation as creative act</li>
+                        <li>Technology's role in preservation</li>
+                        <li>Urban identity formation</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <script>
+              const tabs = document.querySelectorAll(".tab-trigger");
+              const contents = document.querySelectorAll(".tab-content");
+
+              tabs.forEach((tab) => {
+                tab.addEventListener("click", () => {
+                  tabs.forEach((t) => t.classList.remove("active"));
+                  contents.forEach((c) => c.classList.remove("active"));
+                  tab.classList.add("active");
+                  const contentId = tab.getAttribute("data-tab");
+                  document.getElementById(contentId).classList.add("active");
+                });
+              });
+            </script>
+          </section>
+
+          <section class="content-section">
+            <div
+              class="carousel carousel-dark"
+              id="carousel1"
+              style="border-radius: 0.5rem"
+            >
+              <div class="carousel-images">
+                <img
+                  src="newyorkContent/book/googlebookpages1+2.png"
+                  class="carousel-image"
+                  alt="Image 1A"
+                />
+                <img
+                  src="newyorkContent/book/googlebookpages2+3.png"
+                  class="carousel-image"
+                  alt="Image 1A"
+                />
+                <img
+                  src="newyorkContent/book/googlebookpages4+5.png"
+                  class="carousel-image"
+                  alt="Image 1A"
+                />
+                <img
+                  src="newyorkContent/book/googlebookpages6+7.png"
+                  class="carousel-image"
+                  alt="Image 1A"
+                />
+                <img
+                  src="newyorkContent/book/googlebookpages8+9.png"
+                  class="carousel-image"
+                  alt="Image 1A"
+                />
+                <img
+                  src="newyorkContent/book/googlebookpages10+11.png"
+                  class="carousel-image"
+                  alt="Image 1A"
+                />
+                <img
+                  src="newyorkContent/book/googlebookpage12+13.png"
+                  class="carousel-image"
+                  alt="Image 1A"
+                />
+                <img
+                  src="newyorkContent/book/googlebookpage14+15.png"
+                  class="carousel-image"
+                  alt="Image 1B"
+                />
+                <img
+                  src="newyorkContent/book/googlebookpages16+17.png"
+                  class="carousel-image"
+                  alt="Image 1C"
+                />
+              </div>
+              <button class="nav-area prev-area"></button>
+              <button class="nav-area next-area"></button>
+              <div class="dots-container"></div>
+            </div>
+          </section>
+          <section class="content-section">
+            <div
+              class="carousel carousel-dark"
+              id="carousel2"
+              style="border-radius: 0.5rem"
+            >
+              <div class="carousel-images">
+                <img
+                  src="newyorkContent/Atlas/atlas_18-19.png"
+                  class="carousel-image"
+                  alt="Image 1A"
+                />
+                <img
+                  src="newyorkContent/Atlas/atlas_24-25.png"
+                  class="carousel-image"
+                  alt="Image 1A"
+                />
+                <img
+                  src="newyorkContent/Atlas/atlas_26-27.png"
+                  class="carousel-image"
+                  alt="Image 1A"
+                />
+                <img
+                  src="newyorkContent/Atlas/atlas_32-33.png"
+                  class="carousel-image"
+                  alt="Image 1A"
+                />
+                <img
+                  src="newyorkContent/Atlas/atlas_34-35.png"
+                  class="carousel-image"
+                  alt="Image 1A"
+                />
+                <img
+                  src="newyorkContent/Atlas/atlas_48-49.png"
+                  class="carousel-image"
+                  alt="Image 1A"
+                />
+                <img
+                  src="newyorkContent/Atlas/atlas_50-51.png"
+                  class="carousel-image"
+                  alt="Image 1A"
+                />
+              </div>
+              <button class="nav-area prev-area"></button>
+              <button class="nav-area next-area"></button>
+              <div class="dots-container"></div>
+            </div>
+          </section>
+          <section class="content-section">
+            <div class="image-grid">
+              <video
+                src="./newyorkContent/map_book.mp4"
+                muted
+                autoplay
+                loop
+                playsinline
+                class="project-image BlackBackg"
+              ></video>
+            </div>
+          </section>
+          <section class="content-section">
+            <div class="image-grid">
+              <video
+                src="./newyorkContent/fuResize.mp4"
+                muted
+                autoplay
+                loop
+                playsinline
+                class="project-image BlackBackg"
+              ></video>
+            </div>
+          </section>
+        </div>
+      </main>
+    </div>
+    <script>
+      const styles = `
+      .model-wrapper {
+        position: relative;
+        width: 100%;
+      }
+      
+      .model-border {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        z-index: 10;
+        border: 1px solid #333;
+        border-radius: 0.5rem;
+        transition: all 0.3s ease;
+      }
+      
+      .model-border.is-interacting {
+        border: 2px solid #60A5FA;
+        background: rgba(0, 0, 0, 0.05);
+      }
+      
+      .interaction-hint {
+        position: absolute;
+        top: 1rem;
+        left: 1rem;
+        z-index: 20;
+        background: rgba(0, 0, 0, 0.8);
+        backdrop-filter: blur(4px);
+        padding: 0.5rem 1rem;
+        border-radius: 9999px;
+        font-size: 0.875rem;
+        color: rgba(255, 255, 255, 0.9);
+        transition: opacity 0.3s ease;
+      }
+      
+      .interaction-hint.is-hidden {
+        opacity: 0;
+      }`;
+
+      // Add the styles to the document
+      const styleSheet = document.createElement("style");
+      styleSheet.textContent = styles;
+      document.head.appendChild(styleSheet);
+
+      // Enhancement function
+      function enhanceModelViewer(containerId) {
+        const container = document.getElementById(containerId);
+        const isMobile = "ontouchstart" in window;
+
+        // Create wrapper
+        const wrapper = document.createElement("div");
+        wrapper.className = "model-wrapper";
+
+        // Move the container into the wrapper
+        container.parentNode.insertBefore(wrapper, container);
+        wrapper.appendChild(container);
+
+        // Create border element
+        const border = document.createElement("div");
+        border.className = "model-border";
+        wrapper.appendChild(border);
+
+        // Create hint element
+        const hint = document.createElement("div");
+        hint.className = "interaction-hint";
+        hint.textContent = isMobile
+          ? "Tap and drag to explore"
+          : "Click and drag to explore";
+        wrapper.appendChild(hint);
+
+        // Add interaction handlers
+        if (isMobile) {
+          container.addEventListener("touchstart", () => {
+            border.classList.add("is-interacting");
+            hint.classList.add("is-hidden");
+          });
+
+          container.addEventListener("touchend", () => {
+            border.classList.remove("is-interacting");
+            hint.classList.remove("is-hidden");
+          });
+        } else {
+          container.addEventListener("mouseenter", () => {
+            border.classList.add("is-interacting");
+            hint.classList.add("is-hidden");
+          });
+
+          container.addEventListener("mouseleave", () => {
+            border.classList.remove("is-interacting");
+            hint.classList.remove("is-hidden");
+          });
+        }
+      }
+
+      // Initialize the enhancement
+      enhanceModelViewer("model-container");
+    </script>
+    <script>
+      class Carousel {
+        constructor(carouselId) {
+          this.carousel = document.getElementById(carouselId);
+          this.imagesContainer =
+            this.carousel.querySelector(".carousel-images");
+          this.images = this.carousel.querySelectorAll(".carousel-image");
+          this.dotsContainer = this.carousel.querySelector(".dots-container");
+          this.currentIndex = 0;
+
+          this.setupDots();
+          this.setupNavigation();
+        }
+
+        setupDots() {
+          for (let i = 0; i < this.images.length; i++) {
+            const dot = document.createElement("div");
+            dot.className = "dot" + (i === 0 ? " active" : "");
+            dot.addEventListener("click", () => this.goToSlide(i));
+            this.dotsContainer.appendChild(dot);
+          }
+        }
+
+        setupNavigation() {
+          const prevArea = this.carousel.querySelector(".prev-area");
+          const nextArea = this.carousel.querySelector(".next-area");
+
+          prevArea.addEventListener("click", () => this.moveSlide(-1));
+          nextArea.addEventListener("click", () => this.moveSlide(1));
+        }
+
+        updateDots() {
+          const dots = this.dotsContainer.querySelectorAll(".dot");
+          dots.forEach((dot, index) => {
+            dot.className =
+              "dot" + (index === this.currentIndex ? " active" : "");
+          });
+        }
+
+        moveSlide(direction) {
+          this.currentIndex += direction;
+
+          if (this.currentIndex >= this.images.length) {
+            this.currentIndex = 0;
+          } else if (this.currentIndex < 0) {
+            this.currentIndex = this.images.length - 1;
+          }
+
+          this.updateCarousel();
+        }
+
+        goToSlide(index) {
+          this.currentIndex = index;
+          this.updateCarousel();
+        }
+
+        updateCarousel() {
+          this.imagesContainer.style.transform = `translateX(-${
+            this.currentIndex * 100
+          }%)`;
+          this.updateDots();
+        }
+      }
+
+      // Initialize all carousels
+      document.addEventListener("DOMContentLoaded", () => {
+        // Find all carousel elements
+        const carousels = document.querySelectorAll(".carousel");
+
+        // Initialize each carousel
+        carousels.forEach((carousel) => {
+          new Carousel(carousel.id);
+        });
+      });
+    </script>
+    <script type="module">
+      import * as THREE from "https://unpkg.com/three@0.159.0/build/three.module.js";
+      import { OrbitControls } from "https://unpkg.com/three@0.159.0/examples/jsm/controls/OrbitControls.js";
+      import { GLTFLoader } from "https://unpkg.com/three@0.159.0/examples/jsm/loaders/GLTFLoader.js";
+
+      // Initialize scene
+      const container = document.getElementById("model-container");
+      const scene = new THREE.Scene();
+      scene.background = new THREE.Color(0x333333);
+
+      // Set up camera with correct aspect ratio
+      const camera = new THREE.PerspectiveCamera(
+        75,
+        container.clientWidth / container.clientHeight,
+        0.1,
+        1000
+      );
+
+      // Set up renderer with proper settings
+      const renderer = new THREE.WebGLRenderer({
+        antialias: true,
+      });
+      renderer.setSize(container.clientWidth, container.clientHeight);
+      renderer.physicallyCorrectLights = true;
+      renderer.toneMapping = THREE.ACESFilmicToneMapping;
+      renderer.toneMappingExposure = 1.5;
+      renderer.outputColorSpace = THREE.SRGBColorSpace;
+      container.appendChild(renderer.domElement);
+
+      // Enhanced lighting setup (unchanged)
+      function createLights() {
+        const ambient = new THREE.AmbientLight(0xffffff, 1.5);
+        scene.add(ambient);
+
+        const keyLight = new THREE.DirectionalLight(0xffffff, 2);
+        keyLight.position.set(5, 5, 5);
+        scene.add(keyLight);
+
+        const fillLight = new THREE.DirectionalLight(0xffffff, 1);
+        fillLight.position.set(-5, 5, -5);
+        scene.add(fillLight);
+
+        const backLight = new THREE.DirectionalLight(0xffffff, 1.5);
+        backLight.position.set(0, 5, -10);
+        scene.add(backLight);
+
+        const rimLight = new THREE.DirectionalLight(0xffffff, 1);
+        rimLight.position.set(0, -5, -10);
+        scene.add(rimLight);
+      }
+
+      createLights();
+
+      // Check if device is mobile
+      const isMobile = "ontouchstart" in window;
+
+      // Set up controls with improved settings
+      const controls = new OrbitControls(camera, renderer.domElement);
+
+      // Shared control settings
+      controls.enableZoom = false; // Disable zoom functionality
+      controls.enablePan = false;
+      controls.autoRotate = true;
+      controls.autoRotateSpeed = isMobile ? 1.0 : 2.0; // Slower on mobile
+
+      // Device-specific settings
+      if (isMobile) {
+        controls.rotateSpeed = 0.5; // Slower rotation for mobile
+        controls.enableDamping = true;
+        controls.dampingFactor = 0.05;
+        controls.maxPolarAngle = Math.PI / 1.8; // More limited rotation on mobile
+        controls.minPolarAngle = Math.PI / 3;
+      } else {
+        controls.maxPolarAngle = Math.PI / 1.5;
+        controls.minPolarAngle = Math.PI / 4;
+      }
+
+      // Load model
+      const loader = new GLTFLoader();
+      loader.load(
+        "model/7thST2ndAVE.glb",
+        (gltf) => {
+          scene.add(gltf.scene);
+          gltf.scene.position.set(0, 0, 0);
+
+          // Calculate bounding box and set camera position
+          const box = new THREE.Box3().setFromObject(gltf.scene);
+          const center = box.getCenter(new THREE.Vector3());
+          const size = box.getSize(new THREE.Vector3());
+          const maxDim = Math.max(size.x, size.y, size.z);
+
+          // Set camera to a closer middle-ground position
+          const zoomFactor = isMobile ? 0.4 : 0.5; // Slightly closer on mobile
+          camera.position.set(
+            center.x,
+            center.y + maxDim * 0.4,
+            center.z + maxDim * zoomFactor // Fixed "zoomed" position
+          );
+          camera.lookAt(center);
+
+          animate();
+        },
+        (progress) => {
+          console.log(
+            "Loading progress: ",
+            (progress.loaded / progress.total) * 100 + "%"
+          );
+        },
+        (error) => {
+          console.error("Error loading model:", error);
+        }
+      );
+
+      // Handle window resize
+      window.addEventListener("resize", onWindowResize, false);
+      function onWindowResize() {
+        const width = container.clientWidth;
+        const height = container.clientHeight;
+        renderer.setSize(width, height);
+        camera.aspect = width / height;
+        camera.updateProjectionMatrix();
+      }
+
+      // Add touch event handling for better mobile scrolling
+      if (isMobile) {
+        container.addEventListener(
+          "touchstart",
+          (event) => {
+            if (event.touches.length > 1) {
+              event.preventDefault();
+              controls.enabled = false;
+            }
+          },
+          { passive: false }
+        );
+
+        container.addEventListener("touchend", () => {
+          controls.enabled = true;
+        });
+      }
+
+      // Animation loop
+      function animate() {
+        requestAnimationFrame(animate);
+        controls.update();
+        renderer.render(scene, camera);
+      }
+    </script>
+  </body>
+</html>

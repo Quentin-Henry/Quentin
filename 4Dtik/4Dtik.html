@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      body {
+        margin: 0;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: #f0f0f0;
+      }
+
+      .block {
+        position: absolute;
+        width: 100px;
+        height: 100px;
+        background: white;
+        border: 2px solid #333;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 24px;
+        font-family: Arial, sans-serif;
+        cursor: pointer;
+        opacity: 1;
+        transition: all 0.5s ease;
+      }
+
+      .block.new-block {
+        opacity: 0;
+      }
+
+      .block.multiplying {
+        z-index: 9999;
+      }
+      .block.highlight {
+        background: #ffeb3b;
+        transition: background-color 0.5s ease;
+      }
+      .grey {
+        background: #d3d3d3;
+      }
+
+      .active {
+        background: #90ee90;
+        z-index: 999;
+      }
+
+      .add-button {
+        position: absolute;
+        top: -20px;
+        right: -20px;
+        width: 30px;
+        height: 30px;
+        background: #ff4444;
+        border: none;
+        border-radius: 50%;
+        color: white;
+        font-size: 20px;
+        cursor: pointer;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .grey-button {
+        position: absolute;
+        bottom: -20px;
+        right: -20px;
+        width: 30px;
+        height: 30px;
+        background: #4444ff;
+        border: none;
+        border-radius: 50%;
+        color: white;
+        font-size: 20px;
+        cursor: pointer;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .multiply-button {
+        position: absolute;
+        bottom: -20px;
+        left: -20px;
+        width: 30px;
+        height: 30px;
+        background: #ff0000;
+        border: none;
+        border-radius: 50%;
+        color: white;
+        font-size: 20px;
+        cursor: pointer;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .grey-button.disabled {
+        background: #999;
+        cursor: not-allowed;
+      }
+    </style>
+  </head>
+  <body>
+    <script>
+      let grid = {};
+      let nextYValue = 1;
+      const BLOCK_WIDTH = 120;
+      const BLOCK_HEIGHT = 120;
+      const rowCounts = { 0: 1 };
+      const activeRows = new Set([0]); // Track active rows
+
+      function getMaxRowValue() {
+        return Math.max(...Object.values(rowCounts));
+      }
+
+      function getGlobalVisualOffset() {
+        const maxValue = getMaxRowValue();
+        return Math.floor(maxValue / 2);
+      }
+
+      function getNextAvailableY() {
+        let y = 1;
+        while (activeRows.has(y)) {
+          y++;
+        }
+        return y;
+      }
+
+      function createBlock(xValue, y = 0, isActive = false) {
+        const block = document.createElement("div");
+        block.className = "block" + (isActive ? " active" : "");
+
+        block.dataset.xCoord = xValue;
+        block.dataset.yCoord = y;
+        block.textContent = xValue;
+
+        if (!block.classList.contains("active") && xValue % 2 === 1) {
+          block.classList.add("grey");
+        }
+
+        const visualX = xValue - getGlobalVisualOffset();
+        const gridX = `calc(50% + ${visualX * BLOCK_WIDTH}px)`;
+        const gridY = `calc(50% + ${y * BLOCK_HEIGHT}px)`;
+
+        block.style.left = gridX;
+        block.style.top = gridY;
+        block.style.transform = "translate(-50%, -50%)";
+        block.style.zIndex = y * 1000 + xValue;
+
+        if (isActive) {
+          const addButton = document.createElement("button");
+          addButton.className = "add-button";
+          addButton.textContent = "+";
+          addButton.onclick = (e) => {
+            e.stopPropagation();
+            addNewBlock(y);
+          };
+          block.appendChild(addButton);
+        } else if (xValue % 2 === 1) {
+          const greyButton = document.createElement("button");
+          greyButton.className = "grey-button";
+          greyButton.textContent = "?";
+          greyButton.onclick = (e) => {
+            e.stopPropagation();
+            if (!greyButton.classList.contains("disabled")) {
+              handleQBlockClick(block, greyButton);
+            }
+          };
+          block.appendChild(greyButton);
+        }
+
+        if (y > 0) {
+          const multiplyButton = document.createElement("button");
+          multiplyButton.className = "multiply-button";
+          multiplyButton.textContent = "×";
+          multiplyButton.onclick = (e) => {
+            e.stopPropagation();
+            handleMultiplyClick(block);
+          };
+          block.appendChild(multiplyButton);
+        }
+
+        document.body.appendChild(block);
+
+        requestAnimationFrame(() => {
+          block.classList.remove("new-block");
+        });
+
+        if (!grid[xValue]) grid[xValue] = {};
+        grid[xValue][y] = block;
+        activeRows.add(y);
+
+        return block;
+      }
+
+      function handleMultiplyClick(block) {
+        const xValue = parseInt(block.dataset.xCoord);
+        const yValue = parseInt(block.dataset.yCoord);
+
+        const originalBlock = grid[xValue][0];
+
+        if (originalBlock) {
+          const newValue = xValue * parseInt(originalBlock.textContent);
+          originalBlock.textContent = newValue;
+          originalBlock.classList.add("highlight");
+          const originalRect = originalBlock.getBoundingClientRect();
+          const clickedRect = block.getBoundingClientRect();
+          block.style.transition = "all 0.5s ease";
+          block.classList.add("multiplying");
+          block.style.transform = `translate(
+            ${originalRect.left - clickedRect.left}px, 
+            ${originalRect.top - clickedRect.top}px
+          )`;
+          block.style.opacity = "0";
+          // Wait for animation
+          setTimeout(() => {
+            const newValue = xValue * parseInt(originalBlock.textContent);
+            originalBlock.textContent = newValue;
+
+            // Remove other blocks in same row
+            Object.keys(grid).forEach((x) => {
+              if (
+                x != xValue &&
+                grid[x][yValue] &&
+                grid[x][yValue].parentNode
+              ) {
+                grid[x][yValue].style.opacity = "0";
+                setTimeout(() => {
+                  grid[x][yValue].parentNode.removeChild(grid[x][yValue]);
+                  delete grid[x][yValue];
+                }, 500);
+              }
+            });
+
+            // Remove blocks after in timeline
+            Object.keys(grid).forEach((x) => {
+              if (parseInt(x) > xValue) {
+                Object.values(grid[x]).forEach((b) => {
+                  if (b && b.parentNode) {
+                    b.style.opacity = "0";
+                    setTimeout(() => {
+                      b.parentNode.removeChild(b);
+                    }, 500);
+                  }
+                });
+                delete grid[x];
+              }
+            });
+
+            Object.keys(grid).forEach((x) => {
+              if (parseInt(x) > xValue) {
+                Object.values(grid[x]).forEach((b) => {
+                  if (b && b.parentNode) {
+                    b.style.opacity = "0";
+                    setTimeout(() => {
+                      b.parentNode.removeChild(b);
+                    }, 500);
+                  }
+                });
+                delete grid[x];
+              }
+            });
+
+            // Cleanup
+            setTimeout(() => {
+              block.parentNode.removeChild(block);
+              originalBlock.classList.remove("highlight");
+              activeRows.delete(yValue);
+              delete rowCounts[yValue];
+              rowCounts[0] = xValue;
+
+              originalBlock.classList.add("active");
+
+              const addButton = document.createElement("button");
+              addButton.className = "add-button";
+              addButton.textContent = "+";
+              addButton.onclick = (e) => {
+                e.stopPropagation();
+                addNewBlock(0);
+              };
+              originalBlock.appendChild(addButton);
+
+              updateAllPositions();
+            }, 500);
+          }, 500);
+
+          activeRows.delete(yValue);
+          delete rowCounts[yValue];
+          rowCounts[0] = xValue;
+
+          originalBlock.classList.add("active");
+
+          const addButton = document.createElement("button");
+          addButton.className = "add-button";
+          addButton.textContent = "+";
+          addButton.onclick = (e) => {
+            e.stopPropagation();
+            addNewBlock(0);
+          };
+          originalBlock.appendChild(addButton);
+
+          updateAllPositions();
+        }
+      }
+
+      function updateAllPositions() {
+        const blocks = document.querySelectorAll(".block");
+        const offset = getGlobalVisualOffset();
+        blocks.forEach((block) => {
+          const xValue = parseInt(block.dataset.xCoord);
+          const visualX = xValue - offset;
+          block.style.left = `calc(50% + ${visualX * BLOCK_WIDTH}px)`;
+        });
+      }
+
+      function handleQBlockClick(block, button) {
+        const xValue = parseInt(block.dataset.xCoord);
+        const y = getNextAvailableY();
+
+        if (!rowCounts[y]) {
+          rowCounts[y] = xValue;
+        }
+
+        const newBlock = createBlock(xValue, y, true);
+        button.classList.add("disabled");
+        updateAllPositions();
+      }
+
+      function addNewBlock(y) {
+        const currentBlock = document.querySelector(
+          `.block[data-y-coord="${y}"].active`
+        );
+        const currentXValue = parseInt(currentBlock.dataset.xCoord);
+
+        currentBlock.classList.remove("active");
+        currentBlock.querySelector(".add-button").remove();
+
+        if (currentXValue % 2 === 1) {
+          currentBlock.classList.add("grey");
+          const greyButton = document.createElement("button");
+          greyButton.className = "grey-button";
+          greyButton.textContent = "?";
+          greyButton.onclick = (e) => {
+            e.stopPropagation();
+            if (!greyButton.classList.contains("disabled")) {
+              handleQBlockClick(currentBlock, greyButton);
+            }
+          };
+          currentBlock.appendChild(greyButton);
+        }
+
+        rowCounts[y] = currentXValue + 1;
+        createBlock(rowCounts[y], y, true);
+        updateAllPositions();
+      }
+
+      createBlock(1, 0, true);
+    </script>
+  </body>
+</html>

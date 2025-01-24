@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/x-icon" href="/img/Q_fav2.ico" />
+
+    <title>Quentin Henry - Digital Sundial</title>
+    <link rel="stylesheet" href="newCSS.css" />
+  </head>
+  <body>
+    <div class="container">
+      <!-- Fixed Left Panel -->
+      <aside class="left-panel">
+        <h1 class="name">Quentin Henry</h1>
+        <a href="./newTest.html" class="back-link">
+          <svg
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path d="M19 12H5M12 19l-7-7 7-7" />
+          </svg>
+          Back to Projects
+        </a>
+        <div class="project-header">
+          <h2 class="project-title">Digital Sundial</h2>
+          <div class="project-info">UX Design, 2024</div>
+        </div>
+      </aside>
+
+      <!-- Scrollable Content Area -->
+      <main class="content-wrapper">
+        <div class="project-content">
+          <section class="content-section">
+            <h3 class="section-title">Overview</h3>
+            <p class="section-text">
+              Digital Sundial reimagines productivity tools through the lens of
+              natural time, challenging the 'always on' culture of modern
+              technology. The project proposes a navigation system inspired by
+              celestial mechanics, where interface elements mirror planetary
+              movements and sundial shadows. By intentionally embracing natural
+              limitations—like the inherent darkness in a global sundial
+              widget—the design creates digital experiences that enhance rather
+              than suppress our connection to natural rhythms. and start the
+              process of healing our relationship with technology, in a way that
+              still embraces it.
+            </p>
+            <div class="deliverables-grid">
+              <span class="deliverable-tag" style="--animation-order: 1"
+                >UX Design</span
+              >
+              <span class="deliverable-tag" style="--animation-order: 2"
+                >interactive</span
+              >
+
+              <span class="deliverable-tag" style="--animation-order: 5"
+                >Icon System</span
+              >
+              <span class="deliverable-tag" style="--animation-order: 6"
+                >Web Design</span
+              >
+            </div>
+          </section>
+
+          <section class="content-section">
+            <div class="image-grid">
+              <embed
+                src="./clock stuff/clock_test.html"
+                width="100%"
+                style="aspect-ratio: 4/3"
+                class="project-image BlackBackg"
+              />
+            </div>
+          </section>
+
+          <section>
+            <!-- Project Debrief Section -->
+            <style>
+              .section-divider {
+                border-top: 1px solid #444;
+                padding-top: 2rem;
+                margin-top: 2rem;
+              }
+
+              .insight-list {
+                list-style: none;
+                padding: 0;
+              }
+
+              .insight-list li {
+                padding-left: 1rem;
+                position: relative;
+                margin-bottom: 1rem;
+                color: #888;
+              }
+
+              .insight-list li::before {
+                content: "•";
+                position: absolute;
+                left: 0;
+              }
+
+              .highlight-box {
+                background: rgba(255, 255, 255, 0.05);
+                padding: 1.25rem;
+                border-radius: 0.5rem;
+                margin: 1.5rem 0;
+              }
+
+              .stat-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                gap: 1.5rem;
+                margin: 1.5rem 0;
+              }
+
+              .stat-item {
+                background: rgba(255, 255, 255, 0.05);
+                padding: 1.25rem;
+                border-radius: 0.5rem;
+              }
+
+              .stat-number {
+                font-size: 2rem;
+                color: #f1f1f1;
+                margin-bottom: 0.5rem;
+              }
+
+              .stat-label {
+                color: #888;
+                font-size: 0.875rem;
+              }
+
+              @media (max-width: 768px) {
+                .stat-grid {
+                  grid-template-columns: 1fr;
+                }
+              }
+            </style>
+
+            <section class="content-section">
+              <h3 class="section-title">Project Debrief</h3>
+
+              <div class="tabs">
+                <div class="tabs-list">
+                  <button class="tab-trigger active" data-tab="problem">
+                    Problem
+                  </button>
+                  <button class="tab-trigger" data-tab="users">Users</button>
+                  <button class="tab-trigger" data-tab="research">
+                    Research
+                  </button>
+                  <button class="tab-trigger" data-tab="goals">Goals</button>
+                </div>
+
+                <div class="tab-content active" id="problem">
+                  <div>
+                    <h4 style="color: #888; margin-bottom: 1.5rem">
+                      Problem Space
+                    </h4>
+                    <p style="color: #f1f1f1; margin-bottom: 1.5rem">
+                      Modern technology's "always on" culture has created a
+                      disconnection between digital experiences and natural
+                      rhythms, leading to:
+                    </p>
+                    <ul class="insight-list">
+                      <li>Increased anxiety from constant connectivity</li>
+                      <li>Loss of natural time awareness</li>
+                      <li>Digital fatigue from endless notifications</li>
+                      <li>Deteriorating work-life boundaries</li>
+                    </ul>
+
+                    <div class="highlight-box">
+                      <h4 style="color: #f1f1f1; margin-bottom: 1rem">
+                        Key Insight
+                      </h4>
+                      <p style="color: #888">
+                        Users don't want to abandon technology—they want to
+                        transform their relationship with it. The solution isn't
+                        less tech, but more thoughtful tech.
+                      </p>
+                    </div>
+                  </div>
+
+                  <div class="section-divider">
+                    <h4 style="color: #888; margin-bottom: 1.5rem">
+                      Opportunity
+                    </h4>
+                    <p style="color: #f1f1f1">
+                      Create digital tools that intentionally embrace natural
+                      limitations and rhythms, making technology work
+                      with—rather than against—our natural patterns of life.
+                    </p>
+                  </div>
+                </div>
+
+                <div class="tab-content" id="users">
+                  <div>
+                    <h4 style="color: #888; margin-bottom: 1.5rem">
+                      User Profile
+                    </h4>
+                    <div class="highlight-box">
+                      <p style="color: #f1f1f1; margin-bottom: 1rem">
+                        The Mindful Tech User
+                      </p>
+                      <ul class="insight-list">
+                        <li>Values technology but feels overwhelmed by it</li>
+                        <li>
+                          Seeks balance between digital efficiency and wellbeing
+                        </li>
+                        <li>
+                          Interested in mindfulness but practical in approach
+                        </li>
+                        <li>Wants solutions that fit into existing habits</li>
+                      </ul>
+                    </div>
+
+                    <div class="stat-grid">
+                      <div class="stat-item">
+                        <div class="stat-number">68%</div>
+                        <div class="stat-label">
+                          Feel overwhelmed by notifications
+                        </div>
+                      </div>
+                      <div class="stat-item">
+                        <div class="stat-number">74%</div>
+                        <div class="stat-label">
+                          Want better tech-life balance
+                        </div>
+                      </div>
+                      <div class="stat-item">
+                        <div class="stat-number">82%</div>
+                        <div class="stat-label">
+                          Use their phone as primary clock
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="section-divider">
+                    <h4 style="color: #888; margin-bottom: 1rem">
+                      Key User Needs
+                    </h4>
+                    <ul class="insight-list">
+                      <li>Natural boundaries without complete disconnection</li>
+                      <li>Subtle reminders of time's natural flow</li>
+                      <li>Tools that encourage mindful tech use</li>
+                      <li>Integration with existing digital workflows</li>
+                    </ul>
+                  </div>
+                  <div class="section-divider">
+                    <a
+                      target="_blank"
+                      href="https://www2.deloitte.com/us/en/insights/industry/telecommunications/connectivity-mobile-trends-survey/2023/connectivity-mobile-trends-survey-full-report.html"
+                    >
+                      <p style="color: #888; font-size: 0.5rem">
+                        Deloitte Connected Consumer Survey
+                      </p></a
+                    >
+                  </div>
+                </div>
+
+                <div class="tab-content" id="research">
+                  <div>
+                    <h4 style="color: #888; margin-bottom: 1.5rem">
+                      Research Methods
+                    </h4>
+
+                    <div class="highlight-box">
+                      <p style="color: #f1f1f1; margin-bottom: 1rem">
+                        Literature Review
+                      </p>
+                      <ul class="insight-list">
+                        <li>Studies on digital wellness and tech addiction</li>
+                        <li>Research on circadian rhythms and productivity</li>
+                        <li>Analysis of "slow technology" movement</li>
+                      </ul>
+                    </div>
+
+                    <div class="highlight-box">
+                      <p style="color: #f1f1f1; margin-bottom: 1rem">
+                        Competitive Analysis
+                      </p>
+                      <ul class="insight-list">
+                        <li>Digital wellness apps focus on restriction</li>
+                        <li>
+                          Time management tools lack natural rhythm integration
+                        </li>
+                        <li>Gap in market for positive tech experiences</li>
+                      </ul>
+                    </div>
+                  </div>
+
+                  <div class="section-divider">
+                    <h4 style="color: #888; margin-bottom: 1rem">
+                      Key Findings
+                    </h4>
+                    <ul class="insight-list">
+                      <li>Users resist purely restrictive solutions</li>
+                      <li>Natural cycles can reduce decision fatigue</li>
+                      <li>Visual metaphors increase feature adoption</li>
+                      <li>Subtle nudges outperform hard limits</li>
+                    </ul>
+                  </div>
+                </div>
+
+                <div class="tab-content" id="goals">
+                  <div>
+                    <h4 style="color: #888; margin-bottom: 1.5rem">
+                      Project Goals
+                    </h4>
+
+                    <div class="highlight-box">
+                      <p style="color: #f1f1f1; margin-bottom: 1rem">
+                        Primary Objectives
+                      </p>
+                      <ul class="insight-list">
+                        <li>
+                          Create a widget system that reflects natural time
+                        </li>
+                        <li>
+                          Design interfaces that embrace natural limitations
+                        </li>
+                        <li>
+                          Build tools that enhance rather than suppress natural
+                          rhythms
+                        </li>
+                        <li>
+                          Develop features that encourage mindful tech use
+                        </li>
+                      </ul>
+                    </div>
+
+                    <div class="stat-grid">
+                      <div class="stat-item">
+                        <div class="stat-number">30%</div>
+                        <div class="stat-label">
+                          Reduction in notification anxiety
+                        </div>
+                      </div>
+                      <div class="stat-item">
+                        <div class="stat-number">45%</div>
+                        <div class="stat-label">Increase in time awareness</div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="section-divider">
+                    <h4 style="color: #888; margin-bottom: 1rem">
+                      Success Metrics
+                    </h4>
+                    <ul class="insight-list">
+                      <li>Reduced notification response anxiety</li>
+                      <li>Improved sense of natural time passing</li>
+                      <li>Higher user satisfaction with tech boundaries</li>
+                      <li>Sustained engagement with core features</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <script>
+              const tabs = document.querySelectorAll(".tab-trigger");
+              const contents = document.querySelectorAll(".tab-content");
+
+              tabs.forEach((tab) => {
+                tab.addEventListener("click", () => {
+                  tabs.forEach((t) => t.classList.remove("active"));
+                  contents.forEach((c) => c.classList.remove("active"));
+                  tab.classList.add("active");
+                  const contentId = tab.getAttribute("data-tab");
+                  document.getElementById(contentId).classList.add("active");
+                });
+              });
+            </script>
+          </section>
+
+          <section class="content-section">
+            <div class="image-grid">
+              <img
+                src="./clock stuff/sundial_onboarding_mock.png"
+                alt="Design process"
+                class="project-image BlackBackg"
+              />
+            </div>
+          </section>
+
+          <section class="content-section">
+            <div class="image-grid">
+              <img
+                src="./clock stuff/sundialMock_1.png"
+                alt="Design process"
+                class="project-image BlackBackg"
+              />
+            </div>
+          </section>
+
+          <section class="content-section">
+            <div class="image-grid">
+              <video
+                src="./clock stuff/sundialMenu_2.mp4"
+                muted
+                autoplay
+                loop
+                playsinline
+                class="project-image BlackBackg"
+              ></video>
+            </div>
+          </section>
+          <section class="content-section">
+            <div class="image-grid">
+              <video
+                src="./clock stuff/sundialMenu_3.mp4"
+                muted
+                autoplay
+                loop
+                playsinline
+                class="project-image BlackBackg"
+              ></video>
+            </div>
+          </section>
+        </div>
+      </main>
+    </div>
+  </body>
+</html>

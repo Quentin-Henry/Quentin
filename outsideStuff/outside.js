@@ -285,20 +285,20 @@ class FirstPersonCamera {
 
       // Perform raycasting
       const intersects = this.raycaster.intersectObjects(this.objects_, true); // With recursion
-      //console.log("Raycasting results: ", intersects);
+      console.log("Raycasting results: ", intersects);
 
       // If there's an intersection, move the camera
       if (intersects.length > 0) {
         const heightAboveGround = 2;
         let groundHeight = intersects[0].point.y + heightAboveGround;
-        // console.log("ground height", groundHeight);
+        console.log("ground height", groundHeight);
         // Apply head bobbing offset
         let headBobOffset = Math.sin(this.headBobTimer_ * 5) * 2;
         this.camera_.position.y = groundHeight + headBobOffset;
 
-        //console.log("Camera position Y: ", this.camera_.position.y);
+        console.log("Camera position Y: ", this.camera_.position.y);
         this.lastValidHeight = this.camera_.position.y + headBobOffset;
-        // console.log("lastValidHeight", this.lastValidHeight);
+        console.log("lastValidHeight", this.lastValidHeight);
       } else {
         // console.warn("No intersections found.");
         this.camera_.position.y = this.lastValidHeight; // Fallback to last valid height
@@ -449,7 +449,7 @@ class FirstPersonCamera {
         let headBobOffset = Math.sin(this.headBobTimer_ * 10) * 0.08;
         this.camera_.position.y = groundHeight + headBobOffset;
 
-        //console.log("Camera position Y: ", this.camera_.position.y);
+        // console.log("Camera position Y: ", this.camera_.position.y);
         this.lastValidHeight = this.camera_.position.y + headBobOffset;
         // console.log("lastValidHeight", this.lastValidHeight);
       } else {

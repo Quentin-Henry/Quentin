@@ -6,6 +6,91 @@ let errorAnimationInterval;
 let errorAnimationDirection = 1;
 let errorAnimationProgress = 0;
 
+// Add these to your global variables
+let isTimeLapse = false;
+let timeLapseSpeed = 8640; // Speed multiplier (24 hours = 10 seconds)
+let timeLapseStartTime = 0;
+let timeLapseInterval;
+let isPaused = false;
+
+function toggleTimeLapse() {
+  if (!isTimeLapse) {
+    // Start time-lapse
+    startTimeLapse();
+  } else {
+    // Stop time-lapse
+    stopTimeLapse();
+  }
+}
+
+function togglePause() {
+  isPaused = !isPaused;
+  const pauseButton = document.getElementById("pauseButton");
+  pauseButton.textContent = isPaused ? "Resume" : "Pause";
+}
+
+function startTimeLapse() {
+  isTimeLapse = true;
+  timeLapseStartTime = Date.now();
+  isOverride = true; // Enable override mode
+
+  // Clear existing intervals
+  clearInterval(window.normalUpdateInterval);
+
+  // Start new time-lapse interval
+  timeLapseInterval = setInterval(() => {
+    if (!isPaused) {
+      const elapsedReal = Date.now() - timeLapseStartTime;
+      const elapsedSimulated = elapsedReal * timeLapseSpeed;
+
+      // Calculate simulated time of day in seconds
+      const startOfDay = 0;
+      const secondsInDay = 86400;
+      const simulatedSeconds =
+        (startOfDay + Math.floor(elapsedSimulated / 1000)) % secondsInDay;
+
+      // Update slider and time
+      const slider = document.getElementById("timeSlider");
+      slider.value = simulatedSeconds;
+      updateSliderValue(simulatedSeconds);
+      updateTime();
+    }
+  }, 16); // 60fps update rate
+
+  // Update UI
+  document.getElementById("timeLapseButton").textContent = "Stop Time-lapse";
+  document.getElementById("pauseButton").style.display = "inline-block";
+  document.getElementById("speedControl").style.display = "inline-block";
+}
+
+function stopTimeLapse() {
+  isTimeLapse = false;
+  isPaused = false;
+  clearInterval(timeLapseInterval);
+
+  // Restore normal updates
+  window.normalUpdateInterval = setInterval(() => {
+    if (!isLoading && !errorAnimationInterval) {
+      updateTime();
+    }
+  }, 1000);
+
+  // Reset override
+  isOverride = false;
+
+  // Update UI
+  document.getElementById("timeLapseButton").textContent = "Start Time-lapse";
+  document.getElementById("pauseButton").style.display = "none";
+  document.getElementById("speedControl").style.display = "none";
+  document.getElementById("pauseButton").textContent = "Pause";
+}
+
+function updateTimeLapseSpeed(value) {
+  // Convert days/10seconds to actual multiplier
+  timeLapseSpeed = (86400 / 10) * value;
+  document.getElementById("speedValue").textContent = value;
+}
+
 // Global variables for time tracking
 let isOverride = false;
 let sliderValue = 0;
@@ -240,7 +325,7 @@ function updateBackgroundColor(
   solarNoonInSeconds,
   sunsetInSeconds
 ) {
-  if (errorAnimationInterval) return; // Skip color updates if in error animation
+  if (errorAnimationInterval) return;
 
   const firstLightInSeconds = firstLightTime
     ? convertTimeToSeconds(firstLightTime)
@@ -283,72 +368,73 @@ function updateBackgroundColor(
   const myEllipse = document.getElementById("myEllipse");
 
   if (totalSeconds < firstLightInSeconds || totalSeconds > lastLightInSeconds) {
+    // Night time - pure black
     myRect.style.fill = rgbToHex(black);
     myEllipse.style.fill = rgbToHex(black);
   } else if (
     totalSeconds >= firstLightInSeconds &&
     totalSeconds < dawnInSeconds
   ) {
+    // First light to dawn - black to purple
     const transitionProgress =
       (totalSeconds - firstLightInSeconds) /
       (dawnInSeconds - firstLightInSeconds);
-    const currentColor = interpolateColor(purple, black, transitionProgress);
+    const currentColor = interpolateColor(black, purple, transitionProgress);
     myRect.style.fill = currentColor;
     myEllipse.style.fill = currentColor;
   } else if (totalSeconds >= dawnInSeconds && totalSeconds < sunriseInSeconds) {
+    // Dawn to sunrise - purple to orange
     const transitionProgress =
       (totalSeconds - dawnInSeconds) / (sunriseInSeconds - dawnInSeconds);
-    const currentColor = interpolateColor(orange, purple, transitionProgress);
+    const currentColor = interpolateColor(purple, orange, transitionProgress);
     myRect.style.fill = currentColor;
     myEllipse.style.fill = currentColor;
   } else if (
     totalSeconds >= sunriseInSeconds &&
     totalSeconds < sunriseInSeconds + 3600
   ) {
+    // Sunrise transition - orange to white
     const transitionProgress = (totalSeconds - sunriseInSeconds) / 3600;
-    const currentColor = interpolateColor(white, orange, transitionProgress);
+    const currentColor = interpolateColor(orange, white, transitionProgress);
     myRect.style.fill = currentColor;
     myEllipse.style.fill = currentColor;
   } else if (
     totalSeconds >= sunriseInSeconds + 3600 &&
     totalSeconds < goldenHourInSeconds
   ) {
+    // Full daylight
     myRect.style.fill = rgbToHex(white);
     myEllipse.style.fill = rgbToHex(white);
   } else if (
     totalSeconds >= goldenHourInSeconds &&
     totalSeconds < sunsetInSeconds
   ) {
+    // Golden hour to sunset - white to yellow
     const transitionProgress =
       (totalSeconds - goldenHourInSeconds) /
       (sunsetInSeconds - goldenHourInSeconds);
-    const currentColor = interpolateColor(yellow, white, transitionProgress);
+    const currentColor = interpolateColor(white, yellow, transitionProgress);
     myRect.style.fill = currentColor;
     myEllipse.style.fill = currentColor;
   } else if (totalSeconds >= sunsetInSeconds && totalSeconds < duskInSeconds) {
+    // Sunset to dusk - yellow to orange
     const transitionProgress =
       (totalSeconds - sunsetInSeconds) / (duskInSeconds - sunsetInSeconds);
-    const currentColor = interpolateColor(
-      orange,
-      yellow,
-      1 - transitionProgress
-    );
+    const currentColor = interpolateColor(yellow, orange, transitionProgress);
     myRect.style.fill = currentColor;
     myEllipse.style.fill = currentColor;
   } else if (
     totalSeconds >= duskInSeconds &&
     totalSeconds < lastLightInSeconds
   ) {
+    // Dusk to last light - orange to purple to black
     const transitionProgress =
       (totalSeconds - duskInSeconds) / (lastLightInSeconds - duskInSeconds);
-    const currentColor = interpolateColor(
-      black,
-      purple,
-      1 - transitionProgress
-    );
+    const currentColor = interpolateColor(orange, black, transitionProgress);
     myRect.style.fill = currentColor;
     myEllipse.style.fill = currentColor;
   } else {
+    // Night time
     myRect.style.fill = rgbToHex(black);
     myEllipse.style.fill = rgbToHex(black);
   }

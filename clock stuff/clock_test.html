@@ -35,6 +35,67 @@
           <stop offset=".64" stop-color="#010101" />
           <stop offset="1" stop-color="#000" />
         </linearGradient>
+        <!-- Noise Filter -->
+        <filter id="noise" x="0%" y="0%" width="100%" height="100%">
+          <feTurbulence
+            type="fractalNoise"
+            baseFrequency="0.65"
+            numOctaves="3"
+            seed="2"
+            result="noise"
+          />
+          <feColorMatrix
+            type="matrix"
+            in="noise"
+            result="colorNoise"
+            values="1 0 0 0 0
+                0 1 0 0 0
+                0 0 1 0 0
+                0 0 0 0.05 0"
+          />
+          <feBlend in="SourceGraphic" in2="colorNoise" mode="overlay" />
+        </filter>
+
+        <!-- Grain Overlay -->
+        <filter id="grain" x="0%" y="0%" width="100%" height="100%">
+          <feTurbulence
+            type="fractalNoise"
+            baseFrequency="1"
+            numOctaves="5"
+            seed="1"
+            result="grain"
+          />
+          <feColorMatrix
+            type="matrix"
+            in="grain"
+            result="coloredGrain"
+            values="1 0 0 0 0
+                0 1 0 0 0
+                0 0 1 0 0
+                0 0 0 0.03 0"
+          />
+          <feComposite operator="in" in2="SourceGraphic" />
+          <feBlend in="SourceGraphic" in2="coloredGrain" mode="overlay" />
+        </filter>
+
+        <!-- Soft Light Filter -->
+        <filter id="softLight">
+          <feGaussianBlur stdDeviation="2" result="blur" />
+          <feBlend in="SourceGraphic" in2="blur" mode="soft-light" />
+        </filter>
+
+        <!-- Gradient Overlay -->
+        <radialGradient
+          id="atmosphereGlow"
+          cx="50%"
+          cy="50%"
+          r="50%"
+          fx="50%"
+          fy="50%"
+        >
+          <stop offset="0%" stop-color="white" stop-opacity="0.1" />
+          <stop offset="100%" stop-color="white" stop-opacity="0" />
+        </radialGradient>
       </defs>
       <ellipse
         id="myEllipse"
@@ -42,12 +103,14 @@
         cy="490.44"
         rx="421.92"
         ry="174.01"
-        style="fill: #fff"
+        style="fill: #fff; filter: url(#grain)"
+      />
       />
       <polygon
         id="shadowPoly"
         points="671.04 87.33 204.51 518.4 671.04 539.38 671.04 87.33"
-        style="opacity: 0.64"
+        style="opacity: 0.64; filter: url(#noise)"
+      />
       />
       <rect
         id="myRect"
@@ -55,7 +118,8 @@
         y="87.33"
         width="43.49"
         height="460"
-        style="fill: #fff"
+        style="fill: #fff; filter: url(#grain)"
+      />
       />
 
       <rect
@@ -84,6 +148,27 @@
       <div id="timeDisplay">Loading time...</div>
     </div>
     <div id="location"></div>
+    <div id="timeLapseControls">
+      <button id="timeLapseButton" onclick="toggleTimeLapse()">
+        Start Time-lapse
+      </button>
+      <button id="pauseButton" onclick="togglePause()" style="display: none">
+        Pause
+      </button>
+      <div id="speedControl" style="display: none">
+        <label for="speedSlider">Speed (days/10sec): </label>
+        <input
+          type="range"
+          id="speedSlider"
+          min="0.1"
+          max="5"
+          step="0.1"
+          value="1"
+          oninput="updateTimeLapseSpeed(this.value)"
+        />
+        <span id="speedValue">1</span>
+      </div>
+    </div>
     <script src="clock_test.js"></script>
   </body>
 </html>

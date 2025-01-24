@@ -3,41 +3,351 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Christina Curtis - Couples Therapy for Creatives in Brooklyn"
+    />
     <link rel="stylesheet" href="christinaHomepagecss.css" />
     <script
       defer
       src="https://cdnjs.cloudflare.com/ajax/libs/paper.js/0.12.17/paper-full.min.js"
     ></script>
-    <script type="text/paperscript" src="./curve1.js " canvas="canvas"></script>
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <title>Christina Curtis</title>
+    <script
+      type="text/paperscript"
+      src="./curve1.js"
+      canvas="waveCanvas"
+    ></script>
+    <title>Christina Curtis | Therapy</title>
   </head>
   <body>
-    <div class="pageWrap">
-      <div class="header">
-        <div class="title">
-          <h1>Christina Curtis <span id="lmft">MA, LMFT, MFA</span></h1>
+    <!-- Main content wrapper -->
+    <div class="site-wrapper">
+      <!-- Floating navigation bar -->
+      <header class="floating-nav">
+        <div class="nav-content">
+          <div class="logo">
+            <h1>
+              Christina Curtis <span class="credentials">MA, LMFT, MFA</span>
+            </h1>
+          </div>
+          <nav class="desktop-nav" aria-label="Main navigation">
+            <a href="#welcome">Welcome</a>
+            <a href="#about">About</a>
+            <a href="#consulting">Consulting</a>
+            <a href="#contact">Contact</a>
+          </nav>
+          <button class="mobile-menu-btn" aria-label="Toggle menu">
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
         </div>
-        <div class="menu">
-          <div class="menuItem">Welcome</div>
-          <div class="menuItem">Bio</div>
-          <div class="menuItem">Consulting</div>
+      </header>
+
+      <!-- Mobile navigation overlay -->
+      <nav class="mobile-nav" aria-label="Mobile navigation">
+        <div class="mobile-nav-content">
+          <a href="#welcome">Welcome</a>
+          <a href="#about">About</a>
+          <a href="#consulting">Consulting</a>
+          <a href="#contact">Contact</a>
         </div>
-        <div class="mobileMenu">
-          <span class="mobileMenubar"></span>
-          <span class="mobileMenubar"></span>
-          <span class="mobileMenubar"></span>
+      </nav>
+
+      <!-- Sections -->
+      <section id="welcome" class="full-section wave-section">
+        <canvas id="waveCanvas" resize></canvas>
+      </section>
+
+      <section id="welcome" class="full-section wave-section">
+        <canvas id="waveCanvas" resize></canvas>
+        <div class="welcome-content">
+          <div class="quotes">
+            <blockquote>
+              "I wanna get it through to you<br />
+              You're not alone"<br />
+              <cite>–Mavis Staples</cite>
+            </blockquote>
+            <blockquote>
+              "Though I lack the art<br />
+              to decipher it,<br />
+              no doubt the next chapter<br />
+              in my book of transformations<br />
+              is already written.<br />
+              I am not done with my changes."<br />
+              <cite>–Stanley Kunitz</cite>
+            </blockquote>
+          </div>
         </div>
-        <!-- Add this mobile nav menu -->
-        <nav class="mobile-nav">
-          <div class="menuItem">Welcome</div>
-          <div class="menuItem">Bio</div>
-          <div class="menuItem">Consulting</div>
-        </nav>
-      </div>
+      </section>
+
+      <section id="about" class="full-section content-section">
+        <div class="section-content">
+          <h2 class="section-title">Welcome to my Practice</h2>
+          <div class="full-width-card">
+            <div class="card-content">
+              <p>
+                I see adult individuals and couples, preferably in person but
+                also recognize that's not always possible. I like to say that
+                I'm an individual therapist who can hold the complexity of your
+                relational world and a couples therapist who recognizes the
+                sacred autonomy of the individual.
+              </p>
+              <p>
+                I can help you identify habitual patterns, gain awareness of
+                triggers, learn flexibility in response to stress, as well as to
+                communicate with partners differently, through working with
+                active listening, assertive communication and sharpening your
+                language skills.
+              </p>
+            </div>
+          </div>
+
+          <div class="full-width-card">
+            <div class="card-content">
+              <h3>My Approach</h3>
+              <p>
+                Good therapy illuminates what we do and why we do it. It can
+                help you be more compassionate about the past, with self and
+                others. At the same time, a good therapist pushes you to become
+                more accountable in the present.
+              </p>
+              <p>
+                Many of my clients are creatives and if you're looking for a
+                programmatic way of working, like a short term CBT model, I'm
+                not the right fit. But I also think clients should be wary of a
+                process that's only gentle and accommodating. Therapy is not
+                meant to be a warm bath– it's best to speak together openly and
+                frankly.
+              </p>
+            </div>
+          </div>
+
+          <div class="full-width-card">
+            <div class="card-content">
+              <h3>Professional Background</h3>
+              <p>
+                I'm a systems thinker. I understand people through the lens of
+                their relationships, past and present. From my original training
+                in family systems theory and my early work in hospice
+                bereavement service, suicide prevention and other crisis
+                modalities, I've ranged broadly in my own explorations of
+                personal meaning and how it's imaginally constituted.
+              </p>
+              <p>
+                I'm a longtime member of a professional supervision group run by
+                Esther Perel, LMFT and her thinking has been tremendously
+                impactful in my outlook and work with couples. I've served as
+                the Clinical Director for two different Marriage and Family
+                training practices, providing clinical supervision and running
+                the training program for dozens of post masters trainees.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="consulting" class="full-section content-section">
+        <div class="section-content">
+          <h2 class="section-title">Services</h2>
+
+          <div class="full-width-card">
+            <div class="card-content">
+              <h3>Individual Therapy</h3>
+              <p>
+                For individuals, I'll want to know your goals and expectations
+                for therapy, recognizing that for so many New Yorkers what's
+                most helpful involves a growth mandate (support for a meditation
+                practice, accountability around health habits, workplace
+                communication strategies, how to reduce conflict in your
+                romantic relationship).
+              </p>
+            </div>
+          </div>
+
+          <div class="full-width-card">
+            <div class="card-content">
+              <h3>Couples Therapy</h3>
+              <p>
+                Couples benefit from couples therapy because it's a place where
+                they can learn to have a different conversation with each other
+                and to re-establish kindness and empathy. If you're going to
+                come in and do the work, it should be weekly at first and should
+                be focused.
+              </p>
+            </div>
+          </div>
+
+          <div class="full-width-card">
+            <div class="card-content">
+              <h3>Workplace Relational Consulting</h3>
+              <p>
+                My consultation work within workplace settings involves teaching
+                team members about emotional self regulation, appropriate
+                vulnerability, structural issues that support emotional safety
+                in the workplace, the language of accountability, communication
+                skills, and acknowledging existing hierarchies and power
+                structures.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="contact" class="full-section content-section">
+        <div class="section-content">
+          <h2 class="section-title">Contact</h2>
+          <div class="full-width-card">
+            <div class="card-content contact-info">
+              <h3>Get in Touch</h3>
+              <p>Email: christinacurtis@gmail.com</p>
+              <p>
+                Address: 80 Fifth Avenue, Suite 1001<br />New York, NY 10011
+              </p>
+              <div class="contact-note">
+                <p>
+                  Located in Manhattan. Please reach out to schedule a
+                  consultation or learn more about my practice.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
-    <canvas class="curves" id="canvas" resize></canvas>
-    <script src="christinaPage.js"></script>
+
+    <script>
+      // Wave canvas transition effect on scroll
+      const waveCanvas = document.getElementById("waveCanvas");
+      const welcomeSection = document.getElementById("welcome");
+
+      function updateCanvasTransition() {
+        const scrollPosition = window.pageYOffset;
+        const welcomeHeight = welcomeSection.offsetHeight;
+
+        // Calculate opacity based on scroll position
+        let opacity = 1;
+        if (scrollPosition < welcomeHeight) {
+          opacity = 1 - scrollPosition / welcomeHeight;
+        } else {
+          opacity = 0;
+        }
+
+        // Apply smooth fade out
+        waveCanvas.style.opacity = opacity;
+
+        // Optional: Subtle scale effect
+        const scale = 1 + 0.05 * (1 - opacity);
+        waveCanvas.style.transform = `scale(${scale})`;
+      }
+
+      // Add smooth transition
+      waveCanvas.style.transition = "opacity 0.3s ease, transform 0.3s ease";
+
+      // Update on scroll
+      window.addEventListener("scroll", updateCanvasTransition);
+
+      // Intersection Observer for section tracking
+      const sections = document.querySelectorAll(".full-section");
+      const navLinks = document.querySelectorAll(
+        ".desktop-nav a, .mobile-nav a"
+      );
+
+      const observerOptions = {
+        threshold: 0.2,
+        rootMargin: "-20% 0px -20% 0px",
+      };
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            // Remove active class from all links
+            navLinks.forEach((link) => link.classList.remove("active"));
+
+            // Add active class to corresponding nav link
+            const activeId = entry.target.id;
+            navLinks.forEach((link) => {
+              if (link.getAttribute("href") === `#${activeId}`) {
+                link.classList.add("active");
+              }
+            });
+          }
+        });
+      }, observerOptions);
+
+      // Observe all sections
+      sections.forEach((section) => observer.observe(section));
+
+      // Content sections fade in
+      const contentSections = document.querySelectorAll(".section-content");
+      const contentObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("visible");
+            }
+          });
+        },
+        {
+          threshold: 0.1,
+        }
+      );
+
+      contentSections.forEach((section) => {
+        contentObserver.observe(section);
+      });
+
+      // Smooth scroll behavior
+      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+        anchor.addEventListener("click", function (e) {
+          e.preventDefault();
+          const targetId = this.getAttribute("href");
+          const targetElement = document.querySelector(targetId);
+
+          targetElement.scrollIntoView({
+            behavior: "smooth",
+          });
+
+          // Update active state
+          navLinks.forEach((link) => link.classList.remove("active"));
+          this.classList.add("active");
+
+          // Close mobile menu if open
+          document.querySelector(".mobile-nav").classList.remove("active");
+          document.querySelector(".mobile-menu-btn").classList.remove("active");
+        });
+      });
+
+      // Mobile menu toggle
+      document
+        .querySelector(".mobile-menu-btn")
+        .addEventListener("click", function () {
+          this.classList.toggle("active");
+          document.querySelector(".mobile-nav").classList.toggle("active");
+        });
+
+      // Add this to your existing JavaScript
+      const floatingNav = document.querySelector(".floating-nav");
+
+      function updateNavSize() {
+        const scrollPosition = window.pageYOffset;
+        const welcomeHeight = welcomeSection.offsetHeight;
+
+        // Check if we're in the welcome section
+        if (scrollPosition <= welcomeHeight * 0.1) {
+          // At top or near top of welcome section
+          floatingNav.classList.remove("compressed");
+        } else {
+          // Scrolled past welcome section
+          floatingNav.classList.add("compressed");
+        }
+      }
+
+      // Add scroll event listener for nav size
+      window.addEventListener("scroll", updateNavSize);
+
+      // Initial check on load
+      updateNavSize();
+    </script>
   </body>
 </html>

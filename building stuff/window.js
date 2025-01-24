@@ -1,107 +1,55 @@
 const windowBottom = document.getElementById("windowBottom");
 const windowTop = document.getElementById("windowTop");
-const airCon = document.getElementById("airCon");
 
 let isDragging = false;
 let startY;
 let startTop;
-let isLocked = false; // Flag to check if the div is locked
-let currentPercentage = 0; // To track the current percentage
 
-// Buffer percentage
-const bufferPercentage = 0.025;
+// Configuration
+const MOVEMENT_RANGE = {
+  min: 10, // Minimum position from the top (in percentage)
+  max: 74, // Maximum position from the top (in percentage)
+};
 
-// Function to track the position of the bottom of the draggable div
-function trackPosition() {
-  const windowTopRect = windowTop.getBoundingClientRect();
-  const windowBottomRect = windowBottom.getBoundingClientRect();
-  const bottomYPosition = windowBottomRect.bottom - windowTopRect.top; // Y position relative to windowTop
-  const windowTopHeight = windowTopRect.height; // Total height of windowTop
+function handleDragStart(e) {
+  isDragging = true;
+  startY = e.clientY;
 
-  // Calculate percentage
-  const percentageOpen = ((bottomYPosition / windowTopHeight) * 100).toFixed(2); // Convert to percentage
-  const clampedPercentage = Math.max(0, Math.min(100, percentageOpen));
-  currentPercentage = clampedPercentage; // Store current percentage
+  // Get the current top position as a raw pixel value
+  const currentTop = windowBottom.style.top
+    ? parseFloat(windowBottom.style.top)
+    : parseFloat(getComputedStyle(windowBottom).top);
 
-  console.log("Bottom Y Position Percentage:", clampedPercentage + "%");
+  startTop = currentTop;
+  windowBottom.style.cursor = "grabbing";
+}
 
-  // Condition to show/hide airCon
-  if (clampedPercentage >= 65 && clampedPercentage <= 69) {
-    airCon.classList.add("visible");
-  } else {
-    airCon.classList.remove("visible");
+function handleDrag(e) {
+  if (!isDragging) return;
+
+  const deltaY = e.clientY - startY;
+  let newTop = startTop + deltaY;
+
+  // Convert to percentage of parent height
+  const parentHeight = windowTop.offsetHeight;
+  const positionPercentage = (newTop / parentHeight) * 100;
+
+  // Apply constraints based on percentage
+  if (
+    positionPercentage >= MOVEMENT_RANGE.min &&
+    positionPercentage <= MOVEMENT_RANGE.max
+  ) {
+    windowBottom.style.top = `${newTop}px`;
   }
 }
 
-windowBottom.addEventListener("mousedown", (e) => {
-  if (!isLocked) {
-    // Only allow dragging if not locked
-    isDragging = true;
-    startY = e.clientY;
-    startTop =
-      windowBottom.getBoundingClientRect().top -
-      windowTop.getBoundingClientRect().top;
-    windowBottom.style.cursor = "grabbing";
-  }
-});
-
-window.addEventListener("mousemove", (e) => {
-  if (isDragging && !isLocked) {
-    const deltaY = e.clientY - startY;
-    let newTop = startTop + deltaY;
-
-    // Get the height of the windowTop
-    const windowTopHeight = windowTop.clientHeight;
-
-    // Calculate buffer limits
-    const minTop = 0 + windowTopHeight * bufferPercentage;
-    const maxTop =
-      windowTopHeight -
-      windowBottom.clientHeight -
-      windowTopHeight * bufferPercentage;
-
-    // Constrain the movement within the windowTop limits with buffer
-    if (newTop >= minTop && newTop <= maxTop) {
-      windowBottom.style.top = `${newTop}px`;
-      trackPosition(); // Call the tracking function on movement
-    }
-  }
-});
-
-window.addEventListener("mouseup", () => {
+function handleDragEnd() {
   isDragging = false;
   windowBottom.style.cursor = "grab";
-});
+}
 
-window.addEventListener("mouseleave", () => {
-  isDragging = false;
-  windowBottom.style.cursor = "grab";
-});
-
-// Click event for airCon
-airCon.addEventListener("click", () => {
-  if (currentPercentage >= 65 && currentPercentage <= 69) {
-    // Check if within range
-    if (isLocked) {
-      airCon.classList.remove("full-visible"); // Remove full visibility
-      airCon.classList.remove("visible"); // Hide airCon
-      isLocked = false; // Unlock draggable div
-    } else {
-      airCon.classList.add("full-visible"); // Set full visibility
-      isLocked = true; // Lock draggable div
-    }
-  }
-});
-
-// Hover event for airCon to show half visibility
-airCon.addEventListener("mouseover", () => {
-  if (!isLocked && currentPercentage >= 65 && currentPercentage <= 69) {
-    airCon.classList.add("visible"); // Show 50% visibility on hover
-  }
-});
-
-airCon.addEventListener("mouseout", () => {
-  if (!isLocked) {
-    airCon.classList.remove("visible"); // Remove 50% visibility when not hovering
-  }
-});
+// Event listeners
+windowBottom.addEventListener("mousedown", handleDragStart);
+window.addEventListener("mousemove", handleDrag);
+window.addEventListener("mouseup", handleDragEnd);
+window.addEventListener("mouseleave", handleDragEnd);
