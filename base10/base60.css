@@ -46,59 +46,6 @@ button {
   justify-content: space-between;
 }
 
-.infoContainer {
-  height: 100vh;
-  width: 33%;
-  display: flex;
-  flex-direction: row;
-  position: fixed;
-  top: 0;
-  right: 0%; /* Initially off-screen */
-  transform: translateX(0%);
-  z-index: 99;
-  transition: transform 0.3s ease; /* Smooth sliding transition */
-  font-size: 0.7rem;
-}
-
-.infoContainerTab {
-  position: relative;
-  top: 50%;
-  width: 5%;
-  height: 10%;
-  border-radius: 10px 0px 0px 10px;
-  border: 1px solid rgb(43, 43, 43);
-  z-index: 1000;
-  background-color: rgba(255, 255, 255, 0);
-  cursor: pointer;
-  right: 0%; /* Make tab visible */
-  transform: translateX(0%);
-}
-
-.infoContainerTab:hover {
-  background-color: rgba(255, 255, 255, 0.131);
-}
-
-.infoContainerContent {
-  height: 100%;
-  padding: 10%;
-  width: 80%;
-  border-left: 1px solid #2b2b2b;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.TimeElementsContainer {
-  display: flex;
-  height: 100vh;
-  width: 65%;
-  flex-direction: column;
-  justify-content: space-between;
-  align-content: center;
-  justify-content: center;
-  align-items: center;
-  transition: 0.3s;
-}
 .clockMenuItem {
   opacity: 20%;
 }
@@ -253,4 +200,151 @@ button {
 
 .ionwaana {
   display: none;
+}
+
+/* Info Container Styles */
+.infoContainer {
+  height: 100vh;
+  width: 33%;
+  display: flex;
+  flex-direction: row;
+  position: fixed;
+  top: 0;
+  right: 0;
+  transform: translateX(0%);
+  z-index: 99;
+  transition: transform 0.3s ease;
+}
+
+.infoContainerTab {
+  position: relative;
+  top: 50%;
+  width: 5%;
+  height: 10%;
+  border-radius: 10px 0px 0px 10px;
+  border: 1px solid rgb(43, 43, 43);
+  background-color: rgba(255, 255, 255, 0);
+  cursor: pointer;
+  right: 0%;
+  transform: translateY(-50%);
+}
+
+.infoContainerTab:hover {
+  background-color: rgba(255, 255, 255, 0.131);
+}
+
+.infoContainerContent {
+  height: 100%;
+  padding: 1.5rem;
+  width: 95%;
+  border-left: 1px solid #2b2b2b;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  overflow-y: auto;
+}
+
+/* Clock Menu Grid Layout */
+#clockMenu {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 0.5rem;
+  width: 100%;
+  font-size: 0.9rem;
+}
+
+.clockMenuItem {
+  opacity: 20%;
+  padding: 0.5rem;
+  cursor: pointer;
+  transition: opacity 0.2s;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.clockMenuItem.active {
+  opacity: 1;
+}
+
+.clockMenuItem:hover {
+  opacity: 100%;
+}
+
+/* Button Container */
+.buttons {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: flex-start;
+  margin-top: auto;
+}
+
+button {
+  background-color: #000000;
+  border: 1px solid #2b2b2b;
+  color: #ffffff;
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.innerbutton {
+  opacity: 20%;
+}
+
+.innerbutton:hover,
+.innerbutton.active {
+  opacity: 100%;
+}
+
+/* Clock Description */
+.clockDescription {
+  font-size: 0.9rem;
+  margin-top: 1rem;
+}
+
+/* Mobile Responsive Styles */
+@media (max-width: 768px) {
+  .infoContainer {
+    width: 85%;
+    right: -85%;
+    transform: translateX(0);
+  }
+
+  .infoContainer.active {
+    transform: translateX(-100%);
+  }
+
+  .infoContainerTab {
+    left: -2rem;
+    width: 2rem;
+    height: 4rem;
+  }
+
+  #clockMenu {
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    font-size: 0.85rem;
+  }
+
+  .buttons {
+    justify-content: center;
+  }
+}
+
+/* Small Mobile Devices */
+@media (max-width: 480px) {
+  .infoContainer {
+    width: 95%;
+    right: -95%;
+  }
+
+  #clockMenu {
+    grid-template-columns: 1fr 1fr;
+    gap: 0.25rem;
+    font-size: 0.8rem;
+  }
+
+  .infoContainerContent {
+    padding: 1rem;
+  }
 }

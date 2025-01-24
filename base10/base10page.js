@@ -136,6 +136,16 @@ function toggleInfoContainer() {
     timeContainer.style.width = "65%";
   }
 }
+document.querySelector("#infoContainerTab").addEventListener("click", () => {
+  document.querySelector(".infoContainer").classList.toggle("active");
+});
 
 // Add click event listener to the tab
 infoContainerTab.addEventListener("click", toggleInfoContainer);
+
+const menuContainer = document.querySelector("#clockMenu");
+const baseSelector = new BaseSelector(menuContainer);
+document.addEventListener("DOMContentLoaded", () => {
+  const menuContainer = document.querySelector("#clockMenu");
+  const baseSelector = new BaseSelector(menuContainer);
+});
