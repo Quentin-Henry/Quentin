@@ -3,63 +3,713 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="styleAlt.css" />
+    <title>Quentin Henry - Christina</title>
     <link rel="icon" type="image/x-icon" href="/img/Q_fav2.ico" />
 
-    <title>Q:Christina</title>
+    <link rel="stylesheet" href="newCSS.css" />
+ 
+   
   </head>
   <body>
-    <div class="mainNavContainer">
-      <div class="title">
-        <a href="./index.html"><span class="name">Quentin Henry</span></a>
+    <div class="container">
+      <div class="floating-nav-item float-back">
+        <a href="./index.html" class="back-link">
+          <svg
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path d="M19 12H5M12 19l-7-7 7-7" />
+          </svg>
+          <span id="navText">Back to Projects</span>
+        </a>
       </div>
-      <div class="menu">
-        <a href="./lanternfly.html"><span class="menuItem">Lanternfly</span></a>
-        <a href="./calatrava.html"><span class="menuItem">Calatrava</span></a>
-        <a href="./christina.html"
-          ><span class="menuItem active">Christina</span></a
-        >
-        <a href="./newyork.html"><span class="menuItem">New York</span></a>
-        <a href="sundial.html"><span class="menuItem">Digital Sundial</span></a>
-        <a href="./babel.html"><span class="menuItem">Tower of Babel</span></a>
-        <a href="./base60.html"><span class="menuItem">Base 60</span></a>
-        <a href="./outside.html"><span class="menuItem">Go Outside</span></a>
-      </div>
-    </div>
-    <div class="content">
-      <div class="innerContent">
-        <div
-          class="contentItem"
-          data-text="Interactive sine waves capture both the science and poetry of relationship dynamics in couples therapy: the communication of three energies in constant motion."
-        >
-          <embed
-            class="browserEmbed"
-            src="christinaContent/christinaHomepage2.html"
-          />
-        </div>
-        <div class="contentItem" data-text="Mobile Version">
-          <embed
-            class="browserEmbedMobile"
-            src="christinaContent/christinaHomepage2.html"
-          />
-        </div>
-        <div class="contentItem" data-text="Page Example">
-          <embed
-            class="browserEmbed"
-            src="christinaContent/christinaWelcome.html"
-          />
-        </div>
-      </div>
-    </div>
-    <div id="controls">
-      <div class="infoButton">Info</div>
-      <div id="liveIndicatorContainer">
-        <span id="liveIndicatorText">Live</span>
-        <div id="liveIndicator"></div>
-      </div>
-    </div>
-    <div id="follower"></div>
 
-    <script src="follower2.js"></script>
+      <div class="floating-nav-item float-name">
+        <h1 class="name">Quentin Henry</h1>
+      </div>
+
+      <div class="floating-nav-item float-project">
+        <div class="project-header">
+          <h2 class="project-title">Base 60</h2>
+          <div class="project-info">UX Design, 2024</div>
+        </div>
+      </div>
+      <!-- Fixed Left Panel -->
+      <aside class="left-panel">
+        <h1 class="name">Quentin Henry</h1>
+        <a href="./index.html" class="back-link">
+          <svg
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path d="M19 12H5M12 19l-7-7 7-7" />
+          </svg>
+          Back to Projects
+        </a>
+        <div class="project-header">
+          <h2 class="project-title">Christina</h2>
+          <div class="project-info">UX Design, 2024</div>
+        </div>
+      </aside>
+
+      <!-- Scrollable Content Area -->
+      <main class="content-wrapper">
+        <div class="project-content">
+          <section class="content-section">
+            <h3 class="section-title">Overview</h3>
+            <p class="section-text">
+              Christina is a website design for a therapist's practice that
+              bridges professional clinical work with artistic sensibility. The
+              landing page features interactive sine waves—a visual metaphor
+              that unites the scientific precision and poetic rhythm inherent in
+              therapeutic practice. These flowing forms, inspired by textile
+              artist Anni Albers, create an environment that feels
+              simultaneously handcrafted and professional, carefully balancing
+              warmth with clinical expertise while remaining particularly
+              welcoming to artists and creative professionals.
+            </p>
+            <div class="deliverables-grid">
+                <span class="deliverable-tag" style="--animation-order: 1"
+                  >UX Design</span
+                >
+                <span class="deliverable-tag" style="--animation-order: 2"
+                  >Visual Direction</span
+                >
+                <span class="deliverable-tag" style="--animation-order: 3"
+                  >Web App</span
+                >
+                <span class="deliverable-tag" style="--animation-order: 4"
+                  >Mobile App</span
+                >
+                <span class="deliverable-tag" style="--animation-order: 5"
+                  >Identity System</span
+                >
+                <span class="deliverable-tag" style="--animation-order: 6"
+                  >Web Design</span
+                >
+               
+              </div>
+          </section>
+
+
+          <section class="content-section">
+            <div class="image-grid">
+              <img
+                src="./christinaContent/christina1.png"
+                alt="Design process"
+                class="project-image"
+              />
+            </div>
+          </section>
+
+          
+          <section>
+            <!-- Project Debrief Section -->
+            <style>
+              
+
+              .section-divider {
+                border-top: 1px solid #444;
+                padding-top: 2rem;
+                margin-top: 2rem;
+              }
+
+              .insight-list {
+                list-style: none;
+                padding: 0;
+              }
+
+              .insight-list li {
+                padding-left: 1rem;
+                position: relative;
+                margin-bottom: 1rem;
+                color: #888;
+              }
+
+              .insight-list li::before {
+                content: "•";
+                position: absolute;
+                left: 0;
+              }
+
+              .highlight-box {
+                background: rgba(255, 255, 255, 0.05);
+                padding: 1.25rem;
+                border-radius: 0.5rem;
+                margin: 1.5rem 0;
+              }
+
+              .color-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+                gap: 1.5rem;
+                margin: 1.5rem 0;
+              }
+
+              .color-swatch {
+                background: rgba(255, 255, 255, 0.05);
+                padding: 1rem;
+                border-radius: 0.5rem;
+              }
+
+              .color-preview {
+                height: 80px;
+                border-radius: 0.25rem;
+                margin-bottom: 0.5rem;
+              }
+
+              .color-info {
+                color: #888;
+                font-size: 0.875rem;
+              }
+
+              @media (max-width: 768px) {
+                .color-grid {
+                  grid-template-columns: 1fr 1fr;
+                }
+              }
+            </style>
+
+            <section class="content-section">
+              <h3 class="section-title">Project Debrief</h3>
+
+              <div class="tabs">
+                <div class="tabs-list">
+                  <button class="tab-trigger active" data-tab="brief">
+                    Brief
+                  </button>
+                  <button class="tab-trigger" data-tab="visual">Visual</button>
+                  <button class="tab-trigger" data-tab="technical">
+                    Technical
+                  </button>
+                  <button class="tab-trigger" data-tab="audience">
+                    Audience
+                  </button>
+                </div>
+
+                <div class="tab-content active" id="brief">
+                  <div>
+                    <h4 style="color: #888; margin-bottom: 1.5rem">
+                      Project Overview
+                    </h4>
+                    <ul class="insight-list">
+                      <li>
+                        First digital presence for established therapy practice
+                      </li>
+                      <li>
+                        Balance of professional credibility and artistic
+                        sensibility
+                      </li>
+                      <li>
+                        Brooklyn-based couples therapist specializing in
+                        creative clients
+                      </li>
+                      <li>
+                        Integration of art and science in therapeutic approach
+                      </li>
+                    </ul>
+
+                    <div class="highlight-box">
+                      <h4 style="color: #f1f1f1; margin-bottom: 1rem">
+                        Key Requirements
+                      </h4>
+                      <ul class="insight-list">
+                        <li>Professional yet personal atmosphere</li>
+                        <li>Appeal to artistic, educated audience</li>
+                        <li>
+                          Reflect therapeutic expertise and artistic background
+                        </li>
+                        <li>Maintain warmth while conveying professionalism</li>
+                      </ul>
+                    </div>
+                  </div>
+
+                  <div class="section-divider">
+                    <h4 style="color: #888; margin-bottom: 1.5rem">
+                      Project Goals
+                    </h4>
+                    <ul class="insight-list">
+                      <li>Establish strong digital presence</li>
+                      <li>Attract ideal client demographic</li>
+                      <li>Communicate unique practice approach</li>
+                      <li>Create engaging, thoughtful experience</li>
+                    </ul>
+                  </div>
+                </div>
+
+                <div class="tab-content" id="visual">
+                  <div>
+                    <h4 style="color: #888; margin-bottom: 1.5rem">
+                      Visual Language
+                    </h4>
+                    <div class="highlight-box">
+                      <p style="color: #f1f1f1; margin-bottom: 1rem">
+                        Influences
+                      </p>
+                      <ul class="insight-list">
+                        <li>Anni Albers textile work and color theory</li>
+                        <li>Vintage poster art and warmth</li>
+                        <li>Scientific visualization of waves</li>
+                        <li>Modernist simplicity and clarity</li>
+                      </ul>
+                    </div>
+
+                    <div class="section-divider">
+                      <h4 style="color: #888; margin-bottom: 1rem">
+                        Interactive Elements
+                      </h4>
+                      <ul class="insight-list">
+                        <li>Three interweaving sine waves as metaphor</li>
+                        <li>Color representing emotional wavelengths</li>
+                        <li>Motion suggesting ongoing communication</li>
+                        <li>Subtle interaction enhancing engagement</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="tab-content" id="technical">
+                  <div>
+                    <h4 style="color: #888; margin-bottom: 1.5rem">
+                      Implementation
+                    </h4>
+                    <ul class="insight-list">
+                      <li>Paper.js for sine wave animations</li>
+                      <li>Responsive design for all devices</li>
+                      <li>Optimized performance for smooth motion</li>
+                      <li>Accessible navigation and content</li>
+                    </ul>
+
+                    <div class="highlight-box">
+                      <p style="color: #f1f1f1; margin-bottom: 1rem">
+                        Wave Symbolism
+                      </p>
+                      <ul class="insight-list">
+                        <li>Communication patterns in relationships</li>
+                        <li>Emotional frequencies and resonance</li>
+                        <li>Scientific approach to therapy</li>
+                        <li>Continuous motion of growth</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="tab-content" id="audience">
+                  <div>
+                    <h4 style="color: #888; margin-bottom: 1.5rem">
+                      Target Audience
+                    </h4>
+
+                    <div class="highlight-box">
+                      <p style="color: #f1f1f1; margin-bottom: 1rem">
+                        Primary Demographics
+                      </p>
+                      <ul class="insight-list">
+                        <li>Brooklyn/NYC-based creative professionals</li>
+                        <li>Artists and cultural workers</li>
+                        <li>Educated, culturally engaged couples</li>
+                        <li>Design-conscious individuals</li>
+                      </ul>
+                    </div>
+
+                    <div class="section-divider">
+                      <h4 style="color: #888; margin-bottom: 1rem">
+                        Communication Strategy
+                      </h4>
+                      <ul class="insight-list">
+                        <li>Blend of academic and artistic credentials</li>
+                        <li>Visual sophistication in design</li>
+                        <li>Warmth through color and motion</li>
+                        <li>Professionalism through typography</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <script>
+              const tabs = document.querySelectorAll(".tab-trigger");
+              const contents = document.querySelectorAll(".tab-content");
+
+              tabs.forEach((tab) => {
+                tab.addEventListener("click", () => {
+                  tabs.forEach((t) => t.classList.remove("active"));
+                  contents.forEach((c) => c.classList.remove("active"));
+                  tab.classList.add("active");
+                  const contentId = tab.getAttribute("data-tab");
+                  document.getElementById(contentId).classList.add("active");
+                });
+              });
+            </script>
+          </section>
+          <section class="content-section">
+            <h3 class="section-title">Process</h3>
+            <p class="section-text">
+              Visual Concept Three interactive waveforms represent: Speech
+              patterns in therapy sessions Emotional frequencies between couples
+              The natural rhythm of therapeutic progress Design draws from
+              textile arts, creating a warm, woven feeling while maintaining
+              clinical credibility
+            </p>
+          </section>
+
+          <section class="content-section">
+            <div class="image-grid">
+              <img
+                src="./christinaContent/christinaProcess.png"
+                alt="Design process"
+                class="project-image"
+              />
+            </div>
+          </section>
+
+          <section>
+            <section class="content-section">
+              <h3 class="section-title">Component System</h3>
+            
+              <div class="tabs component-tabs">
+                <div class="tabs-list">
+                  <button class="tab-trigger comp-tab-trigger active" data-comp-tab="comp-navigation">
+                    Navigation
+                  </button>
+                  <button class="tab-trigger comp-tab-trigger" data-comp-tab="comp-cards">
+                    Cards
+                  </button>
+                  <button class="tab-trigger comp-tab-trigger" data-comp-tab="comp-mobile">
+                    Mobile
+                  </button>
+                  <button class="tab-trigger comp-tab-trigger" data-comp-tab="comp-waves">
+                    Waves
+                  </button>
+                </div>
+            
+                <!-- Navigation Tab -->
+                <div class="tab-content comp-tab-content active" id="comp-navigation">
+                  <div>
+                    <h4 style="color: #888; margin-bottom: 1.5rem">
+                      Navigation System
+                    </h4>
+                    
+                    <!-- Live Component Demo -->
+                    <div class="component-demo chris" style="background: #fcfcfc; padding: 1rem; border-radius: 0.5rem; margin-bottom: 1.5rem; aspect-ratio: 2/1; font-size: 0.5rem;">
+                      <div class="floating-nav-demo">
+                        <div class="nav-content" style="display: flex; align-items: center; justify-content: space-between;" >
+                          <div class="logo">
+                            <h1 style="color: #d0483e;">
+                              Christina Curtis <span style="opacity: 0.8; font-size: 0.4rem;">MA, LMFT, MFA</span>
+                            </h1>
+                          </div>
+                          <nav class="desktop-nav-demo">
+                            <a href="#" class="nav-link">Welcome</a>
+                            <a href="#" class="nav-link">About</a>
+                            <a href="#" class="nav-link">Consulting</a>
+                            <a href="#" class="nav-link">Contact</a>
+                          </nav>
+                        </div>
+                      </div>
+                    </div>
+            
+                    <!-- Implementation Details -->
+                    <div class="highlight-box">
+                      <h4 style="color: #f1f1f1; margin-bottom: 1rem">
+                        Key Features
+                      </h4>
+                      <ul class="insight-list">
+                        <li>Compressed state on scroll for improved readability</li>
+                        <li>Backdrop blur effect maintains context</li>
+                        <li>Smooth state transitions</li>
+                        <li>Responsive layout adaptations</li>
+                      </ul>
+                    </div>
+            
+                    <div class="section-divider">
+                      <h4 style="color: #888; margin-bottom: 1rem">
+                        Implementation
+                      </h4>
+                      <pre style="background: rgba(255,255,255,0.1); padding: 1rem; border-radius: 0.5rem; overflow-x: auto;">
+            <code>// Navigation scroll behavior
+            const floatingNav = document.querySelector('.floating-nav');
+            
+            function updateNavSize() {
+              const scrollPosition = window.pageYOffset;
+              const welcomeHeight = welcomeSection.offsetHeight;
+            
+              if (scrollPosition <= welcomeHeight * 0.1) {
+                floatingNav.classList.remove('compressed');
+              } else {
+                floatingNav.classList.add('compressed');
+              }
+            }</code></pre>
+                    </div>
+                  </div>
+                </div>
+            
+                <!-- Cards Tab -->
+                <div class="tab-content comp-tab-content" id="comp-cards">
+                  <div>
+                    <h4 style="color: #888; margin-bottom: 1.5rem">
+                      Content Card System
+                    </h4>
+            
+                    <!-- Live Component Demo -->
+                    <div class="component-demo chris" style="background: #fff; padding: 1rem; border-radius: 0.5rem; margin-bottom: 1.5rem;aspect-ratio: 2/1">
+                      <div class="card-demo">
+                        <h3 style="color: #d0483e; font-size: 1.5rem; margin-bottom: 1rem;">Individual Therapy</h3>
+                        <p style="color: #2a2a2a; line-height: 1.6;">
+                          For individuals, I'll want to know your goals and expectations for therapy, 
+                          recognizing that for so many New Yorkers what's most helpful involves a growth mandate.
+                        </p>
+                      </div>
+                    </div>
+            
+                    <div class="highlight-box">
+                      <h4 style="color: #f1f1f1; margin-bottom: 1rem">
+                        Design Principles
+                      </h4>
+                      <ul class="insight-list">
+                        <li>Large border radius for softer appearance</li>
+                        <li>Subtle hover animations</li>
+                        <li>Consistent padding system</li>
+                        <li>Hierarchical typography</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+            
+                <!-- Mobile Tab -->
+                <div class="tab-content comp-tab-content" id="comp-mobile">
+                  <div>
+                    <h4 style="color: #888; margin-bottom: 1.5rem">
+                      Mobile Navigation
+                    </h4>
+            
+                    <!-- Live Component Demo -->
+                    <div class="component-demo" style="background: #fff; padding: 1rem; border-radius: 0.5rem; margin-bottom: 1.5rem; aspect-ratio: 2/1">
+                      <button class="mobile-menu-demo">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                      </button>
+                    </div>
+            
+                    <div class="highlight-box">
+                      <h4 style="color: #f1f1f1; margin-bottom: 1rem">
+                        Interaction Design
+                      </h4>
+                      <ul class="insight-list">
+                        <li>Smooth transition to X icon</li>
+                        <li>Full-screen overlay menu</li>
+                        <li>Touch-optimized hit areas</li>
+                        <li>Consistent animation timing</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+            
+                <!-- Waves Tab -->
+                <div class="tab-content comp-tab-content" id="comp-waves">
+                  <div>
+                    <h4 style="color: #888; margin-bottom: 1.5rem">
+                      Interactive Wave System
+                    </h4>
+            
+                    <!-- Live Component Demo -->
+                    <div class="component-demo chris" style="background: #fff; padding: 1rem; border-radius: 0.5rem; margin-bottom: 1.5rem; aspect-ratio: 2/1">
+                      <!-- Wave Demo -->
+            <div class="component-demo chris" style="background: #fff;  border-radius: 0.5rem;  aspect-ratio: 2/1">
+<Embed src="christinaContent/wavesEmbed.html" width="100%" height="100%"></Embed>            </div>
+            
+            
+                    </div>
+            
+                    <div class="highlight-box">
+                      <h4 style="color: #f1f1f1; margin-bottom: 1rem">
+                        Visual Metaphor
+                      </h4>
+                      <ul class="insight-list">
+                        <li>Represents communication patterns in therapy</li>
+                        <li>Interactive response to user movement</li>
+                        <li>Smooth animation using Paper.js</li>
+                        <li>Color symbolizes emotional frequencies</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            
+              <script>
+                // Component showcase specific tab system
+                const compTabs = document.querySelectorAll('.comp-tab-trigger');
+                const compContents = document.querySelectorAll('.comp-tab-content');
+            
+                compTabs.forEach((tab) => {
+                  tab.addEventListener('click', () => {
+                    // Remove active class from all tabs and contents
+                    compTabs.forEach((t) => t.classList.remove('active'));
+                    compContents.forEach((c) => c.classList.remove('active'));
+            
+                    // Add active class to clicked tab
+                    tab.classList.add('active');
+            
+                    // Add active class to corresponding content
+                    const tabId = tab.getAttribute('data-comp-tab');
+                    document.getElementById(tabId).classList.add('active');
+                  });
+                });
+            
+                // Mobile menu demo functionality
+                const mobileMenuDemo = document.querySelector('.mobile-menu-demo');
+                if (mobileMenuDemo) {
+                  mobileMenuDemo.addEventListener('click', function() {
+                    this.classList.toggle('active');
+                    if (this.classList.contains('active')) {
+                      this.children[0].style.transform = 'rotate(45deg) translate(5px, 5px)';
+                      this.children[1].style.opacity = '0';
+                      this.children[2].style.transform = 'rotate(-45deg) translate(7px, -7px)';
+                    } else {
+                      this.children[0].style.transform = 'none';
+                      this.children[1].style.opacity = '1';
+                      this.children[2].style.transform = 'none';
+                    }
+                  });
+                }
+            
+                
+                
+            
+                
+            
+                
+              </script>
+            </section>
+            
+            <style>
+            /* Component Demo Specific Styles */
+            .component-demo {
+              transition: transform 0.3s ease;
+            }
+            
+            .component-demo:hover {
+              transform: translateY(-2px);
+            }
+            
+            .floating-nav-demo {
+              background: rgba(255, 255, 255, 0.98);
+              padding: 1rem 2rem;
+              border-radius: 100px;
+              box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+            }
+            
+            .desktop-nav-demo {
+              display: flex;
+              gap: 2rem;
+            }
+            
+            .nav-link {
+              padding: 0.5rem 1.2rem;
+              border-radius: 100px;
+              color: #2a2a2a;
+              text-decoration: none;
+              transition: all 0.3s ease;
+            }
+            
+            .nav-link:hover {
+              background: #d0483e;
+              color: white;
+            }
+            
+            .card-demo {
+              background: white;
+              padding: 2rem;
+              border-radius: 2rem;
+              box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+            }
+            
+            .mobile-menu-demo {
+              background: none;
+              border: none;
+              cursor: pointer;
+              padding: 0.5rem;
+              display: flex;
+              flex-direction: column;
+              gap: 5px;
+            }
+            
+            .mobile-menu-demo span {
+              display: block;
+              width: 24px;
+              height: 2px;
+              background-color: #d0483e;
+              transition: all 0.3s ease;
+            }
+            
+            .mobile-menu-demo:hover span:nth-child(2) {
+              transform: translateX(-5px);
+            }
+            
+            .mobile-menu-demo.active span:nth-child(1) {
+              transform: rotate(45deg) translate(5px, 5px);
+            }
+            
+            .mobile-menu-demo.active span:nth-child(2) {
+              opacity: 0;
+            }
+            
+            .mobile-menu-demo.active span:nth-child(3) {
+              transform: rotate(-45deg) translate(7px, -7px);
+            }
+            
+            /* Add component-specific responsive styles */
+            @media (max-width: 768px) {
+              .component-tabs .tabs-list {
+                grid-template-columns: repeat(2, 1fr);
+              }
+              
+              .desktop-nav-demo {
+                display: none;
+              }
+            }
+            </style>
+          </section>
+        
+
+          <section class="content-section">
+            <div class="image-grid">
+              <video
+                src="christinaContent/christinamockfintest..mp4"
+                muted
+                autoplay
+                loop
+                playsinline
+                class="project-image"
+              ></video>
+            </div>
+            <div class="image-grid">
+              <div><img
+                src="christinaContent/christinaMobileStill.png"
+                class="project-image "
+              />
+            </div>
+            <div class="image-grid">
+              <img
+                src="christinaContent/ChristinaDesktopStill.png"
+                class="project-image"
+              />
+            </div>
+          </section>
+
+      
+        </div>
+      </main>
+    </div>
   </body>
 </html>

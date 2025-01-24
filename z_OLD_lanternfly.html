@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="styleAlt.css" />
+    <link rel="icon" type="image/x-icon" href="/img/Q_fav2.ico" />
+
+    <title>Q:Lanternfly</title>
+  </head>
+  <body>
+    <div class="mainNavContainer">
+      <div class="title">
+        <a href="./index.html"><span class="name">Quentin Henry</span></a>
+      </div>
+      <div class="menu">
+        <a href="./lanternfly.html"
+          ><span class="menuItem active">Lanternfly</span></a
+        >
+        <a href="./calatrava.html"><span class="menuItem">Calatrava</span></a>
+        <a href="./christina.html"><span class="menuItem">Christina</span></a>
+        <a href="./newyork.html"><span class="menuItem">New York</span></a>
+        <a href="sundial.html"><span class="menuItem">Digital Sundial</span></a>
+        <a href="./babel.html"><span class="menuItem">Tower of Babel</span></a>
+        <a href="./base60.html"><span class="menuItem">Base 60</span></a>
+        <a href="./outside.html"><span class="menuItem">Go Outside</span></a>
+      </div>
+    </div>
+    <div class="content">
+      <div class="innerContent">
+        <div
+          class="contentItem"
+          data-text="An exploration of propaganda and aesthetics through the lens of the spotted lanternfly, where an invasive species becomes a vehicle for examining deeper tensions"
+        >
+          <div class="videoCont">
+            <video
+              autoplay
+              loop
+              muted
+              playsinline
+              id="lanterflyintrovid"
+              src="lanternflyContent/lanternflyInto_v3 (online-video-cutter.com).mp4"
+            ></video>
+          </div>
+        </div>
+        <div
+          class="contentItem"
+          data-text="The 'lanternfly war' sparked a moral dilemma: destroy a harmful invasive species, or spare a creature of striking beauty"
+        >
+          <img src="lanternflyContent/lanternflyBackground2.gif" />
+        </div>
+        <div
+          class="contentItem"
+          data-text="A deliberately impossible questionnaire that forces participants to confront the complexity of their own moral decisions about violence and control"
+        >
+          <div class="carouselB" id="carouselB">
+            <div class="carousel-imagesB">
+              <img
+                src="lanternflyContent/lanterflyQuestionOne.png"
+                class="carousel-imageB"
+                alt="Image 2A"
+              />
+              <img
+                src="lanternflyContent/lanternflyQuestionTwo.png"
+                class="carousel-imageB"
+                alt="Image 2B"
+              />
+              <img
+                src="lanternflyContent/lanternflyQuestionThree.png"
+                class="carousel-imageB"
+                alt="Image 2C"
+              />
+            </div>
+          </div>
+        </div>
+        <div
+          class="contentItem"
+          data-text="The lanternfly reimagined as an adorable mascot, testing how design can transform our relationship with something we're meant to destroy"
+        >
+          <img src="lanternflyContent/LanternflyCharacters-09.png" />
+        </div>
+        <div
+          class="contentItem"
+          data-text="Stickers that spread through the city like the insect itself, turning invasive species into invasive media"
+        >
+          <img src="lanternflyContent/LanternflyStickers.png" />
+        </div>
+        <div
+          class="contentItem"
+          data-text="A systematic design language that bridges information and propaganda, questioning how we package and present ecological threats"
+        >
+          <img src="lanternflyContent/lanternInfo.png" />
+        </div>
+        <div
+          class="contentItem"
+          data-text="The culmination: a magazine that weaves together design, ethics, and ecological anxiety into a single narrative"
+        >
+          <div class="carousel" id="carousel1">
+            <button class="prev" onclick="moveSlide(-1, 'carousel1')">❮</button>
+            <div class="carousel-images">
+              <img
+                src="lanternflyContent/lanternflyWarMock.png"
+                class="carousel-image"
+                alt="Image 1A"
+              />
+              <img
+                src="lanternflyContent/lanternflyWangweiMock.png"
+                class="carousel-image"
+                alt="Image 1B"
+              />
+              <img
+                src="lanternflyContent/lanternflyRedMock.png"
+                class="carousel-image"
+                alt="Image 1C"
+              />
+            </div>
+            <button class="next" onclick="moveSlide(1, 'carousel1')">❯</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="controls">
+      <div class="infoButton">Info</div>
+      <div id="liveIndicatorContainer">
+        <span id="liveIndicatorText">Live</span>
+        <div id="liveIndicator"></div>
+      </div>
+    </div>
+    <div id="follower"></div>
+
+    <script src="follower2.js"></script>
+    <script src="carosels.js"></script>
+  </body>
+</html>

@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="icon" type="image/x-icon" href="/img/Q_fav2.ico" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <title>Q:Base 60</title>
+    <style>
+      .frame-container {
+        height: 50vw;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: #000;
+        position: relative;
+        z-index: 1;
+      }
+
+      #frame-animation {
+        width: 100%;
+        height: 120%;
+        object-fit: contain;
+      }
+
+      .scroll-spacer {
+        height: 150vw;
+        position: relative;
+      }
+
+      /* Ensure contentItem maintains proper stacking */
+      .contentItem {
+        position: relative;
+        z-index: 1;
+      }
+
+      .Cspacer {
+        width: 100%;
+        height: 20vw;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="mainNavContainer">
+      <div class="title">
+        <a href="./index.html"><span class="name">Quentin Henry</span></a>
+      </div>
+      <div class="menu">
+        <a href="./lanternfly.html"><span class="menuItem">Lanternfly</span></a>
+        <a href="./calatrava.html"><span class="menuItem">Calatrava</span></a>
+        <a href="./christina.html"><span class="menuItem">Christina</span></a>
+        <a href="./newyork.html"><span class="menuItem">New York</span></a>
+        <a href="sundial.html"><span class="menuItem">Digital Sundial</span></a>
+        <a href="./babel.html"><span class="menuItem">Tower of Babel</span></a>
+        <a href="./base60.html"><span class="menuItem active">Base 60</span></a>
+        <a href="./outside.html"><span class="menuItem">Go Outside</span></a>
+      </div>
+    </div>
+    <div class="content">
+      <div class="innerContent">
+        <div
+          class="contentItem"
+          data-text="From the printing press to the radio, media revolutions and new communication technologies have always promised increased freedom through decentralization while paradoxically enabling unprecedented standardization of human experience. The internet represents the peak of this tension: offering infinite possibilities for diverse ways of being, yet producing an increasingly synchronized global culture.
+          "
+        >
+          <div class="frame-container">
+            <img id="frame-animation" src="frames/frame-001.jpg" />
+          </div>
+          <div class="scroll-spacer"></div>
+        </div>
+        <div class="Cspacer"></div>
+        <div
+          class="contentItem"
+          data-text="
+          Time-keeping mirrors this journey: what began as diverse cultural systems for understanding the day and our lives, has been largely standardized into the ubiquitous 24-hour clock. By deconstructing our familiar systems, we can see through its veneer of inevitability—recognizing it as just one of countless ways to divide a day.
+          "
+        >
+          <video
+            autoplay
+            loop
+            muted
+            playsinline
+            src="base10/polyclock.mp4"
+          ></video>
+        </div>
+        <div
+          class="contentItem"
+          data-text="The early internet promised a decentralized utopia—where communities could create their own systems of knowledge and meaning on thier own time. Today, that vision has largely surrendered to platform monopolies, standardization and algorithmic synchronization. By letting users craft their own temporal systems, this project offers both a small act of resistance against homogenization and an invitation to question what we consider inevitable. Rather than rejecting the digital era, it embraces digital tools to revive the internet's original promise of diversity and autonomy."
+        >
+          <video
+            autoplay
+            loop
+            muted
+            playsinline
+            src="base10/clocksreduced-ezgif.com-resize-video.mp4"
+          ></video>
+        </div>
+        <div
+          class="contentItem"
+          data-text="
+        This live desktop prototype demonstrates time visualization across different systems. Users can select from historical and fictional time systems via a menu. A dynamic polygon visualizes time divisions, while the interface displays time using various numerical bases. 
+        "
+        >
+          <embed class="browserEmbed" src="base10/base10.html" />
+        </div>
+        <div class="contentItem" data-text="more soon"></div>
+      </div>
+    </div>
+    <div id="controls">
+      <div class="infoButton">Info</div>
+      <div id="liveIndicatorContainer">
+        <span id="liveIndicatorText">Live</span>
+        <div id="liveIndicator"></div>
+      </div>
+    </div>
+    <div id="follower"></div>
+  </body>
+  <script src="follower2.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      gsap.registerPlugin(ScrollTrigger);
+
+      const frameCount = 41;
+      const currentFrame = (index) =>
+        `frames/frame-${String(index).padStart(3, "0")}.jpg`;
+
+      // Preload images
+      const preloadImages = () => {
+        for (let i = 1; i < frameCount; i++) {
+          const img = new Image();
+          img.src = currentFrame(i);
+        }
+      };
+
+      // Create a timeline with adjusted positioning
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: ".frame-container",
+          start: "top top",
+          end: "bottom center",
+          scrub: {
+            time: 0.1,
+            snap: {
+              snapTo: 1 / (frameCount - 1),
+              duration: 0.1,
+              ease: "power1.inOut",
+            },
+          },
+          pin: true,
+          pinSpacing: true,
+          scroller: ".content",
+          anticipatePin: 1,
+          onUpdate: (self) => {
+            const progress = Math.min(Math.max(self.progress, 0), 1);
+            const exactFrame = progress * (frameCount - 1) + 1;
+            const frameIndex = Math.round(exactFrame);
+
+            if (frameIndex >= 1 && frameIndex <= frameCount) {
+              document.getElementById("frame-animation").src =
+                currentFrame(frameIndex);
+            }
+          },
+        },
+      });
+
+      // Push the next content down during animation
+      gsap.set(".contentItem:not(:first-child)", {
+        zIndex: 0,
+      });
+
+      preloadImages();
+    });
+  </script>
+</html>

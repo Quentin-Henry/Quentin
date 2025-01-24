@@ -3,132 +3,585 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="styleAlt.css" />
-    <link rel="icon" type="image/x-icon" href="/img/Q_fav2.ico" />
+    <title>Lanternfly - Quentin Henry</title>
+    <link rel="stylesheet" href="newCSS.css" />
 
-    <title>Q:Lanternfly</title>
   </head>
   <body>
-    <div class="mainNavContainer">
-      <div class="title">
-        <a href="./index.html"><span class="name">Quentin Henry</span></a>
+    <div class="container">
+      <div class="floating-nav-item float-back">
+        <a href="./index.html" class="back-link">
+          <svg
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path d="M19 12H5M12 19l-7-7 7-7" />
+          </svg>
+          <span id="navText">Back to Projects</span>
+        </a>
       </div>
-      <div class="menu">
-        <a href="./lanternfly.html"
-          ><span class="menuItem active">Lanternfly</span></a
-        >
-        <a href="./calatrava.html"><span class="menuItem">Calatrava</span></a>
-        <a href="./christina.html"><span class="menuItem">Christina</span></a>
-        <a href="./newyork.html"><span class="menuItem">New York</span></a>
-        <a href="sundial.html"><span class="menuItem">Digital Sundial</span></a>
-        <a href="./babel.html"><span class="menuItem">Tower of Babel</span></a>
-        <a href="./base60.html"><span class="menuItem">Base 60</span></a>
-        <a href="./outside.html"><span class="menuItem">Go Outside</span></a>
-      </div>
-    </div>
-    <div class="content">
-      <div class="innerContent">
-        <div
-          class="contentItem"
-          data-text="An exploration of propaganda and aesthetics through the lens of the spotted lanternfly, where an invasive species becomes a vehicle for examining deeper tensions"
-        >
-          <div class="videoCont">
-            <video
-              autoplay
-              loop
-              muted
-              playsinline
-              id="lanterflyintrovid"
-              src="lanternflyContent/lanternflyInto_v3 (online-video-cutter.com).mp4"
-            ></video>
-          </div>
-        </div>
-        <div
-          class="contentItem"
-          data-text="The 'lanternfly war' sparked a moral dilemma: destroy a harmful invasive species, or spare a creature of striking beauty"
-        >
-          <img src="lanternflyContent/lanternflyBackground2.gif" />
-        </div>
-        <div
-          class="contentItem"
-          data-text="A deliberately impossible questionnaire that forces participants to confront the complexity of their own moral decisions about violence and control"
-        >
-          <div class="carouselB" id="carouselB">
-            <div class="carousel-imagesB">
-              <img
-                src="lanternflyContent/lanterflyQuestionOne.png"
-                class="carousel-imageB"
-                alt="Image 2A"
-              />
-              <img
-                src="lanternflyContent/lanternflyQuestionTwo.png"
-                class="carousel-imageB"
-                alt="Image 2B"
-              />
-              <img
-                src="lanternflyContent/lanternflyQuestionThree.png"
-                class="carousel-imageB"
-                alt="Image 2C"
-              />
-            </div>
-          </div>
-        </div>
-        <div
-          class="contentItem"
-          data-text="The lanternfly reimagined as an adorable mascot, testing how design can transform our relationship with something we're meant to destroy"
-        >
-          <img src="lanternflyContent/LanternflyCharacters-09.png" />
-        </div>
-        <div
-          class="contentItem"
-          data-text="Stickers that spread through the city like the insect itself, turning invasive species into invasive media"
-        >
-          <img src="lanternflyContent/LanternflyStickers.png" />
-        </div>
-        <div
-          class="contentItem"
-          data-text="A systematic design language that bridges information and propaganda, questioning how we package and present ecological threats"
-        >
-          <img src="lanternflyContent/lanternInfo.png" />
-        </div>
-        <div
-          class="contentItem"
-          data-text="The culmination: a magazine that weaves together design, ethics, and ecological anxiety into a single narrative"
-        >
-          <div class="carousel" id="carousel1">
-            <button class="prev" onclick="moveSlide(-1, 'carousel1')">❮</button>
-            <div class="carousel-images">
-              <img
-                src="lanternflyContent/lanternflyWarMock.png"
-                class="carousel-image"
-                alt="Image 1A"
-              />
-              <img
-                src="lanternflyContent/lanternflyWangweiMock.png"
-                class="carousel-image"
-                alt="Image 1B"
-              />
-              <img
-                src="lanternflyContent/lanternflyRedMock.png"
-                class="carousel-image"
-                alt="Image 1C"
-              />
-            </div>
-            <button class="next" onclick="moveSlide(1, 'carousel1')">❯</button>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div id="controls">
-      <div class="infoButton">Info</div>
-      <div id="liveIndicatorContainer">
-        <span id="liveIndicatorText">Live</span>
-        <div id="liveIndicator"></div>
-      </div>
-    </div>
-    <div id="follower"></div>
 
-    <script src="follower2.js"></script>
-    <script src="carosels.js"></script>
+      <div class="floating-nav-item float-name">
+        <h1 class="name">Quentin Henry</h1>
+      </div>
+
+      <div class="floating-nav-item float-project">
+        <div class="project-header">
+          <h2 class="project-title">Base 60</h2>
+          <div class="project-info">UX Design, 2024</div>
+        </div>
+      </div>
+      <!-- Fixed Left Panel -->
+      <aside class="left-panel">
+        <h1 class="name">Quentin Henry</h1>
+        <a href="./index.html" class="back-link">
+          <svg
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path d="M19 12H5M12 19l-7-7 7-7" />
+          </svg>
+          Back to Projects
+        </a>
+        <div class="project-header">
+          <h2 class="project-title">Lanternfly</h2>
+          <div class="project-info">Graphic Design, 2023</div>
+        </div>
+      </aside>
+
+      <!-- Scrollable Content Area -->
+      <main class="content-wrapper">
+        <div class="project-content">
+          <section class="content-section">
+            <h3 class="section-title">Overview</h3>
+            <p class="section-text">
+              The Lanternfly Project explores how aesthetic confusion can be
+              weaponized in public discourse through an invasive species crisis.
+              The project mirrors corporate tactics of using visual ambiguity to
+              paralyze public action, drawing parallels to how tobacco companies
+              and oil companies have historically muddied urgent issues through
+              sponsored messaging. The Spotted Lanternfly, arriving from
+              Southeast Asia during COVID-19, serves as both metaphor and mascot
+              for examining institutional manipulation and xenophobia.
+            </p>
+            <div class="deliverables-grid">
+              <span class="deliverable-tag" style="--animation-order: 1"
+                >Graphic Design</span
+              >
+              
+              <span class="deliverable-tag" style="--animation-order: 3"
+                >Illustration</span
+              >
+              <span class="deliverable-tag" style="--animation-order: 4"
+                >Character Design</span
+              >
+              <span class="deliverable-tag" style="--animation-order: 5"
+                >Identity System</span
+              >
+              <span class="deliverable-tag" style="--animation-order: 6"
+                >Brand Guidelines</span
+              >
+              <span class="deliverable-tag" style="--animation-order: 7"
+                >Environmental Design</span
+              >
+            </div>
+          </section>
+          <section class="content-section">
+            <div class="image-grid">
+              <img
+                src="./lanternflyContent/lanternflyBackground2.gif"
+                alt="Design process"
+                class="project-image pad whiteBackg"
+              />
+             
+          </section>
+
+         
+
+          <section class="brand-guidelines guide">
+            <style>
+              /* Brand Guidelines Specific Styles */
+              .color-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                gap: 1.5rem;
+              }
+
+              .color-swatch {
+                border-radius: 0.5rem;
+                overflow: hidden;
+              }
+
+              .color-preview {
+                height: 100px;
+                width: 100%;
+              }
+
+              .color-info {
+                background: #333;
+                padding: 1rem;
+              }
+
+              .color-name {
+                color: #f1f1f1;
+                font-weight: 500;
+                margin-bottom: 0.5rem;
+              }
+
+              .color-value {
+                color: #888;
+                font-family: monospace;
+                font-size: 0.875rem;
+              }
+
+              .color-usage {
+                color: #888;
+                font-size: 0.875rem;
+                margin-top: 0.5rem;
+              }
+           
+
+            
+              @font-face {
+  font-family: 'BookmanJFPro';
+  src: url('fonts/BookmanJFPro-Italic.otf') format('opentype');
+  font-style: italic;
+  font-weight: normal;
+}
+
+              .display-text {
+                font-family: 'BookmanJFPro', serif;
+                font-style: italic;
+              }
+
+              .body-text {
+                font-family: "Gotham", -apple-system, BlinkMacSystemFont,
+                  "Segoe UI", sans-serif;
+              }
+
+              .typography-example {
+                margin-bottom: 1.5rem;
+              }
+
+              .display-large {
+                font-size: 3.75rem;
+                line-height: 1.1;
+                margin-bottom: 0.5rem;
+              }
+
+              .display-medium {
+                font-size: 2.25rem;
+                line-height: 1.2;
+                margin-bottom: 0.5rem;
+              }
+
+              .section-divider {
+                border-top: 1px solid #444;
+                padding-top: 2rem;
+                margin-top: 2rem;
+              }
+
+              .usage-list {
+                list-style: none;
+                padding: 0;
+              }
+
+              .usage-list li {
+                padding-left: 1rem;
+                position: relative;
+                margin-bottom: 0.75rem;
+                color: #888;
+              }
+
+              .usage-list li::before {
+                content: "•";
+                position: absolute;
+                left: 0;
+              }
+
+              .examples-grid {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 2rem;
+              }
+
+              @media (max-width: 768px) {
+                .examples-grid {
+                  grid-template-columns: 1fr;
+                }
+
+                .display-large {
+                  font-size: 2.5rem;
+                }
+
+                .display-medium {
+                  font-size: 1.75rem;
+                }
+              }
+            </style>
+
+            <section class="content-section">
+              <h3 class="section-title">Brand Guidelines</h3>
+
+              <div class="tabs">
+                <div class="tabs-list">
+                  <button class="tab-trigger active" data-tab="typography">
+                    Typography
+                  </button>
+                  <button class="tab-trigger" data-tab="usage">Usage</button>
+                  <button class="tab-trigger" data-tab="colors">Colors</button>
+                  <button class="tab-trigger" data-tab="examples">
+                    Examples
+                  </button>
+                </div>
+
+                <div class="tab-content active" id="typography">
+                  <div>
+                    <h4 style="color: #888; margin-bottom: 1.5rem">
+                      Display Typography
+                    </h4>
+                    <div class="typography-example">
+                      <h2 class="display-text display-large">Bookman JF Pro</h2>
+                      <p style="color: #888">
+                        Display Font - Headlines & Key Messaging
+                      </p>
+                    </div>
+                    <div class="typography-example">
+                      <h3 class="display-text display-medium">
+                        Bookman Swash
+                      </h3>
+                      <p style="color: #888">
+                        Subheadings & Important Callouts
+                      </p>
+                    </div>
+                  </div>
+
+                  <div class="section-divider">
+                    <h4 style="color: #888; margin-bottom: 1.5rem">
+                      Body Typography
+                    </h4>
+                    <div class="typography-example">
+                      <p class="body-text" style="font-size: 1.25rem">
+                        Gotham - Large Body
+                      </p>
+                      <p style="color: #888">20px / Leading statements</p>
+                    </div>
+                    <div class="typography-example">
+                      <p class="body-text">Gotham - Regular Body Text</p>
+                      <p style="color: #888">16px / Main content</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="tab-content" id="usage">
+                  <div>
+                    <h4 style="color: #888; margin-bottom: 1rem">
+                      Typographic Tension
+                    </h4>
+                    <p style="margin-bottom: 1.5rem">
+                      The interplay between Bookman JF Italic and Gotham creates
+                      intentional tension between:
+                    </p>
+                    <ul class="usage-list">
+                      <li>
+                        Institutional authority (Bookman) vs. Modern
+                        accessibility (Gotham)
+                      </li>
+                      <li>Historical New York vs. Contemporary New York</li>
+                      <li>Decorative display vs. Utilitarian information</li>
+                    </ul>
+                  </div>
+
+                  <div class="section-divider">
+                    <h4 style="color: #888; margin-bottom: 1rem">
+                      Usage Guidelines
+                    </h4>
+                    <ul class="usage-list">
+                      <li>
+                        Use Bookman JF Italic for headlines and impactful
+                        statements
+                      </li>
+                      <li>
+                        Reserve Gotham for body copy and detailed information
+                      </li>
+                      <li>
+                        Create hierarchical contrast through size and weight
+                      </li>
+                      <li>
+                        Employ typographic tension to reflect content themes
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+
+                <div class="tab-content" id="colors">
+                  <div>
+                    <h4 style="color: #888; margin-bottom: 1.5rem">
+                      Core Color Palette
+                    </h4>
+                    <div class="color-grid">
+                      <div class="color-swatch">
+                        <div
+                          class="color-preview"
+                          style="background-color: #ff0000"
+                        ></div>
+                        <div class="color-info">
+                          <div class="color-name">Primary (brand) color</div>
+                          <div class="color-value">#ff000</div>
+                          <div class="color-usage">Primary Color</div>
+                        </div>
+                      </div>
+
+                      <div class="color-swatch">
+                        <div
+                          class="color-preview"
+                          style="background-color: #cdab85"
+                        ></div>
+                        <div class="color-info">
+                          <div class="color-name">Secondary Supporting</div>
+                          <div class="color-value">#dab85</div>
+                          <div class="color-usage">Cards and UI elements</div>
+                        </div>
+                      </div>
+
+                      <div class="color-swatch">
+                        <div
+                          class="color-preview"
+                          style="background-color: #000000"
+                        ></div>
+                        <div class="color-info">
+                          <div class="color-name">Text Primary</div>
+                          <div class="color-value">#000000</div>
+                          <div class="color-usage">Primary text color</div>
+                        </div>
+                      </div>
+
+                      <div class="color-swatch">
+                        <div
+                          class="color-preview"
+                          style="background-color: #ffffff"
+                        ></div>
+                        <div class="color-info">
+                          <div class="color-name">Text Secondary</div>
+                          <div class="color-value">#ffffff</div>
+                          <div class="color-usage">
+                            Secondary and muted text
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="tab-content" id="examples">
+                  <div class="examples-grid">
+                    <div>
+                      <h4 style="color: #888; margin-bottom: 1rem">
+                        Display Examples
+                      </h4>
+                      <div class="typography-example">
+                        <h2 class="display-text" style="font-size: 2rem">
+                          The Lanternfly
+                        </h2>
+                        <p class="display-text" style="color: #888">Project</p>
+                      </div>
+                    </div>
+                    <div>
+                      <h4 style="color: #888; margin-bottom: 1rem">
+                        Body Examples
+                      </h4>
+                      <div class="body-text">
+                        <p style="margin-bottom: 1rem">
+                          Examining institutional manipulation through design
+                        </p>
+                        <p style="color: #888">
+                          A case study in aesthetic confusion
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <script>
+              // Add this script at the end of your body tag
+              const tabs = document.querySelectorAll(".tab-trigger");
+              const contents = document.querySelectorAll(".tab-content");
+
+              tabs.forEach((tab) => {
+                tab.addEventListener("click", () => {
+                  // Remove active class from all tabs and contents
+                  tabs.forEach((t) => t.classList.remove("active"));
+                  contents.forEach((c) => c.classList.remove("active"));
+
+                  // Add active class to clicked tab and corresponding content
+                  tab.classList.add("active");
+                  const contentId = tab.getAttribute("data-tab");
+                  document.getElementById(contentId).classList.add("active");
+                });
+              });
+            </script>
+          </section>
+
+          <section class="content-section">
+            <h3 class="section-title">Process</h3>
+            <p class="section-text">
+              The project's visual language plays with tension: between 'old'
+              and 'new' New York in its typography (Bookman vs. Gotham), between
+              institutional authority and approachability in its mascot, and
+              between beauty and destruction in its subject matter—reflecting
+              complex narratives of invasion, immigration, and public response
+              during crisis.
+            </p>
+          </section>
+         
+
+          <section class="content-section">
+            <div class="image-grid">
+              <img
+                src="./lanternflyContent/LanternflyCharacters-09.png"
+                alt="Design process"
+                class="project-image pad whiteBackg"
+              />
+             
+            </div>
+          </section>
+          <section class="content-section">
+            <div class="image-grid">
+            
+              <img
+                src="./lanternflyContent/LanternflyStickers.png"
+                alt="Brand applications"
+                class="project-image pad whiteBackg"
+              />
+            
+            </div>
+          </section>
+          <section class="content-section">
+            <div class="image-grid">
+              
+              <img
+                src="./lanternflyContent/lanternInfo.png"
+                alt="Brand applications"
+                class="project-image pad whiteBackg"
+              />
+            </div>
+          </section>
+
+          <section class="content-section">
+            <div class="image-grid">
+              <video
+                src="./lanternflyContent/lanternflyInto_v3 (online-video-cutter.com).mp4"
+                muted
+                autoplay
+                loop
+                playsinline
+                class="project-image pad whiteBackg"
+              ></video>
+            </div>
+          </section>
+
+      
+
+          <section class="content-section">
+            <div class="image-grid">
+              <img
+                src="./lanternflyContent/lanternflyCover.jpg"
+                alt="final applications"
+                class="project-image pad whiteBackg"
+              />
+          
+            </div>
+          </section>
+          <section class="content-section">
+            <div class="carousel" id="carousel1">
+              <div class="carousel-images">
+                <img src="lanternflyContent/lanternflyWarMock.png" class="carousel-image" alt="Image 1A">
+                <img src="lanternflyContent/lanternflyWangweiMock.png" class="carousel-image" alt="Image 1B">
+                <img src="lanternflyContent/lanternflyRedMock.png" class="carousel-image" alt="Image 1C">
+              </div>
+              <button class="nav-area prev-area"></button>
+              <button class="nav-area next-area"></button>
+              <div class="dots-container"></div>
+            </div>
+          </section>
+       
+        </div>
+      </main>
+    </div>
+    <script>
+      class Carousel {
+          constructor(carouselId) {
+              this.carousel = document.getElementById(carouselId);
+              this.imagesContainer = this.carousel.querySelector('.carousel-images');
+              this.images = this.carousel.querySelectorAll('.carousel-image');
+              this.dotsContainer = this.carousel.querySelector('.dots-container');
+              this.currentIndex = 0;
+              
+              this.setupDots();
+              this.setupNavigation();
+          }
+      
+          setupDots() {
+              for (let i = 0; i < this.images.length; i++) {
+                  const dot = document.createElement('div');
+                  dot.className = 'dot' + (i === 0 ? ' active' : '');
+                  dot.addEventListener('click', () => this.goToSlide(i));
+                  this.dotsContainer.appendChild(dot);
+              }
+          }
+      
+          setupNavigation() {
+              const prevArea = this.carousel.querySelector('.prev-area');
+              const nextArea = this.carousel.querySelector('.next-area');
+      
+              prevArea.addEventListener('click', () => this.moveSlide(-1));
+              nextArea.addEventListener('click', () => this.moveSlide(1));
+          }
+      
+          updateDots() {
+              const dots = this.dotsContainer.querySelectorAll('.dot');
+              dots.forEach((dot, index) => {
+                  dot.className = 'dot' + (index === this.currentIndex ? ' active' : '');
+              });
+          }
+      
+          moveSlide(direction) {
+              this.currentIndex += direction;
+              
+              if (this.currentIndex >= this.images.length) {
+                  this.currentIndex = 0;
+              } else if (this.currentIndex < 0) {
+                  this.currentIndex = this.images.length - 1;
+              }
+      
+              this.updateCarousel();
+          }
+      
+          goToSlide(index) {
+              this.currentIndex = index;
+              this.updateCarousel();
+          }
+      
+          updateCarousel() {
+              this.imagesContainer.style.transform = `translateX(-${this.currentIndex * 100}%)`;
+              this.updateDots();
+          }
+      }
+      
+      // Initialize the carousel
+      document.addEventListener('DOMContentLoaded', () => {
+          const carousel = new Carousel('carousel1');
+      });
+      </script>
   </body>
 </html>
