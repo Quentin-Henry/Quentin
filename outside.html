@@ -47,7 +47,7 @@
       </div>
       <!-- Fixed Left Panel -->
       <aside class="left-panel">
-        <h1 class="name">Quentin Henry</h1>
+        <a href="./index.html"><h1 class="name">Quentin Henry</h1></a>
         <a href="./index.html" class="back-link">
           <svg
             width="16"
@@ -450,10 +450,94 @@
           </div></a>
           </section>
 
-        
+          <section class="content-section footer-section">
+            <div class="footer-container">
+              <div class="footer-attribution">
+                Designed & Developed by Quentin Henry · 2025
+              </div>
+
+              <a href="mailto:q@quentinhenry.com" class="footer-email">
+                q@quentinhenry.com
+              </a>
+
+              <div class="footer-navigation">
+                <a
+                  href="./newyorknewyork.html"
+                  class="nav-arrow"
+                  data-tooltip="Previous"
+                >
+                  <svg
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  >
+                    <path d="M19 12H5M12 19l-7-7 7-7" />
+                  </svg>
+                </a>
+
+                <button class="nav-arrow" id="scrollTop" data-tooltip="Top">
+                  <svg
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  >
+                    <path d="M12 19V5M5 12l7-7 7 7" />
+                  </svg>
+                </button>
+
+                <a
+                  href="./lanternfly.html"
+                  class="nav-arrow"
+                  data-tooltip="Next"
+                >
+                  <svg
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  >
+                    <path d="M5 12h14M12 5l7 7-7 7" />
+                  </svg>
+                </a>
+              </div>
+            </div>
+          </section>
         </div>
       </main>
     </div>
+    
+    <script>
+      document
+        .getElementById("scrollTop")
+        .addEventListener("click", function () {
+          const contentWrapper = document.querySelector(".content-wrapper");
+          contentWrapper.scrollTo({
+            top: 0,
+            behavior: "smooth",
+          });
+        });
+        // Add this to your existing script
+document.addEventListener('DOMContentLoaded', function() {
+  const btn = document.querySelector('.btn');
+  const btnLink = document.querySelector('a[href="GoingOutside.html"]');
+  
+  // Check if device is mobile
+  if (window.innerWidth <= 768) {
+    btn.classList.add('btn-mobile-disabled');
+    btnLink.addEventListener('click', function(e) {
+      e.preventDefault();
+    });
+  }
+});
+    </script>
     <script>const styles = `
       .model-wrapper {
         position: relative;

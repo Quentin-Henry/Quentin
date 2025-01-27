@@ -37,7 +37,7 @@
       </div>
       <!-- Fixed Left Panel -->
       <aside class="left-panel">
-        <h1 class="name">Quentin Henry</h1>
+        <a href="./index.html"><h1 class="name">Quentin Henry</h1></a>
         <a href="./index.html" class="back-link">
           <svg
             width="16"
@@ -451,9 +451,80 @@
               />
             </div>
           </section>
+          <section class="content-section footer-section">
+            <div class="footer-container">
+              <div class="footer-attribution">
+                Designed & Developed by Quentin Henry · 2025
+              </div>
+
+              <a href="mailto:q@quentinhenry.com" class="footer-email">
+                q@quentinhenry.com
+              </a>
+
+              <div class="footer-navigation">
+                <a
+                  href="./base60.html"
+                  class="nav-arrow"
+                  data-tooltip="Previous"
+                >
+                  <svg
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  >
+                    <path d="M19 12H5M12 19l-7-7 7-7" />
+                  </svg>
+                </a>
+
+                <button class="nav-arrow" id="scrollTop" data-tooltip="Top">
+                  <svg
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  >
+                    <path d="M12 19V5M5 12l7-7 7 7" />
+                  </svg>
+                </button>
+
+                <a
+                  href="./newyorknewyork.html"
+                  class="nav-arrow"
+                  data-tooltip="Next"
+                >
+                  <svg
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  >
+                    <path d="M5 12h14M12 5l7 7-7 7" />
+                  </svg>
+                </a>
+              </div>
+            </div>
+          </section>
         </div>
       </main>
     </div>
+    <script>
+      document
+        .getElementById("scrollTop")
+        .addEventListener("click", function () {
+          const contentWrapper = document.querySelector(".content-wrapper");
+          contentWrapper.scrollTo({
+            top: 0,
+            behavior: "smooth",
+          });
+        });
+    </script>
     <script>
       const styles = `
       .interactive-wrapper {
@@ -493,7 +564,40 @@
       
       .interaction-hint.is-hidden {
           opacity: 0;
-      }`;
+      }
+      .mobile-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(4px);
+  z-index: 30;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  /* Hide by default */
+  display: none;
+}
+
+.mobile-message {
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(4px);
+  padding: 0.75rem 1.25rem;
+  border-radius: 9999px;
+  font-size: 0.875rem;
+  color: rgba(255, 255, 255, 0.9);
+  text-align: center;
+}
+
+/* Only show overlay on mobile devices */
+@media (max-width: 768px) {
+  .mobile-only-desktop .mobile-overlay {
+    display: flex;
+  }
+  
+  .mobile-only-desktop .interaction-hint {
+    display: none;
+  }
+}`;
 
       if (!document.getElementById("interactive-styles")) {
         const styleSheet = document.createElement("style");
@@ -502,13 +606,17 @@
         document.head.appendChild(styleSheet);
       }
 
-      function enhanceInteractiveEmbed(
-        embedElement,
-        customHintText = "Click to interact"
-      ) {
+      function enhanceInteractiveEmbed(embedElement, options = {}) {
+        const {
+          hintText = "Click to interact",
+          desktopOnly = false,
+          mobileText = "Best experienced on desktop",
+        } = options;
+
         // Create wrapper
         const wrapper = document.createElement("div");
         wrapper.className = "interactive-wrapper";
+        if (desktopOnly) wrapper.classList.add("mobile-only-desktop");
 
         // Move the embed into the wrapper
         embedElement.parentNode.insertBefore(wrapper, embedElement);
@@ -522,8 +630,19 @@
         // Create hint element
         const hint = document.createElement("div");
         hint.className = "interaction-hint";
-        hint.textContent = customHintText;
+        hint.textContent = hintText;
         wrapper.appendChild(hint);
+
+        // Create mobile overlay
+        if (desktopOnly) {
+          const mobileOverlay = document.createElement("div");
+          mobileOverlay.className = "mobile-overlay";
+          const mobileMessage = document.createElement("div");
+          mobileMessage.className = "mobile-message";
+          mobileMessage.textContent = mobileText;
+          mobileOverlay.appendChild(mobileMessage);
+          wrapper.appendChild(mobileOverlay);
+        }
 
         // Add interaction handlers
         wrapper.addEventListener("mouseenter", () => {
@@ -543,7 +662,6 @@
         });
 
         wrapper.addEventListener("touchend", () => {
-          // Add a small delay before removing the interaction state on touch devices
           setTimeout(() => {
             border.classList.remove("is-interacting");
             hint.classList.remove("is-hidden");
@@ -553,20 +671,26 @@
 
       // Initialize for all embedded interactive elements
       document.addEventListener("DOMContentLoaded", () => {
-        // Enhance the building.html embed
+        // Enhance the building.html embed (works on mobile)
         const buildingEmbed = document.querySelector(
           'embed[src*="building.html"]'
         );
         if (buildingEmbed) {
-          enhanceInteractiveEmbed(buildingEmbed, "Click to explore building");
+          enhanceInteractiveEmbed(buildingEmbed, {
+            hintText: "Click to explore building",
+          });
         }
 
-        // Enhance the linetest.html embed
+        // Enhance the linetest.html embed (desktop only)
         const lineTestEmbed = document.querySelector(
           'embed[src*="linetest.html"]'
         );
         if (lineTestEmbed) {
-          enhanceInteractiveEmbed(lineTestEmbed, "Click to explore interface");
+          enhanceInteractiveEmbed(lineTestEmbed, {
+            hintText: "Click to explore interface",
+            desktopOnly: true,
+            mobileText: "Best experienced on desktop",
+          });
         }
       });
     </script>

@@ -38,7 +38,7 @@
       </div>
       <!-- Fixed Left Panel -->
       <aside class="left-panel">
-        <h1 class="name">Quentin Henry</h1>
+        <a href="./index.html"><h1 class="name">Quentin Henry</h1></a>
         <a href="./index.html" class="back-link">
           <svg
             width="16"
@@ -421,8 +421,235 @@
               />
             </div>
           </section>
+          <section class="content-section footer-section">
+            <div class="footer-container">
+              <div class="footer-attribution">
+                Designed & Developed by Quentin Henry · 2025
+              </div>
+
+              <a href="mailto:q@quentinhenry.com" class="footer-email">
+                q@quentinhenry.com
+              </a>
+
+              <div class="footer-navigation">
+                <a
+                  href="./sundial.html"
+                  class="nav-arrow"
+                  data-tooltip="Previous"
+                >
+                  <svg
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  >
+                    <path d="M19 12H5M12 19l-7-7 7-7" />
+                  </svg>
+                </a>
+
+                <button class="nav-arrow" id="scrollTop" data-tooltip="Top">
+                  <svg
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  >
+                    <path d="M12 19V5M5 12l7-7 7 7" />
+                  </svg>
+                </button>
+
+                <a
+                  href="./towerofbabel.html"
+                  class="nav-arrow"
+                  data-tooltip="Next"
+                >
+                  <svg
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  >
+                    <path d="M5 12h14M12 5l7 7-7 7" />
+                  </svg>
+                </a>
+              </div>
+            </div>
+          </section>
         </div>
       </main>
     </div>
+    <script>
+      document
+        .getElementById("scrollTop")
+        .addEventListener("click", function () {
+          const contentWrapper = document.querySelector(".content-wrapper");
+          contentWrapper.scrollTo({
+            top: 0,
+            behavior: "smooth",
+          });
+        });
+    </script>
+    <script>
+      const styles = `
+      .interactive-wrapper {
+          position: relative;
+          width: 100%;
+          border-radius: 0.5rem;
+          overflow: hidden;
+      }
+      
+      .interactive-border {
+          position: absolute;
+          inset: 0;
+          pointer-events: none;
+          z-index: 10;
+          border: 1px solid #333;
+          transition: all 0.3s ease;
+      }
+      
+      .interactive-border.is-interacting {
+          border: 2px solid #60A5FA;
+          background: rgba(0, 0, 0, 0.05);
+      }
+      
+      .interaction-hint {
+          position: absolute;
+          top: 1rem;
+          left: 1rem;
+          z-index: 20;
+          background: rgba(0, 0, 0, 0.8);
+          backdrop-filter: blur(4px);
+          padding: 0.5rem 1rem;
+          border-radius: 9999px;
+          font-size: 0.875rem;
+          color: rgba(255, 255, 255, 0.9);
+          transition: opacity 0.3s ease;
+      }
+      
+      .interaction-hint.is-hidden {
+          opacity: 0;
+      }
+      .mobile-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(4px);
+  z-index: 30;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  /* Hide by default */
+  display: none;
+}
+
+.mobile-message {
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(4px);
+  padding: 0.75rem 1.25rem;
+  border-radius: 9999px;
+  font-size: 0.875rem;
+  color: rgba(255, 255, 255, 0.9);
+  text-align: center;
+}
+
+/* Only show overlay on mobile devices */
+@media (max-width: 768px) {
+  .mobile-only-desktop .mobile-overlay {
+    display: flex;
+  }
+  
+  .mobile-only-desktop .interaction-hint {
+    display: none;
+  }
+}`;
+
+      if (!document.getElementById("interactive-styles")) {
+        const styleSheet = document.createElement("style");
+        styleSheet.id = "interactive-styles";
+        styleSheet.textContent = styles;
+        document.head.appendChild(styleSheet);
+      }
+
+      function enhanceInteractiveEmbed(embedElement, options = {}) {
+        const {
+          hintText = "Click to interact",
+          desktopOnly = false,
+          mobileText = "Best experienced on desktop",
+        } = options;
+
+        // Create wrapper
+        const wrapper = document.createElement("div");
+        wrapper.className = "interactive-wrapper";
+        if (desktopOnly) wrapper.classList.add("mobile-only-desktop");
+
+        // Move the embed into the wrapper
+        embedElement.parentNode.insertBefore(wrapper, embedElement);
+        wrapper.appendChild(embedElement);
+
+        // Create border element
+        const border = document.createElement("div");
+        border.className = "interactive-border";
+        wrapper.appendChild(border);
+
+        // Create hint element
+        const hint = document.createElement("div");
+        hint.className = "interaction-hint";
+        hint.textContent = hintText;
+        wrapper.appendChild(hint);
+
+        // Create mobile overlay
+        if (desktopOnly) {
+          const mobileOverlay = document.createElement("div");
+          mobileOverlay.className = "mobile-overlay";
+          const mobileMessage = document.createElement("div");
+          mobileMessage.className = "mobile-message";
+          mobileMessage.textContent = mobileText;
+          mobileOverlay.appendChild(mobileMessage);
+          wrapper.appendChild(mobileOverlay);
+        }
+
+        // Add interaction handlers
+        wrapper.addEventListener("mouseenter", () => {
+          border.classList.add("is-interacting");
+          hint.classList.add("is-hidden");
+        });
+
+        wrapper.addEventListener("mouseleave", () => {
+          border.classList.remove("is-interacting");
+          hint.classList.remove("is-hidden");
+        });
+
+        // Touch device handling
+        wrapper.addEventListener("touchstart", () => {
+          border.classList.add("is-interacting");
+          hint.classList.add("is-hidden");
+        });
+
+        wrapper.addEventListener("touchend", () => {
+          setTimeout(() => {
+            border.classList.remove("is-interacting");
+            hint.classList.remove("is-hidden");
+          }, 1000);
+        });
+      }
+
+      document.addEventListener("DOMContentLoaded", () => {
+        // Enhance the base10.html embed
+        const base10Embed = document.querySelector('embed[src*="base10.html"]');
+        if (base10Embed) {
+          enhanceInteractiveEmbed(base10Embed, {
+            hintText: "Click to explore interface",
+            desktopOnly: true,
+            mobileText: "Best experienced on desktop",
+          });
+        }
+      });
+    </script>
   </body>
 </html>

@@ -23,6 +23,16 @@ embed {
   aspect-ratio: 4/3;
 }
 
+a {
+  text-decoration: none;
+  color: inherit;
+  opacity: 100%;
+}
+
+a:hover {
+  opacity: 50%;
+}
+
 video {
   -webkit-backface-visibility: hidden;
   -moz-backface-visibility: hidden;
@@ -669,6 +679,36 @@ canvas {
   box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0.75);
 }
 
+@media (max-width: 768px) {
+  .btn {
+    position: relative;
+    cursor: not-allowed;
+    background-color: #404040; /* Darker grey to indicate disabled state */
+  }
+
+  .btn::after {
+    content: "Best experienced on desktop";
+    position: absolute;
+    top: -40px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(4px);
+    padding: 0.5rem 1rem;
+    border-radius: 9999px;
+    font-size: 0.875rem;
+    color: rgba(255, 255, 255, 0.9);
+    white-space: nowrap;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+      sans-serif;
+  }
+
+  /* Prevent the button from working on mobile */
+  .btn-mobile-disabled {
+    pointer-events: none;
+  }
+}
+
 /* the boxes */
 
 .tabs {
@@ -782,5 +822,81 @@ canvas {
 @media (max-width: 768px) {
   .stat-grid {
     grid-template-columns: 1fr;
+  }
+}
+
+/* Add these styles to your CSS file */
+.footer-section {
+  margin-top: 6rem;
+  padding-bottom: 2rem;
+  border-top: 1px solid #333;
+}
+
+.footer-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 2rem 0;
+}
+
+.footer-attribution {
+  color: #888;
+  font-size: 0.875rem;
+}
+
+.footer-email {
+  color: #888;
+  font-size: 0.875rem;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.footer-email:hover {
+  color: #f1f1f1;
+}
+
+.footer-navigation {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.nav-arrow {
+  color: #888;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+  transition: color 0.2s ease;
+  position: relative;
+}
+
+.nav-arrow:hover {
+  color: #f1f1f1;
+}
+
+.nav-arrow::before {
+  content: attr(data-tooltip);
+  position: absolute;
+  top: -2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.75rem;
+  color: #888;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  pointer-events: none;
+}
+
+.nav-arrow:hover::before {
+  opacity: 1;
+}
+
+/* Media query for larger screens */
+@media (min-width: 768px) {
+  .footer-container {
+    flex-direction: row;
+    justify-content: space-between;
   }
 }
