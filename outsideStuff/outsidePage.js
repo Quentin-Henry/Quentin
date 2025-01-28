@@ -305,3 +305,187 @@ document.addEventListener("DOMContentLoaded", function () {
   updateIconBasedOnValue(fovSlider, "rangeiconimg2", 35, fovIcons);
   updateIconBasedOnValue(musicVolumeSlider, "rangeiconimg3", 0.25, volumeIcons);
 });
+
+// Modified intro handling in outsidePage.js
+
+// Remove click event listener setup
+let introdiv = document.getElementById("intro");
+
+function initializeTerminal() {
+  const introDom = document.getElementById("intro");
+  if (!introDom) return;
+
+  // Remove the existing diagram if it exists
+  const existingDiagram = document.getElementById("diagram");
+  if (existingDiagram) {
+    existingDiagram.remove();
+  }
+
+  // Create the terminal content container
+  const terminal = document.createElement("div");
+  terminal.className = "terminal-content";
+  terminal.style.cssText = `
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 60%;
+    background: rgba(0, 0, 0, 0.0);
+    color: #00ff00;
+    font-family: monospace;
+    padding: 20px;
+    overflow: auto;
+    white-space: pre;
+    z-index: 1000;
+    pointer-events: none;
+  `;
+
+  introDom.appendChild(terminal);
+
+  const codeSnippets = [
+    `[SYSTEM] Initializing outdoor simulation environment...`,
+
+    `[SYSTEM] Loading rendering engine...
+// Initialize THREE.js
+const renderer = new THREE.WebGLRenderer({ antialias: false });
+renderer.shadowMap.enabled = true;
+renderer.setPixelRatio(window.devicePixelRatio);`,
+
+    `[SYSTEM] Configuring camera...
+const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 1.0, 1000.0);
+camera.position.set(0, 2, 0);`,
+
+    `[SYSTEM] Loading random environment...
+const modelIndex = Math.floor(Math.random() * availableModels.length);
+const selectedModel = availableModels[modelIndex];
+// Loading {selectedModel}...`,
+
+    `[SYSTEM] Initializing physics engine...
+this.raycaster = new THREE.Raycaster();
+this.raycaster.ray.direction.set(0, -1, 0);
+this.objects_ = [];`,
+
+    `[SYSTEM] Setting up environmental audio...
+const audioFiles = [
+  "audio/footstep_1.mp3",
+  "audio/footstep_2.mp3",
+  "audio/footstep_3.mp3"
+];
+this.backgroundMusic.loop = true;`,
+
+    `[SYSTEM] Configuring lighting...
+const ambientLight = new THREE.AmbientLight(0xffffff, 2.5);
+const hemiLight = new THREE.HemisphereLight(0xffff80, 0x808080, 0.5);
+scene.add(ambientLight);
+scene.add(hemiLight);`,
+
+    `[SYSTEM] Initializing input controls...
+this.movementSpeed_ = 3;
+this.headBobTimer_ = 0;
+this.phi_ = 0;
+this.theta_ = 0;`,
+
+    `[SYSTEM] Starting render loop...
+requestAnimationFrame((t) => {
+  const timeElapsedS = timeElapsed * 0.001;
+  this.fpsCamera_.update(timeElapsedS);
+  this.threejs_.render(this.scene_, this.camera_);
+});`,
+
+    `[SYSTEM] All systems initialized.
+[SYSTEM] Ready for simulation.
+
+Controls:
+WASD - Movement
+Mouse - Look around
+ESC - Exit fullscreen
+
+go outside? [Y/N]: `,
+  ];
+
+  let currentSnippet = 0;
+  let displayedText = "";
+  let inputEnabled = false;
+
+  function endintro() {
+    // Add the clicked class to trigger the transition
+    introDom.className = "clicked";
+    // Clean up event listeners
+    document.removeEventListener("keypress", handleInput);
+  }
+
+  function addNextSnippet() {
+    if (currentSnippet >= codeSnippets.length) {
+      // When done, add blinking cursor
+      const cursor = document.createElement("span");
+      cursor.style.cssText = `
+        display: inline-block;
+        width: 8px;
+        height: 16px;
+        background: #00ff00;
+        animation: blink 1s infinite;
+        margin-left: 4px;
+      `;
+      cursor.textContent = "_";
+      terminal.appendChild(cursor);
+
+      // Enable input only after all text is displayed
+      inputEnabled = true;
+      return;
+    }
+
+    displayedText += codeSnippets[currentSnippet] + "\n\n";
+    terminal.textContent = displayedText;
+    currentSnippet++;
+
+    // Scroll to bottom
+    terminal.scrollTop = terminal.scrollHeight;
+
+    // Faster random delay between snippets (30-80ms)
+    const delay = Math.random() * 50 + 30;
+    setTimeout(addNextSnippet, delay);
+  }
+
+  function handleInput(e) {
+    if (!inputEnabled) return;
+
+    if (e.key.toLowerCase() === "y") {
+      // Remove the event listener
+      document.removeEventListener("keypress", handleInput);
+      // Add a brief delay before transition
+      setTimeout(() => {
+        terminal.style.opacity = "0";
+        terminal.style.transition = "opacity 0.5s";
+        setTimeout(() => {
+          endintro();
+        }, 500);
+      }, 100);
+    } else if (e.key.toLowerCase() === "n") {
+      // Optional: Add some response to 'N' input
+      displayedText += "\nSimulation declined. Press Y to proceed...\n";
+      terminal.textContent = displayedText;
+    }
+  }
+
+  // Add blinking cursor animation
+  const style = document.createElement("style");
+  style.textContent = `
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+    .terminal-content {
+      transition: opacity 0.5s;
+    }
+  `;
+  document.head.appendChild(style);
+
+  // Add keyboard input listener
+  document.addEventListener("keypress", handleInput);
+
+  // Start the animation
+  addNextSnippet();
+}
+
+// Initialize when the page loads
+document.addEventListener("DOMContentLoaded", initializeTerminal);
