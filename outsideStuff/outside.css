@@ -297,7 +297,7 @@ body {
 }
 
 .menu-system {
-  font-size: 0.5rem;
+  font-size: 0.75rem;
 
   font-family: "W95FA", sans-serif;
 
@@ -389,7 +389,7 @@ body {
   padding: 0.5rem 1rem;
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 1rem;
   background: none;
   border: none;
   text-align: left;
@@ -471,14 +471,14 @@ body {
 }
 
 .title {
-  font-size: 0.75rem;
+  font-size: 1rem;
   pointer-events: none;
   user-select: none;
 }
 
 input[type="range"] {
   -webkit-appearance: none;
-  width: 200px;
+  width: 100px;
   height: 20px;
   background: transparent;
   margin: 20px;
