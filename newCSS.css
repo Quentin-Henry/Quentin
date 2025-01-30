@@ -900,3 +900,153 @@ canvas {
     justify-content: space-between;
   }
 }
+
+/* Code Showcase Styles */
+.code-showcase {
+  margin: 2rem 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  width: 100%;
+}
+
+.code-header h3 {
+  font-size: clamp(1rem, 2vw, 1.125rem);
+  font-weight: 500;
+  color: #888;
+  margin-bottom: 1.5rem;
+}
+
+.code-examples {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 100%;
+}
+
+.code-example {
+  border: 1px solid #333;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  background: rgba(0, 0, 0, 0.2);
+  width: 100%;
+}
+
+.code-example-header {
+  width: 100%;
+  padding: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: inherit;
+  text-align: left;
+}
+
+.code-example-header:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.code-example-title {
+  flex: 1;
+  min-width: 0; /* Allows text to wrap properly */
+}
+
+.code-example-title h4 {
+  color: #f1f1f1;
+  font-size: clamp(0.875rem, 1.5vw, 1rem);
+  font-weight: 500;
+  margin-bottom: 0.25rem;
+  word-wrap: break-word;
+}
+
+.code-example-title p {
+  color: #888;
+  font-size: clamp(0.75rem, 1.25vw, 0.875rem);
+  word-wrap: break-word;
+}
+
+.chevron {
+  transition: transform 0.2s ease;
+  flex-shrink: 0;
+  width: clamp(16px, 2vw, 24px);
+  height: clamp(16px, 2vw, 24px);
+  margin-left: 1rem;
+}
+
+.code-example-header.expanded .chevron {
+  transform: rotate(180deg);
+}
+
+.code-content {
+  border-top: 1px solid #333;
+  padding: 1rem;
+  width: 100%;
+}
+
+.code-language {
+  color: #888;
+  font-size: clamp(0.75rem, 1.25vw, 0.875rem);
+  margin-bottom: 0.5rem;
+}
+
+.code-content pre {
+  margin: 0;
+  padding: 1rem;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 0.25rem;
+  overflow-x: auto;
+  width: 100%;
+  max-width: 100%;
+}
+
+.code-content code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: clamp(0.75rem, 1.5vw, 0.875rem);
+  line-height: 1.5;
+  color: #f1f1f1;
+  white-space: pre-wrap;
+  word-break: break-word;
+  display: block;
+  width: 100%;
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+  .code-showcase {
+    margin: 1rem 0;
+  }
+
+  .code-example-header {
+    padding: 0.75rem;
+  }
+
+  .code-content {
+    padding: 0.75rem;
+  }
+
+  .code-content pre {
+    padding: 0.75rem;
+  }
+
+  /* Ensure text remains readable on very small screens */
+  .code-content code {
+    min-width: 0;
+    font-size: 0.75rem; /* Minimum size on mobile */
+  }
+}
+
+/* Handle horizontal scrolling for long lines of code */
+.code-content pre::-webkit-scrollbar {
+  height: 8px;
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.code-content pre::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+}
+
+.code-content pre::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(255, 255, 255, 0.3);
+}
