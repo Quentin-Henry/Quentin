@@ -1,7 +1,7 @@
 :root {
   --primary-color: #d0483e;
   --text-color: #2a2a2a;
-  --background-color: #fafafa;
+  --background-color: #fffdf9;
   --card-background: rgba(255, 255, 255, 0.98);
   --nav-background: rgba(255, 255, 255, 0.98);
   --shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
@@ -184,7 +184,7 @@ blockquote cite {
 }
 
 .section-content {
-  width: 90%;
+  width: 85%;
   max-width: 1200px;
   display: flex;
   flex-direction: column;
@@ -193,6 +193,9 @@ blockquote cite {
   opacity: 0;
   transform: translateY(20px);
   transition: opacity 0.6s ease, transform 0.6s ease;
+  background-color: #ffffff;
+  border-radius: 2rem;
+  box-shadow: var(--shadow);
 }
 
 .section-content.visible {
@@ -205,17 +208,15 @@ blockquote cite {
   font-size: clamp(2.5rem, 5vw, 3.5rem);
   color: var(--primary-color);
   font-weight: 500;
-  margin-bottom: 3rem;
   text-align: left;
+  padding: 3rem;
 }
 
 /* Full-width card styles */
 .full-width-card {
-  background: var(--card-background);
   border-radius: 40px;
   padding: 3rem;
   width: 100%;
-  box-shadow: var(--shadow);
   transition: transform 0.3s ease;
   position: relative;
 }

@@ -1,0 +1,231 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  --main-bg-color: #000000; /*#1d1d1d*/
+  --main-txt-color: #f1f1f1; /*#f1f1f1*/
+  --support-txt-color: #888; /*#888*/
+}
+a {
+  text-decoration: none;
+  color: var(--main-txt-color);
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background: var(--main-bg-color);
+  color: var(--main-txt-color);
+  height: 100vh;
+  overflow: hidden;
+}
+
+.container {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.header {
+  position: fixed;
+  top: 2rem;
+  left: 2rem;
+  z-index: 2;
+}
+
+.name {
+  font-size: 1.25rem;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+}
+
+/* Filter Dropdown Styles */
+.filter-dropdown {
+  position: fixed;
+  top: 5rem;
+  left: 1rem;
+  z-index: 100;
+}
+
+.filter-trigger {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem 0.5rem 1rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--support-txt-color);
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.filter-trigger svg {
+  transition: transform 0.2s ease;
+}
+
+.filter-menu {
+  position: absolute;
+  top: 100%;
+  margin-top: 0.5rem;
+  background: var(--main-bg-color);
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px);
+  transition: all 0.7s ease;
+}
+
+.filter-dropdown.open .filter-menu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.filter-option {
+  display: block;
+  width: 100%;
+  padding: 0.5rem 1rem;
+  text-align: left;
+  background: none;
+  border: none;
+  color: #787878;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.filter-option:hover {
+  background: #272727;
+  color: #ffffff;
+}
+
+.filter-option.active {
+  color: #ffffff;
+  font-weight: 500;
+}
+
+/* Project List Styles */
+.project-list {
+  position: absolute;
+  top: -1rem;
+  left: 12rem;
+  right: 8rem;
+  height: 110vh;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  padding-top: 6rem;
+  padding-bottom: 4rem;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.project-list::-webkit-scrollbar {
+  display: none;
+}
+
+.category-projects {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.project {
+  position: relative;
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform, opacity;
+}
+
+.project:hover {
+  transform: translateX(2rem);
+}
+
+.project.dim {
+  opacity: 0.3;
+  transform: translateX(0);
+  transition: all 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.project.hidden {
+  display: none;
+}
+
+.project-title {
+  font-size: min(5vw, 4.5rem);
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  margin-bottom: 0.5rem;
+}
+
+.project-info {
+  font-size: 1rem;
+  color: var(--support-txt-color);
+  margin-left: 0.2rem;
+}
+
+/* Mobile Styles */
+@media (max-width: 768px) {
+  .header {
+    left: 1rem;
+  }
+
+  .project-list.mobile-view {
+    left: 0;
+    right: 0;
+    padding: 1rem;
+    overflow-y: hidden;
+    overflow-x: scroll;
+    display: flex;
+    gap: 2rem;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 6rem;
+  }
+
+  .category-projects.mobile-view {
+    flex-direction: row;
+    min-width: min-content;
+    gap: 2rem;
+    padding: 1rem;
+    top: 5rem;
+  }
+
+  .project {
+    scroll-snap-align: start;
+    min-width: 80vw;
+    padding: 1rem;
+  }
+
+  .project:hover {
+    transform: translateX(0.5rem);
+  }
+
+  .project-title {
+    font-size: clamp(4rem, 8vw, 3.5rem);
+    white-space: nowrap;
+  }
+
+  .filter-dropdown {
+    position: fixed;
+    bottom: 1rem;
+    top: auto;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .filter-menu {
+    bottom: 100%;
+    top: auto;
+    left: 50%;
+    transform: translateX(-50%) translateY(-10px);
+    margin-bottom: 0.5rem;
+    width: 200px;
+  }
+
+  .filter-dropdown.open .filter-menu {
+    transform: translateX(-50%) translateY(0);
+  }
+}
