@@ -76,6 +76,12 @@ function initializeTerminal() {
   terminal.className = "terminal-content";
   introDom.appendChild(terminal);
 
+  // Check if this is a repeat visit in the current session
+  const isRepeatVisit = localStorage.getItem("hasVisitedBefore") === "true";
+
+  // Set the session flag for future visits
+  localStorage.setItem("hasVisitedBefore", "true");
+
   const codeSnippets = [
     `[SYSTEM] Initializing outdoor simulation environment...`,
 
@@ -605,26 +611,45 @@ go outside? [Y/N]: `,
   let currentSnippet = 0;
   let displayedText = "";
   let inputEnabled = false;
+  let isTypingY = false;
 
-  function endintro() {
+  function endIntro() {
     document.body.classList.add("intro-complete");
     introDom.className = "clicked";
     document.removeEventListener("keypress", handleInput);
+    document.removeEventListener("click", handleClick);
+  }
+
+  function simulateTypeY() {
+    if (isTypingY) return;
+
+    isTypingY = true;
+    displayedText += "Y";
+    terminal.textContent = displayedText;
+    terminal.scrollTop = terminal.scrollHeight;
+
+    // Add a small delay before ending intro (simulates pressing Enter)
+    setTimeout(() => {
+      terminal.style.opacity = "0";
+      terminal.style.transition = "opacity 0.5s";
+      setTimeout(endIntro, 500);
+    }, 400);
   }
 
   function handleInput(e) {
-    if (!inputEnabled) return;
+    if (!inputEnabled || isTypingY) return;
 
     if (e.key.toLowerCase() === "y") {
-      inputEnabled = false;
-      setTimeout(() => {
-        terminal.style.opacity = "0";
-        terminal.style.transition = "opacity 0.5s";
-        setTimeout(endintro, 500);
-      }, 100);
+      simulateTypeY();
     } else if (e.key.toLowerCase() === "n") {
       displayedText += "\nSimulation declined. Press Y to proceed...\n";
       terminal.textContent = displayedText;
+    }
+  }
+
+  function handleClick() {
+    if (inputEnabled && !isTypingY) {
+      simulateTypeY();
     }
   }
 
@@ -642,6 +667,12 @@ go outside? [Y/N]: `,
       cursor.textContent = "_";
       terminal.appendChild(cursor);
       inputEnabled = true;
+
+      // Auto-continue after a delay if this is a repeat visit
+      if (isRepeatVisit) {
+        setTimeout(simulateTypeY, 1500);
+      }
+
       return;
     }
 
@@ -650,25 +681,33 @@ go outside? [Y/N]: `,
     currentSnippet++;
     terminal.scrollTop = terminal.scrollHeight;
 
-    // Create variable delays based on the content
+    // Determine delay based on content and whether this is a repeat visit
     let delay;
     const currentText = codeSnippets[currentSnippet - 1];
+    const speedMultiplier = isRepeatVisit ? 0.1 : 1; // 10x faster on repeat visits
 
-    if (currentText.startsWith("[SYSTEM]")) {
-      // Longer delay after system messages (500ms to 1000ms)
-      delay = Math.random() * 100 + 500;
-    } else if (currentText.includes("...")) {
-      // Medium delay after loading messages (300ms to 800ms)
-      delay = Math.random() * 100 + 300;
+    if (isRepeatVisit) {
+      // For repeat visits, use a very minimal delay between snippets
+      delay = 25; // Just enough delay to show movement
     } else {
-      // Shorter delay for code snippets (50ms to 200ms)
-      delay = Math.random() * 150 + 50;
+      // First visit gets the full experience
+      if (currentText.startsWith("[SYSTEM]")) {
+        // Longer delay after system messages
+        delay = Math.random() * 100 + 500;
+      } else if (currentText.includes("...")) {
+        // Medium delay after loading messages
+        delay = Math.random() * 100 + 300;
+      } else {
+        // Shorter delay for code snippets
+        delay = Math.random() * 150 + 50;
+      }
     }
 
     setTimeout(addNextSnippet, delay);
   }
 
   document.addEventListener("keypress", handleInput);
+  document.addEventListener("click", handleClick);
   addNextSnippet();
 }
 
