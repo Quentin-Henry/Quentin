@@ -1,0 +1,865 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: white;
+        }
+
+        .header{
+            position: fixed;
+            top: 1;
+            right: 1;
+            z-index: 99999;
+            font-size: 20px;
+
+            
+        }
+
+        /* ===== HERO SECTION ===== */
+        .hero-section {
+            position: relative;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        canvas {
+            display: block;
+            background: white;
+            cursor: crosshair;
+        }
+
+        .hotspot-indicator {
+            position: fixed;
+            background: rgba(0, 128, 255, 0);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 50;
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: rgba(0, 0, 0, 0.3);
+            font-size: 14px;
+            letter-spacing: 0.1em;
+            animation: fadeInOut 2s ease-in-out infinite;
+        }
+
+        @keyframes fadeInOut {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 0.8; }
+        }
+
+        .toggle-controls {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            font-size: 20px;
+            z-index: 101;
+        }
+        .toggle-controls:hover {
+            background: rgba(0, 0, 0, 1);
+        }
+
+        .controls {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            font-size: 13px;
+            min-width: 250px;
+            max-height: calc(100vh - 40px);
+            overflow-y: auto;
+            z-index: 100;
+            display: none;
+            font-family: system-ui, -apple-system, sans-serif;
+        }
+        .controls.visible {
+            display: block;
+        }
+
+        .control-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+            color: #333;
+        }
+
+        textarea {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+            font-family: "Times New Roman", Times, serif;
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .value {
+            display: inline-block;
+            float: right;
+            color: #666;
+        }
+
+        select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        input[type="range"] {
+            width: 100%;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background: #000;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 13px;
+            margin-top: 5px;
+        }
+        button:hover {
+            background: #333;
+        }
+
+        .info {
+            margin-top: 15px;
+            padding: 10px;
+            background: #f8f8f8;
+            border-radius: 4px;
+            font-size: 11px;
+            color: #666;
+            line-height: 1.4;
+        }
+
+        /* ===== PORTFOLIO SECTION ===== */
+        .portfolio-section {
+            min-height: 100vh;
+            padding: 4rem 2rem;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .content-wrapper {
+            width: 100%;
+            max-width: 1200px;
+            display: grid;
+            grid-template-columns: 2rem 1fr;
+            gap: 0 2rem;
+            width: fit-content;
+        }
+
+        /* Filter Navigation */
+        .filter-nav {
+            grid-column: 1;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.125rem;
+            margin-bottom: 3rem;
+            width: 20rem;
+        }
+
+        .filter-nav span {
+            color: #9ca3af;
+        }
+
+        .filter-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1.125rem;
+            color: #9ca3af;
+            transition: color 0.2s;
+            font-weight: normal;
+            width: fit-content;
+        }
+
+        .filter-btn:hover {
+            color: #6b7280;
+        }
+
+        .filter-btn.active {
+            color: black;
+        }
+
+        /* Portfolio List */
+        .portfolio-list {
+            grid-column: 1 / 3;
+            display: flex;
+            flex-direction: column;
+            gap: 3rem;
+        }
+
+        .portfolio-list:has(.image-container:hover) .portfolio-item:not(:has(.image-container:hover)) {
+            opacity: 0.4;
+        }
+
+        /* Portfolio Item */
+        .portfolio-item {
+            display: grid;
+            grid-template-columns: 2rem 1fr;
+            gap: 0 2rem;
+            position: relative;
+            transition: opacity 0.3s ease 1s;
+        }
+
+        .portfolio-item.hidden {
+            display: none;
+        }
+
+        .item-number {
+            grid-column: 1;
+            font-size: 1.125rem;
+            color: black;
+            font-weight: normal;
+        }
+
+        .item-content {
+            grid-column: 2;
+            display: flex;
+            gap: 5rem;
+            justify-content: space-between;
+        }
+
+        .text-content {
+            width: 200px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .headline {
+            font-size: 1.125rem;
+            color: black;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+            font-weight: normal;
+        }
+
+        .description {
+            font-size: 1.125rem;
+            color: #0000008c;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+            font-weight: normal;
+        }
+
+        .tags {
+            display: flex;
+            gap: 0.75rem;
+            font-size: 1.125rem;
+            color: #00000038;
+            font-weight: normal;
+            margin-top: auto;
+        }
+
+        /* Image Container */
+        .image-container {
+            width: 200px;
+            flex-shrink: 0;
+            position: relative;
+            transition: width 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.5s;
+        }
+
+        .image-box {
+            width: 100%;
+            height: 200px;
+            aspect-ratio: auto;
+            background: #e5e5e5;
+            border-radius: 2px;
+            overflow: hidden;
+            position: relative;
+            transition: height 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) 1s;
+        }
+
+        .image-box video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Project Button */
+        .project-btn {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: white;
+            border: 1px solid #e5e5e5;
+            border-radius: 2px;
+            width: 2.5rem;
+            height: 2.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: black;
+            cursor: pointer;
+            opacity: 0;
+            transform: translateY(-10px);
+            transition: opacity 0.3s ease 0.8s, transform 0.3s ease 0.8s;
+            z-index: 10;
+            text-decoration: none;
+        }
+
+        .project-btn:hover {
+            background: #f5f5f5;
+        }
+
+        .image-container:hover .project-btn {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .image-container:hover {
+            width: 600px;
+        }
+
+        .image-container:hover .image-box {
+            height: 600px;
+        }
+
+        /* Text expansion */
+        .extended-description {
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+            transition: max-height 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) 1s,
+                        opacity 0.5s ease 1s;
+            font-size: 1.125rem;
+            color: #0000008c;
+            line-height: 1.6;
+            margin-top: 1rem;
+        }
+
+        .image-container:hover ~ .text-content .extended-description {
+            max-height: 500px;
+            opacity: 1;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .item-content {
+                flex-direction: column-reverse;
+            }
+
+            .text-content {
+                max-width: 100%;
+            }
+
+            .image-container {
+                width: 100%;
+                max-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">[Quentin Henry]</div>
+    <!-- Hero Section -->
+    <div class="hero-section">
+        <canvas id="canvas"></canvas>
+        <div class="hotspot-indicator" id="hotspotIndicator"></div>
+        <div class="scroll-indicator"></div>
+
+        <button class="toggle-controls" id="toggleControls">⚙</button>
+
+        <div class="controls" id="controls">
+            <div class="control-group">
+                <label>Bio Text</label>
+                <textarea id="textInput">Quentin Henry is an artist, designer, and writer based in New York. His work spans digital experiences, photography, and code.</textarea>
+            </div>
+
+            <div class="control-group">
+                <label>Text Width <span class="value" id="textWidthValue">40</span>%</label>
+                <input type="range" id="textWidth" min="30" max="90" step="5" value="40" />
+            </div>
+
+            <div class="control-group">
+                <label>Interaction Mode</label>
+                <select id="interactionMode">
+                    <option value="hotspot">Hotspot + Click</option>
+                    <option value="tap">Click Only</option>
+                </select>
+            </div>
+
+            <button id="randomizeHotspot">Randomize Hotspot</button>
+
+            <div class="info">
+                <strong>Hotspot + Click:</strong> Find the circular zone on the canvas to bring text into focus. Click anywhere to toggle focus on/off.
+            </div>
+        </div>
+    </div>
+
+    <!-- Portfolio Section -->
+    <div class="portfolio-section">
+        <div class="container">
+            <div class="content-wrapper">
+                <!-- Filter Navigation -->
+                <div class="filter-nav">
+                    <span>[</span>
+                    <button class="filter-btn active" data-filter="No Filter">No Filter</button>
+                    <span>:</span>
+                    <button class="filter-btn" data-filter="Studio">Studio</button>
+                    <span>:</span>
+                    <button class="filter-btn" data-filter="Lab">Lab</button>
+                    <span>]</span>
+                </div>
+
+                <!-- Portfolio List -->
+                <div class="portfolio-list" id="portfolioList"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ===== HERO SECTION SCRIPT =====
+        const canvas = document.getElementById("canvas");
+        const ctx = canvas.getContext("2d");
+        const hotspotIndicator = document.getElementById("hotspotIndicator");
+
+        let settings = {
+            text: "Quentin Henry is an artist, designer, and writer from New York. His work spans digital experiences, photography, and code.",
+            surfaceType: "wave",
+            minFontSize: 48,
+            maxFontSize: 72,
+            fontWeight: "400",
+            fontFamily: "'helvetica', Times, serif",
+            lineHeight: 1.4,
+            textWidth: 40,
+            interactionMode: "hotspot",
+            minDepth: 100,
+            maxDepth: 600,
+            wave: {
+                minCurvature: 1.1,
+                maxCurvature: 5.0,
+                minAmplitude: 5,
+                maxAmplitude: 400,
+                minRotation: 0.1,
+                maxRotation: 0.5,
+            },
+        };
+
+        let mouse = { x: 0.5, y: 0.5 };
+        let targetRotation = { x: 0, y: 0 };
+        let currentRotation = { x: 0, y: 0 };
+        let isFocused = true;
+        let focusAmount = 1;
+        let hotspot = { x: 0.5, y: 0.5 };
+        let hotspotVisualRadius = 0.15;
+        let hotspotInteractionRadius = 0.25;
+        let hotspotMaxFocusRadius = 0.1;
+        let hasMovedMouse = false;
+
+        function updateHotspotIndicator() {
+            const x = hotspot.x * canvas.width;
+            const y = hotspot.y * canvas.height;
+            const radius = canvas.width * hotspotVisualRadius;
+
+            hotspotIndicator.style.left = x - radius + "px";
+            hotspotIndicator.style.top = y - radius + "px";
+            hotspotIndicator.style.width = radius * 2 + "px";
+            hotspotIndicator.style.height = radius * 2 + "px";
+        }
+
+        function randomizeHotspot() {
+            hotspot.x = 0.25 + Math.random() * 0.5;
+            hotspot.y = 0.25 + Math.random() * 0.5;
+            updateHotspotIndicator();
+        }
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            updateHotspotIndicator();
+        }
+        resizeCanvas();
+        randomizeHotspot();
+
+        canvas.addEventListener("mousemove", (e) => {
+            mouse.x = e.clientX / canvas.width;
+            mouse.y = e.clientY / canvas.height;
+
+            if (!hasMovedMouse) {
+                hasMovedMouse = true;
+                isFocused = false;
+            }
+        });
+
+        canvas.addEventListener("click", (e) => {
+            isFocused = !isFocused;
+        });
+
+        document.getElementById("toggleControls").addEventListener("click", () => {
+            document.getElementById("controls").classList.toggle("visible");
+        });
+
+        document.getElementById("textInput").addEventListener("input", (e) => {
+            settings.text = e.target.value;
+        });
+
+        document.getElementById("textWidth").addEventListener("input", (e) => {
+            settings.textWidth = parseFloat(e.target.value);
+            document.getElementById("textWidthValue").textContent = e.target.value;
+        });
+
+        document.getElementById("interactionMode").addEventListener("change", (e) => {
+            settings.interactionMode = e.target.value;
+            hotspotIndicator.style.display = e.target.value === "hotspot" ? "block" : "none";
+        });
+
+        document.getElementById("randomizeHotspot").addEventListener("click", () => {
+            randomizeHotspot();
+        });
+
+        window.addEventListener("resize", resizeCanvas);
+
+        function wrapText(text, maxWidth, fontSize) {
+            ctx.font = `${settings.fontWeight} ${fontSize}px ${settings.fontFamily}`;
+            const words = text.split(" ");
+            const lines = [];
+            let currentLine = "";
+
+            for (let word of words) {
+                const testLine = currentLine + (currentLine ? " " : "") + word;
+                const metrics = ctx.measureText(testLine);
+
+                if (metrics.width > maxWidth && currentLine !== "") {
+                    lines.push(currentLine);
+                    currentLine = word;
+                } else {
+                    currentLine = testLine;
+                }
+            }
+            if (currentLine) {
+                lines.push(currentLine);
+            }
+
+            return lines;
+        }
+
+        function project3D(x, y, z, depth) {
+            const scale = depth / (depth + z);
+            return {
+                x: canvas.width / 2 + x * scale,
+                y: canvas.height / 2 + y * scale,
+                scale: scale,
+            };
+        }
+
+        function applySurface(x, y, lineIndex, totalLines, depth, curvature, amplitude) {
+            const normalizedY = lineIndex / Math.max(1, totalLines - 1) - 0.5;
+            const normalizedX = x / canvas.width - 0.5;
+
+            let x3d = x - canvas.width / 2;
+            let y3d = y - canvas.height / 2;
+            let z3d = 0;
+
+            z3d = Math.sin(normalizedX * Math.PI * 2 * curvature) * 150 * amplitude;
+            z3d += Math.sin(normalizedY * Math.PI * 2) * 100 * amplitude;
+
+            const cosX = Math.cos(currentRotation.x);
+            const sinX = Math.sin(currentRotation.x);
+            const cosY = Math.cos(currentRotation.y);
+            const sinY = Math.sin(currentRotation.y);
+
+            let tempX = x3d * cosY - z3d * sinY;
+            let tempZ = x3d * sinY + z3d * cosY;
+            x3d = tempX;
+            z3d = tempZ;
+
+            let tempY = y3d * cosX - z3d * sinX;
+            tempZ = y3d * sinX + z3d * cosX;
+            y3d = tempY;
+            z3d = tempZ;
+
+            return { x: x3d, y: y3d, z: z3d };
+        }
+
+        function draw() {
+            let targetFocus = 0;
+
+            if (settings.interactionMode === "hotspot") {
+                if (isFocused) {
+                    targetFocus = 1;
+                } else {
+                    const dx = mouse.x - hotspot.x;
+                    const dy = mouse.y - hotspot.y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+
+                    if (distance <= hotspotMaxFocusRadius) {
+                        targetFocus = 1;
+                    } else if (distance <= hotspotInteractionRadius) {
+                        const falloffDistance = distance - hotspotMaxFocusRadius;
+                        const falloffRange = hotspotInteractionRadius - hotspotMaxFocusRadius;
+                        targetFocus = 1 - falloffDistance / falloffRange;
+                    } else {
+                        targetFocus = 0;
+                    }
+                }
+            } else {
+                targetFocus = isFocused ? 1 : 0;
+            }
+
+            focusAmount += (targetFocus - focusAmount) * 0.1;
+
+            const currentDepth = settings.maxDepth - (settings.maxDepth - settings.minDepth) * focusAmount;
+            const currentFontSize = settings.maxFontSize - (settings.maxFontSize - settings.minFontSize) * focusAmount;
+            const currentCurvature = settings.wave.maxCurvature - (settings.wave.maxCurvature - settings.wave.minCurvature) * focusAmount;
+            const currentAmplitude = (settings.wave.maxAmplitude - (settings.wave.maxAmplitude - settings.wave.minAmplitude) * focusAmount) / 150;
+            const currentSensitivity = settings.wave.maxRotation - (settings.wave.maxRotation - settings.wave.minRotation) * focusAmount;
+
+            targetRotation.y = (mouse.x - 0.5) * Math.PI * currentSensitivity;
+            targetRotation.x = (mouse.y - 0.5) * Math.PI * currentSensitivity;
+
+            currentRotation.x += (targetRotation.x - currentRotation.x) * 0.1;
+            currentRotation.y += (targetRotation.y - currentRotation.y) * 0.1;
+
+            ctx.fillStyle = "white";
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            ctx.font = `${settings.fontWeight} ${currentFontSize}px ${settings.fontFamily}`;
+            ctx.textBaseline = "middle";
+
+            const maxWidth = canvas.width * (settings.textWidth / 100);
+            const lines = wrapText(settings.text, maxWidth, currentFontSize);
+            const lineHeight = currentFontSize * settings.lineHeight;
+
+            const characters = [];
+
+            lines.forEach((line, lineIndex) => {
+                const lineWidth = ctx.measureText(line).width;
+                const startX = (canvas.width - lineWidth) / 2;
+                const startY = (canvas.height - lines.length * lineHeight) / 2 + lineIndex * lineHeight;
+
+                let currentX = startX;
+
+                for (let char of line) {
+                    const charWidth = ctx.measureText(char).width;
+                    const pos3d = applySurface(
+                        currentX + charWidth / 2,
+                        startY,
+                        lineIndex,
+                        lines.length,
+                        currentDepth,
+                        currentCurvature,
+                        currentAmplitude
+                    );
+
+                    characters.push({
+                        char: char,
+                        x: currentX,
+                        y: startY,
+                        x3d: pos3d.x,
+                        y3d: pos3d.y,
+                        z3d: pos3d.z,
+                        width: charWidth,
+                    });
+
+                    currentX += charWidth;
+                }
+            });
+
+            characters.sort((a, b) => a.z3d - b.z3d);
+
+            characters.forEach((char) => {
+                const projected = project3D(char.x3d, char.y3d, char.z3d, currentDepth);
+                const opacity = Math.max(0.2, Math.min(1, 1 - char.z3d / 1000));
+
+                ctx.save();
+                ctx.globalAlpha = opacity;
+                ctx.fillStyle = "#000";
+                ctx.font = `${settings.fontWeight} ${currentFontSize * projected.scale}px ${settings.fontFamily}`;
+                ctx.textBaseline = "middle";
+                ctx.fillText(char.char, projected.x - (char.width * projected.scale) / 2, projected.y);
+                ctx.restore();
+            });
+
+            requestAnimationFrame(draw);
+        }
+
+        draw();
+
+        // ===== PORTFOLIO SECTION SCRIPT =====
+        const portfolioData = [
+            {
+                id: 1,
+                headline: "Qnity · 2025",
+                description: "A spin-off brand poised to power the next leap in electronics",
+                extendedDescription: "Qnity represents a fundamental shift in semiconductor identity—one that honors technical precision while embracing future possibility. Through modular visual systems and precise typography, we established a brand language that speaks to both engineers and visionaries.",
+                video: "./images/qnity_intro.mp4",
+                tags: ["Tag", "Tag 2"],
+                category: "Studio",
+                projectUrl: "/projects/qnity.html"
+            },
+            {
+                id: 2,
+                headline: "Vantor · 2025",
+                description: "Forging the new frontier of spatial intelligence ",
+                extendedDescription: "Vantor needed to communicate the invisible—how machines perceive and understand three-dimensional space. We developed a visual identity built on depth, perspective, and the poetry of computational vision.",
+                video: "./images/vantorIntro (1).mp4",
+                tags: ["Tag", "Tag 2"],
+                category: "Lab",
+                projectUrl: "/projects/vantor.html"
+            },
+            {
+                id: 3,
+                headline: "GM · 2025",
+                description: "Engineered for today and tomorrow",
+                extendedDescription: "Reimagining an American icon for the electric era required balancing heritage with radical innovation. The design system bridges GM's industrial legacy with software-driven experiences.",
+                video: "./images/gmIntro2.mp4",
+                tags: ["Tag", "Tag 2"],
+                category: "Studio",
+                projectUrl: "/projects/gm.html"
+            },
+            {
+                id: 4,
+                headline: "Metlife · 2025",
+                description: "The Beacon is a smart, adaptive experience element designed to guide decisions",
+                extendedDescription: "Insurance requires trust in uncertain futures. The Beacon transforms complex policy information into intuitive, context-aware guidance—always present, never intrusive.",
+                video: "/images/metlifeIntro.mp4",
+                tags: ["Tag", "Tag 2"],
+                category: "Studio",
+                projectUrl: "/projects/metlife.html"
+            },
+            {
+                id: 5,
+                headline: "Kaiser · 2025",
+                description: "Gradient generator",
+                extendedDescription: "Healthcare navigation shouldn't feel clinical. We developed generative systems that bring warmth and humanity to digital health experiences through color, motion, and adaptive interfaces.",
+                video: "/images/Kai.mp4",
+                tags: ["Tag", "Tag 2"],
+                category: "Studio",
+                projectUrl: "/projects/kaiser.html"
+            },
+            {
+                id: 6,
+                headline: "inthebeginingthemoutainshadgreatwings · 2025",
+                description: "Digital spaces",
+                extendedDescription: "A meditation on memory, reconstruction, and the gaps between what was and what remains. This piece explores how we rebuild lost totalities from fragments, and what emerges in the spaces between.",
+                video: "/images/outside.mp4",
+                tags: ["Tag", "Tag 2"],
+                category: "Studio",
+                projectUrl: "/projects/mountains.html"
+            }
+        ];
+
+        function createPortfolioItem(item, index) {
+            return `
+                <article class="portfolio-item" data-category="${item.category}">
+                    <div class="item-number">[${index + 1}]</div>
+                    <div class="item-content">
+                        <div class="image-container">
+                            <a href="${item.projectUrl}" class="project-btn">→</a>
+                            <div class="image-box">
+                                <video muted loop playsinline preload="auto">
+                                    <source src="${item.video}" type="video/mp4">
+                                </video>
+                            </div>
+                        </div>
+                        <div class="text-content">
+                            <h2 class="headline">${item.headline}</h2>
+                            <p class="description">${item.description}</p>
+                            <p class="extended-description">${item.extendedDescription}</p>
+                            <div class="tags">
+                                ${item.tags.map(tag => `<span>${tag}</span>`).join('<span>·</span>')}
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            `;
+        }
+
+        function renderPortfolio() {
+            const container = document.getElementById('portfolioList');
+            container.innerHTML = portfolioData.map((item, index) => createPortfolioItem(item, index)).join('');
+        }
+
+        function setupFilters() {
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            const portfolioItems = document.querySelectorAll('.portfolio-item');
+
+            filterButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+
+                    const filter = button.dataset.filter;
+
+                    portfolioItems.forEach(item => {
+                        if (filter === 'No Filter' || item.dataset.category === filter) {
+                            item.classList.remove('hidden');
+                        } else {
+                            item.classList.add('hidden');
+                        }
+                    });
+                });
+            });
+        }
+
+        function setupVideoHovers() {
+            const imageContainers = document.querySelectorAll('.image-container');
+
+            imageContainers.forEach(container => {
+                const video = container.querySelector('video');
+
+                container.addEventListener('mouseenter', () => {
+                    if (video) {
+                        video.play();
+                    }
+                });
+
+                container.addEventListener('mouseleave', () => {
+                    if (video) {
+                        video.pause();
+                        video.currentTime = 0;
+                    }
+                });
+            });
+        }
+
+        renderPortfolio();
+        setupFilters();
+        setupVideoHovers();
+    </script>
+</body>
+</html>
