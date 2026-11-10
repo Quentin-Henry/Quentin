@@ -34,12 +34,13 @@
     }
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
     /* iOS Safari only draws page content under its floating toolbar when that
-       content is part of the page, not clipped by overflow:hidden on the root or
-       pinned with position:fixed. So: the page is exactly one "large viewport"
-       tall (100lvh, the height with the toolbars tucked away) and the canvas sits
-       in it normally. Elsewhere lvh = vh, so nothing scrolls. */
-    html { background: var(--bg); }
-    body { min-height: 100vh; min-height: 100lvh; overflow-x: hidden; position: relative; background: var(--bg); }
+       content is really part of the page (not clipped by overflow:hidden on the
+       root, not position:fixed). So the canvas sits in the page and, on touch
+       devices, overshoots the bottom of the screen to cover the whole toolbar and
+       home-indicator strip. The page is then taller than the screen, so scrolling
+       is blocked in JS (see SCROLL LOCK) rather than with overflow:hidden. */
+    html { background: var(--bg); overscroll-behavior: none; }
+    body { min-height: 100vh; min-height: 100lvh; overflow-x: hidden; position: relative; background: var(--bg); overscroll-behavior: none; }
     body {
       background: var(--bg);
       color: var(--text);
@@ -60,6 +61,9 @@
        floating address/tab bar, so the face runs behind the bar instead of stopping
        above it. (Falls back to 100vh in older browsers.) */
     #stage { position: absolute; top: 0; left: 0; width: 100%; height: 100vh; height: 100lvh; display: block; z-index: 0; }
+    @media (pointer: coarse) {
+      #stage { height: calc(100lvh + env(safe-area-inset-bottom) + 80px); }
+    }
     /* Long-presses are an easter egg here, so no iOS magnifier / text-selection callout */
     body { -webkit-touch-callout: none; -webkit-user-select: none; user-select: none; }
     .text { -webkit-user-select: text; user-select: text; }
@@ -81,7 +85,31 @@
     .sheet > * { min-width: 0; }
     .muted { color: var(--secondary); }
     .who { grid-column: 1; grid-row: 1; }
-    .status { grid-column: 2; grid-row: 1; }
+    .status { grid-column: 2; grid-row: 1; align-self: start; }
+    /* ── "LIVE" STATUS ── a soft light passes across the words every few seconds, so
+       the line feels like something running, not a label. The light is paler than
+       the text grey, so nothing ever gets darker than the words themselves. */
+    :root { --live-beat: 3.2s; --sheen: #DCDBD8; }
+    .live-text {
+      /* Text painted with a wide gradient; a pale band in the middle sweeps left→right */
+      background: linear-gradient(100deg,
+        var(--secondary) 0%, var(--secondary) 42%,
+        var(--sheen) 50%,
+        var(--secondary) 58%, var(--secondary) 100%);
+      background-size: 250% 100%;
+      background-position: 100% 0;
+      -webkit-background-clip: text; background-clip: text;
+      color: transparent;
+      animation: sheen var(--live-beat) ease-in-out infinite;
+    }
+    @keyframes sheen {
+      0% { background-position: 100% 0; }   /* band just off the left edge */
+      65%, 100% { background-position: 0% 0; } /* passes through, then rests off the right */
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .live-text { animation: none; }
+      .live-text { background: none; color: inherit; }
+    }
     .text {
       grid-column: 2; grid-row: 2;
       margin-top: clamp(40px, 8vh, 88px);
@@ -114,11 +142,12 @@
     /* Phone: text stacked at the top, face fills the rest and runs off the bottom */
     @media (max-width: 720px) {
       .sheet { grid-template-columns: 1fr auto; grid-template-rows: auto; align-content: start; padding: max(36px, calc(env(safe-area-inset-top) + 16px)) max(28px, env(safe-area-inset-right)) 0 max(28px, env(safe-area-inset-left)); }
-      /* Name on the left, status tucked top-right so it doesn't read as part of the title */
-      .who { grid-column: 1; grid-row: 1; }
-      .status { grid-column: 2; grid-row: 1; text-align: right; white-space: nowrap; font-size: 11px; line-height: 19px; }
-      .text { grid-column: 1 / -1; grid-row: 2; }
-      .text { margin-top: 40px; font-size: 13px; line-height: 1.55; gap: 20px; }
+      /* Everything left-aligned. The status is an eyebrow on the bio: the big gap is
+         between the name and this group, a small one between eyebrow and bio. */
+      .who { grid-column: 1 / -1; grid-row: 1; }
+      .status { grid-column: 1 / -1; grid-row: 2; margin-top: 40px; font-size: 12px; }
+      .text { grid-column: 1 / -1; grid-row: 3; }
+      .text { margin-top: 8px; font-size: 13px; line-height: 1.55; gap: 20px; }
     }
   </style>
 
@@ -134,7 +163,7 @@
 
   <main class="sheet">
     <div class="who">Quentin Henry<br><span class="muted">Design &amp; code, New York</span></div>
-    <div class="status muted">New site in progress</div>
+    <div class="status muted"><span class="live-text">New site in progress</span></div>
     <section class="text">
       <p>Graphic designer and creative technologist working across identity systems, digital products and generative design tools. Currently a designer at <a class="ext" href="https://www.lippincott.com" target="_blank" rel="noopener">Lippincott&nbsp;<span aria-hidden="true">&nearr;</span></a>.</p>
       <nav class="links" aria-label="Contact">
@@ -182,7 +211,9 @@
     const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
     const isMobile = () => innerWidth <= 720;
     // Size of the drawing area (taller than innerHeight on iOS, see #stage CSS)
-    const stageSize = () => ({ w: canvas.clientWidth || innerWidth, h: canvas.clientHeight || innerHeight });
+    // Composition is measured against the screen (body is 100lvh tall). The canvas can
+    // be taller than that on phones (it overshoots under Safari's toolbar).
+    const stageSize = () => ({ w: canvas.clientWidth || innerWidth, h: document.body.clientHeight || innerHeight });
 
     let renderer;
     try {
@@ -424,22 +455,29 @@
     // ── LAYOUT ── size the camera so the head is h × viewport tall, then shift the
     // view so its centre lands at (x, y) on screen. Off-centre without skewing the face.
     function layout() {
-      const { w, h } = stageSize();
+      const { w, h } = stageSize();          // screen: what the composition is relative to
+      const hc = canvas.clientHeight || h;   // canvas: may run further down (under the toolbar)
       const dpr = renderer.getPixelRatio();
-      renderer.setSize(w, h, false);
-      rt.setSize(w, h);
-      post.uniforms.uRes.value.set(w * dpr, h * dpr);
+      renderer.setSize(w, hc, false);
+      rt.setSize(w, hc);
+      post.uniforms.uRes.value.set(w * dpr, hc * dpr);
       const c = placement();
       post.uniforms.uPix.value = grainFor(c.h) * dpr;
-      const visibleH = headSize.y / c.h;
+      const visibleH = (headSize.y / c.h) * (hc / h);
       const dist = visibleH / 2 / Math.tan(THREE.MathUtils.degToRad(camera.fov / 2));
       camera.position.set(0, 0, dist + headSize.z / 2);
       camera.lookAt(0, 0, 0);
-      camera.aspect = w / h;
-      camera.setViewOffset(w, h, w / 2 - c.x * w, h / 2 - c.y * h, w, h);
+      camera.aspect = w / hc;
+      camera.setViewOffset(w, hc, w / 2 - c.x * w, hc / 2 - c.y * h, w, hc);
       camera.updateProjectionMatrix();
     }
     addEventListener('resize', layout);
+
+    // ── SCROLL LOCK ── on phones the page is taller than the screen (so the face can
+    // run under Safari's toolbar) but it should never scroll. Two-finger pinch-zoom
+    // is left alone for accessibility.
+    addEventListener('touchmove', (e) => { if (e.touches.length === 1) e.preventDefault(); }, { passive: false });
+    addEventListener('scroll', () => { if (scrollY || scrollX) scrollTo(0, 0); }, { passive: true });
     new ResizeObserver(() => layout()).observe(canvas); // e.g. lvh settling on iOS
 
     // ── LOOK AT THE CURSOR ──
