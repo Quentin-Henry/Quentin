@@ -33,7 +33,7 @@
       --pad: clamp(16px, 2.2vw, 28px);
     }
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-    html, body { height: 100%; overflow: hidden; }
+    html, body { height: 100%; overflow: hidden; background: var(--bg); }
     body {
       background: var(--bg);
       color: var(--text);
@@ -50,7 +50,10 @@
 
     /* The face is the page: one canvas behind everything, bleeding off the edges.
        Where it sits is set in JS (COMPOSITION), the text just floats over it. */
-    #stage { position: fixed; inset: 0; width: 100%; height: 100%; display: block; z-index: 0; }
+    /* 100lvh = the tallest the viewport gets, i.e. including the area under Safari's
+       floating address/tab bar, so the face runs behind the bar instead of stopping
+       above it. (Falls back to 100vh in older browsers.) */
+    #stage { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; height: 100lvh; display: block; z-index: 0; }
     /* Long-presses are an easter egg here, so no iOS magnifier / text-selection callout */
     body { -webkit-touch-callout: none; -webkit-user-select: none; user-select: none; }
     .text { -webkit-user-select: text; user-select: text; }
@@ -63,6 +66,9 @@
       grid-template-rows: auto 1fr;
       column-gap: var(--pad);
       padding: var(--pad);
+      padding-top: max(var(--pad), env(safe-area-inset-top));
+      padding-left: max(var(--pad), env(safe-area-inset-left));
+      padding-right: max(var(--pad), env(safe-area-inset-right));
       pointer-events: none;
     }
     .sheet a, .sheet button { pointer-events: auto; }
@@ -93,7 +99,7 @@
     }
 
     .loading {
-      position: fixed; left: var(--pad); bottom: var(--pad); z-index: 1;
+      position: fixed; left: var(--pad); bottom: calc(var(--pad) + env(safe-area-inset-bottom)); z-index: 1;
       font-family: var(--mono); font-size: 11px; color: var(--secondary);
       transition: opacity 0.4s;
     }
@@ -101,9 +107,11 @@
 
     /* Phone: text stacked at the top, face fills the rest and runs off the bottom */
     @media (max-width: 720px) {
-      .sheet { grid-template-columns: 1fr; grid-template-rows: auto; align-content: start; padding: 36px 28px; }
-      .who, .status, .text { grid-column: 1; grid-row: auto; }
-      .status { margin-top: 2px; }
+      .sheet { grid-template-columns: 1fr auto; grid-template-rows: auto; align-content: start; padding: max(36px, calc(env(safe-area-inset-top) + 16px)) max(28px, env(safe-area-inset-right)) 0 max(28px, env(safe-area-inset-left)); }
+      /* Name on the left, status tucked top-right so it doesn't read as part of the title */
+      .who { grid-column: 1; grid-row: 1; }
+      .status { grid-column: 2; grid-row: 1; text-align: right; white-space: nowrap; }
+      .text { grid-column: 1 / -1; grid-row: 2; }
       .text { margin-top: 40px; font-size: 13px; line-height: 1.55; gap: 20px; }
     }
   </style>
@@ -167,6 +175,8 @@
     const loadingEl = document.getElementById('loading');
     const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
     const isMobile = () => innerWidth <= 720;
+    // Size of the drawing area (taller than innerHeight on iOS, see #stage CSS)
+    const stageSize = () => ({ w: canvas.clientWidth || innerWidth, h: canvas.clientHeight || innerHeight });
 
     let renderer;
     try {
@@ -280,7 +290,7 @@
     // Block size in CSS px for a head that is placementH × viewport tall
     const grainFor = (placementH) => {
       const blocks = isMobile() ? GRAIN.mobile : GRAIN.desktop;
-      const px = Math.round((placementH * innerHeight) / blocks);
+      const px = Math.round((placementH * stageSize().h) / blocks);
       return Math.min(GRAIN.maxPx, Math.max(GRAIN.minPx, px));
     };
 
@@ -384,7 +394,7 @@
       if (hi > lo) headWidthRatio = (hi - lo) / (bb.max.y - bb.min.y);
     }
     function placement() {
-      const W = innerWidth, H = innerHeight;
+      const { w: W, h: H } = stageSize();
       const c = isMobile() ? COMPOSITION.mobile : COMPOSITION.desktop;
       const pad = parseFloat(getComputedStyle(document.querySelector('.sheet')).paddingLeft) || 16;
       const top = c.y - c.h / 2; // keep the top of the head where the composition puts it
@@ -408,7 +418,7 @@
     // ── LAYOUT ── size the camera so the head is h × viewport tall, then shift the
     // view so its centre lands at (x, y) on screen. Off-centre without skewing the face.
     function layout() {
-      const w = innerWidth, h = innerHeight;
+      const { w, h } = stageSize();
       const dpr = renderer.getPixelRatio();
       renderer.setSize(w, h, false);
       rt.setSize(w, h);
@@ -424,6 +434,7 @@
       camera.updateProjectionMatrix();
     }
     addEventListener('resize', layout);
+    new ResizeObserver(() => layout()).observe(canvas); // e.g. lvh settling on iOS
 
     // ── LOOK AT THE CURSOR ──
     const target = { x: 0, y: 0 }, cur = { x: 0, y: 0 };
@@ -431,9 +442,10 @@
     function aim(clientX, clientY) {
       const c = placement();
       // Measured from the eyes (a bit above head centre), not the canvas centre
-      const ex = c.x * innerWidth, ey = (c.y - c.h * 0.08) * innerHeight;
-      target.x = THREE.MathUtils.clamp((clientX - ex) / (innerWidth * 0.5), -1.2, 1.2);
-      target.y = THREE.MathUtils.clamp((clientY - ey) / (innerHeight * 0.5), -1.2, 1.2);
+      const { w: W, h: H } = stageSize();
+      const ex = c.x * W, ey = (c.y - c.h * 0.08) * H;
+      target.x = THREE.MathUtils.clamp((clientX - ex) / (W * 0.5), -1.2, 1.2);
+      target.y = THREE.MathUtils.clamp((clientY - ey) / (H * 0.5), -1.2, 1.2);
       lastMove = performance.now();
     }
     addEventListener('pointermove', (e) => aim(e.clientX, e.clientY), { passive: true });
