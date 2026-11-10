@@ -33,7 +33,13 @@
       --pad: clamp(16px, 2.2vw, 28px);
     }
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-    html, body { height: 100%; overflow: hidden; background: var(--bg); }
+    /* iOS Safari only draws page content under its floating toolbar when that
+       content is part of the page, not clipped by overflow:hidden on the root or
+       pinned with position:fixed. So: the page is exactly one "large viewport"
+       tall (100lvh, the height with the toolbars tucked away) and the canvas sits
+       in it normally. Elsewhere lvh = vh, so nothing scrolls. */
+    html { background: var(--bg); }
+    body { min-height: 100vh; min-height: 100lvh; overflow-x: hidden; position: relative; background: var(--bg); }
     body {
       background: var(--bg);
       color: var(--text);
@@ -53,7 +59,7 @@
     /* 100lvh = the tallest the viewport gets, i.e. including the area under Safari's
        floating address/tab bar, so the face runs behind the bar instead of stopping
        above it. (Falls back to 100vh in older browsers.) */
-    #stage { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; height: 100lvh; display: block; z-index: 0; }
+    #stage { position: absolute; top: 0; left: 0; width: 100%; height: 100vh; height: 100lvh; display: block; z-index: 0; }
     /* Long-presses are an easter egg here, so no iOS magnifier / text-selection callout */
     body { -webkit-touch-callout: none; -webkit-user-select: none; user-select: none; }
     .text { -webkit-user-select: text; user-select: text; }
@@ -110,7 +116,7 @@
       .sheet { grid-template-columns: 1fr auto; grid-template-rows: auto; align-content: start; padding: max(36px, calc(env(safe-area-inset-top) + 16px)) max(28px, env(safe-area-inset-right)) 0 max(28px, env(safe-area-inset-left)); }
       /* Name on the left, status tucked top-right so it doesn't read as part of the title */
       .who { grid-column: 1; grid-row: 1; }
-      .status { grid-column: 2; grid-row: 1; text-align: right; white-space: nowrap; }
+      .status { grid-column: 2; grid-row: 1; text-align: right; white-space: nowrap; font-size: 11px; line-height: 19px; }
       .text { grid-column: 1 / -1; grid-row: 2; }
       .text { margin-top: 40px; font-size: 13px; line-height: 1.55; gap: 20px; }
     }
@@ -159,7 +165,7 @@
     // It follows the head's size on screen, so the face breaks up the same way on every
     // screen. Lower = chunkier. Desktop 130 ≈ the old 12px at 1440×900.
     // minPx/maxPx stop the blocks getting too fine or too coarse in absolute pixels.
-    const GRAIN = { desktop: 130, mobile: 110, minPx: 6, maxPx: 28 };
+    const GRAIN = { desktop: 130, mobile: 125, minPx: 6, maxPx: 28 };
     // Click anywhere: facet jumps to max, holds, then eases back to DEFAULTS.facet
     // slow at first and snapping in at the end (ease-in).
     const SHATTER = { peak: 100, hold: 500, duration: 1400 };
@@ -168,7 +174,7 @@
     // x/y: head centre. h: head height relative to viewport height (>1 bleeds off).
     const COMPOSITION = {
       desktop: { x: 0.24, y: 0.93, h: 1.75 },
-      mobile:  { x: 0.4, y: 1.16, h: 1.9 },
+      mobile:  { x: 0.45, y: 1.02, h: 1.5 },
     };
 
     const canvas = document.getElementById('stage');
